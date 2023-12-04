@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/AzoSans-Bold.ttf",
+      "sha1": "e3b1c1b922f48f254f1ca959fe952d6d6a5af55b"
+    },
+    {
+      "path": "src/assets/fonts/AzoSans-Bold.woff",
+      "sha1": "5dc79c1f1f64ff6245c9355d9a8c0bfd1825ab57"
+    },
+    {
+      "path": "src/assets/fonts/AzoSans-Bold.woff2",
+      "sha1": "e9bf46630b416c53ec9c8e8b7c881031e5c3095f"
+    },
+    {
+      "path": "src/assets/fonts/AzoSans-Medium.ttf",
+      "sha1": "e4fc02b7da4dfd9f82c8b7875fe6a5b6a3e4d36b"
+    },
+    {
+      "path": "src/assets/fonts/AzoSans-Medium.woff",
+      "sha1": "47ed2f2a8fc0bc80eb16988b8e716d96679bf6c6"
+    },
+    {
+      "path": "src/assets/fonts/AzoSans-Medium.woff2",
+      "sha1": "68d984d6dde9c839a99821265c90458fa015c031"
+    }
+  ]
+}

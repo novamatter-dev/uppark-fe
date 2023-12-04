@@ -1,0 +1,1 @@
+export const copy = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 20"><path d="M16,4H4A4,4,0,0,0,0,8v8a4,4,0,0,0,4,4H16a4,4,0,0,0,4-4V8a4,4,0,0,0-4-4" fill="#3356ff"/><path d="M24,4v8a3.98,3.98,0,0,1-2,3.46V6a4,4,0,0,0-4-4H4.539A3.98,3.98,0,0,1,8,0H20a4,4,0,0,1,4,4" fill="#3356ff"/></svg>`;

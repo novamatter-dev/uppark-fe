@@ -1,0 +1,1 @@
+export { default as ParkFromScreen } from "./ParkFromScreen.screen";

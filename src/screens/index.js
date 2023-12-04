@@ -1,0 +1,25 @@
+import { fromPairs } from "lodash";
+
+export { Home } from "./Home";
+export { Profile } from "./Profile";
+export { Splash } from "./Splash";
+export { Login } from "./Login";
+export { SmsConfirmCode } from "./SmsConfirmCode";
+export { PaymentDetails } from "./PaymentDetails";
+export { ParkFromScreen } from "./ParkFromScreen";
+export { ActiveParking } from "./ActiveParking";
+export { Wallet } from "./Wallet";
+export { SettingsScreen } from "./Settings";
+export { Invite } from "./Invite";
+export { default as AddCar } from "./AddCar";
+export { SetYourParkPin } from "./SetYourParkPin";
+export { QrScanner } from "./QrScanner";
+export { HelpScreen } from "./HelpScreen";
+export { ReservartionDetailsScreen } from "./ReservartionDetailsScreen";
+export { ReservationsList } from "./ReservationsList";
+export { ForgotPassword } from "./ForgotPassword";
+export { CreateCard } from "./CreateCard";
+export { ParkingsList } from "./ParkingsList";
+export { SelectCar } from "./SelectCar";
+export { TermsScreen } from "./TermsScreen";
+export { PrivacyScreen } from "./PrivacyScreen";

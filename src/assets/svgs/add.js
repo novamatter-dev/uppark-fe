@@ -1,0 +1,1 @@
+export const add = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M262,126.453a2,2,0,0,1-2,2h-6v6a2,2,0,0,1-4,0v-6h-6a2,2,0,1,1,0-4h6v-6a2,2,0,1,1,4,0v6h6a1.993,1.993,0,0,1,2,2" transform="translate(-241.999 -116.453)" fill="#3356ff"/></svg>`;

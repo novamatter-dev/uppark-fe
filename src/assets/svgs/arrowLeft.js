@@ -1,0 +1,1 @@
+export const arrowLeft = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="20" viewBox="0 0 12 20"><path d="M136,136.451a1.99,1.99,0,0,1-1.414-.586l-8-8a2,2,0,0,1,0-2.828l8-8a2,2,0,1,1,2.828,2.828l-6.585,6.586,6.585,6.586A2,2,0,0,1,136,136.451" transform="translate(-126 -116.451)" fill="#3356ff"/></svg>`;

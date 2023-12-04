@@ -1,0 +1,336 @@
+// @ts-nocheck
+import React, { useRef, useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+//style
+import SearchStyle from "./SearchStyle.style";
+import HomeStyle from "../../screens/Home/Home.style";
+import svgs from "../../assets/svgs";
+//libraries
+import { SvgXml } from "react-native-svg";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import PropTypes from "prop-types";
+import { useToast } from "native-base";
+import { useTranslation } from "react-i18next";
+//redux
+import {
+  setSearchLocation,
+  parkingsState,
+  setSensorParking,
+  setUnselectParking,
+  setIsLoading,
+} from "../../redux/features/parkings/parkingsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useNearestMutation,
+  useGetGroupDetailsMutation,
+  useNearbyParkingsMutation,
+  useGetSensorsMutation,
+} from "../../services/parkings";
+import Toast from "../Toast";
+import { GREY } from "../../helpers/style/constants";
+import { ItemClick } from "native-base/lib/typescript/components/composites/Typeahead/useTypeahead/types";
+
+let arr = [];
+const GooglePlacesInput = (props) => {
+  const {
+    onPlaceSelected = () => {},
+    closeSearch = () => {},
+    handleNearbyParkings = () => {},
+    searchIsActive = true,
+  } = props;
+  const toast = useToast();
+  const { t } = useTranslation();
+
+  const [nearestParking] = useNearestMutation();
+  const [getGroupDetails] = useGetGroupDetailsMutation();
+  const [getSensors] = useGetSensorsMutation();
+
+  const dispatch = useDispatch();
+  const parkingsData = useSelector(parkingsState);
+
+  const [isResultsVisible, setIsResultsVisible] = useState(false);
+  const [noResults, setNoResults] = useState(false);
+
+  const autocompleteRef = useRef();
+
+  const handleClearText = () => {
+    autocompleteRef.current?.clear();
+    autocompleteRef.current?.setAddressText("");
+    setIsResultsVisible(false);
+  };
+
+  const handleSearchLocationDispatch = (data) => {
+    //TODO: start loading -> end loading in
+    dispatch(setIsLoading(true));
+
+    const { width, height } = Dimensions.get("window");
+    const ASPECT_RATIO = width / height;
+    const LATITUDE_DELTA = 0.0008;
+    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+    const body = {
+      latitude: data.geometry.location.lat,
+      longitude: data.geometry.location.lng,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    };
+
+    dispatch(setSearchLocation(body));
+    handleNearestParkings(data);
+  };
+
+  //TODO:  get parking details in the nearestParking
+
+  const handleNearestParkings = async (coords) => {
+    const body = {
+      longitude: coords.geometry.location.lng,
+      latitude: coords.geometry.location.lat,
+    };
+
+    await nearestParking(body)
+      .then((answer) => {
+        handleNearesGroupDetails(answer);
+      })
+      .catch((err) => {
+        console.log("ERR nearestParking >>> ", err);
+      });
+  };
+
+  const handleNearesGroupDetails = async (parkingData) => {
+    const { width, height } = Dimensions.get("window");
+    const ASPECT_RATIO = width / height;
+    const LATITUDE_DELTA = 0.0008;
+    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+    const { data, error: apiError } = await getGroupDetails({
+      groupId: parkingData?.data?.groupId,
+      parkingId: parkingData?.data?.parkingId,
+    });
+
+    if (!apiError) {
+      const body = {
+        latitude: data.entranceLatitude,
+        longitude: data.entranceLongitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      };
+
+      if (data?.hasSensors) {
+        // handleGetSensors(parkingData?.data?.parkingId);
+      } else {
+        const body = {
+          sensors: null,
+          hasSensors: false,
+        };
+        dispatch(setSensorParking(body));
+      }
+
+      // TODO: handle logic for the nearest parking
+      // dispatch(setSearchLocation(body));
+
+      const coords = {
+        latitude: data.entranceLatitude,
+        longitude: data.entranceLongitude,
+      };
+      handleNearbyParkings(coords, false);
+    } else {
+      dispatch(setUnselectParking());
+
+      toast.show({
+        placement: "top",
+        duration: 1500,
+        render: () => {
+          return (
+            <Toast
+              message={"There are no parking lots in the searched area!"}
+              type={"danger"}
+            />
+          );
+        },
+      });
+      dispatch(setIsLoading(false));
+      console.log("getGroupDetails apiError: ", apiError);
+    }
+  };
+
+  // get parking sensors
+  // const handleGetSensors = async (id) => {
+  //   // const parkingsWithSensors = parkingsData?.nearByParkings?.filter((parking) => parking?.hasSensors).map((item) => item.parkingId);
+  //   console.log("parkingsWithSensors >>>>", parkingsData?.nearByParkings);
+  //   const body = [id];
+  //   await getSensors(body)
+  //     .then((answer) => {
+  //       console.log(
+  //         "answer senzori: ",
+  //         answer.data.length,
+  //         "    parking id : ",
+  //         id
+  //       );
+  //     })
+  //     .catch((err) => {
+  //       console.log("ERR getSensors >>> ", err);
+  //     });
+  // };
+
+  const handleCloseSearch = () => {
+    closeSearch();
+    setIsResultsVisible(false);
+  };
+
+  useEffect(() => {
+    if (searchIsActive) {
+      autocompleteRef.current.focus();
+    }
+  }, [searchIsActive]);
+
+  return (
+    <GooglePlacesAutocomplete
+      ref={autocompleteRef}
+      minLength={2}
+      isRowScrollable={true}
+      fetchDetails
+      styles={{
+        container: {
+          ...SearchStyle.inputContainer,
+          borderBottomLeftRadius: !isResultsVisible && !noResults ? 24 : 0,
+          borderBottomRightRadius: !isResultsVisible && !noResults ? 24 : 0,
+        },
+        textInput: SearchStyle.textInput,
+        listView: SearchStyle.listView,
+        row: SearchStyle.row,
+        description: SearchStyle.blackText,
+        predefinedPlacesDescription: SearchStyle.blackText,
+      }}
+      enablePoweredByContainer={false}
+      placeholder={t("search")}
+      onPress={(data, details = null) => {
+        handleSearchLocationDispatch(details);
+        setIsResultsVisible(false);
+      }}
+      onFail={(error) => console.log("Autocomplete error: ", error)}
+      onNotFound={() => {
+        setIsResultsVisible(false);
+      }}
+      listEmptyComponent={() => {
+        setNoResults(true);
+        return (
+          <View
+            style={{
+              ...SearchStyle.inputContainer,
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+            }}
+          >
+            <View
+              style={{
+                ...SearchStyle.resultItem,
+                borderTopLeftRadius: 25,
+                borderTopRightRadius: 25,
+              }}
+            >
+              <View
+                style={{
+                  ...SearchStyle.contentBody,
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    ...SearchStyle.resultText,
+                    textAlign: "center",
+                  }}
+                >
+                  No results were found
+                </Text>
+              </View>
+            </View>
+          </View>
+        );
+      }}
+      query={{
+        key: "AIzaSyAuBxdG1seHKpaC9cl4qFXyTp3e3YjYXcQ",
+        language: "ro",
+        components: "country:ro",
+      }}
+      debounce={400}
+      textInputProps={{
+        autoCorrect: false,
+        placeholderTextColor: GREY,
+        onChange: (val) => {
+          if (val.nativeEvent.text.length === 2) {
+            setIsResultsVisible(false);
+          }
+        },
+      }}
+      renderRow={(rowData, index) => {
+        const title = rowData.structured_formatting.main_text;
+        const address = rowData.structured_formatting.secondary_text;
+        const description = rowData.description;
+
+        if (index > -1 && isResultsVisible === false) {
+          setNoResults(false);
+          setIsResultsVisible(true);
+        }
+
+        return (
+          <View
+            style={{
+              ...SearchStyle.resultItem,
+              borderTopLeftRadius: index === arr.length - 1 ? 25 : 0,
+              borderTopRightRadius: index === arr.length - 1 ? 25 : 0,
+            }}
+          >
+            <View style={SearchStyle.contentBody}>
+              <Text style={SearchStyle.resultText}>{title}</Text>
+              <Text style={SearchStyle.regionText}>{description}</Text>
+            </View>
+          </View>
+        );
+      }}
+      renderRightButton={() => {
+        return (
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              style={{ ...HomeStyle.closeSearchIconStyle }}
+              onPress={handleClearText}
+            >
+              <SvgXml xml={svgs.discardSearch} />
+            </TouchableOpacity>
+          </View>
+        );
+      }}
+      renderLeftButton={() => {
+        return (
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              onPress={handleCloseSearch}
+              style={{ ...HomeStyle.closeSearchIconStyle }}
+            >
+              <SvgXml xml={svgs.arrowLeft} />
+            </TouchableOpacity>
+          </View>
+        );
+      }}
+    />
+  );
+};
+
+GooglePlacesInput.prototype = {
+  onPlaceSelected: PropTypes.func,
+  closeSearch: PropTypes.func,
+  searchIsActive: PropTypes.bool,
+};
+export default GooglePlacesInput;
