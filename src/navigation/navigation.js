@@ -89,9 +89,11 @@ const MainStackNavigation = () => {
       source: 'UPPARK', // 'UPPARK'
     };
 
+    console.log('UPDATE', body);
+
     await checkForUpates(body)
       .then(answer => {
-        console.log('UPDATE RESPONSE:', answer.data);
+        console.log('UPDATE RESPONSE:', answer);
         if (answer?.data?.needsUpdate) {
           // TODO: CHANGES BETWEEN UPPARK AND CONSTANTA PARKING: check for constantaparking and uppark app link store UPPARK CONSTANTA PARK
           setUpdate({
