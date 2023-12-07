@@ -19,7 +19,7 @@ const Invite = () => {
       await Share.share({
         message:
           Platform.OS === 'android'
-            ? 'https://play.google.com/store/apps/details?id=com.constantaparking'
+            ? 'https://play.google.com/store/apps/details?id=com.uppark'
             : 'https://apps.apple.com/us/app/constanta-parking/id6471258849',
       });
     } catch (error) {

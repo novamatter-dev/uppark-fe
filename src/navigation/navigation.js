@@ -96,7 +96,6 @@ const MainStackNavigation = () => {
           // TODO: CHANGES BETWEEN UPPARK AND CONSTANTA PARKING: check for constantaparking and uppark app link store UPPARK CONSTANTA PARK
           setUpdate({
             showNotification: true,
-            // link: 'https://play.google.com/store/apps/details?id=com.constantaparking',
             link: 'https://play.google.com/store/apps/details?id=com.uppark',
           });
         }

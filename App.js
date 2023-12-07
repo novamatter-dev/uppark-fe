@@ -131,7 +131,7 @@ const AppWrapper = () => {
 };
 
 Sentry.init({
-  dsn: 'https://69ebafc73d4f124675a782f101c73547@o4505866309992448.ingest.sentry.io/4506337459830784',
+  dsn: 'https://94ef0e90d2d8e954a0bc88cbb84e8d5a@o4505866309992448.ingest.sentry.io/4506001735024640',
   // debug: true,
   // environment: "development",
   tracesSampleRate: 1.0,

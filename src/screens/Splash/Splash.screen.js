@@ -1,41 +1,30 @@
 import React, {useEffect} from 'react';
-import {Image, ImageBackground, StyleSheet, View} from 'react-native';
-import ctLogo from '../../assets/images/ct-logo.png';
-import {useMaintenanceMode} from '../../helpers/useMaintenanceMode';
+import {View, StyleSheet, ImageBackground, Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const Splash = () => {
-  const {checkMaintenanceMode} = useMaintenanceMode();
+  const navigation = useNavigation();
+  const {jwt} = useSelector(state => state.auth);
 
   useEffect(() => {
     setTimeout(() => {
-      checkMaintenanceMode();
-    }, 750);
+      if (jwt) {
+        navigation.navigate('HomeDrawer');
+      } else {
+        navigation.navigate('Login');
+      }
+    }, 1000);
   }, []);
 
   return (
     <>
       <View style={bgStyle.container}>
         <ImageBackground
-          source={require('../../assets/images/splash_noLogo.png')}
+          source={require('../../assets/images/splash.png')}
           resizeMode="cover"
           style={bgStyle.image}
         />
-        <View
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#EBEBEB',
-            height: '50%',
-          }}>
-          <Image
-            source={ctLogo}
-            style={{
-              width: '70%',
-              height: 300,
-            }}
-          />
-        </View>
       </View>
     </>
   );
