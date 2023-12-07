@@ -1,43 +1,41 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { BLACK, BLUE, WHITE } from "../../../helpers/style/constants";
-import style from "../style";
-import PropTypes from "prop-types";
+import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {BLACK, BLUE, WHITE} from '../../../helpers/style/constants';
+import style from '../style';
+import PropTypes from 'prop-types';
+import {useTranslation} from 'react-i18next';
 
-const Tabs = (props) => {
-  const { handleActiveTab = () => {}, activeTab = "parkings" } = props;
+const Tabs = props => {
+  const {handleActiveTab = () => {}, activeTab = 'parkings'} = props;
+  const {t} = useTranslation();
   return (
     <View style={style.tabContaienr}>
       <TouchableOpacity
         style={{
           ...style.tabBtn,
-          backgroundColor: activeTab === "parkings" ? BLUE : WHITE,
+          backgroundColor: activeTab === 'parkings' ? BLUE : WHITE,
         }}
-        onPress={() => handleActiveTab("parkings")}
-      >
+        onPress={() => handleActiveTab('parkings')}>
         <Text
           style={{
             ...style.tabLabel,
-            color: activeTab === "parkings" ? WHITE : BLACK,
-          }}
-        >
-          Parkings
+            color: activeTab === 'parkings' ? WHITE : BLACK,
+          }}>
+          {t('parkings')}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={{
           ...style.tabBtn,
-          backgroundColor: activeTab === "sensors" ? BLUE : WHITE,
+          backgroundColor: activeTab === 'sensors' ? BLUE : WHITE,
         }}
-        onPress={() => handleActiveTab("sensors")}
-      >
+        onPress={() => handleActiveTab('sensors')}>
         <Text
           style={{
             ...style.tabLabel,
-            color: activeTab === "sensors" ? WHITE : BLACK,
-          }}
-        >
-          Sensors
+            color: activeTab === 'sensors' ? WHITE : BLACK,
+          }}>
+          {t('sensors')}
         </Text>
       </TouchableOpacity>
     </View>

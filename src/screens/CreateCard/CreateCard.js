@@ -1,38 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   ActivityIndicator,
   TouchableWithoutFeedback,
   Keyboard,
-} from "react-native";
+} from 'react-native';
 //style && assets
-import svgs from "../../assets/svgs";
-import style from "./style";
-import { BLUE } from "../../helpers/style/constants";
+import svgs from '../../assets/svgs';
+import style from './style';
+import {BLUE} from '../../helpers/style/constants';
 //componenets
 import {
   NativeBaseBackButton,
   Title,
   ButtonComponent,
   Toast,
-} from "../../components";
-import BaseInput from "../../components/BaseInput";
-import { SvgXml } from "react-native-svg";
-import ActionModal from "../../components/ActionModal/ActionModal";
+} from '../../components';
+import BaseInput from '../../components/BaseInput';
+import {SvgXml} from 'react-native-svg';
+import ActionModal from '../../components/ActionModal/ActionModal';
 //libraires
-import PropTypes from "prop-types";
-import moment from "moment";
-import { useToast, Actionsheet } from "native-base";
-import { useNavigation } from "@react-navigation/native";
-import _ from "lodash";
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import {useToast, Actionsheet} from 'native-base';
+import {useNavigation} from '@react-navigation/native';
+import _ from 'lodash';
 //redux
-import { useDispatch } from "react-redux";
+import {useDispatch} from 'react-redux';
 import {
   useCreateCardMutation,
   useGetCardsMutation,
-} from "../../services/wallets";
-import { t } from "i18next";
+} from '../../services/wallets';
+import {t} from 'i18next';
 
 const CreateCard = () => {
   const navigation = useNavigation();
@@ -85,21 +85,21 @@ const CreateCard = () => {
     // setIsInvalidDate(false);
   };
 
-  const year = moment(new Date()).format("yyyy");
-  const currentMonth = moment(new Date()).format("MM");
+  const year = moment(new Date()).format('yyyy');
+  const currentMonth = moment(new Date()).format('MM');
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const currentYear = moment(new Date()).format("yyyy");
-    const currentMonth = moment(new Date()).format("M");
+    const currentYear = moment(new Date()).format('yyyy');
+    const currentMonth = moment(new Date()).format('M');
 
     const body = {
       cardNumber: formState.cardNumber,
       expirationMonth: formState.expirationMonth,
       expirationYear: formState.expirationYear,
       holderName: formState.holderName,
-      netopiaToken: "string",
-      netopiaTokenExpirationDate: "2023-01-05T17:24:10.688Z",
+      netopiaToken: 'string',
+      netopiaTokenExpirationDate: '2023-01-05T17:24:10.688Z',
     };
 
     if (
@@ -111,7 +111,7 @@ const CreateCard = () => {
       if (body.cardNumber && !isInvalidDate) {
         setIsInvalidDate(false);
         await createCard(body)
-          .then((answer) => {
+          .then(answer => {
             handleSuccessToast();
             handleGetCards();
             setFormState({
@@ -123,22 +123,22 @@ const CreateCard = () => {
             });
             setModalVisible(false);
             setIsLoading(false);
-            navigation.navigate("Wallet");
+            navigation.navigate('Wallet');
             handleSuccessToast();
           })
-          .catch((err) => {
+          .catch(err => {
             setIsLoading(false);
-            console.log("ERR createCard >>> ", err);
+            console.log('ERR createCard >>> ', err);
           });
       } else {
         setIsLoading(false);
-        handleCustomToast("A aparut o eroare", "danger");
+        handleCustomToast('A aparut o eroare', 'danger');
       }
     }
   };
 
   const handleNav = () => {
-    navigation.navigate("Wallet");
+    navigation.navigate('Wallet');
     setFormState({
       cardNumber: null,
       expirationMonth: null,
@@ -158,9 +158,9 @@ const CreateCard = () => {
     // } else {
     val = event;
     // }
-    setFormState((formState) => ({
+    setFormState(formState => ({
       ...formState,
-      [name]: name === "cardNumber" ? event : val,
+      [name]: name === 'cardNumber' ? event : val,
     }));
   };
 
@@ -178,16 +178,16 @@ const CreateCard = () => {
 
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
-        return <Toast message={t("card_added")} type={"success"} />;
+        return <Toast message={t('card_added')} type={'success'} />;
       },
     });
   };
   const handleCustomToast = (message, type) => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return <Toast message={message} type={type} />;
@@ -256,28 +256,27 @@ const CreateCard = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={style.container}>
-        <View style={{ width: "100%" }}>
+        <View style={{width: '100%'}}>
           <View
             style={{
-              display: "flex",
-              width: "100%",
-            }}
-          >
+              display: 'flex',
+              width: '100%',
+            }}>
             <NativeBaseBackButton
               style={style.closeButton}
               handleOnPress={() => handleNav()}
-              iconType={"exit"}
+              iconType={'exit'}
             />
           </View>
 
           <View style={style.inputContainer}>
             <View style={style.titleContianer}>
-              <Title label={t("add_card")} style={style.title} />
+              <Title label={t('add_card')} style={style.title} />
             </View>
             {formState?.cardNumber?.length > 0 &&
               formState?.cardNumber?.length < 16 && (
                 <Text style={style.invalidLabel}>
-                  {t("card_langht_validation")}
+                  {t('card_langht_validation')}
                 </Text>
               )}
             <BaseInput
@@ -299,8 +298,8 @@ const CreateCard = () => {
               }
               maxLength={16}
               name={svgs.copy}
-              placeHolder={t("card_number")}
-              onChangeText={(event) => handleChange(event, "cardNumber")}
+              placeHolder={t('card_number')}
+              onChangeText={event => handleChange(event, 'cardNumber')}
               value={formState.cardNumber}
               keyboardType="numeric"
               isInvalid={
@@ -313,20 +312,18 @@ const CreateCard = () => {
 
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-              }}
-            >
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+              }}>
               {!isInvalidDate && showInvalidDate() && (
                 <Text
                   style={{
                     fontSize: 12,
-                    color: "red",
-                    fontFamily: "AzoSans-Bold",
-                  }}
-                >
-                  {t("invalid_date")}
+                    color: 'red',
+                    fontFamily: 'AzoSans-Bold',
+                  }}>
+                  {t('invalid_date')}
                 </Text>
               )}
             </View>
@@ -352,9 +349,9 @@ const CreateCard = () => {
                   )
                 }
                 name={svgs.copy}
-                placeHolder={t("month")}
-                onChangeText={(event) => handleChange(event, "expirationMonth")}
-                value={formState?.expirationMonth || ""}
+                placeHolder={t('month')}
+                onChangeText={event => handleChange(event, 'expirationMonth')}
+                value={formState?.expirationMonth || ''}
                 keyboardType="numeric"
                 maxLength={2}
               />
@@ -375,11 +372,9 @@ const CreateCard = () => {
                     />
                   }
                   name={svgs.copy}
-                  placeHolder={t("year")}
-                  onChangeText={(event) =>
-                    handleChange(event, "expirationYear")
-                  }
-                  value={formState.expirationYear || ""}
+                  placeHolder={t('year')}
+                  onChangeText={event => handleChange(event, 'expirationYear')}
+                  value={formState.expirationYear || ''}
                   keyboardType="numeric"
                   maxLength={4}
                 />
@@ -390,7 +385,7 @@ const CreateCard = () => {
               formState?.holderName?.length < 3 && (
                 <Text style={style.invalidLabel}>
                   {/* {t("card_langht_validation")} */}
-                  {t("holder_name_validation")}
+                  {t('holder_name_validation')}
                 </Text>
               )}
             <BaseInput
@@ -409,18 +404,17 @@ const CreateCard = () => {
                 />
               }
               name={svgs.copy}
-              placeHolder={t("holder_name")}
-              onChangeText={(event) => handleChange(event, "holderName")}
-              value={formState.holderName || ""}
+              placeHolder={t('holder_name')}
+              onChangeText={event => handleChange(event, 'holderName')}
+              value={formState.holderName || ''}
             />
             <Actionsheet
               isOpen={modalVisible}
-              style={{ height: "45%", position: "absolute", bottom: 0 }}
+              style={{height: '45%', position: 'absolute', bottom: 0}}
               _backdrop={() => setModalVisible(false)}
-              disableOverlay={false}
-            >
+              disableOverlay={false}>
               <ActionModal
-                text={t("add_card_confirmation")}
+                text={t('add_card_confirmation')}
                 handleNo={handleNo}
                 handleYes={handleYes}
                 reverseButtons={true}
@@ -430,21 +424,20 @@ const CreateCard = () => {
         </View>
         <View
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+          }}>
           <ButtonComponent
-            text={t("confirm").toUpperCase()}
+            text={t('confirm').toUpperCase()}
             onPress={() => handleModal()}
             isDisabled={
               formState?.cardNumber?.length >= 16 &&
               formState?.holderName?.length > 3 &&
               validateDate(
                 formState?.expirationMonth,
-                formState?.expirationYear
+                formState?.expirationYear,
               )
                 ? false
                 : true
@@ -454,15 +447,14 @@ const CreateCard = () => {
         {isLoading && (
           <View
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100%",
-              position: "absolute",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
               // backgroundColor: "rgba(0,0,0,0.3)",
-            }}
-          >
+            }}>
             <ActivityIndicator size="large" color={BLUE} />
           </View>
         )}

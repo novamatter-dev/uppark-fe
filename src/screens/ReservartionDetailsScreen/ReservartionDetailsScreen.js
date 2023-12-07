@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,15 @@ import {
   Alert,
   Button,
   PermissionsAndroid,
-} from "react-native";
+} from 'react-native';
 //style && assets
-import style from "./reservationStyle";
-import svgs from "../../assets/svgs";
+import style from './reservationStyle';
+import svgs from '../../assets/svgs';
 //libraries
-import { SvgXml } from "react-native-svg";
-import moment from "moment";
-import { useNavigation } from "@react-navigation/native";
-import Share from "react-native-share";
+import {SvgXml} from 'react-native-svg';
+import moment from 'moment';
+import {useNavigation} from '@react-navigation/native';
+import Share from 'react-native-share';
 
 //components
 import {
@@ -24,44 +24,43 @@ import {
   NativeBaseButton,
   Modal,
   ButtonComponent,
-} from "../../components";
-import { DownloadRecepitApple, DownloadReceiptAndroid } from "./Components";
+} from '../../components';
+import {DownloadRecepitApple, DownloadReceiptAndroid} from './Components';
 //redux
-import { useSelector } from "react-redux";
-import { useGetInvoiceMutation } from "../../services/parkings";
-import PaymentOptionsStyle from "../PaymentDetails/components/PaymentOptions/PaymentOptions.style";
-import { Box, ScrollView } from "native-base";
-import Pdf from "react-native-pdf";
-import reservationStyle from "./reservationStyle";
-import { t } from "i18next";
+import {useSelector} from 'react-redux';
+import {useGetInvoiceMutation} from '../../services/parkings';
+import PaymentOptionsStyle from '../PaymentDetails/components/PaymentOptions/PaymentOptions.style';
+import {Box, ScrollView} from 'native-base';
+import Pdf from 'react-native-pdf';
+import reservationStyle from './reservationStyle';
+import {t} from 'i18next';
+import {Platform} from 'react-native';
 
 // const source = require("./application.pdf");
 
 const ReservartionDetailsScreen = () => {
   const navigation = useNavigation();
-  const { historyDetails } = useSelector(
-    (state) => state.parkings.parkingsState
-  );
-  const { parkingHistory } = useSelector((state) => state.users);
+  const {historyDetails} = useSelector(state => state.parkings.parkingsState);
+  const {parkingHistory} = useSelector(state => state.users);
   const [getInvoice] = useGetInvoiceMutation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState('');
 
-  const source = { uri: `data:application/pdf;base64,${response}` };
+  const source = {uri: `data:application/pdf;base64,${response}`};
 
-  const startTime = moment(parkingHistory.startTime).format("HH:mm");
-  const startDate = moment(parkingHistory.startTime).format("dd, MMM DD");
+  const startTime = moment(parkingHistory.startTime).format('HH:mm');
+  const startDate = moment(parkingHistory.startTime).format('dd, MMM DD');
 
-  const endTime = moment(parkingHistory.endTime).format("HH:mm");
-  const endDate = moment(parkingHistory.endTime).format("dd, MMM DD");
+  const endTime = moment(parkingHistory.endTime).format('HH:mm');
+  const endDate = moment(parkingHistory.endTime).format('dd, MMM DD');
 
-  const permissionFunc = async (data) => {
-    if (Platform.OS == "ios") {
+  const permissionFunc = async data => {
+    if (Platform.OS == 'ios') {
       actualDownload(data);
     } else {
       try {
         const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
         );
 
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
@@ -74,35 +73,35 @@ const ReservartionDetailsScreen = () => {
     }
   };
 
-  console.log("historyDetails", historyDetails);
+  console.log('historyDetails', historyDetails);
 
-  const actualDownload = async (data) => {};
+  const actualDownload = async data => {};
 
   const handleSubmit = async () => {
     setModalVisible(true);
-    const { parkingReservationProductId } = parkingHistory;
-    await getInvoice({ parkingReservationProductId })
-      .then((answer) => {
+    const {parkingReservationProductId} = parkingHistory;
+    await getInvoice({parkingReservationProductId})
+      .then(answer => {
         permissionFunc(answer?.data?.invoice);
         setResponse(answer?.data?.invoice);
       })
-      .catch((err) => {
-        console.log("GET INVOICE ERROR >>>", err);
+      .catch(err => {
+        console.log('GET INVOICE ERROR >>>', err);
       });
   };
 
   const onShare = async () => {
     try {
       Share.open({
-        title: "title",
-        message: "message",
+        title: 'title',
+        message: 'message',
         url: `data:application/pdf;base64,${response}`,
         saveToFiles: true,
       })
-        .then((res) => {
+        .then(res => {
           // console.log(res);
         })
-        .catch((err) => {
+        .catch(err => {
           err && console.log(err);
         });
     } catch (error) {
@@ -116,14 +115,14 @@ const ReservartionDetailsScreen = () => {
         style={style.backButton}
         handleOnPress={() => navigation.goBack()}
       />
-      <Title label={t("parking_details")} style={style.title} />
+      <Title label={t('parking_details')} style={style.title} />
 
       <View style={style.amountContainer}>
-        <Text style={style.greyText}>{t("amount_paid")}</Text>
+        <Text style={style.greyText}>{t('amount_paid')}</Text>
         {historyDetails.products && (
           <Text style={style.amountText}>
             {/* {historyDetails?.totalAmount} */}
-            {parkingHistory?.totalPrice}{" "}
+            {parkingHistory?.totalPrice}{' '}
             {/* {historyDetails.products[0].currency} */}
             {parkingHistory?.currency}
           </Text>
@@ -133,7 +132,7 @@ const ReservartionDetailsScreen = () => {
       <View style={style.timeContainer}>
         <View style={style.startTimeContainer}>
           <View style={style.item}>
-            <Text style={style.greyText}>{t("start_time")}</Text>
+            <Text style={style.greyText}>{t('start_time')}</Text>
             <Text style={style.bigBoldText}>{startTime}</Text>
             <Text style={style.smallBoldText}>{startDate}</Text>
           </View>
@@ -143,7 +142,7 @@ const ReservartionDetailsScreen = () => {
         </View>
 
         <View style={style.item}>
-          <Text style={style.greyText}>{t("end_time")}</Text>
+          <Text style={style.greyText}>{t('end_time')}</Text>
           {/* TODO: change this after backend updated */}
           <Text style={style.bigBoldText}>{endTime}</Text>
           <Text style={style.smallBoldText}>{endDate}</Text>
@@ -153,15 +152,14 @@ const ReservartionDetailsScreen = () => {
       <View style={style.infoBox}>
         <View style={style.infoItem}>
           <Text style={style.greyText}>
-            {parkingHistory?.ticketIdentifier ? "Ticket" : t("vehicle")}
+            {parkingHistory?.ticketIdentifier ? 'Ticket' : t('vehicle')}
           </Text>
           <TouchableOpacity>
             <Text
               style={{
                 ...style.mediumBoldText,
                 ...style.licensePlateText,
-              }}
-            >
+              }}>
               {parkingHistory?.ticketIdentifier
                 ? parkingHistory?.ticketIdentifier
                 : historyDetails?.plateNumber}
@@ -169,7 +167,7 @@ const ReservartionDetailsScreen = () => {
           </TouchableOpacity>
         </View>
         <View style={style.infoItem}>
-          <Text style={style.greyText}>{t("address")}</Text>
+          <Text style={style.greyText}>{t('address')}</Text>
           <Text style={style.mediumBoldText}>
             {historyDetails?.parkingShortTitle}
           </Text>
@@ -177,37 +175,37 @@ const ReservartionDetailsScreen = () => {
       </View>
 
       {/* TODO: change this after backend updated */}
+      {console.log({historyDetails})}
       <View style={style.infoBox}>
         <View style={style.infoItem}>
-          <Text style={style.greyText}>{t("payments_method")}</Text>
+          <Text style={style.greyText}>{t('payments_method')}</Text>
           <TouchableOpacity>
             <Text
               style={{
                 ...style.mediumBoldText,
                 ...style.licensePlateText,
-              }}
-            >
-              {parkingHistory?.currency === "RON"
-                ? historyDetails?.cardNumber
-                : "SMS"}
+              }}>
+              {parkingHistory?.currency === 'RON'
+                ? `**** ${historyDetails?.cardNumber?.slice(-4)}`
+                : 'SMS'}
             </Text>
           </TouchableOpacity>
         </View>
         <View style={style.infoItem}>
-          <Text style={style.greyText}>{t("profile")}</Text>
+          <Text style={style.greyText}>{t('profile')}</Text>
           <Text style={style.mediumBoldText}>
-            {historyDetails?.paymentProfileType === "PersonalProfile"
-              ? "Personal"
-              : historyDetails?.paymentProfileType === "BusinessProfile"
-              ? "Business"
-              : ""}
+            {historyDetails?.paymentProfileType === 'PersonalProfile'
+              ? t('personal')
+              : historyDetails?.paymentProfileType === 'BusinessProfile'
+              ? t('business')
+              : ''}
           </Text>
         </View>
       </View>
 
       <View style={style.floatingContainer}>
         <ButtonComponent
-          text={t("download_receipt")}
+          text={t('download_receipt')}
           isDisabled={false}
           onPress={handleSubmit}
         />
@@ -218,11 +216,11 @@ const ReservartionDetailsScreen = () => {
           <NativeBaseBackButton
             handleOnPress={() => setModalVisible(false)}
             style={PaymentOptionsStyle.exitButton}
-            iconType={"exit"}
+            iconType={'exit'}
           />
-          <Title label={t("receipt_title")} style={PaymentOptionsStyle.title} />
+          <Title label={t('receipt_title')} style={PaymentOptionsStyle.title} />
           <View style={style.amountContainer}>
-            {Platform.OS === "ios" ? (
+            {Platform.OS === 'ios' ? (
               <DownloadRecepitApple onShare={onShare} />
             ) : (
               <DownloadReceiptAndroid
@@ -236,10 +234,10 @@ const ReservartionDetailsScreen = () => {
               source={source}
               onLoadComplete={(numberOfPages, filePath) => {}}
               onPageChanged={(page, numberOfPages) => {}}
-              onError={(error) => {
+              onError={error => {
                 console.log(error);
               }}
-              onPressLink={(uri) => {
+              onPressLink={uri => {
                 console.log(`Link pressed: ${uri}`);
               }}
               style={reservationStyle.pdf}

@@ -1,57 +1,42 @@
 {
   "project_info": {
-    "project_number": "271698093388",
-    "project_id": "uppark-v3",
-    "storage_bucket": "uppark-v3.appspot.com"
+    "project_number": "491197556139",
+    "project_id": "constantaparking",
+    "storage_bucket": "constantaparking.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:271698093388:android:ba914878d3f4dd782d1be9",
+        "mobilesdk_app_id": "1:491197556139:android:29753bff4dcc90c91f1eee",
         "android_client_info": {
-          "package_name": "com.uppark"
+          "package_name": "com.constantaparking"
         }
       },
       "oauth_client": [
         {
-          "client_id": "271698093388-7qiqsrgsn1d0bv4kiunaon56gc0fjqip.apps.googleusercontent.com",
+          "client_id": "491197556139-nlce5rht713mtm4oacqnvl2mdbcbcfbo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.uppark",
-            "certificate_hash": "36e9a04c58faa8cc8e4b1dc897617215ff832c33"
+            "package_name": "com.constantaparking",
+            "certificate_hash": "d2249913a97c7cb7e4bd7219f0fd8e3d552adbd5"
           }
         },
         {
-          "client_id": "271698093388-c3tillucqrg0ohibpn45me51ig4npb19.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.uppark",
-            "certificate_hash": "91a7e20514b2592992f138c2771d2569d417d666"
-          }
-        },
-        {
-          "client_id": "271698093388-r9v7b4866lrg0ogv9h69bl1opolbbldm.apps.googleusercontent.com",
+          "client_id": "491197556139-l5rgkrl7po227vrcqdvfk4f1spsfd7j3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA6Ni81nXm6erm62rPPyzGsjK-7QWitsU8"
+          "current_key": "AIzaSyAwNTQbIzq60hORO2t2VGjujMbk1ttlNyk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "271698093388-gqcku6fhik4000n8qebaha4ips6hbujl.apps.googleusercontent.com",
+              "client_id": "491197556139-l5rgkrl7po227vrcqdvfk4f1spsfd7j3.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "271698093388-601u87bt0h2h6h45gb3rvfjnc18vthlc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "cpm.uppark"
-              }
             }
           ]
         }

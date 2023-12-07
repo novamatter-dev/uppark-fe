@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,81 +9,82 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Modal,
-} from "react-native";
+} from 'react-native';
 //style && assets
-import LoginStyle from "./Login.style";
-import { SvgXml } from "react-native-svg";
-import svgs from "../../assets/svgs";
-import AddPhoneStyle from "../../components/AddPhone/AddPhone.style";
+import LoginStyle from './Login.style';
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../assets/svgs';
+import AddPhoneStyle from '../../components/AddPhone/AddPhone.style';
 //components
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import BaseInput from "../../components/BaseInput";
+import BaseInput from '../../components/BaseInput';
 import {
   Title,
   ButtonComponent,
-  CustomInput,
   Toast as ToastComponent,
-  TextModal,
-} from "../../components";
+} from '../../components';
 //libraries
-import { useNavigation } from "@react-navigation/native";
-import DeviceInfo from "react-native-device-info";
-import Toast from "react-native-toast-notifications";
-import jwt_decode from "jwt-decode";
-import { appleAuth } from "@invertase/react-native-apple-authentication";
+import {useNavigation} from '@react-navigation/native';
+import DeviceInfo from 'react-native-device-info';
+import Toast from 'react-native-toast-notifications';
+import jwt_decode from 'jwt-decode';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
 import {
   AccessToken,
   LoginManager,
   GraphRequest,
   GraphRequestManager,
   Profile,
-} from "react-native-fbsdk-next";
+} from 'react-native-fbsdk-next';
 import {
   GoogleSignin,
   statusCodes,
-} from "@react-native-google-signin/google-signin";
-import { useTranslation } from "react-i18next";
-import { useToast } from "native-base";
+} from '@react-native-google-signin/google-signin';
+import {useTranslation} from 'react-i18next';
+import {Alert, useToast} from 'native-base';
 //helpers
-import { useFcmTokenUpdater } from "../../helpers/useFcmTokenUpdater";
+import {useFcmTokenUpdater} from '../../helpers/useFcmTokenUpdater';
 //redux
 import {
   usePostLoginWithEmailMutation,
   usePostLoginWithFbMutation,
   usePostLoginWithGoogleMutation,
   usePostLoginWithAppleMutation,
-} from "../../services/auth";
-import { setToken } from "../../redux/features/auth/authSlice";
-import { setLoadingScreen } from "../../redux/features/notifications/notificationSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { BLUE } from "../../helpers/style/constants";
+  usePostCTLoginWithFbMutation,
+  usePostCTLoginWithGoogleMutation,
+} from '../../services/auth';
+import {setToken} from '../../redux/features/auth/authSlice';
+import {setLoadingScreen} from '../../redux/features/notifications/notificationSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {BLUE} from '../../helpers/style/constants';
 
 const LoginEmail = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.auth);
-  const { hasInternetConnection } = useSelector((state) => state.users);
-  const { t } = useTranslation();
+  const {error} = useSelector(state => state.auth);
+  const {hasInternetConnection} = useSelector(state => state.users);
+  const {t} = useTranslation();
   const toast = useToast();
 
   const [postLoginWithEmail] = usePostLoginWithEmailMutation();
   const [postLoginWithFb] = usePostLoginWithFbMutation();
+  const [postCTLoginWithFb] = usePostCTLoginWithFbMutation();
   const [postLoginWithGoogle] = usePostLoginWithGoogleMutation();
+  const [postCTLoginWithGoogle] = usePostCTLoginWithGoogleMutation();
   const [postLoginWithApple] = usePostLoginWithAppleMutation();
 
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
   const [emailLogin, setEmailLogin] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const { updateFcmToken } = useFcmTokenUpdater();
+  const {updateFcmToken} = useFcmTokenUpdater();
 
   const toastRef = useRef();
 
-  const handleChangeLoginEmail = ({ type, text }) => {
-    setEmailLogin((prevState) => {
+  const handleChangeLoginEmail = ({type, text}) => {
+    setEmailLogin(prevState => {
       return {
         ...prevState,
         [type]: text,
@@ -94,12 +95,12 @@ const LoginEmail = () => {
   const handleLoginWithEmail = async () => {
     if (
       emailLogin?.email?.match(
-        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       )
     ) {
       setIsLoading(true);
       setIsInvalidEmail(false);
-      let fcmtoken = await AsyncStorage.getItem("fcmtoken");
+
       const deviceId = await DeviceInfo.getUniqueId();
       const brand = await DeviceInfo.getBrand();
       const model = await DeviceInfo.getModel();
@@ -109,7 +110,7 @@ const LoginEmail = () => {
         device: {
           deviceType: Platform.OS,
           deviceId: deviceId,
-          firebaseToken: fcmtoken,
+          firebaseToken: 'string',
           brand: brand,
           model: model,
           resolutionWidth: 0,
@@ -118,22 +119,21 @@ const LoginEmail = () => {
       };
 
       await postLoginWithEmail(body)
-        .then((answer) => {
+        .then(answer => {
           if (answer?.error?.data) {
             setIsInvalidEmail(true);
-
             loginFailedMessage(answer?.error?.data);
           }
           if (answer?.data?.jwt) {
-            dispatch(setToken({ jwt: answer?.data?.jwt }));
+            dispatch(setToken({jwt: answer?.data?.jwt}));
             updateFcmToken();
-            navigation.navigate("HomeDrawer");
+            navigation.navigate('HomeDrawer');
           }
           setIsLoading(false);
         })
-        .catch((err) => {
+        .catch(err => {
           setIsLoading(false);
-          console.log("login err: ", err);
+          console.log('login err: ', err);
         });
     } else {
       setIsInvalidEmail(true);
@@ -142,190 +142,172 @@ const LoginEmail = () => {
   };
 
   const handleFbLogin = async () => {
-    try {
-      if (Platform.OS === "android") {
-        LoginManager.setLoginBehavior("web_only");
-      }
-      await LoginManager.logInWithPermissions(
-        ["public_profile", "email"],
-        "limited"
-      )
-        .then(
-          (result) => {
-            if (result.isCancelled) {
-              customFacebookLogout();
-            } else {
-              AccessToken.getCurrentAccessToken().then((data) => {
-                callFacebookGraph(data?.accessToken);
-              });
-            }
-          },
-          (error) => {
-            customFacebookLogout();
-            setTimeout(() => {
-              handleFbLogin();
-            }, 1500);
-          }
-        )
-        .catch((err) => {
-          console.log("LoginManager err:  ", err);
-        });
-    } catch (e) {
-      console.error(e);
+    if (Platform.OS === 'android') {
+      LoginManager.setLoginBehavior('web_only');
     }
+    await LoginManager.logInWithPermissions(
+      ['public_profile', 'email'],
+      'limited',
+    )
+      .then(
+        result => {
+          if (result.isCancelled) {
+            // customFacebookLogout();
+          } else {
+            AccessToken.getCurrentAccessToken().then(data => {
+              callFacebookGraph(data?.accessToken);
+            });
+          }
+        },
+        error => {
+          // customFacebookLogout();
+          setTimeout(() => {
+            handleFbLogin();
+          }, 1500);
+        },
+      )
+      .catch(err => {
+        console.log('LoginManager err:  ', err);
+      });
   };
 
   const onGoogleAccountSuccess = async (user, accessToken) => {
-    try {
-      const deviceId = await DeviceInfo.getUniqueId();
-      const brand = await DeviceInfo.getBrand();
-      const model = await DeviceInfo.getModel();
-      let fcmtoken = await AsyncStorage.getItem("fcmtoken");
-      await GoogleSignin.signOut().then(async () => {
-        try {
-          const body = {
-            authProvider: "Google",
-            idToken: user.idToken,
-            accessToken: accessToken?.accessToken,
-            firstName: user.user.givenName,
-            lastName: user.user.familyName,
-            deviceDto: {
-              deviceType: Platform.OS,
-              deviceId: deviceId,
-              firebaseToken: fcmtoken,
-              brand: brand,
-              model: model,
-              resolutionWidth: 0,
-              resolutionHeight: 0,
-            },
-          };
-          // console.log("ggl signing body: ", body);
-          setIsLoading(true);
+    // dispatch(setLoadingScreen(true));
+    const deviceId = await DeviceInfo.getUniqueId();
+    const brand = await DeviceInfo.getBrand();
+    const model = await DeviceInfo.getModel();
+    await GoogleSignin.signOut().then(async () => {
+      try {
+        const body = {
+          authProvider: 'Google',
+          idToken: user.idToken,
+          accessToken: accessToken?.accessToken,
+          firstName: user.user.givenName,
+          lastName: user.user.familyName,
+          deviceDto: {
+            deviceType: Platform.OS,
+            deviceId: deviceId,
+            firebaseToken: 'string',
+            brand: brand,
+            model: model,
+            resolutionWidth: 0,
+            resolutionHeight: 0,
+          },
+        };
+        setIsLoading(true);
 
-          await postLoginWithGoogle(body)
-            .then((answer) => {
-              if (answer?.data?.jwt) {
-                dispatch(setToken({ jwt: answer.data.jwt }));
-                // dispatch(setLoadingScreen(false));
+        await postCTLoginWithGoogle(body)
+          .then(answer => {
+            if (answer?.data?.jwt) {
+              dispatch(setToken({jwt: answer.data.jwt}));
+              // dispatch(setLoadingScreen(false));
+              setIsLoading(false);
+              updateFcmToken();
+              navigation.navigate('HomeDrawer');
+            } else if (answer?.error) {
+              loginFailedMessage(answer?.error?.data);
+              setIsLoading(false);
+            }
+          })
+          .catch(async err => {
+            try {
+              await GoogleSignin.signOut().then(() => {
                 setIsLoading(false);
-                updateFcmToken();
-                navigation.navigate("HomeDrawer");
-              } else if (answer?.error) {
-                loginFailedMessage(answer?.error?.error);
-                setIsLoading(false);
-              }
-            })
-            .catch(async (err) => {
-              console.log("GGL SIGNING ENDPOINT ERROR >>>", err);
-              try {
-                await GoogleSignin.signOut().then(() => {
-                  setIsLoading(false);
-                });
-                // this.setState({ user: null }); // Remember to remove the user from your app's state as well
-              } catch (error) {
-                console.error("ggl err : ", error);
-              }
-            });
-        } catch (e) {
-          console.error(e);
-        }
-      });
-    } catch (error) {
-      if (error.message === "Request timed out") {
-        console.log("Timeout pentru requestul API");
-      } else {
-        console.log("Eroare API:", error);
+              });
+              // this.setState({ user: null }); // Remember to remove the user from your app's state as well
+            } catch (error) {
+              console.error('ggl err : ', error);
+            }
+          });
+      } catch (e) {
+        console.error(e);
       }
-    }
+    });
   };
 
-  const callFacebookGraph = async (accessToken) => {
+  const callFacebookGraph = async accessToken => {
     // customFacebookLogout(accessToken);
     const deviceId = await DeviceInfo.getUniqueId();
     const brand = await DeviceInfo.getBrand();
     const model = await DeviceInfo.getModel();
-    let fcmtoken = await AsyncStorage.getItem("fcmtoken");
     setIsLoading(true);
     const deviceDto = {
       deviceType: Platform.OS,
       deviceId: deviceId,
-      firebaseToken: fcmtoken,
+      firebaseToken: 'string',
       brand: brand,
       model: model,
       resolutionWidth: 0,
       resolutionHeight: 0,
     };
-    if (Platform.OS === "ios") {
-      Profile.getCurrentProfile().then(async (data) => {
+    if (Platform.OS === 'ios') {
+      Profile.getCurrentProfile().then(async data => {
         const deviceId = await DeviceInfo.getUniqueId();
-        console.log("getCurrentProfile", data);
         const body = {
-          authProvider: "Facebook",
+          authProvider: 'Facebook',
           accessToken: accessToken,
           idToken: accessToken,
           firstName: data?.firstName,
           lastName: data?.lastName,
           deviceDto: deviceDto,
         };
-
-        await postLoginWithFb(body)
-          .then((answer) => {
+        // await postCTLoginWithFb(body)
+        await postCTLoginWithFb(body)
+          .then(answer => {
             if (answer?.data?.jwt) {
-              dispatch(setToken({ jwt: answer?.data?.jwt }));
+              dispatch(setToken({jwt: answer?.data?.jwt}));
               setIsLoading(false);
               updateFcmToken();
-              navigation.navigate("HomeDrawer");
+              navigation.navigate('HomeDrawer');
             } else if (answer?.error?.data) {
               setIsLoading(false);
               loginFailedMessage(answer?.error?.data);
             }
           })
-          .catch((err) => {
-            console.log("FB ERR >>>", err);
+          .catch(err => {
+            console.log('FB ERR >>>', err);
             setIsLoading(false);
           });
       });
     } else {
       const responseInfoCallback = async (error, result) => {
         if (error) {
-          console.log(error);
-          alert("Error fetching data: " + error.toString());
         } else {
           const body = {
-            authProvider: "Facebook",
+            authProvider: 'Facebook',
             accessToken: accessToken,
             idToken: accessToken,
             firstName: result?.first_name,
             lastName: result?.last_name,
             deviceDto: deviceDto,
           };
-          await postLoginWithFb(body)
-            .then((answer) => {
+          await postCTLoginWithFb(body)
+            .then(answer => {
               if (answer.data.jwt) {
-                dispatch(setToken({ jwt: answer.data.jwt }));
+                dispatch(setToken({jwt: answer.data.jwt}));
                 setIsLoading(false);
                 updateFcmToken();
-                navigation.navigate("HomeDrawer");
+                navigation.navigate('HomeDrawer');
               }
             })
-            .catch((err) => {
-              console.log("FB ERR >>>", err);
+            .catch(err => {
+              console.log('FB ERR >>>', err);
               setIsLoading(false);
             });
         }
       };
 
       const infoRequest = new GraphRequest(
-        "/me",
+        '/me',
         {
           accessToken: accessToken,
           parameters: {
             fields: {
-              string: "email,name,first_name,last_name",
+              string: 'email,name,first_name,last_name',
             },
           },
         },
-        responseInfoCallback
+        responseInfoCallback,
       );
       // Start the graph request.
       new GraphRequestManager().addRequest(infoRequest).start();
@@ -336,18 +318,16 @@ const LoginEmail = () => {
     dispatch(setLoadingScreen(true));
     try {
       const result = await LoginManager.logInWithPermissions([
-        "public_profile",
-        "email",
+        'public_profile',
+        'email',
       ])
-        .then((answer) => {})
-        .catch((err) => {
-          console.log("err longin fb: ", err);
+        .then(answer => {})
+        .catch(err => {
+          console.log('err longin fb: ', err);
         });
 
-      AccessToken.getCurrentAccessToken().then((data) => {
-        if (data?.accessToken) {
-          callFacebookGraph(data?.accessToken);
-        }
+      AccessToken.getCurrentAccessToken().then(data => {
+        callFacebookGraph(data?.accessToken);
       });
     } catch (error) {
       console.log(error);
@@ -355,9 +335,12 @@ const LoginEmail = () => {
   };
 
   const handleGoogleLogin = async () => {
+    // TODO: verify which google account is linked with the app
     GoogleSignin.configure({
       webClientId:
-        "271698093388-r9v7b4866lrg0ogv9h69bl1opolbbldm.apps.googleusercontent.com",
+        // '491197556139-nlce5rht713mtm4oacqnvl2mdbcbcfbo.apps.googleusercontent.com',
+        '491197556139-l5rgkrl7po227vrcqdvfk4f1spsfd7j3.apps.googleusercontent.com',
+      // "271698093388-r9v7b4866lrg0ogv9h69bl1opolbbldm.apps.googleusercontent.com",
       // scopes: ["email"],
       offlineAccess: false,
       // forceCodeForRefreshToken: true,
@@ -367,9 +350,6 @@ const LoginEmail = () => {
       const userInfo = await GoogleSignin.signIn();
       const accessTokenGoogle = await GoogleSignin.getTokens();
 
-      // console.log("userInfo", userInfo);
-      // console.log("accessTokenGoogle", accessTokenGoogle);
-
       onGoogleAccountSuccess(userInfo, accessTokenGoogle);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -378,13 +358,20 @@ const LoginEmail = () => {
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation in progress already
         // Alert.alert("in progress");
-        console.log("in progress");
+        console.log('handleGoogleLogin in progress');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         // Alert.alert("play services not available or outdated")
-        console.log("play services not available or outdated");
+        console.log(
+          'handleGoogleLogin play services not available or outdated',
+        );
       } else {
         // Alert.alert("Something went wrong", error.toString());
-        console.log("Something went wrong: ", error.toString(), "   ", error);
+        console.log(
+          'handleGoogleLogin Something went wrong: ',
+          error.toString(),
+          '   ',
+          error,
+        );
       }
     }
   };
@@ -394,20 +381,19 @@ const LoginEmail = () => {
     const deviceId = await DeviceInfo.getUniqueId();
     const brand = await DeviceInfo.getBrand();
     const model = await DeviceInfo.getModel();
-    let fcmtoken = await AsyncStorage.getItem("fcmtoken");
+
     // performs login request
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
       // Note: it appears putting FULL_NAME first is important, see issue #293
       requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
     });
-    // console.log("appleAuthRequestResponse >>> ", appleAuthRequestResponse);
     setIsLoading(true);
 
     // get current authentication state for user
     // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
     const credentialState = await appleAuth.getCredentialStateForUser(
-      appleAuthRequestResponse.user
+      appleAuthRequestResponse.user,
     );
 
     // console.log("credentialState >>>", credentialState);
@@ -431,7 +417,7 @@ const LoginEmail = () => {
         deviceDto: {
           deviceType: Platform.OS,
           deviceId: deviceId,
-          firebaseToken: fcmtoken,
+          firebaseToken: 'string',
           brand: brand,
           model: model,
           resolutionWidth: 0,
@@ -443,40 +429,40 @@ const LoginEmail = () => {
 
       // console.log("appleCredentials >>>", appleCredentials);
     } else if (credentialState == appleAuth.State.REVOKED) {
-      Alert.alert(translate("login_cancelled"));
+      Alert.alert(t('login_cancelled'));
     }
   };
 
-  const handleAppleLogin = async (body) => {
+  const handleAppleLogin = async body => {
     await postLoginWithApple(body)
-      .then((answer) => {
+      .then(answer => {
         if (answer?.data?.jwt) {
           setIsLoading(false);
-          dispatch(setToken({ jwt: answer?.data?.jwt }));
+          dispatch(setToken({jwt: answer?.data?.jwt}));
           updateFcmToken();
-          navigation.navigate("HomeDrawer");
+          navigation.navigate('HomeDrawer');
         } else if (answer?.error) {
           setIsLoading(false);
           loginFailedMessage(answer?.error?.data);
         }
       })
-      .catch((err) => {
-        console.log("Apple login err: ", err);
+      .catch(err => {
+        console.log('Apple login err: ', err);
         // loginFailedMessage(err.message)
       });
   };
 
-  const loginFailedMessage = (message) => {
+  const loginFailedMessage = message => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
-        return <ToastComponent message={t(message)} type={"danger"} />;
+        return <ToastComponent message={t(message)} type={'danger'} />;
       },
     });
   };
 
-  const handleNav = (screen) => {
+  const handleNav = screen => {
     navigation.navigate(screen);
   };
 
@@ -486,11 +472,11 @@ const LoginEmail = () => {
 
   const handleNoInternet = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
-          <ToastComponent message={t("internet_connection")} type={"danger"} />
+          <ToastComponent message={t('internet_connection')} type={'danger'} />
         );
       },
     });
@@ -502,21 +488,19 @@ const LoginEmail = () => {
 
   return (
     <ImageBackground
-      source={require("../../assets/images/splash.png")}
+      source={require('../../assets/images/splash.png')}
       resizeMode="cover"
-      style={LoginStyle.image}
-    >
+      style={LoginStyle.image}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={LoginStyle.modalContainer}>
           <View style={LoginStyle.titleContainer}>
-            <Title label={t("login")} />
+            <Title label={t('login')} />
 
             <TouchableOpacity
-              style={{ width: "60%", paddingVertical: 5 }}
-              onPress={() => handleNav("LoginPhone")}
-            >
+              style={{width: '60%', paddingVertical: 5}}
+              onPress={() => handleNav('LoginPhone')}>
               <Text style={LoginStyle.touchableToggleLogin}>
-                {t("switch_to_phone")}
+                {t('switch_to_phone')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -524,7 +508,7 @@ const LoginEmail = () => {
             <View>
               {isInvalidEmail && (
                 <Text style={LoginStyle.invalidCredentials}>
-                  {t("invalid_credentials")}
+                  {t('invalid_credentials')}
                 </Text>
               )}
 
@@ -543,12 +527,12 @@ const LoginEmail = () => {
                     height={24}
                   />
                 }
-                name={"email"}
-                placeHolder={t("email_address")}
-                keyboardType={"email-address"}
-                onChangeText={(text) =>
+                name={'email'}
+                placeHolder={t('email_address')}
+                keyboardType={'email-address'}
+                onChangeText={text =>
                   handleChangeLoginEmail({
-                    type: "email",
+                    type: 'email',
                     text,
                   })
                 }
@@ -568,11 +552,11 @@ const LoginEmail = () => {
                   />
                 }
                 rightIcon={true}
-                name={"password"}
-                placeHolder={t("password")}
-                onChangeText={(text) =>
+                name={'password'}
+                placeHolder={t('password')}
+                onChangeText={text =>
                   handleChangeLoginEmail({
-                    type: "password",
+                    type: 'password',
                     text,
                   })
                 }
@@ -582,19 +566,18 @@ const LoginEmail = () => {
 
               <TouchableOpacity
                 onPress={() => {
-                  handleNav("ForgotPassword");
+                  handleNav('ForgotPassword');
                 }}
-                style={{ marginVertical: 10 }}
-              >
+                style={{marginVertical: 10}}>
                 <Text style={LoginStyle.touchableToggleLogin}>
-                  {t("forgot_password")}
+                  {t('forgot_password')}
                 </Text>
               </TouchableOpacity>
             </View>
 
             <View style={LoginStyle.socialWrapLogin}>
-              <Text style={{ ...LoginStyle.registerBtn, fontSize: 12 }}>
-                {t("or_login_with")}
+              <Text style={{...LoginStyle.registerBtn, fontSize: 12}}>
+                {t('or_login_with')}
               </Text>
               <View style={LoginStyle.socialBtnswrapper}>
                 <TouchableOpacity
@@ -605,15 +588,14 @@ const LoginEmail = () => {
                       handleNoInternet();
                     }
                   }}
-                  style={LoginStyle.socialIconWidth}
-                >
+                  style={LoginStyle.socialIconWidth}>
                   <SvgXml xml={svgs.gglLogo} width={50} height={50} />
                 </TouchableOpacity>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() => {
                     if (hasInternetConnection) {
-                      if (Platform.OS === "android") {
+                      if (Platform.OS === 'android') {
                         handleFbLogin();
                       } else {
                         handleIosFbLogin();
@@ -622,11 +604,10 @@ const LoginEmail = () => {
                       handleNoInternet();
                     }
                   }}
-                  style={LoginStyle.socialIconWidth}
-                >
+                  style={LoginStyle.socialIconWidth}>
                   <SvgXml xml={svgs.fbLogo} width={50} height={50} />
-                </TouchableOpacity>
-                {Platform.OS === "ios" && (
+                </TouchableOpacity> */}
+                {Platform.OS === 'ios' && (
                   <TouchableOpacity
                     onPress={() => {
                       if (hasInternetConnection) {
@@ -635,8 +616,7 @@ const LoginEmail = () => {
                         handleNoInternet();
                       }
                     }}
-                    style={LoginStyle.socialIconWidth}
-                  >
+                    style={LoginStyle.socialIconWidth}>
                     <SvgXml
                       xml={svgs.appleLogo}
                       width={50}
@@ -659,19 +639,18 @@ const LoginEmail = () => {
               <TouchableOpacity
                 onPress={() => {
                   if (hasInternetConnection) {
-                    handleNav("Register");
+                    handleNav('Register');
                   } else {
                     handleNoInternet();
                   }
                 }}
-                style={{ marginVertical: 25 }}
-              >
+                style={{marginVertical: 25}}>
                 <Text style={LoginStyle.registerBtn}>
-                  {t("register").toUpperCase()}
+                  {t('register').toUpperCase()}
                 </Text>
               </TouchableOpacity>
               <ButtonComponent
-                text={t("login").toUpperCase()}
+                text={t('login').toUpperCase()}
                 isDisabled={false}
                 onPress={() => {
                   if (hasInternetConnection) {
@@ -688,15 +667,14 @@ const LoginEmail = () => {
       {isLoading && (
         <View
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            backgroundColor: "rgba(0,0,0,0.3)",
-          }}
-        >
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            backgroundColor: 'rgba(0,0,0,0.3)',
+          }}>
           <ActivityIndicator size="large" color={BLUE} />
         </View>
       )}

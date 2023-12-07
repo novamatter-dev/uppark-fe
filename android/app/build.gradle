@@ -145,12 +145,12 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        // applicationId "ro.fastpark.uppark.client"
-        applicationId "com.uppark"
+        // applicationId "ro.fastpark.constantaparking.client"
+        applicationId "com.constantaparking"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 43
-        versionName "1.0.43"
+        versionCode 52
+        versionName "1.1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -230,7 +230,7 @@ android {
         }
 
         release {
-                storeFile file('/Users/alexandruivana/Documents/DEV/fe-uppark/android/app/my_release_key.keystore')
+                storeFile file('/Users/alexandruivana/Documents/DEV/fe-constantaparking/android/app/my_release_key.keystore')
                 storePassword 'android'
                 keyAlias 'keystore'
                 keyPassword 'android'
@@ -288,7 +288,6 @@ dependencies {
 
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    implementation 'com.google.android.material:material:1.5.0'
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
@@ -311,8 +310,6 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-
-    implementation 'com.google.android.play:core:1.7.3' //in app  auto-update
 }
 
 if (isNewArchitectureEnabled()) {

@@ -1,15 +1,21 @@
-import { StyleSheet } from "react-native";
-import { PLATINUM, WHITE, BLACK } from "../../../../helpers/style/constants";
+import {Platform, StyleSheet} from 'react-native';
+import {PLATINUM, WHITE, BLACK} from '../../../../helpers/style/constants';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 const PaymentOptionsStyle = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 30,
+    paddingHorizontal: wp(8.2),
+    paddingVertical: hp(4.92),
+    paddingTop: Platform.OS === 'ios' ? hp(6.92) : hp(4.92),
   },
 
   exitButton: {
     backgroundColor: WHITE,
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
   },
 
   icon: {
@@ -27,7 +33,7 @@ const PaymentOptionsStyle = StyleSheet.create({
     fontSize: 16,
     color: BLACK,
     width: 320,
-    textAlign: "left",
+    textAlign: 'left',
     paddingHorizontal: 10,
   },
 

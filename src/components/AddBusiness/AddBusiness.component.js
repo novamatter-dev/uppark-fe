@@ -1,34 +1,34 @@
-import React, { useEffect, useState, useRef } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import React, {useEffect, useState, useRef} from 'react';
+import {View, TouchableOpacity, Text} from 'react-native';
 //style && asets
-import AddBusinessStyle from "./AddBusiness.style";
-import { SvgXml } from "react-native-svg";
-import svgs from "../../assets/svgs";
-import { AQUA } from "../../helpers/style/constants";
+import AddBusinessStyle from './AddBusiness.style';
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../assets/svgs';
+import {AQUA} from '../../helpers/style/constants';
 //libraries
-import { Box, ScrollView, useToast } from "native-base";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import PropTypes from "prop-types";
+import {Box, ScrollView, useToast} from 'native-base';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import PropTypes from 'prop-types';
 //components
-import BaseInput from "../BaseInput";
-import { NativeBaseBackButton, Title, Modal, ButtonComponent } from "../index";
+import BaseInput from '../BaseInput';
+import {NativeBaseBackButton, Title, Modal, ButtonComponent} from '../index';
 
-import { PaymentOptions } from "../../screens/PaymentDetails/components";
+import {PaymentOptions} from '../../screens/PaymentDetails/components';
 //redux
 import {
   useUpdateBusinessProfileMutation,
   useGetBusinessProfileMutation,
-} from "../../services/users";
-import { useDispatch, useSelector } from "react-redux";
-import { setBusinessEntry } from "../../redux/features/users/userSlice";
-import { useSetBusinessDefaultPaymentMutation } from "../../services/wallets";
-import Toast from "react-native-toast-notifications";
-import { t } from "i18next";
+} from '../../services/users';
+import {useDispatch, useSelector} from 'react-redux';
+import {setBusinessEntry} from '../../redux/features/users/userSlice';
+import {useSetBusinessDefaultPaymentMutation} from '../../services/wallets';
+import Toast from 'react-native-toast-notifications';
+import {t} from 'i18next';
 
-const AddBusiness = (props) => {
-  const { onClosePress, isDisabled, handleGetCards } = props;
+const AddBusiness = props => {
+  const {onClosePress, isDisabled, handleGetCards} = props;
 
-  const businessState = useSelector((state) => state.users.business);
+  const businessState = useSelector(state => state.users.business);
   const dispatch = useDispatch();
 
   const [updateBusinessProfile] = useUpdateBusinessProfileMutation();
@@ -49,11 +49,11 @@ const AddBusiness = (props) => {
     await getBusinessProfile();
   };
 
-  const handleChangeFormState = ({ type, label, value }) => {
-    dispatch(setBusinessEntry({ type, label, value }));
+  const handleChangeFormState = ({type, label, value}) => {
+    dispatch(setBusinessEntry({type, label, value}));
   };
 
-  const handleSubmit = async ({ closeModal = false }) => {
+  const handleSubmit = async ({closeModal = false}) => {
     const body = {
       companyName: businessState.companyName.value,
       cui: businessState.cui.value,
@@ -72,8 +72,8 @@ const AddBusiness = (props) => {
         closeModal && onClosePress();
         handleSuccessToast();
       })
-      .catch((err) => {
-        console.log("ERR updateBusinessProfile >>> ", err);
+      .catch(err => {
+        console.log('ERR updateBusinessProfile >>> ', err);
       });
   };
 
@@ -86,23 +86,23 @@ const AddBusiness = (props) => {
     setModalVisible(!modalVisible);
   };
 
-  const hadleSetBusinessCard = async (id) => {
-    await handleSubmit({ closeModal: false }).then(async () => {
-      await setBusinessDefaultPayment({ cardId: id })
-        .then((answer) => {
+  const hadleSetBusinessCard = async id => {
+    await handleSubmit({closeModal: false}).then(async () => {
+      await setBusinessDefaultPayment({cardId: id})
+        .then(answer => {
           // handleModal();
           setModalVisible(false);
           handleGetBusinessProfile();
         })
-        .catch((err) => {
-          console.log("ERR setBusinessDefaultPayment >>>", err);
+        .catch(err => {
+          console.log('ERR setBusinessDefaultPayment >>>', err);
         });
     });
   };
 
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
@@ -112,21 +112,19 @@ const AddBusiness = (props) => {
               padding: 16,
               borderRadius: 15,
               shadowColor: AQUA,
-              shadowOffset: { width: -2, height: 4 },
+              shadowOffset: {width: -2, height: 4},
               shadowOpacity: 0.9,
               shadowRadius: 4,
               elevation: 25,
               shadowColor: AQUA,
-            }}
-          >
+            }}>
             <Text
               style={{
-                color: "#F5F5F5",
+                color: '#F5F5F5',
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
-              }}
-            >
-              Business profile saved !
+                fontFamily: 'AzoSans-Medium',
+              }}>
+              {t('business_profile_saved')}
             </Text>
           </View>
         );
@@ -137,28 +135,29 @@ const AddBusiness = (props) => {
   return (
     <View style={AddBusinessStyle.safeAreaContainer}>
       {/* <KeyboardView boxStyle={AddBusinessStyle.container}> */}
-      <ScrollView style={AddBusinessStyle.container}>
+      
         <NativeBaseBackButton
-          style={AddBusinessStyle.closeButton}
+          isLoading={false}    
           handleOnPress={onClosePress}
-          iconType={"exit"}
+          isDisabled={false}
+          style={{backgroundColor: "#F5F5F5"}}
         />
-        <Box style={AddBusinessStyle.inputContainer}>
-          <Title label={"Business Profile"} style={AddBusinessStyle.title} />
+                  <Title label={'Business Profile'} style={AddBusinessStyle.title} />
+
+                  <ScrollView showsVerticalScrollIndicator={false} style={AddBusinessStyle.container}>
           <KeyboardAwareScrollView>
             {Object.keys(businessState).map((item, index) => {
-              if (item === "cardNumber") {
+              if (item === 'cardNumber') {
                 return (
                   <TouchableOpacity
                     onPress={() => handleChooseDefaultPayment(true)}
                     style={AddBusinessStyle.detailsBtn}
-                    key={`key--${item}`}
-                  >
+                    key={`key--${item}`}>
                     <SvgXml xml={svgs.copy} width={22} height={24} />
                     <Text style={AddBusinessStyle.btnLabel}>
                       {businessState.cardNumber.value
                         ? businessState.cardNumber.value
-                        : t("default_payment")}
+                        : t('default_payment')}
                     </Text>
                   </TouchableOpacity>
                 );
@@ -166,7 +165,7 @@ const AddBusiness = (props) => {
                 return (
                   <BaseInput
                     onPress={
-                      item === "cardNumber"
+                      item === 'cardNumber'
                         ? handleChooseDefaultPayment()
                         : null
                     }
@@ -181,7 +180,7 @@ const AddBusiness = (props) => {
                     }
                     name={item}
                     placeHolder={t(businessState[item].placeholder)}
-                    onChangeText={(value) =>
+                    onChangeText={value =>
                       handleChangeFormState({
                         type: item,
                         value,
@@ -190,7 +189,7 @@ const AddBusiness = (props) => {
                     }
                     value={businessState[item].value}
                     key={`personal-inputs-${String(index)}`}
-                    capitalize={"sentences"}
+                    capitalize={'sentences'}
                     // onEndEditing={(event) => handleUpdateInfo(event, item)}
                   />
                   // <View
@@ -206,31 +205,11 @@ const AddBusiness = (props) => {
               }
             })}
           </KeyboardAwareScrollView>
-          <View style={AddBusinessStyle.floatingContainer}>
-            {/* <NativeBaseButton
-              label={"CONFIRM"}
-              handleOnPress={() => handleSubmit({ closeModal: true })}
-              isDisabled={isDisabled}
-              isLoading={isLoading}
-              isFloating={true}
-              style={AddBusinessStyle.floatingBnt}
-            /> */}
-          </View>
-        </Box>
       </ScrollView>
       <View style={AddBusinessStyle.floatingContainer}>
-        {/* <NativeBaseButton
-          label={"CONFIRM"}
-          // handleOnPress={handleSubmit}
-          handleOnPress={() => handleSubmit({ closeModal: true })}
-          isDisabled={isDisabled}
-          isLoading={isLoading}
-          isFloating={true}
-          style={AddBusinessStyle.floatingBnt}
-        /> */}
         <ButtonComponent
-          text={"CONFIRM"}
-          onPress={() => handleSubmit({ closeModal: true })}
+          text={'CONFIRM'}
+          onPress={() => handleSubmit({closeModal: true})}
           isDisabled={isDisabled}
         />
       </View>
@@ -242,7 +221,7 @@ const AddBusiness = (props) => {
           onExitPress={handleModal}
           onSmsPress={handleModal}
           isFromPaymentDetails={false}
-          profileType={"Business"}
+          profileType={'Business'}
         />
         <Toast
           ref={toastRef}

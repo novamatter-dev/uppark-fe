@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { TouchableOpacity, View, Image } from "react-native";
-import { Box, Flex } from "native-base";
-import ActiveParkingStyle from "./ActiveParking.style";
-import { NativeBaseButton, Text, Map } from "../../components";
-import { SearchBar, ParkDetails } from "../../components";
-import { BLUE } from "../../helpers/style/constants";
+import React, {useState} from 'react';
+import {TouchableOpacity, View, Image} from 'react-native';
+import {Box, Flex} from 'native-base';
+import ActiveParkingStyle from './ActiveParking.style';
+import {NativeBaseButton, Text, Map} from '../../components';
+import {SearchBar, ParkDetails} from '../../components';
+import {BLUE} from '../../helpers/style/constants';
 
-const ActiveParking = ({ navigation }) => {
+const ActiveParking = ({navigation}) => {
   const [isToggled, setIsToggled] = useState(false);
 
   const handleToggle = () => {
@@ -14,7 +14,7 @@ const ActiveParking = ({ navigation }) => {
   };
 
   const handleOnSubmit = () => {
-    navigation.navigate("ParkFromScreen");
+    navigation.navigate('ParkFromScreen');
   };
   return (
     <>
@@ -26,8 +26,7 @@ const ActiveParking = ({ navigation }) => {
             isToggled
               ? ActiveParkingStyle.mapSmall
               : ActiveParkingStyle.mapLarge
-          }
-        >
+          }>
           <Map
             style={
               isToggled
@@ -42,26 +41,24 @@ const ActiveParking = ({ navigation }) => {
             isToggled
               ? ActiveParkingStyle.placeDetailsLarge
               : ActiveParkingStyle.placeDetailsSmall
-          }
-        >
+          }>
           <TouchableOpacity onPress={handleToggle}>
             <Text
               style={{
                 color: BLUE,
-              }}
-            >
-              Show {isToggled ? "less" : "more"}
+              }}>
+              {t('show')} {isToggled ? 'less' : 'more'}
             </Text>
           </TouchableOpacity>
 
-          <Flex direction={"row"} style={ActiveParkingStyle.timeLeft}>
+          <Flex direction={'row'} style={ActiveParkingStyle.timeLeft}>
             <Image
-              source={require("../../assets/icons/clock.png")}
+              source={require('../../assets/icons/clock.png')}
               style={ActiveParkingStyle.timeIcon}
             />
-            <Text style={{ fontSize: 25 }}>01:14</Text>
+            <Text style={{fontSize: 25}}>01:14</Text>
           </Flex>
-
+          {/* TODO: verify hardcoded */}
           <Text style={ActiveParkingStyle.placeDetailsSubtitle}>
             George Enescu, P2393
           </Text>
@@ -72,7 +69,7 @@ const ActiveParking = ({ navigation }) => {
 
       <NativeBaseButton
         handleOnPress={handleOnSubmit}
-        label={"Extend Time"}
+        label={'Extend Time'}
         isDisabled={false}
         style={ActiveParkingStyle.parkSubmit}
       />

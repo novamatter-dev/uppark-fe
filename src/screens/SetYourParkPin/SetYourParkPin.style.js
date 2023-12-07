@@ -1,14 +1,14 @@
-import { StyleSheet } from "react-native";
-import { BLACK, GREY, PLATINUM } from "../../helpers/style/constants";
+import {StyleSheet} from 'react-native';
+import {BLACK, GREY, PLATINUM} from '../../helpers/style/constants';
 
 const SetYourPinStyle = StyleSheet.create({
   container: {
-    display: "flex",
-    justifyContent: "space-between",
-    height: "100%",
-    width: "100%",
-    paddingHorizontal: "10%",
-    paddingVertical: "10%",
+    display: 'flex',
+    justifyContent: 'space-between',
+    height: '100%',
+    width: '100%',
+    paddingHorizontal: '10%',
+    paddingVertical: '10%',
     backgroundColor: PLATINUM,
   },
   content: {
@@ -16,13 +16,13 @@ const SetYourPinStyle = StyleSheet.create({
   },
 
   title: {
-    textAlign: "left",
+    textAlign: 'left',
     fontSize: 20,
     paddingVertical: 12,
   },
   mapLarge: {
-    height: "55%",
-    textAlign: "center",
+    height: '55%',
+    textAlign: 'center',
     marginBottom: 20,
   },
 
@@ -33,29 +33,29 @@ const SetYourPinStyle = StyleSheet.create({
   },
   placeDetailsSubtitle: {
     // marginVertical: 10,
-    fontFamily: "AzoSans-Bold",
+    fontFamily: 'AzoSans-Bold',
     fontSize: 18,
     color: BLACK,
     marginTop: 16,
   },
   buttonsContainer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
     // height: "15%",
   },
 
   declineBtn: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginVertical: 24,
   },
   declineText: {
     color: GREY,
     fontSize: 16,
-    fontFamily: "AzoSans-Bold",
+    fontFamily: 'AzoSans-Bold',
   },
 });
 

@@ -1,19 +1,19 @@
-import React from "react";
-import { TouchableOpacity, Text } from "react-native";
+import React from 'react';
+import {TouchableOpacity, Text} from 'react-native';
 //style
-import style from "./style";
-import { BLUE, GREY, RED, WHITE } from "../../helpers/style/constants";
+import style from './style';
+import {BLUE, GREY, RED, WHITE} from '../../helpers/style/constants';
 //components
-import { Toast } from "../../components/Toast";
+import {Toast} from '../../components/Toast';
 //libs
-import PropTypes from "prop-types";
-import { useToast } from "native-base";
+import PropTypes from 'prop-types';
+import {useToast} from 'native-base';
 //redux
-import { useSelector } from "react-redux";
+import {useSelector} from 'react-redux';
 
-const ButtonComponent = (props) => {
+const ButtonComponent = props => {
   const {
-    text = "",
+    text = '',
     onPress = () => {},
     isDisabled = false,
     color = BLUE,
@@ -22,7 +22,7 @@ const ButtonComponent = (props) => {
 
   const toast = useToast();
 
-  const { hasInternetConnection } = useSelector((state) => state.users);
+  const {hasInternetConnection} = useSelector(state => state.users);
 
   const handlePress = () => {
     if (hasInternetConnection) {
@@ -34,12 +34,10 @@ const ButtonComponent = (props) => {
 
   const handleNoInternet = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: null,
       render: () => {
-        return (
-          <ToastComponent message={t("internet_connection")} type={"danger"} />
-        );
+        return <Toast message={t('internet_connection')} type={'danger'} />;
       },
     });
   };
@@ -51,9 +49,8 @@ const ButtonComponent = (props) => {
         backgroundColor: isDisabled ? GREY : color,
       }}
       onPress={handlePress}
-      disabled={isDisabled}
-    >
-      <Text style={{ ...style.btnlabel, color: labelColor }}>{text}</Text>
+      disabled={isDisabled}>
+      <Text style={{...style.btnlabel, color: labelColor}}>{text}</Text>
     </TouchableOpacity>
   );
 };

@@ -1,5 +1,9 @@
 import { StyleSheet } from "react-native";
 import { AQUA, BLUE, GREY, ORANGE } from "../../helpers/style/constants";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 const HomeStyle = StyleSheet.create({
   placeDetailsShowMore: {
@@ -13,19 +17,20 @@ const HomeStyle = StyleSheet.create({
     color: GREY,
   },
   placeDetailsEntry: {
-    marginVertical: 15,
+    marginTop: hp(2.09),
   },
   placeDetailsEntryTitle: {
     color: GREY,
     fontFamily: "AzoSans-Medium",
-    fontSize: 14,
+    fontSize: hp(1.47),
+    marginBottom: hp(3)
   },
   placeDetailsEntryTitleStatus: {
     color: AQUA,
   },
   placeDetailsEntryContent: {
-    fontSize: 16,
-    marginVertical: 5,
+    fontSize: hp(1.97),
+    marginTop: hp(1),
     fontFamily: "AzoSans-Bold",
   },
   placeDetailsEntryBullet: {
@@ -37,15 +42,15 @@ const HomeStyle = StyleSheet.create({
   opened: {
     color: AQUA,
     fontFamily: "AzoSans-Medium",
-    fontSize: 14,
+    fontSize: hp(1.47),
   },
   closed: {
     color: ORANGE,
     fontFamily: "AzoSans-Medium",
-    fontSize: 14,
+    fontSize: hp(1.47),
   },
   detailsText: {
-    fontSize: 16,
+    fontSize: hp(1.97),
     fontFamily: "AzoSans-Bold",
   },
 });

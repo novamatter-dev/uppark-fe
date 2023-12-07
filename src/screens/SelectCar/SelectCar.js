@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   SafeAreaView,
   Platform,
-} from "react-native";
+} from 'react-native';
 //style
-import style from "./style";
-import svgs from "../../assets/svgs";
+import style from './style';
+import svgs from '../../assets/svgs';
 //components
 import {
   Header,
@@ -16,26 +16,30 @@ import {
   ButtonComponent,
   Title,
   NativeBaseBackButton,
-} from "../../components";
+} from '../../components';
 //libs
-import { SvgXml } from "react-native-svg";
-import { useNavigation } from "@react-navigation/native";
-import { t } from "i18next";
-import PropTypes from "prop-types";
+import {SvgXml} from 'react-native-svg';
+import {useNavigation} from '@react-navigation/native';
+import {t} from 'i18next';
+import PropTypes from 'prop-types';
 //redux
-import { setActiveCar } from "../../redux/features/cars/carsSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { BLACK, BLUE, WHITE } from "../../helpers/style/constants";
+import {setActiveCar} from '../../redux/features/cars/carsSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {BLACK, BLUE, WHITE} from '../../helpers/style/constants';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
-const SelectCar = (props) => {
-  const { inModal = false, closeModal = () => {} } = props;
+const SelectCar = props => {
+  const {inModal = false, closeModal = () => {}} = props;
   const navigation = useNavigation();
 
-  const { cars, activeCarId, activeCar } = useSelector((state) => state.cars);
+  const {cars, activeCarId, activeCar} = useSelector(state => state.cars);
 
   const dispatch = useDispatch();
 
-  const handleSelectCar = (data) => {
+  const handleSelectCar = data => {
     const body = {
       carId: data.carId,
       licensePlateNumber: data.licensePlateNumber,
@@ -52,26 +56,29 @@ const SelectCar = (props) => {
   const handleNav = () => {
     if (inModal) {
       closeModal();
-      navigation.navigate("AddCar");
+      navigation.navigate('AddCar');
     } else {
-      navigation.navigate("ParkFromScreen");
+      navigation.navigate('ParkFromScreen');
     }
   };
 
   return (
-    <ScreenLayout>
-      <View
-        style={{
-          paddingHorizontal: Platform.OS === "ios" ? "0%" : "0%",
-          paddingTop: Platform.OS === "ios" ? "5%" : "0%",
-        }}
-      >
+    <>
+      <View style={style.container}>
         {!inModal && (
-          <Header
-            isLoading={false}
-            title={"Select car"}
-            navScreen={"ParkingsList"}
-          />
+          <View style={style.headerWrapper}>
+            <NativeBaseBackButton
+              isLoading={false}
+              style={style.backButton}
+              handleOnPress={() => navigation.navigate('HomePage')}
+            />
+            <Text style={style.headerTitle}>{t('parking_sessions')}</Text>
+          </View>
+          // <Header
+          //   isLoading={false}
+          //   title={'Select car'}
+          //   navScreen={'ParkingsList'}
+          // />
         )}
 
         {inModal && (
@@ -79,10 +86,10 @@ const SelectCar = (props) => {
             <NativeBaseBackButton
               handleOnPress={closeModal}
               // style={ProfileStyle.exitButton}
-              style={{ backgroundColor: WHITE, alignSelf: "flex-end" }}
-              iconType={"exit"}
+              style={{backgroundColor: WHITE, alignSelf: 'flex-end'}}
+              iconType={'exit'}
             />
-            <Title label={t("select_car")} />
+            <Title label={t('select_car')} style={style.titleWrapper} />
           </>
         )}
 
@@ -94,13 +101,12 @@ const SelectCar = (props) => {
                   ...style.item,
                   borderWidth: 2,
                   borderColor:
-                    item.carId === activeCar.carId ? BLUE : "transparent",
+                    item.carId === activeCar.carId ? BLUE : 'transparent',
                 }}
                 key={`car-${index}--${item.carId}`}
-                onPress={() => handleSelectCar(item)}
-              >
+                onPress={() => handleSelectCar(item)}>
                 <View style={style.iconContainer}>
-                  <SvgXml xml={svgs.car} width={24} height={24} />
+                  <SvgXml xml={svgs.car} width={hp(2.95)} height={hp(2.95)} />
                 </View>
                 <Text style={style.itemLabel}>{item.licensePlateNumber}</Text>
               </TouchableOpacity>
@@ -108,21 +114,23 @@ const SelectCar = (props) => {
           })}
         </View>
       </View>
+
       <View
         style={{
-          display: "flex",
-          width: "100%",
-          alignItems: "center",
-          bottom: "5%",
-        }}
-      >
+          display: 'flex',
+          position: 'absolute',
+          width: '100%',
+          alignItems: 'center',
+          paddingHorizontal: wp(8.2),
+          bottom: hp(4.92),
+        }}>
         <ButtonComponent
-          text={inModal ? t("add_a_new_car") : t("confirm").toUpperCase()}
+          text={inModal ? t('add_a_new_car') : t('confirm').toUpperCase()}
           onPress={handleNav}
           isDisabled={false}
         />
       </View>
-    </ScreenLayout>
+    </>
   );
 };
 

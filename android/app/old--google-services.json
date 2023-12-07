@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "271698093388",
+    "project_id": "constantaparking-v3",
+    "storage_bucket": "constantaparking-v3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271698093388:android:ba914878d3f4dd782d1be9",
+        "android_client_info": {
+          "package_name": "com.constantaparking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271698093388-7qiqsrgsn1d0bv4kiunaon56gc0fjqip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.constantaparking",
+            "certificate_hash": "36e9a04c58faa8cc8e4b1dc897617215ff832c33"
+          }
+        },
+        {
+          "client_id": "271698093388-c3tillucqrg0ohibpn45me51ig4npb19.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.constantaparking",
+            "certificate_hash": "91a7e20514b2592992f138c2771d2569d417d666"
+          }
+        },
+        {
+          "client_id": "271698093388-r9v7b4866lrg0ogv9h69bl1opolbbldm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6Ni81nXm6erm62rPPyzGsjK-7QWitsU8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271698093388-gqcku6fhik4000n8qebaha4ips6hbujl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "271698093388-601u87bt0h2h6h45gb3rvfjnc18vthlc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cpm.constantaparking"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

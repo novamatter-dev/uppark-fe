@@ -1,20 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from 'react';
 
-import { Box, Text } from "native-base";
-import { TextInput, View } from "react-native";
-import DatePickerStyle from "./DatePicker.style";
-import { GREY } from "../../helpers/style/constants";
-import moment from "moment";
+import {Box, Text} from 'native-base';
+import {TextInput, View} from 'react-native';
+import DatePickerStyle from './DatePicker.style';
+import {GREY} from '../../helpers/style/constants';
+import moment from 'moment';
+import {useTranslation} from 'react-i18next';
 
 // formatare UTC la submit / save
 // salvare in componenta individuala
 
-const DatePicker = (props) => {
-  const { onChangeDate } = props;
+const DatePicker = props => {
+  const {onChangeDate} = props;
+
+  const {t} = useTranslation();
   const [codeDigitValues, setCodeDigitValues] = useState({
-    ref1: "",
-    ref2: "",
-    ref3: "",
+    ref1: '',
+    ref2: '',
+    ref3: '',
   });
   const [invalidDate, setIvalidDate] = useState(false);
 
@@ -37,7 +40,7 @@ const DatePicker = (props) => {
       setIvalidDate(true);
     } else {
       setIvalidDate(false);
-      setCodeDigitValues((prevValues) => {
+      setCodeDigitValues(prevValues => {
         return {
           ...prevValues,
           [input]: value > maxNumber || value < minNumber ? maxNumber : value,
@@ -48,7 +51,7 @@ const DatePicker = (props) => {
         prevFocusInput?.current.focus();
       } else if (
         value.length >= maxlength &&
-        (input === "ref2" || input === "ref1")
+        (input === 'ref2' || input === 'ref1')
       ) {
         forwardFocusInput?.current.focus();
       }
@@ -62,7 +65,7 @@ const DatePicker = (props) => {
       codeDigitValues.ref3?.length === 4
     )
       onChangeDate(
-        `${codeDigitValues.ref1}/${codeDigitValues.ref2}/${codeDigitValues.ref3}`
+        `${codeDigitValues.ref1}/${codeDigitValues.ref2}/${codeDigitValues.ref3}`,
       );
   }, [codeDigitValues]);
 
@@ -71,21 +74,21 @@ const DatePicker = (props) => {
   return (
     <View>
       {invalidDate && (
-        <Text style={DatePickerStyle.validationText}>Invalid date</Text>
+        <Text style={DatePickerStyle.validationText}>{t('invalid_date')}</Text>
       )}
 
       <Box style={DatePickerStyle.wrap}>
         <TextInput
-          placeholder={"DD"}
+          placeholder={'DD'}
           placeholderTextColor={GREY}
           maxLength={2}
           selectTextOnFocus={true}
           ref={textRefs.ref1}
           style={DatePickerStyle.text}
           keyboardType="numeric"
-          onChangeText={(value) => {
+          onChangeText={value => {
             handleOnChange({
-              input: "ref1",
+              input: 'ref1',
               value,
               ref: textRefs.ref1,
               forwardFocusInput: textRefs.ref2,
@@ -101,19 +104,19 @@ const DatePicker = (props) => {
         <Text style={DatePickerStyle.separator}>/</Text>
 
         <TextInput
-          placeholder={"MM"}
+          placeholder={'MM'}
           maxLength={2}
           placeholderTextColor={GREY}
           selectTextOnFocus={true}
           ref={textRefs.ref2}
           style={DatePickerStyle.text}
           keyboardType="numeric"
-          onChangeText={(value) => {
-            if (moment(new Date()).format("MM") > value) {
+          onChangeText={value => {
+            if (moment(new Date()).format('MM') > value) {
               setIvalidDate(true);
             } else {
               handleOnChange({
-                input: "ref2",
+                input: 'ref2',
                 value: value,
                 ref: textRefs.ref2,
                 forwardFocusInput: textRefs.ref3,
@@ -131,16 +134,16 @@ const DatePicker = (props) => {
         <Text style={DatePickerStyle.separator}>/</Text>
 
         <TextInput
-          placeholder={"YYYY"}
+          placeholder={'YYYY'}
           maxLength={4}
           placeholderTextColor={GREY}
           selectTextOnFocus={true}
           ref={textRefs.ref3}
           style={DatePickerStyle.text}
           keyboardType="numeric"
-          onChangeText={(value) => {
+          onChangeText={value => {
             handleOnChange({
-              input: "ref3",
+              input: 'ref3',
               value,
               ref: textRefs.ref3,
               forwardFocusInput: null,

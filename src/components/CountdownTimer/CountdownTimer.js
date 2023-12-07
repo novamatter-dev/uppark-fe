@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
-import useInterval from "../../hooks/useInterval.hook";
-import { useDispatch } from "react-redux";
-import { setShowCounter } from "../../redux/features/parkings/parkingsSlice";
-import PropTypes from "prop-types";
-import { useFocusEffect } from "@react-navigation/native";
+import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
+import {Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import useInterval from '../../hooks/useInterval.hook';
+import {setShowCounter} from '../../redux/features/parkings/parkingsSlice';
 
-const CountdownTimer = (props) => {
+const CountdownTimer = props => {
   const {
-    endTime = "",
+    endTime = '',
     setDisplayCounter = () => {},
     handleGetCurrentReservation = () => {},
     fontSize = 16,
     handleRemoveEntry = () => {},
-    textColor = "",
+    textColor = '',
   } = props;
   const dispatch = useDispatch();
 
-  const [inFocus, setInFocus] = useState(false);
   const [timer, setTimer] = useState({
     hours: 0,
     minutes: 0,
@@ -28,19 +26,12 @@ const CountdownTimer = (props) => {
 
   var now = new Date();
 
-  useFocusEffect(() => {
-    setInFocus(true);
-    return () => {
-      setInFocus(false);
-    };
-  });
-
   useInterval(
     () => {
       handleRemoveEntry();
       var distance = countDownEnd - now;
       const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
       );
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -62,7 +53,7 @@ const CountdownTimer = (props) => {
         handleRemoveEntry();
       }
     },
-    countDownEnd - now > 0 ? 1000 : null
+    countDownEnd - now > 0 ? 1000 : null,
   );
 
   useEffect(() => {
@@ -73,18 +64,18 @@ const CountdownTimer = (props) => {
 
   return (
     <View>
-      <Text
-        style={{
-          fontSize: fontSize,
-          color: "black",
-          fontFamily: "AzoSans-Bold",
-          marginHorizontal: 10,
-          color: textColor,
-        }}
-      >
-        {/* {timer.hours}:{timer.minutes}:{timer.seconds} */}
-        {timer.hours}:{timer.minutes}
-      </Text>
+      {timer.hours !== 0 && timer.minutes !== 0 && timer.seconds !== 0 && (
+        <Text
+          style={{
+            fontSize: fontSize,
+            color: 'black',
+            fontFamily: 'AzoSans-Bold',
+            marginHorizontal: 10,
+            color: textColor,
+          }}>
+          {timer.hours}:{timer.minutes}
+        </Text>
+      )}
     </View>
   );
 };

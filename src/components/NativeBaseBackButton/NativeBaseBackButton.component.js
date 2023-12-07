@@ -7,6 +7,11 @@ import { SvgXml } from "react-native-svg";
 import svgs from "../../assets/svgs";
 import { RED, WHITE } from "../../helpers/style/constants";
 
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
+
 const NativeBaseBackButton = (props) => {
   const {
     handleOnPress,
@@ -19,23 +24,23 @@ const NativeBaseBackButton = (props) => {
   const HandleIcon = () => {
     switch (iconType) {
       case "exit":
-        return <SvgXml xml={svgs.stop} width={22} height={22} />;
+        return <SvgXml xml={svgs.stop} width={hp(2.7)} height={hp(2.7)} />;
       case "search":
         return (
           <SvgXml
             xml={disabled ? svgs.searchDisabled : svgs.search}
-            width={24}
-            height={24}
+            width={hp(2.95)}
+            height={hp(2.95)}
           />
         );
       case "menu":
         return (
-          <SvgXml xml={svgs.burgerMenu} width={24} height={20} fill={WHITE} />
+          <SvgXml xml={svgs.burgerMenu} width={hp(2.95)} height={hp(2.46)} fill={WHITE} />
         );
       case "back":
-        return <SvgXml xml={svgs.arrowLeft} width={22} height={22} />;
+        return <SvgXml xml={svgs.arrowLeft} width={hp(2.7)} height={hp(2.7)} />;
       default:
-        return <SvgXml xml={svgs.arrowLeft} width={22} height={22} />;
+        return <SvgXml xml={svgs.arrowLeft} width={hp(2.7)} height={hp(2.7)} />;
     }
   };
 

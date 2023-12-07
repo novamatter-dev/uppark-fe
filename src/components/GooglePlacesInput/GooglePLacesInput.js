@@ -1,37 +1,35 @@
 // @ts-nocheck
-import React, { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+import React, {useRef, useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
 //style
-import SearchStyle from "./SearchStyle.style";
-import HomeStyle from "../../screens/Home/Home.style";
-import svgs from "../../assets/svgs";
+import SearchStyle from './SearchStyle.style';
+import HomeStyle from '../../screens/Home/Home.style';
+import svgs from '../../assets/svgs';
 //libraries
-import { SvgXml } from "react-native-svg";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import PropTypes from "prop-types";
-import { useToast } from "native-base";
-import { useTranslation } from "react-i18next";
+import {SvgXml} from 'react-native-svg';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import PropTypes from 'prop-types';
+import {useToast} from 'native-base';
+import {useTranslation} from 'react-i18next';
 //redux
 import {
   setSearchLocation,
-  parkingsState,
   setSensorParking,
   setUnselectParking,
   setIsLoading,
-} from "../../redux/features/parkings/parkingsSlice";
-import { useDispatch, useSelector } from "react-redux";
+  parkingsState,
+} from '../../redux/features/parkings/parkingsSlice';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   useNearestMutation,
   useGetGroupDetailsMutation,
-  useNearbyParkingsMutation,
   useGetSensorsMutation,
-} from "../../services/parkings";
-import Toast from "../Toast";
-import { GREY } from "../../helpers/style/constants";
-import { ItemClick } from "native-base/lib/typescript/components/composites/Typeahead/useTypeahead/types";
+} from '../../services/parkings';
+import Toast from '../Toast';
+import {GREY} from '../../helpers/style/constants';
 
 let arr = [];
-const GooglePlacesInput = (props) => {
+const GooglePlacesInput = props => {
   const {
     onPlaceSelected = () => {},
     closeSearch = () => {},
@@ -39,14 +37,15 @@ const GooglePlacesInput = (props) => {
     searchIsActive = true,
   } = props;
   const toast = useToast();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   const [nearestParking] = useNearestMutation();
   const [getGroupDetails] = useGetGroupDetailsMutation();
   const [getSensors] = useGetSensorsMutation();
 
-  const dispatch = useDispatch();
   const parkingsData = useSelector(parkingsState);
+
+  const dispatch = useDispatch();
 
   const [isResultsVisible, setIsResultsVisible] = useState(false);
   const [noResults, setNoResults] = useState(false);
@@ -55,15 +54,13 @@ const GooglePlacesInput = (props) => {
 
   const handleClearText = () => {
     autocompleteRef.current?.clear();
-    autocompleteRef.current?.setAddressText("");
+    autocompleteRef.current?.setAddressText('');
     setIsResultsVisible(false);
   };
 
-  const handleSearchLocationDispatch = (data) => {
-    //TODO: start loading -> end loading in
+  const handleSearchLocationDispatch = data => {
     dispatch(setIsLoading(true));
-
-    const { width, height } = Dimensions.get("window");
+    const {width, height} = Dimensions.get('window');
     const ASPECT_RATIO = width / height;
     const LATITUDE_DELTA = 0.0008;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -79,30 +76,29 @@ const GooglePlacesInput = (props) => {
     handleNearestParkings(data);
   };
 
-  //TODO:  get parking details in the nearestParking
-
-  const handleNearestParkings = async (coords) => {
+  const handleNearestParkings = async coords => {
     const body = {
       longitude: coords.geometry.location.lng,
       latitude: coords.geometry.location.lat,
     };
 
     await nearestParking(body)
-      .then((answer) => {
+      .then(answer => {
         handleNearesGroupDetails(answer);
       })
-      .catch((err) => {
-        console.log("ERR nearestParking >>> ", err);
+      .catch(err => {
+        console.log('ERR nearestParking >>> ', err);
+        dispatch(setIsLoading(false));
       });
   };
 
-  const handleNearesGroupDetails = async (parkingData) => {
-    const { width, height } = Dimensions.get("window");
+  const handleNearesGroupDetails = async parkingData => {
+    const {width, height} = Dimensions.get('window');
     const ASPECT_RATIO = width / height;
     const LATITUDE_DELTA = 0.0008;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-    const { data, error: apiError } = await getGroupDetails({
+    const {data, error: apiError} = await getGroupDetails({
       groupId: parkingData?.data?.groupId,
       parkingId: parkingData?.data?.parkingId,
     });
@@ -116,7 +112,7 @@ const GooglePlacesInput = (props) => {
       };
 
       if (data?.hasSensors) {
-        // handleGetSensors(parkingData?.data?.parkingId);
+        handleGetSensors(parkingData?.data?.parkingId);
       } else {
         const body = {
           sensors: null,
@@ -125,7 +121,6 @@ const GooglePlacesInput = (props) => {
         dispatch(setSensorParking(body));
       }
 
-      // TODO: handle logic for the nearest parking
       // dispatch(setSearchLocation(body));
 
       const coords = {
@@ -137,40 +132,34 @@ const GooglePlacesInput = (props) => {
       dispatch(setUnselectParking());
 
       toast.show({
-        placement: "top",
+        placement: 'top',
         duration: 1500,
         render: () => {
-          return (
-            <Toast
-              message={"There are no parking lots in the searched area!"}
-              type={"danger"}
-            />
-          );
+          return <Toast message={t('missing_parking_lots')} type={'danger'} />;
         },
       });
       dispatch(setIsLoading(false));
-      console.log("getGroupDetails apiError: ", apiError);
     }
   };
 
   // get parking sensors
-  // const handleGetSensors = async (id) => {
-  //   // const parkingsWithSensors = parkingsData?.nearByParkings?.filter((parking) => parking?.hasSensors).map((item) => item.parkingId);
-  //   console.log("parkingsWithSensors >>>>", parkingsData?.nearByParkings);
-  //   const body = [id];
-  //   await getSensors(body)
-  //     .then((answer) => {
-  //       console.log(
-  //         "answer senzori: ",
-  //         answer.data.length,
-  //         "    parking id : ",
-  //         id
-  //       );
+  // const handleGetSensors = async id => {
+  //   await getSensors({parkingId: id})
+  //     .then(answer => {
+  //       console.log('getSensors:', answer.data);
   //     })
-  //     .catch((err) => {
-  //       console.log("ERR getSensors >>> ", err);
+  //     .catch(err => {
+  //       console.log('ERR getSensors >>> ', err);
+  //       dispatch(setIsLoading(false));
   //     });
   // };
+
+  const handleGetSensors = async () => {
+    const body = parkingsData?.nearByParkings?.parkingGroups
+      ?.filter(item => item.hasSensors)
+      .map(item => item.parkingId);
+    await getSensors(body);
+  };
 
   const handleCloseSearch = () => {
     closeSearch();
@@ -202,62 +191,92 @@ const GooglePlacesInput = (props) => {
         predefinedPlacesDescription: SearchStyle.blackText,
       }}
       enablePoweredByContainer={false}
-      placeholder={t("search")}
+      placeholder={t('search')}
       onPress={(data, details = null) => {
         handleSearchLocationDispatch(details);
         setIsResultsVisible(false);
       }}
-      onFail={(error) => console.log("Autocomplete error: ", error)}
+      onFail={error => console.log('Autocomplete error: ', error)}
       onNotFound={() => {
         setIsResultsVisible(false);
       }}
-      listEmptyComponent={() => {
-        setNoResults(true);
-        return (
+      // listEmptyComponent={() => {
+      //   setNoResults(true);
+      //   return (
+      //     <View
+      //       style={{
+      //         ...SearchStyle.inputContainer,
+      //         borderTopLeftRadius: 0,
+      //         borderTopRightRadius: 0,
+      //       }}
+      //     >
+      //       <View
+      //         style={{
+      //           ...SearchStyle.resultItem,
+      //           borderTopLeftRadius: 25,
+      //           borderTopRightRadius: 25,
+      //         }}
+      //       >
+      //         <View
+      //           style={{
+      //             ...SearchStyle.contentBody,
+      //             alignItems: "center",
+      //             width: "100%",
+      //           }}
+      //         >
+      //           <Text
+      //             style={{
+      //               ...SearchStyle.resultText,
+      //               textAlign: "center",
+      //             }}
+      //           >
+      //             No results were found
+      //           </Text>
+      //         </View>
+      //       </View>
+      //     </View>
+      //   );
+      // }}
+      listEmptyComponent={
+        <View
+          style={{
+            ...SearchStyle.inputContainer,
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0,
+          }}>
           <View
             style={{
-              ...SearchStyle.inputContainer,
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
-            }}
-          >
+              ...SearchStyle.resultItem,
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+            }}>
             <View
               style={{
-                ...SearchStyle.resultItem,
-                borderTopLeftRadius: 25,
-                borderTopRightRadius: 25,
-              }}
-            >
-              <View
+                ...SearchStyle.contentBody,
+                alignItems: 'center',
+                width: '100%',
+              }}>
+              <Text
                 style={{
-                  ...SearchStyle.contentBody,
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                <Text
-                  style={{
-                    ...SearchStyle.resultText,
-                    textAlign: "center",
-                  }}
-                >
-                  No results were found
-                </Text>
-              </View>
+                  ...SearchStyle.resultText,
+                  textAlign: 'center',
+                }}>
+                {t('no_results_found')}
+              </Text>
             </View>
           </View>
-        );
-      }}
+        </View>
+      }
       query={{
-        key: "AIzaSyAuBxdG1seHKpaC9cl4qFXyTp3e3YjYXcQ",
-        language: "ro",
-        components: "country:ro",
+        key: 'AIzaSyAuBxdG1seHKpaC9cl4qFXyTp3e3YjYXcQ',
+        language: 'ro',
+        components: 'country:ro',
       }}
       debounce={400}
       textInputProps={{
         autoCorrect: false,
         placeholderTextColor: GREY,
-        onChange: (val) => {
+        onChange: val => {
           if (val.nativeEvent.text.length === 2) {
             setIsResultsVisible(false);
           }
@@ -279,8 +298,7 @@ const GooglePlacesInput = (props) => {
               ...SearchStyle.resultItem,
               borderTopLeftRadius: index === arr.length - 1 ? 25 : 0,
               borderTopRightRadius: index === arr.length - 1 ? 25 : 0,
-            }}
-          >
+            }}>
             <View style={SearchStyle.contentBody}>
               <Text style={SearchStyle.resultText}>{title}</Text>
               <Text style={SearchStyle.regionText}>{description}</Text>
@@ -292,15 +310,13 @@ const GooglePlacesInput = (props) => {
         return (
           <View
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <TouchableOpacity
-              style={{ ...HomeStyle.closeSearchIconStyle }}
-              onPress={handleClearText}
-            >
+              style={{...HomeStyle.closeSearchIconStyle}}
+              onPress={handleClearText}>
               <SvgXml xml={svgs.discardSearch} />
             </TouchableOpacity>
           </View>
@@ -310,15 +326,13 @@ const GooglePlacesInput = (props) => {
         return (
           <View
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <TouchableOpacity
               onPress={handleCloseSearch}
-              style={{ ...HomeStyle.closeSearchIconStyle }}
-            >
+              style={{...HomeStyle.closeSearchIconStyle}}>
               <SvgXml xml={svgs.arrowLeft} />
             </TouchableOpacity>
           </View>

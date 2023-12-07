@@ -1,24 +1,24 @@
-import React from "react";
-import { TouchableOpacity, View, Text, Image } from "react-native";
+import React from 'react';
+import {TouchableOpacity, View, Text, Image} from 'react-native';
 //style
-import { SvgXml } from "react-native-svg";
-import svgs from "../../../../assets/svgs";
-import carRowStyle from "./CarRow.style";
-import ProfileStyle from "../../Profile.style";
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../../../assets/svgs';
+import carRowStyle from './CarRow.style';
+import ProfileStyle from '../../Profile.style';
 //libraies & components
-import PropTypes from "prop-types";
-import { Box } from "native-base";
-import blueCar from "../../../../assets/icons/blueCar.png";
+import PropTypes from 'prop-types';
+import {Box} from 'native-base';
+import blueCar from '../../../../assets/icons/blueCar.png';
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
 import {
   setActiveCarId,
   setActiveCar,
   setSelectingCar,
-} from "../../../../redux/features/cars/carsSlice";
-import { BLUE } from "../../../../helpers/style/constants";
+} from '../../../../redux/features/cars/carsSlice';
+import {BLUE} from '../../../../helpers/style/constants';
 
-const CarRow = (props) => {
+const CarRow = props => {
   const {
     icon,
     handleOnPress,
@@ -30,9 +30,9 @@ const CarRow = (props) => {
   } = props;
 
   const dispatch = useDispatch();
-  const { activeCarId } = useSelector((state) => state.cars);
+  const {activeCarId} = useSelector(state => state.cars);
 
-  const handleActiveCar = (data) => {
+  const handleActiveCar = data => {
     const body = {
       carId: data.carId,
       licensePlateNumber: data.licensePlateNumber,
@@ -51,15 +51,14 @@ const CarRow = (props) => {
       style={{
         ...carRowStyle.container,
         borderWidth: 3,
-        borderColor: activeCarId === item.carId ? BLUE : "transparent",
+        borderColor: activeCarId === item.carId ? BLUE : 'transparent',
       }}
       onPress={() => {
-        dispatch(setActiveCarId({ activeCarId: item.carId }));
+        dispatch(setActiveCarId({activeCarId: item.carId}));
         handleActiveCar(item);
         dispatch(setSelectingCar(false));
         handleChangeCarModal();
-      }}
-    >
+      }}>
       <View style={carRowStyle.carDetails}>
         <SvgXml xml={svgs.car} width={24} height={18} />
         <Text style={carRowStyle.buttonText}>{item.licensePlateNumber}</Text>
@@ -67,16 +66,15 @@ const CarRow = (props) => {
 
       <TouchableOpacity
         style={{
-          position: "absolute",
+          position: 'absolute',
           right: 18,
           width: 40,
           height: 40,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        onPress={() => handleOnPress()}
-      >
+        onPress={() => handleOnPress()}>
         <SvgXml xml={svgs.edit} width={24} height={18} />
       </TouchableOpacity>
     </TouchableOpacity>

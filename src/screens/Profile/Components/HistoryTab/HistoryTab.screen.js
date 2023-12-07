@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import { View, FlatList, TouchableOpacity, Text } from "react-native";
+import React, {useEffect} from 'react';
+import {View, FlatList, TouchableOpacity, Text} from 'react-native';
 //style & assets
-import ProfileStyle from "../../Profile.style";
+import ProfileStyle from '../../Profile.style';
 //libraries
-import { useNavigation } from "@react-navigation/native";
-import { useTranslation } from "react-i18next";
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 //components
-import { HistoryCard } from "../index";
+import {HistoryCard} from '../index';
 //redux
 import {
   useGetHistoryListMutation,
   useGetHistoryDetailsMutation,
-} from "../../../../services/parkings";
-import { setParkingHistory } from "../../../../redux/features/users/userSlice";
-import { useSelector, useDispatch } from "react-redux";
+} from '../../../../services/parkings';
+import {setParkingHistory} from '../../../../redux/features/users/userSlice';
+import {useSelector, useDispatch} from 'react-redux';
 
 const HistoryTab = () => {
   // const dispatch = useDispatch();
@@ -21,38 +21,44 @@ const HistoryTab = () => {
   const dispatch = useDispatch();
   const [getHistoryList] = useGetHistoryListMutation();
   const [getHistoryDetails] = useGetHistoryDetailsMutation();
-  const { parkingsState } = useSelector((state) => state.parkings);
-  const { t } = useTranslation();
+  const {parkingsState} = useSelector(state => state.parkings);
+  const {t} = useTranslation();
 
   const handleGetHistoryList = async () => {
     try {
       await getHistoryList()
         .unwrap()
-        .then((answer) => {})
-        .catch((err) => {
-          console.log("ERR CATCH PROMISE: ", err);
+        .then(answer => {})
+        .catch(err => {
+          console.log('ERR CATCH PROMISE: ', err);
         });
     } catch (err) {
-      console.log("ERR HISTORY CATCH:", err);
+      console.log('ERR HISTORY CATCH:', err);
     }
   };
 
-  const handleNav = (item) => {
+  const handleNav = async item => {
+    // console.log('item >>> ', item);
     dispatch(setParkingHistory(item));
-    getHistoryDetails({ parkingReservationId: item.parkingReservationId });
-    navigation.navigate("ReservartionDetailsScreen");
+    await getHistoryDetails({parkingReservationId: item.parkingReservationId})
+      .then(answer => {
+        // console.log('answer >>>', answer);
+      })
+      .catch(err => {
+        console.log('err >>> ', err);
+      });
+    navigation.navigate('ReservartionDetailsScreen');
   };
 
   useEffect(() => {
     handleGetHistoryList();
   }, []);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         onPress={() => handleNav(item)}
-        style={ProfileStyle.historyItem}
-      >
+        style={ProfileStyle.historyItem}>
         <HistoryCard
           item={item}
           key={`history-card-${String(item.parkingReservationId)}`}
@@ -67,8 +73,8 @@ const HistoryTab = () => {
         <FlatList
           contentContainerStyle={{
             // flexGrow: 1,
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
           }}
           // inverted={true}
           style={ProfileStyle.flatList}
@@ -79,9 +85,8 @@ const HistoryTab = () => {
       )}
       {parkingsState?.history?.parkingPlaces.length === 0 && (
         <Text
-          style={{ fontSize: 14, fontFamily: "AzoSans-Bold", color: "black" }}
-        >
-          {t("no_history_data")}
+          style={{fontSize: 14, fontFamily: 'AzoSans-Bold', color: 'black'}}>
+          {t('no_history_data')}
         </Text>
       )}
     </View>

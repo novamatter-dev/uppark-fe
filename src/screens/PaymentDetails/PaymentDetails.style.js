@@ -1,29 +1,28 @@
-import { Platform, StyleSheet } from "react-native";
+import {Platform, StyleSheet} from 'react-native';
 import {
   BLACK,
   PLATINUM,
   WHITE,
   GREY,
   BLUE,
-} from "../../helpers/style/constants";
+} from '../../helpers/style/constants';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 const PaymentDetailsStyle = StyleSheet.create({
   container: {
-    // padding: 30,
     flex: 1,
     backgroundColor: PLATINUM,
-    flexDirection: "column",
-    justifyContent: "space-between",
-    paddingVertical: Platform.OS === "ios" ? "10%" : "5%",
-    paddingTop: "12%",
-    paddingHorizontal: "10%",
+    flexDirection: 'column',
+    // justifyContent: "space-between",
+    paddingHorizontal: wp(8.2),
+    paddingTop: hp(4.92),
   },
 
   title: {
-    fontSize: 26,
-    marginTop: 24,
-    fontWeight: "bold",
-    fontFamily: "AzoSans-Medium",
+    marginTop: hp(2.95),
   },
 
   backButton: {
@@ -38,100 +37,100 @@ const PaymentDetailsStyle = StyleSheet.create({
   paymentOptionsButton: {
     backgroundColor: WHITE,
     height: 64,
-    borderRadius: 24,
+    borderRadius: hp(2.95),
   },
 
   icon: {
-    height: 24,
-    width: 24,
+    height: hp(2.5),
+    width: hp(2.5),
+    marginRight: 10,
   },
 
   cardText: {
-    fontSize: 16,
+    fontSize: hp(1.97),
     color: BLACK,
     width: 220,
-    textAlign: "left",
+    textAlign: 'left',
   },
 
   grayText: {
-    fontFamily: "AzoSans-Bold",
-    fontSize: 12,
+    fontFamily: 'AzoSans-Bold',
+    fontSize: hp(1.47),
     color: GREY,
     letterSpacing: 0.24,
     marginBottom: 6,
   },
 
   optionsContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
 
   paymentOptionsContainer: {
-    marginTop: "auto",
-    width: "48%",
+    marginTop: 'auto',
+    width: wp(39.74),
   },
 
   mediumBoldText: {
-    fontFamily: "AzoSans-Bold",
-    fontSize: 18,
+    fontFamily: 'AzoSans-Bold',
+    fontSize: hp(2.21),
     color: BLACK,
     letterSpacing: 0.24,
   },
 
   bigBoldText: {
-    textAlign: "right",
-    fontFamily: "AzoSans-Bold",
-    fontSize: 26,
+    textAlign: 'right',
+    fontFamily: 'AzoSans-Bold',
+    fontSize: hp(3.2),
     color: BLACK,
     letterSpacing: 1,
     // width: 100,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     zIndex: 1,
   },
 
   bottomTextContainer: {
-    display: "flex",
+    display: 'flex',
 
-    marginVertical: "8%",
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    marginVertical: '8%',
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   btnContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: WHITE,
     paddingHorizontal: 15,
     paddingVertical: 15,
-    borderRadius: 20,
-    // width: 155,
-    width: "100%",
-    height: 60,
+    borderRadius: hp(2.95),
+    width: '100%',
+    height: hp(7.88),
   },
 
   contentText: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "bold",
+    color: 'black',
+    fontSize: hp(1.97),
+    fontWeight: 'bold',
   },
   ctaText: {
     color: BLUE,
-    fontSize: 16,
+    fontSize: hp(1.97),
   },
 
   // card missing modal
   missingCardContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    height: "100%",
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
     backgroundColor: BLUE,
     padding: 20,
     borderTopEndRadius: 25,
@@ -139,31 +138,49 @@ const PaymentDetailsStyle = StyleSheet.create({
   },
   missingCardTitle: {
     color: WHITE,
-    fontSize: 26,
-    fontFamily: "AzoSans-Bold",
-    width: "100%",
-    textAlign: "center",
+    fontSize: hp(3.2),
+    fontFamily: 'AzoSans-Bold',
+    width: '100%',
+    textAlign: 'center',
   },
   missingCardBtn: {
-    width: "90%",
+    width: '90%',
     paddingVertical: 12,
     backgroundColor: WHITE,
     borderRadius: 20,
   },
   missingBtnLabel: {
     color: BLUE,
-    fontSize: 26,
-    fontFamily: "AzoSans-Bold",
-    width: "100%",
-    textAlign: "center",
+    fontSize: hp(3.2),
+    fontFamily: 'AzoSans-Bold',
+    width: '100%',
+    textAlign: 'center',
   },
   disclaimerTxt: {
-    fontSize: 12,
+    fontSize: hp(1.47),
     color: GREY,
-    width: "100%",
-    fontFamily: "AzoSans-Medium",
-    textAlign: "center",
-    marginTop: 8,
+    width: '100%',
+    fontFamily: 'AzoSans-Medium',
+    textAlign: 'center',
+    // marginTop: 8,
+  },
+  disclaimerTxt: {
+    fontSize: hp(1.47),
+    color: GREY,
+    width: '100%',
+    fontFamily: 'AzoSans-Medium',
+    height: hp(4.92),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    width: '100%',
+    // backgroundColor: "red",
+    paddingTop: 10,
+  },
+  buttonContainer: {
+    marginTop: 'auto',
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef} from 'react';
 import {
   ImageBackground,
   Platform,
@@ -6,8 +6,8 @@ import {
   View,
   Keyboard,
   ActivityIndicator,
-} from "react-native";
-import { Box } from "native-base";
+} from 'react-native';
+import {Box} from 'native-base';
 import {
   ButtonComponent,
   KeyboardView,
@@ -15,45 +15,45 @@ import {
   NativeBaseButton,
   Title,
   NativeBaseBackButton,
-} from "../../components";
-import { SmsConfirmCodeInputs } from "./Components";
-import codeSmsStyle from "./SmsConfirmCode.style";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { setPhoneNumber, setToken } from "../../redux/features/auth/authSlice";
+} from '../../components';
+import {SmsConfirmCodeInputs} from './Components';
+import codeSmsStyle from './SmsConfirmCode.style';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {setPhoneNumber, setToken} from '../../redux/features/auth/authSlice';
 import {
   usePostCreatePhoneNumberMutation,
   usePutConfirmPhoneNumberMutation,
-} from "../../services/auth";
-import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import DeviceInfo from "react-native-device-info";
-import Toast from "react-native-toast-notifications";
-import { BLUE, WHITE } from "../../helpers/style/constants";
-import { t } from "i18next";
-import OTPScreen from "./Components/SmsConfirmCodeInputs/OTPScreen";
+} from '../../services/auth';
+import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import DeviceInfo from 'react-native-device-info';
+import Toast from 'react-native-toast-notifications';
+import {BLUE, WHITE} from '../../helpers/style/constants';
+import {t} from 'i18next';
+import OTPScreen from './Components/SmsConfirmCodeInputs/OTPScreen';
 //helpers
-import { useFcmTokenUpdater } from "../../helpers/useFcmTokenUpdater";
+import {useFcmTokenUpdater} from '../../helpers/useFcmTokenUpdater';
 
 const Home = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { phoneNumber, error } = useSelector((state) => state.auth);
+  const {phoneNumber, error} = useSelector(state => state.auth);
   const [putConfirmPhoneNumber] = usePutConfirmPhoneNumberMutation();
-  const [postCreatePhoneNumber, { isLoading: isLoadingResend }] =
+  const [postCreatePhoneNumber, {isLoading: isLoadingResend}] =
     usePostCreatePhoneNumberMutation();
-  const { updateFcmToken } = useFcmTokenUpdater();
+  const {updateFcmToken} = useFcmTokenUpdater();
 
   const toastRef = useRef();
 
   const [disableScreen, setDisableScreen] = useState(false);
   const [codeDigitValues, setCodeDigitValues] = useState({
-    ref1: "",
-    ref2: "",
-    ref3: "",
-    ref4: "",
+    ref1: '',
+    ref2: '',
+    ref3: '',
+    ref4: '',
   });
-  const [otp, setOTP] = useState(["", "", "", ""]);
+  const [otp, setOTP] = useState(['', '', '', '']);
   const [btnIsDisabled, setBtnIsDisabled] = useState(true);
   const [resend, setResend] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(true);
@@ -66,11 +66,11 @@ const Home = () => {
         phoneNumber: phoneNumber,
       })
         .unwrap()
-        .then((answer) => {
+        .then(answer => {
           return answer;
         })
-        .catch((err) => {
-          console.log("ERR >>>", err);
+        .catch(err => {
+          console.log('ERR >>>', err);
         });
     } catch (err) {
       console.log(err);
@@ -80,7 +80,7 @@ const Home = () => {
   const handleOnSubmit = async () => {
     setIsLoading(true);
     setResend(false);
-    let fcmtoken = await AsyncStorage.getItem("fcmtoken");
+    let fcmtoken = await AsyncStorage.getItem('fcmtoken');
     const deviceId = await DeviceInfo.getUniqueId();
     const model = await DeviceInfo.getModel();
     const brand = await DeviceInfo.getBrand();
@@ -100,17 +100,17 @@ const Home = () => {
         },
       })
         .unwrap()
-        .then((answer) => {
+        .then(answer => {
           if (!error.message) {
             if (answer.isSucceeded) {
               setIsModalVisible(false);
-              dispatch(setToken({ jwt: answer.jwt }));
+              dispatch(setToken({jwt: answer.jwt}));
               setDisableScreen(true);
               setIsLoading(false);
               // setTimeout(() => {
               // setDisableScreen(false);
               updateFcmToken();
-              navigation.navigate("HomeDrawer");
+              navigation.navigate('HomeDrawer');
               // }, 3000);
             } else {
               if (
@@ -131,7 +131,7 @@ const Home = () => {
           }
           return answer;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           setIsLoading(false);
         });
@@ -159,46 +159,43 @@ const Home = () => {
     <>
       <Box style={codeSmsStyle.imgContainer}>
         <ImageBackground
-          source={require("../../assets/images/splash.png")}
+          source={require('../../assets/images/splash.png')}
           resizeMode="cover"
-          style={codeSmsStyle.image}
-        >
+          style={codeSmsStyle.image}>
           <Modal modalVisible={isModalVisible} style={codeSmsStyle.modalBg}>
             {disableScreen ? (
               <>
-                <Text>{t("loading")}...</Text>
+                <Text>{t('loading')}...</Text>
               </>
             ) : (
               <>
                 <View
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "100%",
-                  }}
-                >
-                  <View style={{ position: "absolute", left: 0 }}>
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                  }}>
+                  <View style={{position: 'absolute', left: 0}}>
                     <NativeBaseBackButton
                       // style={PaymentDetailsStyle.backButton}
                       handleOnPress={() => navigation.goBack()}
-                      style={{ backgroundColor: WHITE }}
+                      style={{backgroundColor: WHITE}}
                     />
                   </View>
-                  <Title label={t("enter_code")} />
+                  <Title label={t('enter_code')} />
                 </View>
                 {/* <KeyboardView> */}
                 <View
                   style={{
-                    display: "flex",
-                    width: "100%",
-                    height: "80%",
-                    paddingTop: "16%",
-                    paddingHorizontal: "10%",
+                    display: 'flex',
+                    width: '100%',
+                    height: '80%',
+                    paddingTop: '16%',
+                    paddingHorizontal: '10%',
                   }}
-                  onStartShouldSetResponder={dismissKeyboard}
-                >
+                  onStartShouldSetResponder={dismissKeyboard}>
                   {/* <SmsConfirmCodeInputs
                     totalDigits={4}
                     setCodeDigitValues={setCodeDigitValues}
@@ -216,16 +213,15 @@ const Home = () => {
                 {/* </KeyboardView> */}
                 <View
                   style={{
-                    width: "100%",
-                    position: "absolute",
-                    bottom: "10%",
-                  }}
-                >
+                    width: '100%',
+                    position: 'absolute',
+                    bottom: '10%',
+                  }}>
                   <ButtonComponent
-                    text={t("confirm").toUpperCase()}
+                    text={t('confirm').toUpperCase()}
                     onPress={handleOnSubmit}
                     // isDisabled={btnIsDisabled || isLoading || isLoadingResend}
-                    isDisabled={!otp.every((str) => str !== "")}
+                    isDisabled={!otp.every(str => str !== '')}
                   />
                 </View>
               </>
@@ -243,15 +239,14 @@ const Home = () => {
       {isLoading && (
         <View
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            backgroundColor: "rgba(0,0,0,0.3)",
-          }}
-        >
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            backgroundColor: 'rgba(0,0,0,0.3)',
+          }}>
           <ActivityIndicator size="large" color={BLUE} />
         </View>
       )}

@@ -1,29 +1,29 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import PropTypes from "prop-types";
+import React from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
 //style & assets
-import SummaryInfoStyle from "./SummaryInfo.style";
-import svgs from "../../../../assets/svgs";
+import SummaryInfoStyle from './SummaryInfo.style';
+import svgs from '../../../../assets/svgs';
 //libraries
-import { SvgXml } from "react-native-svg";
+import {SvgXml} from 'react-native-svg';
 //redux
-import { useSelector } from "react-redux";
-import { parkingsState } from "../../../../redux/features/parkings/parkingsSlice";
-import { t } from "i18next";
+import {useSelector} from 'react-redux';
+import {parkingsState} from '../../../../redux/features/parkings/parkingsSlice';
+import {t} from 'i18next';
 
-const SummaryInfo = (props) => {
+const SummaryInfo = props => {
   const {
-    startTime = "",
-    endTime = "",
-    startDate = "",
-    endDate = " ",
-    plateNr = " ",
-    address = " ",
+    startTime = '',
+    endTime = '',
+    startDate = '',
+    endDate = ' ',
+    plateNr = ' ',
+    address = ' ',
     handleAddCar = () => {},
     isExtend = () => {},
   } = props;
 
-  const { activeCar } = useSelector((state) => state.cars);
+  const {activeCar} = useSelector(state => state.cars);
   const parkingsData = useSelector(parkingsState);
 
   return (
@@ -31,7 +31,7 @@ const SummaryInfo = (props) => {
       <View style={SummaryInfoStyle.timeContainer}>
         <View style={SummaryInfoStyle.startTimeContainer}>
           <View style={SummaryInfoStyle.item}>
-            <Text style={SummaryInfoStyle.greyText}>{t("start_time")}</Text>
+            <Text style={SummaryInfoStyle.greyText}>{t('start_time')}</Text>
             <Text style={SummaryInfoStyle.bigBoldText}>{startTime}</Text>
             <Text style={SummaryInfoStyle.smallBoldText}>{startDate}</Text>
           </View>
@@ -41,7 +41,7 @@ const SummaryInfo = (props) => {
         </View>
 
         <View style={SummaryInfoStyle.item}>
-          <Text style={SummaryInfoStyle.greyText}>{t("end_time")}</Text>
+          <Text style={SummaryInfoStyle.greyText}>{t('end_time')}</Text>
           <Text style={SummaryInfoStyle.bigBoldText}>{endTime}</Text>
           <Text style={SummaryInfoStyle.smallBoldText}>{endDate}</Text>
         </View>
@@ -49,15 +49,14 @@ const SummaryInfo = (props) => {
 
       <View style={SummaryInfoStyle.infoBox}>
         <View style={SummaryInfoStyle.infoItem}>
-          <Text style={SummaryInfoStyle.greyText}>{t("vehicle")}</Text>
+          <Text style={SummaryInfoStyle.greyText}>{t('vehicle')}</Text>
           <TouchableOpacity onPress={handleAddCar}>
             <Text
               style={{
                 // ...SummaryInfoStyle.mediumBoldText,
                 ...SummaryInfoStyle.licensePlateText,
-              }}
-            >
-              {activeCar?.licensePlateNumber || t("select_car")}
+              }}>
+              {activeCar?.licensePlateNumber || t('select_car')}
               {/* {isExtend()
                 ? parkingsData.reservationDetails.car
                 : activeCar?.licensePlateNumber || "Select a car"} */}
@@ -65,7 +64,7 @@ const SummaryInfo = (props) => {
           </TouchableOpacity>
         </View>
         <View style={SummaryInfoStyle.infoItem}>
-          <Text style={SummaryInfoStyle.greyText}>{t("address")}</Text>
+          <Text style={SummaryInfoStyle.greyText}>{t('address')}</Text>
           <Text style={SummaryInfoStyle.mediumBoldText}>{address}</Text>
         </View>
       </View>

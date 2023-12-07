@@ -1,25 +1,27 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 //style
-import style from "./styleHelp";
+import style from './styleHelp';
 //libs
-import PropTypes from "prop-types";
-import { ScrollView } from "native-base";
+import PropTypes from 'prop-types';
+import { ScrollView } from 'native-base';
 //components
-import { NativeBaseBackButton } from "../../components";
+import { NativeBaseBackButton } from '../../components';
 
-const TextModal = (props) => {
-  const { setIsVisible = () => {}, text = "" } = props;
+const TextModal = props => {
+  const { setIsVisible = () => { }, text = '' } = props;
   return (
-    <ScrollView>
-      <View style={style.textComponentWrapper}>
-        <NativeBaseBackButton
-          handleOnPress={() => setIsVisible(false)}
-          style={style.backBtn}
-        />
+
+    <View style={style.textComponentWrapper}>
+      <NativeBaseBackButton
+        handleOnPress={() => setIsVisible(false)}
+        style={style.backBtn}
+      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+
         <Text style={style.textComponentContent}>{text}</Text>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

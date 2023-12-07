@@ -56,7 +56,7 @@ const AddPersonal = (props) => {
 
   const handleGetPersonalDetails = async () => {
     await getPersonalProfile()
-      .then((answer) => {})
+      .then((answer) => { })
       .catch((err) => {
         console.log("ERR getPersonalProfile >>> ", err);
       });
@@ -165,71 +165,76 @@ const AddPersonal = (props) => {
   };
 
   return (
-    <SafeAreaView style={AddPersonalStyle.safeAreaContainer}>
-      <ScrollView style={AddPersonalStyle.container}>
-        {/* <KeyboardView boxStyle={AddPersonalStyle.container}> */}
-        <NativeBaseBackButton
-          style={AddPersonalStyle.closeButton}
-          handleOnPress={onClosePress}
-          iconType={"exit"}
-        />
-        <Box style={AddPersonalStyle.inputContainer}>
-          <Title label={t("personal_profile")} style={AddPersonalStyle.title} />
-          <KeyboardAwareScrollView>
-            {Object.keys(personalState).map((item, index) => {
-              if (item === "cardNumber") {
-                return (
-                  <TouchableOpacity
-                    onPress={() => handleChooseDefaultPayment(true)}
-                    style={AddPersonalStyle.detailsBtn}
-                    key={`key--${item}`}
-                  >
-                    <SvgXml xml={svgs.copy} width={22} height={24} />
-                    <Text style={AddPersonalStyle.btnLabel}>
-                      {personalState.cardNumber.value
-                        ? personalState.cardNumber.value
-                        : t("default_payment")}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              } else {
-                return (
-                  <BaseInput
-                    onPress={
-                      item === "cardNumber"
-                        ? handleChooseDefaultPayment()
-                        : null
-                    }
-                    isDisabled={personalState[item].isDisabled}
-                    style={AddPersonalStyle.baseInput}
-                    icon={
-                      <SvgXml
-                        xml={personalState[item].svg}
-                        width={22}
-                        height={22}
-                      />
-                    }
-                    name={item}
-                    // placeHolder={personalState[item].label}
-                    placeHolder={t(personalState[item].placeholder)}
-                    onChangeText={(value) =>
-                      handleChangeFormState({
-                        type: item,
-                        value,
-                        label: personalState[item].label,
-                      })
-                    }
-                    value={personalState[item].value}
-                    key={`personal-inputs-${String(index)}`}
-                    capitalize={"sentences"}
-                  />
-                );
-              }
-            })}
-          </KeyboardAwareScrollView>
-        </Box>
-        {/* </KeyboardView> */}
+    <View style={AddPersonalStyle.safeAreaContainer}>
+      {/* <ScrollView style={AddPersonalStyle.container}> */}
+      {/* <KeyboardView boxStyle={AddPersonalStyle.container}> */}
+      <NativeBaseBackButton
+        isLoading={false}
+        style={{backgroundColor: "#F5F5F5"}}
+        handleOnPress={onClosePress}
+        isDisabled={false}
+      />
+              <Title label={t("personal_profile")} style={AddPersonalStyle.title} />
+
+      {/* <Box style={AddPersonalStyle.inputContainer}>
+      
+      </Box> */}
+      <ScrollView showsVerticalScrollIndicator={false} style={AddPersonalStyle.container}>
+        <KeyboardAwareScrollView>
+          {Object.keys(personalState).map((item, index) => {
+            if (item === "cardNumber") {
+              return (
+                <TouchableOpacity
+                  onPress={() => handleChooseDefaultPayment(true)}
+                  style={AddPersonalStyle.detailsBtn}
+                  key={`key--${item}`}
+                >
+                  <SvgXml xml={svgs.copy} width={22} height={24} />
+                  <Text style={AddPersonalStyle.btnLabel}>
+                    {personalState.cardNumber.value
+                      ? `**** ${personalState.cardNumber.value.slice(-4)}`
+                      : t("default_payment")}
+                  </Text>
+                </TouchableOpacity>
+              );
+            } else {
+              return (
+                <BaseInput
+                  onPress={
+                    item === "cardNumber"
+                      ? handleChooseDefaultPayment()
+                      : null
+                  }
+                  isDisabled={personalState[item].isDisabled}
+                  style={AddPersonalStyle.baseInput}
+                  icon={
+                    <SvgXml
+                      xml={personalState[item].svg}
+                      width={22}
+                      height={22}
+                    />
+                  }
+                  name={item}
+                  // placeHolder={personalState[item].label}
+                  placeHolder={t(personalState[item].placeholder)}
+                  onChangeText={(value) =>
+                    handleChangeFormState({
+                      type: item,
+                      value,
+                      label: personalState[item].label,
+                    })
+                  }
+                  value={personalState[item].value}
+                  key={`personal-inputs-${String(index)}`}
+                  capitalize={"sentences"}
+                />
+              );
+            }
+          })}
+        </KeyboardAwareScrollView>
       </ScrollView>
+      {/* </KeyboardView> */}
+
       <View style={AddPersonalStyle.floatingContainer}>
         <ButtonComponent
           text={t("confirm").toUpperCase()}
@@ -260,7 +265,7 @@ const AddPersonal = (props) => {
           elevation: 3,
         }}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -1,5 +1,5 @@
-export const en = `1. What is Uppark ?
-- UPPARK is a mobile application for parking fee payment
+export const en = `1. What is ConstantaParking ?
+- ConstantaParking is a mobile application for parking fee payment
 
 2. How do I pay the parking fee?
 -you can pay the parking fee via the bank card registered in the application, as well as via an
@@ -18,18 +18,18 @@ of parking (at the beginning of the parking session)
 - For all parking lots with a barrier, the parking fee is paid when we want to leave the parking
 lot
 
-4. How do I extend the parking session if I used UPPARK?
+4. How do I extend the parking session if I used ConstantaParking?
 Once the duration of the paid parking fee has expired, you will receive a notification and you will
 have the possibility to extend this duration. Parking can be extended manually by the user by paying
 the appropriate fee
 
 IMPORTANT
-- If the option to receive UPPARK notifications is unchecked, either from the app or from the
+- If the option to receive ConstantaParking notifications is unchecked, either from the app or from the
 general phone settings, the user will not be notified when a product reservation in the app is about
-to expire. We recommend that you keep all notifications for UPPARK turned on.
+to expire. We recommend that you keep all notifications for ConstantaParking turned on.
 - To turn on system notifications, for iOS, you need to go to the Settings - Notifications menu,
-then select the UPPARK app and check Allow Notifications.
-- For Android, go to Settings - Notifications menu then select the UPPARK app and check Show
+then select the ConstantaParking app and check Allow Notifications.
+- For Android, go to Settings - Notifications menu then select the ConstantaParking app and check Show
 Notifications.
 -
 

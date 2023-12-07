@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import { Box, View, useToast } from "native-base";
-import { TouchableOpacity, Text, KeyboardAvoidingView } from "react-native";
+import React, {useState} from 'react';
+import {Box, View, useToast} from 'native-base';
+import {TouchableOpacity, Text, KeyboardAvoidingView} from 'react-native';
 import {
   ButtonComponent,
   // DatePicker,
   NativeBaseBackButton,
   Title,
-} from "../index";
-import DatePicker from "react-native-date-picker";
-import AddLicenseStyle from "./AddLicense.style";
-import PropTypes from "prop-types";
-import AddBusinessStyle from "../AddBusiness/AddBusiness.style";
-import { AQUA, BLACK, GREY, RED, WHITE } from "../../helpers/style/constants";
-import moment from "moment";
-import svgs from "../../assets/svgs";
-import { SvgXml } from "react-native-svg";
+} from '../index';
+import DatePicker from 'react-native-date-picker';
+import AddLicenseStyle from './AddLicense.style';
+import PropTypes from 'prop-types';
+import AddBusinessStyle from '../AddBusiness/AddBusiness.style';
+import {AQUA, BLACK, GREY, RED, WHITE} from '../../helpers/style/constants';
+import moment from 'moment';
+import svgs from '../../assets/svgs';
+import {SvgXml} from 'react-native-svg';
 //redux
-import { useUpdateDrivingLincenseMutation } from "../../services/users";
-import { useDispatch, useSelector } from "react-redux";
-import { t } from "i18next";
+import {useUpdateDrivingLincenseMutation} from '../../services/users';
+import {useDispatch, useSelector} from 'react-redux';
+import {t} from 'i18next';
 
-const AddLicense = (props) => {
+const AddLicense = props => {
   const {
     // handleChangeLicenseDate,
     onClosePress,
@@ -32,11 +32,11 @@ const AddLicense = (props) => {
 
   const dispatch = useDispatch();
 
-  const { expirationDateDrivingLicense } = useSelector((state) => state.users);
+  const {expirationDateDrivingLicense} = useSelector(state => state.users);
 
   const [updateDrivingLicense] = useUpdateDrivingLincenseMutation();
 
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState('');
   const [isInvalidDate, setIsinvalidDate] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -47,11 +47,11 @@ const AddLicense = (props) => {
     setOpenModal(!openModal);
   };
 
-  const handleChangeLicenseDate = async (value) => {
-    const formated = moment(value).format("DD/MM/YYYY");
-    const val = formated.split("/");
+  const handleChangeLicenseDate = async value => {
+    const formated = moment(value).format('DD/MM/YYYY');
+    const val = formated.split('/');
     // const arr = val.reverse();
-    const inputDate = val.join(".");
+    const inputDate = val.join('.');
 
     // const newDate = new Date(date);
 
@@ -61,11 +61,11 @@ const AddLicense = (props) => {
   // console.log("date >>> ", date);
 
   const handleConfirm = async () => {
-    const inputDate = moment(date, "DD.MM.YYYY");
+    const inputDate = moment(date, 'DD.MM.YYYY');
     const formatedDate = moment(inputDate).format();
 
     const currentDate = moment(new Date()).format();
-    if (formatedDate > currentDate && date !== "") {
+    if (formatedDate > currentDate && date !== '') {
       const body = {
         drivingLicenseDate: date,
       };
@@ -75,8 +75,8 @@ const AddLicense = (props) => {
           handleSuccessToast();
           onConfirmPress();
         })
-        .catch((err) => {
-          console.log("update license plate err: ", err);
+        .catch(err => {
+          console.log('update license plate err: ', err);
         });
     } else {
       setIsinvalidDate(true);
@@ -86,7 +86,7 @@ const AddLicense = (props) => {
   const handleUpdateDate = () => {};
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
@@ -96,21 +96,19 @@ const AddLicense = (props) => {
               padding: 16,
               borderRadius: 15,
               shadowColor: AQUA,
-              shadowOffset: { width: -2, height: 4 },
+              shadowOffset: {width: -2, height: 4},
               shadowOpacity: 0.9,
               shadowRadius: 4,
               elevation: 25,
               shadowColor: AQUA,
-            }}
-          >
+            }}>
             <Text
               style={{
-                color: "#F5F5F5",
+                color: '#F5F5F5',
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
-              }}
-            >
-              {t("driving_lincense_taost")}!
+                fontFamily: 'AzoSans-Medium',
+              }}>
+              {t('driving_lincense_taost')}!
             </Text>
           </View>
         );
@@ -119,27 +117,24 @@ const AddLicense = (props) => {
   };
 
   console.log(
-    "expirationDateDrivingLicense >> ",
-    expirationDateDrivingLicense?.split(".").join("/")
+    'expirationDateDrivingLicense >> ',
+    expirationDateDrivingLicense?.split('.').join('/'),
   );
 
   return (
     <Box style={AddLicenseStyle.container}>
       <View>
-        <TouchableOpacity
-          style={AddLicenseStyle.closeButton}
-          onPress={onClosePress}
-        >
+     
           <NativeBaseBackButton
             style={AddBusinessStyle.closeButton}
             handleOnPress={onClosePress}
-            iconType={"exit"}
+            iconType={'exit'}
           />
-        </TouchableOpacity>
+      
         <Box style={AddLicenseStyle.inputContainer}>
           <Box style={AddLicenseStyle.title}>
             <Title
-              label={t("add_license_exp_title")}
+              label={t('add_license_exp_title')}
               style={AddLicenseStyle.title}
             />
           </Box>
@@ -148,57 +143,34 @@ const AddLicense = (props) => {
             <Text
               style={{
                 color: RED,
-                fontFamily: "AzoSans-Medium",
+                fontFamily: 'AzoSans-Medium',
                 fontSize: 14,
-              }}
-            >
-              Please enter a valid date
+                marginBottom: 10
+              }}>
+              {t('add_valid_date')}
             </Text>
           )}
           <TouchableOpacity
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: WHITE,
-              borderRadius: 25,
-              paddingVertical: 16,
-              paddingHorizontal: 20,
-              width: "100%",
-              marginTop: 16,
-            }}
-            onPress={() => setOpen(true)}
-          >
+            style={AddLicenseStyle.dateInput}
+            onPress={() => setOpen(true)}>
             <SvgXml
               xml={svgs.drivingLicense}
               width={22}
               height={24}
               fill={AQUA}
-              style={{ marginRight: 20, width: "10%" }}
+              style={{marginRight: 20, width: '10%'}}
             />
-            {date === "" ? (
+            {date === '' ? (
               <Text
-                style={{
-                  color: GREY,
-                  fontSize: 16,
-                  fontFamily: "AzoSans-Bold",
-                  width: "90%",
-                }}
-              >
+                style={AddLicenseStyle.dateInputText}>
                 {expirationDateDrivingLicense
-                  ? expirationDateDrivingLicense?.split(".").join("/")
-                  : "DD/MM/YYYY"}
+                  ? expirationDateDrivingLicense?.split('.').join('/')
+                  : 'DD/MM/YYYY'}
               </Text>
             ) : (
               <Text
-                style={{
-                  color: BLACK,
-                  fontSize: 16,
-                  fontFamily: "AzoSans-Bold",
-                  width: "90%",
-                }}
-              >
-                {date}
+                style={AddLicenseStyle.dateInputText}>
+                {date.split('.').join('/')}
               </Text>
             )}
           </TouchableOpacity>
@@ -207,7 +179,7 @@ const AddLicense = (props) => {
             mode="date"
             open={open}
             date={new Date()}
-            onConfirm={(date) => {
+            onConfirm={date => {
               handleChangeLicenseDate(date);
               setOpen(false);
             }}
@@ -219,16 +191,15 @@ const AddLicense = (props) => {
 
       <View
         style={{
-          display: "flex",
-          width: "100%",
-          position: "absolute",
-          bottom: "5%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+          display: 'flex',
+          width: '100%',
+          position: 'absolute',
+          bottom: '5%',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
         <ButtonComponent
-          text={t("confirm").toUpperCase()}
+          text={t('confirm').toUpperCase()}
           isDisabled={isDisabled}
           onPress={() => {
             handleConfirm();

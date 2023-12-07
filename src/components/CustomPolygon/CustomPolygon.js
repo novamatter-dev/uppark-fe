@@ -1,14 +1,14 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
-import { Text, View, Platform, Modal } from "react-native";
-import { Polygon, Callout } from "react-native-maps";
-import { CustomMarker } from "../../components";
-import PropTypes from "prop-types";
+import React, {useState, useEffect} from 'react';
+import {Text, View, Platform, Modal} from 'react-native';
+import {Polygon, Callout} from 'react-native-maps';
+import {CustomMarker} from '../../components';
+import PropTypes from 'prop-types';
 //redux
 import {
   useGetParkingDetailsMutation,
   useGetParkingProductsMutation,
-} from "../../services/parkings";
+} from '../../services/parkings';
 import {
   setParkingDetails,
   setIsParkingSelected,
@@ -18,10 +18,9 @@ import {
   setSelectedSensor,
   setIsMiniPark,
   setSelectedPolygonDetails,
-} from "../../redux/features/parkings/parkingsSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import usePrevious from "../../hooks/usePrevious.hook";
+} from '../../redux/features/parkings/parkingsSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import usePrevious from '../../hooks/usePrevious.hook';
 
 const CustomPolygon = React.forwardRef((props, ref) => {
   const {
@@ -35,7 +34,7 @@ const CustomPolygon = React.forwardRef((props, ref) => {
   } = props;
 
   const dispatch = useDispatch();
-  const { showCounter } = useSelector((state) => state.parkings.parkingsState);
+  const {showCounter} = useSelector(state => state.parkings.parkingsState);
 
   const [getParkingDetails] = useGetParkingDetailsMutation();
   const [getParkingProducts] = useGetParkingProductsMutation();
@@ -47,13 +46,13 @@ const CustomPolygon = React.forwardRef((props, ref) => {
     longitudeDelta: 0.0421,
   });
   const [colors, setColors] = useState({
-    fillColor: Platform.OS === "ios" ? null : "rgba(235, 235, 235)",
-    strokeColor: Platform.OS === "ios" ? null : "rgba(235, 235, 235)",
+    fillColor: Platform.OS === 'ios' ? null : 'rgba(235, 235, 235)',
+    strokeColor: Platform.OS === 'ios' ? null : 'rgba(235, 235, 235)',
   });
 
   const getPolygonCenter = () => {
-    let x = coordinate?.map((c) => c.latitude);
-    let y = coordinate?.map((c) => c.longitude);
+    let x = coordinate?.map(c => c.latitude);
+    let y = coordinate?.map(c => c.longitude);
 
     let minX = Math.min.apply(null, x);
     let maxX = Math.max.apply(null, x);
@@ -61,7 +60,7 @@ const CustomPolygon = React.forwardRef((props, ref) => {
     let minY = Math.min.apply(null, y);
     let maxY = Math.max.apply(null, y);
 
-    setCenter((data) => ({
+    setCenter(data => ({
       ...data,
       latitude: (minX + maxX) / 2,
       longitude: (minY + maxY) / 2,
@@ -69,7 +68,7 @@ const CustomPolygon = React.forwardRef((props, ref) => {
   };
 
   const handleParkingDetails = async (id, lat, lng) => {
-    const { data, error: apiError } = await getParkingDetails({ id: id });
+    const {data, error: apiError} = await getParkingDetails({id: id});
 
     if (data?.externalParkingId != null) {
       dispatch(setIsMiniPark(true));
@@ -97,46 +96,35 @@ const CustomPolygon = React.forwardRef((props, ref) => {
 
       dispatch(setWorksWithHub(data.worksWithHub));
       dispatch(setParkingDetails(body));
-      dispatch(
-        setIsParkingSelected({ isParkingSelected: true, parkingId: id })
-      );
+      dispatch(setIsParkingSelected({isParkingSelected: true, parkingId: id}));
       setShowExtend(false);
       dispatch(setGroupId(parkingGroup));
     } else {
-      console.log("ERR getParkingDetails apiError >>> ", apiError);
+      console.log('ERR getParkingDetails apiError >>> ', apiError);
     }
   };
 
-  const handleGetParkingProducts = async (parkingId) => {
-    await getParkingProducts({ parkingId }).then((answer) => {});
+  const handleGetParkingProducts = async parkingId => {
+    await getParkingProducts({parkingId}).then(answer => {});
   };
 
-  const handleSavePolygon = (polygon) => {
+  const handleSavePolygon = polygon => {
     dispatch(setReservedPolygon(polygon));
-  };
-
-  const handleReserveSensor = (data) => {
-    if (data.status === "Ocupat" || data.status === "Rezervat") {
-      console.log("this parking space is not available! ", data);
-    } else {
-      dispatch(setSelectedSensor(data));
-      setModalVisible();
-    }
   };
 
   useEffect(() => {
     getPolygonCenter();
     setTimeout(() => {
-      setColors((state) => ({
+      setColors(state => ({
         ...state,
         fillColor:
-          Platform.OS === "ios"
-            ? "rgba(235, 235, 235)"
-            : "rgba(132,153,255, 0.6)",
+          Platform.OS === 'ios'
+            ? 'rgba(235, 235, 235)'
+            : 'rgba(132,153,255, 0.6)',
         strokeColor:
-          Platform.OS === "ios"
-            ? "rgba(235, 235, 235)"
-            : "rgba(132,153,255, 0.6)",
+          Platform.OS === 'ios'
+            ? 'rgba(235, 235, 235)'
+            : 'rgba(132,153,255, 0.6)',
       }));
     }, 10);
   }, []);
@@ -156,7 +144,7 @@ const CustomPolygon = React.forwardRef((props, ref) => {
               handleParkingDetails(
                 parkingId,
                 center?.latitude,
-                center?.longitude
+                center?.longitude,
               );
               handleGetParkingProducts(parkingId);
               handleSavePolygon(coordinate);

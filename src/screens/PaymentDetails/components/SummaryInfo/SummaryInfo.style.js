@@ -49,9 +49,14 @@ const SummaryInfoStyle = StyleSheet.create({
   },
 
   iconAlignment: {
-    alignItems: "center",
-    // marginTop: 28,
-    alignSelf: "center",
+    width: "60%",
+    // backgroundColor: 'red',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+    // alignItems: "center",
+    // // marginTop: 28,
+    // alignSelf: "center",
     // marginHorizontal: 40,
   },
 
@@ -68,7 +73,7 @@ const SummaryInfoStyle = StyleSheet.create({
   startTimeContainer: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    // justifyContent: "space-around",
     alignItems: "center",
     width: "50%",
     paddingRight: 20,

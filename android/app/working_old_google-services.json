@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "271698093388",
-    "project_id": "uppark-v3",
-    "storage_bucket": "uppark-v3.appspot.com"
+    "project_id": "constantaparking-v3",
+    "storage_bucket": "constantaparking-v3.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:271698093388:android:ba914878d3f4dd782d1be9",
         "android_client_info": {
-          "package_name": "com.uppark"
+          "package_name": "com.constantaparking"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "271698093388-c3tillucqrg0ohibpn45me51ig4npb19.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.uppark",
+            "package_name": "com.constantaparking",
             "certificate_hash": "91a7e20514b2592992f138c2771d2569d417d666"
           }
         },

@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
+  ScrollView
 } from "react-native";
 //style & assets
 import style from "./style";
@@ -17,6 +18,7 @@ import {
   Header,
   CustomSearchBox,
   ButtonComponent,
+  NativeBaseBackButton
 } from "../../components";
 //libs
 import { useNavigation } from "@react-navigation/native";
@@ -135,13 +137,16 @@ const ParkingsList = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       {/* <SafeAreaView> */}
       <ScreenLayout>
-        <View style={{ paddingTop: Platform.OS === "ios" ? "5%" : "0%" }}>
-          <Header
-            isLoading={false}
-            title={t("select_parking")}
-            navScreen={"ReservetionsList"}
-          />
+        <View>
+          <View style={style.headerWrapper}>
+            <NativeBaseBackButton
+              isLoading={false}
+              style={style.backButton}
+              handleOnPress={() => navigation.navigate("ReservetionsList")}
+            />
+            <Text style={style.headerTitle}>{t("select_parking")}</Text>
 
+          </View>
           <View style={style.searchContainer}>
             <CustomSearchBox
               placeholder={t("search_parking")}
@@ -149,7 +154,7 @@ const ParkingsList = () => {
               value={searchTerm}
             />
           </View>
-          <View style={style.bodyContainer}>
+          <ScrollView showsVerticalScrollIndicator={false} style={style.bodyContainer}>
             {parkings?.map((item, index) => {
               return (
                 <TouchableOpacity
@@ -163,17 +168,17 @@ const ParkingsList = () => {
                   onPress={() => handleSelectParking(item)}
                 >
                   <Text style={style.itemTitle}>{item?.title}</Text>
+                  {/* <Text style={style.itemPrice}>5 RON/H</Text> */}
                 </TouchableOpacity>
               );
             })}
-          </View>
+          </ScrollView>
         </View>
         <View
           style={{
             display: "flex",
             width: "100%",
             alignItems: "center",
-            bottom: "5%",
           }}
         >
           <ButtonComponent

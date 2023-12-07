@@ -17,7 +17,7 @@ persönlichen Daten zu verlangen, sie zu korrigieren oder zu löschen.
 Ihre persönlichen Daten werden auch an andere Dienstleister weitergegeben, um den Bezahlservice für
 das Parken vollständig zu realisieren, und zwar unter den Bedingungen, die wir im Folgenden näher
 erläutern.
-Wenn Sie ein Konto in der UPPARK-Anwendung erstellen oder FASTPARK-Dienste nutzen, gehen Sie eine
+Wenn Sie ein Konto in der ConstantaParking-Anwendung erstellen oder FASTPARK-Dienste nutzen, gehen Sie eine
 Vereinbarung mit FASTPARK ein und akzeptieren diese Datenschutzrichtlinie. Wann immer Sie Ihr
 FASTPARK-Konto oder die FASTPARK-Dienste nutzen oder uns Informationen zur Verfügung stellen,
 unterliegt die Verarbeitung Ihrer personenbezogenen Daten der aktuellen Version dieser
@@ -51,7 +51,7 @@ Verarbeitete persönliche Daten
 FASTPARK sammelt Daten, um Ihnen Dienstleistungen anbieten zu können, und verarbeitet nur
 personenbezogene Daten, die notwendig sind, um Ihnen bei der Erstellung eines Benutzerkontos zu
 helfen oder um Ihnen die bestmöglichen Dienstleistungen zu bieten.
-Geben Sie einige dieser Daten an, wenn Sie ein Konto erstellen, wenn Sie den UPPARK-Service nutzen
+Geben Sie einige dieser Daten an, wenn Sie ein Konto erstellen, wenn Sie den ConstantaParking-Service nutzen
 oder wenn Sie FASTPARK um Unterstützung bitten.
 Die personenbezogenen Daten, die wir verarbeiten, sind:
 • Handy-Nummer;
@@ -65,7 +65,7 @@ erstellen möchten);
  • Daten, die der Kundendienst benötigt. 
 
 
-Wir sammeln bestimmte Daten indirekt, wenn Sie mit den UPPARK-Diensten interagieren. Dazu
+Wir sammeln bestimmte Daten indirekt, wenn Sie mit den ConstantaParking-Diensten interagieren. Dazu
 verwenden wir Technologien wie Cookies, Fehlermeldungen oder Nutzungsdaten von FASTPARK-
 Software, die mit Ihrem Gerät und verschiedenen Programmen interagiert, einschließlich:
 
@@ -79,7 +79,7 @@ Software, die mit Ihrem Gerät und verschiedenen Programmen interagiert, einschl
 
 Weitere Informationen finden Sie in unserer Cookie-Richtlinie.
 Manchmal erhalten wir auch Daten von Dritten. Wenn Sie zum Beispiel eine Bankkarte in der App
-registrieren, um UPPARK-Dienste zu nutzen, verwenden wir die Kartenautorisierungsdienste.
+registrieren, um ConstantaParking-Dienste zu nutzen, verwenden wir die Kartenautorisierungsdienste.
 Zweck der Verarbeitung von personenbezogenen Daten
 Wir verarbeiten die Daten, um die wir Sie bitten, damit wir die FASTPARK-Dienste anbieten und mit
 Ihnen kommunizieren können.
@@ -176,7 +176,7 @@ personenbezogenen Daten, die wir an unsere Tochtergesellschaften weitergeben, we
 Übereinstimmung mit dieser Richtlinie behandelt, und wir sind für die Verwaltung der gemeinsam
 genutzten personenbezogenen Daten verantwortlich; 
 Für statistische Zwecke oder für die Öffentlichkeitsarbeit können wir aggregierte statistische
-Daten weitergeben. Wir können zum Beispiel feststellen, dass ein bestimmter Prozentsatz der UPPARK-
+Daten weitergeben. Wir können zum Beispiel feststellen, dass ein bestimmter Prozentsatz der ConstantaParking-
 Nutzer per SMS bezahlt. Diese Informationen beziehen sich nicht auf persönliche Daten. 
 
 Übermittlung Ihrer personenbezogenen Daten
@@ -199,16 +199,16 @@ persönlichen Daten angemessen geschützt sind:
 
 alle persönlichen Daten werden elektronisch in einer verschlüsselten Datenbank gespeichert,
 die durch eine Firewall geschützt ist; 
-Der UPPARK-Dienst wird in einer sicheren Umgebung gehostet, die eine Firewall und andere
+Der ConstantaParking-Dienst wird in einer sicheren Umgebung gehostet, die eine Firewall und andere
 fortschrittliche Technologien verwendet, um Störungen oder Zugriffe von außen zu verhindern; 
 Der Zugriff der Mitarbeiter auf die Datenbank, in der personenbezogene Daten gespeichert
-sind, ist auf diejenigen beschränkt, die ihn benötigen. Die Server, auf denen der UPPARK-Service
+sind, ist auf diejenigen beschränkt, die ihn benötigen. Die Server, auf denen der ConstantaParking-Service
 gehostet wird, werden 24 Stunden am Tag überwacht und physisch bewacht. 
 
 Dauer der Aufbewahrung Ihrer persönlichen Daten
 FASTPARK speichert Ihre Daten in Übereinstimmung mit den Datenschutzgesetzen.
 
-Wenn Sie ein Konto einrichten oder die UPPARK-Dienste nutzen, werden wir personenbezogene Daten
+Wenn Sie ein Konto einrichten oder die ConstantaParking-Dienste nutzen, werden wir personenbezogene Daten
 (einschließlich Informationen zu jeder Parksitzung und zu jeder Ihrer Transaktionen) nur so lange
 speichern, wie es vernünftigerweise notwendig ist, um die angegebenen Zwecke zu erfüllen, für die die
 Daten erhoben wurden, oder so lange, wie es für rechtmäßige Zwecke erforderlich ist.
@@ -260,7 +260,7 @@ Bitte beachten Sie, dass Sie vor der Ausübung dieses Rechts alle Dokumente, die
 herunterladen und speichern sollten.
 Wenn Sie diesen Schritt nicht tun, bevor Sie von Ihrem Recht auf Löschung Gebrauch machen, verlieren
 Sie alle diese Dokumente und die Unterzeichnerin ist nicht in der Lage, sie Ihnen gegebenenfalls zur
-Verfügung zu stellen, da der Vorgang der Löschung von Daten, nämlich des UPPARK-Kontos mit allen
+Verfügung zu stellen, da der Vorgang der Löschung von Daten, nämlich des ConstantaParking-Kontos mit allen
 damit verbundenen Daten und Dokumenten, ein unumkehrbarer Vorgang ist.
 Recht auf Einschränkung der Verarbeitung - Sie können die Einschränkung der Verarbeitung in den
 folgenden Fällen verlangen:

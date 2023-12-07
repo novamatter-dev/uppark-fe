@@ -1,12 +1,13 @@
-import React, { useRef, useState } from "react";
-import { TextInput, TouchableOpacity, Text as Txt, View } from "react-native";
-import { Box, Text } from "native-base";
-import SmsConfirmCodeInputsStyle from "./SmsConfirmCodeInputs.style";
-import { t } from "i18next";
-import { SvgXml } from "react-native-svg";
-import svgs from "../../../../assets/svgs";
+import React, {useRef, useState} from 'react';
+import {TextInput, TouchableOpacity, Text as Txt, View} from 'react-native';
+import {Box, Text} from 'native-base';
+import SmsConfirmCodeInputsStyle from './SmsConfirmCodeInputs.style';
+import {t} from 'i18next';
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../../../assets/svgs';
+import {useTranslation} from 'react-i18next';
 
-const SmsConfirmCodeInputs = (props) => {
+const SmsConfirmCodeInputs = props => {
   const {
     totalDigits,
     setCodeDigitValues,
@@ -15,6 +16,8 @@ const SmsConfirmCodeInputs = (props) => {
     handleResend,
     codeDigitValues,
   } = props;
+
+  const {t} = useTranslation();
 
   const textRefs = {
     ref1: useRef(null),
@@ -31,22 +34,22 @@ const SmsConfirmCodeInputs = (props) => {
   // const txtRef4 = useRef(null);
 
   const btns = [
-    { value: 1 },
-    { value: 2 },
-    { value: 3 },
-    { value: 4 },
-    { value: 5 },
-    { value: 6 },
-    { value: 7 },
-    { value: 8 },
-    { value: 9 },
-    { value: "?" },
-    { value: 0 },
-    { value: "back" },
+    {value: 1},
+    {value: 2},
+    {value: 3},
+    {value: 4},
+    {value: 5},
+    {value: 6},
+    {value: 7},
+    {value: 8},
+    {value: 9},
+    {value: '?'},
+    {value: 0},
+    {value: 'back'},
   ];
 
-  const handleSetInputValue = ({ input, focusInput = null, value }) => {
-    setCodeDigitValues((prevValues) => {
+  const handleSetInputValue = ({input, focusInput = null, value}) => {
+    setCodeDigitValues(prevValues => {
       return {
         ...prevValues,
         [input]: value,
@@ -55,8 +58,8 @@ const SmsConfirmCodeInputs = (props) => {
     focusInput?.current.focus();
   };
 
-  const isBackspace = (nativeEvent) => {
-    return nativeEvent.key === "Backspace";
+  const isBackspace = nativeEvent => {
+    return nativeEvent.key === 'Backspace';
   };
 
   return (
@@ -82,16 +85,16 @@ const SmsConfirmCodeInputs = (props) => {
           ref={textRefs.ref1}
           style={SmsConfirmCodeInputsStyle.text}
           keyboardType="numeric"
-          onKeyPress={({ nativeEvent }) => {
+          onKeyPress={({nativeEvent}) => {
             handleSetInputValue({
-              input: "ref1",
+              input: 'ref1',
               focusInput: isBackspace(nativeEvent) ? null : textRefs.ref2,
-              value: isBackspace(nativeEvent) ? "" : nativeEvent.key,
+              value: isBackspace(nativeEvent) ? '' : nativeEvent.key,
             });
           }}
           key={`1-mimi`}
           showSoftInputOnFocus={false}
-          onFocus={() => setFocusedInput("ref1")}
+          onFocus={() => setFocusedInput('ref1')}
           value={codeDigitValues.ref1}
         />
         <TextInput
@@ -100,18 +103,18 @@ const SmsConfirmCodeInputs = (props) => {
           ref={textRefs.ref2}
           style={SmsConfirmCodeInputsStyle.text}
           keyboardType="numeric"
-          onKeyPress={({ nativeEvent }) => {
+          onKeyPress={({nativeEvent}) => {
             handleSetInputValue({
-              input: "ref2",
+              input: 'ref2',
               focusInput: isBackspace(nativeEvent)
                 ? textRefs.ref1
                 : textRefs.ref3,
-              value: isBackspace(nativeEvent) ? "" : nativeEvent.key,
+              value: isBackspace(nativeEvent) ? '' : nativeEvent.key,
             });
           }}
           key={`2-mimi`}
           showSoftInputOnFocus={false}
-          onFocus={() => setFocusedInput("ref2")}
+          onFocus={() => setFocusedInput('ref2')}
           value={codeDigitValues.ref2}
         />
         <TextInput
@@ -120,18 +123,18 @@ const SmsConfirmCodeInputs = (props) => {
           ref={textRefs.ref3}
           style={SmsConfirmCodeInputsStyle.text}
           keyboardType="numeric"
-          onKeyPress={({ nativeEvent }) => {
+          onKeyPress={({nativeEvent}) => {
             handleSetInputValue({
-              input: "ref3",
+              input: 'ref3',
               focusInput: isBackspace(nativeEvent)
                 ? textRefs.ref2
                 : textRefs.ref4,
-              value: isBackspace(nativeEvent) ? "" : nativeEvent.key,
+              value: isBackspace(nativeEvent) ? '' : nativeEvent.key,
             });
           }}
           key={`3-mimi`}
           showSoftInputOnFocus={false}
-          onFocus={() => setFocusedInput("ref3")}
+          onFocus={() => setFocusedInput('ref3')}
         />
         <TextInput
           maxLength={1}
@@ -139,33 +142,33 @@ const SmsConfirmCodeInputs = (props) => {
           ref={textRefs.ref4}
           style={SmsConfirmCodeInputsStyle.text}
           keyboardType="numeric"
-          onKeyPress={({ nativeEvent }) => {
+          onKeyPress={({nativeEvent}) => {
             handleSetInputValue({
-              input: "ref4",
+              input: 'ref4',
               focusInput: isBackspace(nativeEvent) ? textRefs.ref3 : null,
-              value: isBackspace(nativeEvent) ? "" : nativeEvent.key,
+              value: isBackspace(nativeEvent) ? '' : nativeEvent.key,
             });
           }}
           key={`4-mimi`}
           showSoftInputOnFocus={false}
-          onFocus={() => setFocusedInput("ref4")}
+          onFocus={() => setFocusedInput('ref4')}
         />
       </Box>
       <Box style={SmsConfirmCodeInputsStyle.resendCodeBox}>
         <TouchableOpacity onPress={handleResend}>
           <Text style={SmsConfirmCodeInputsStyle.resendCodeBoxText}>
-            {t("resend_code")}
+            {t('resend_code')}
           </Text>
         </TouchableOpacity>
       </Box>
       {isResend && (
         <Box>
-          <Text>Code is expired, you must resend.</Text>
+          <Text>{t('SMS_CODE_EXPIRED')}</Text>
         </Box>
       )}
 
       <Box style={SmsConfirmCodeInputsStyle.keyPadContainer}>
-        {btns?.map((item) => {
+        {btns?.map(item => {
           return (
             <TouchableOpacity
               style={SmsConfirmCodeInputsStyle.keyPadItem}
@@ -173,18 +176,17 @@ const SmsConfirmCodeInputs = (props) => {
               // onPress={() => handlePress(item.value)}
               // onPress={() => handlePress(item.value)}
               ref={textRefs.ref1}
-              onPress={({ nativeEvent }) => {
+              onPress={({nativeEvent}) => {
                 handleSetInputValue({
-                  input: "ref1",
+                  input: 'ref1',
                   focusInput:
-                    item.value === "back" ? textRefs.ref2 : textRefs.ref4,
-                  value: item.value === "back" ? "" : item.value,
+                    item.value === 'back' ? textRefs.ref2 : textRefs.ref4,
+                  value: item.value === 'back' ? '' : item.value,
                 });
-              }}
-            >
-              {item.value === "?" ? (
+              }}>
+              {item.value === '?' ? (
                 <SvgXml xml={svgs.ask} width={26} height={26} />
-              ) : item.value === "back" ? (
+              ) : item.value === 'back' ? (
                 <SvgXml xml={svgs.backSpace} width={26} height={19} />
               ) : (
                 <Txt style={SmsConfirmCodeInputsStyle.keyPadLabel}>

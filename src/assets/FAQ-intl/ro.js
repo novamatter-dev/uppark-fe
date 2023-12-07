@@ -1,5 +1,5 @@
-export const ro = `1.	Ce este Uppark
--	UPPARK este o aplicație mobilă destinata platii taxei de parcare
+export const ro = `1.	Ce este ConstantaParking
+-	ConstantaParking este o aplicație mobilă destinata platii taxei de parcare
 
 2.	Cum platesc taxa de parcare? 
 -poti plati taxa de parcare prin intermediul cardului bancar înregistrat în aplicație, cât și prin       intermediul unui mesaj SMS către operatorul de telefonie mobilă cu care aveți contract,în localitățile și parcările unde se aplică:
@@ -12,13 +12,13 @@ export const ro = `1.	Ce este Uppark
 -	Pentru toate parcarile stradale (nu cu bariera) este important sa achitam taxa de parcare in momentul parcarii (la inceputul sesiunii de parcare)
 -	Pentru toate parcarile cu bariera, taxa de parcare se achita in momentul in care dorim sa parasim parcarea
 
-4.	Cum prelungesc sesiunea de parcare daca am folosit UPPARK?
+4.	Cum prelungesc sesiunea de parcare daca am folosit ConstantaParking?
 Cand durata taxei de parcare achitata s-a incheiat, veti primi o notificare si veti avea posibilitatea sa prelungiti aceasta durata. Parcarea poate fi prelungita manual de utilizator prin plata tarifului corespunzator
 
 IMPORTANT
--	Daca se debifeaza optiunea de primire a notificarilor UPPARK, atat din aplicatie sau din setarile generale ale telefonului, utilizatorul nu va fi atentionat prin notificare in momentul in care o rezervare a unui produs in aplicatie este aproape de a expira. Va recomandam sa mentineti pornite toate notificarile pentru UPPARK.
--	Pentru a porni notificarile de sistem, pentru iOS, trebuie sa accesati meniul Configurari (Settings) - Notificari (Notifications), dupa care selectati aplicatia UPPARK si bifati Permite notificari (Allow Notifications).
--	Pentru Android, accesati meniul Setari (Settings) - Notificari (Notifications) dupa care selectati aplicatia UPPARK si bifati optiunea Afisare Notificari (Show Notifications).
+-	Daca se debifeaza optiunea de primire a notificarilor ConstantaParking, atat din aplicatie sau din setarile generale ale telefonului, utilizatorul nu va fi atentionat prin notificare in momentul in care o rezervare a unui produs in aplicatie este aproape de a expira. Va recomandam sa mentineti pornite toate notificarile pentru ConstantaParking.
+-	Pentru a porni notificarile de sistem, pentru iOS, trebuie sa accesati meniul Configurari (Settings) - Notificari (Notifications), dupa care selectati aplicatia ConstantaParking si bifati Permite notificari (Allow Notifications).
+-	Pentru Android, accesati meniul Setari (Settings) - Notificari (Notifications) dupa care selectati aplicatia ConstantaParking si bifati optiunea Afisare Notificari (Show Notifications).
 
 5.	Cum platesc prin sms?
 -	descarca aplicatia din play store sau app store si intra in contul tau sau creaa un cont simplu folosind numarul tau de telefon apasa butonul parcheaa acum  selecteaza modalitatea de plata SMS si produsul dorit, confirma si plateste

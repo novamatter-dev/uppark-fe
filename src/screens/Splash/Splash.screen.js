@@ -1,30 +1,41 @@
-import React, { useEffect } from "react";
-import { View, StyleSheet, ImageBackground, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import React, {useEffect} from 'react';
+import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import ctLogo from '../../assets/images/ct-logo.png';
+import {useMaintenanceMode} from '../../helpers/useMaintenanceMode';
 
 const Splash = () => {
-  const navigation = useNavigation();
-  const { jwt } = useSelector((state) => state.auth);
+  const {checkMaintenanceMode} = useMaintenanceMode();
 
   useEffect(() => {
     setTimeout(() => {
-      if (jwt) {
-        navigation.navigate("HomeDrawer");
-      } else {
-        navigation.navigate("Login");
-      }
-    }, 1000);
+      checkMaintenanceMode();
+    }, 750);
   }, []);
 
   return (
     <>
       <View style={bgStyle.container}>
         <ImageBackground
-          source={require("../../assets/images/splash.png")}
+          source={require('../../assets/images/splash_noLogo.png')}
           resizeMode="cover"
           style={bgStyle.image}
         />
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#EBEBEB',
+            height: '50%',
+          }}>
+          <Image
+            source={ctLogo}
+            style={{
+              width: '70%',
+              height: 300,
+            }}
+          />
+        </View>
       </View>
     </>
   );
@@ -36,15 +47,15 @@ const bgStyle = StyleSheet.create({
   },
   image: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   text: {
-    color: "white",
+    color: 'white',
     fontSize: 42,
     lineHeight: 84,
-    fontWeight: "bold",
-    textAlign: "center",
-    backgroundColor: "#000000c0",
+    fontWeight: 'bold',
+    textAlign: 'center',
+    backgroundColor: '#000000c0',
   },
 });
 

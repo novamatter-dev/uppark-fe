@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState} from 'react';
 import {
   View,
   TextInput,
@@ -7,16 +7,16 @@ import {
   Text,
   ActivityIndicator,
   Dimensions,
-} from "react-native";
-import SmsConfirmCodeInputsStyle from "./SmsConfirmCodeInputs.style";
-import { SvgXml } from "react-native-svg";
-import svgs from "../../../../assets/svgs";
-import PropTypes from "prop-types";
-import { t } from "i18next";
-import { BLUE, GREY } from "../../../../helpers/style/constants";
+} from 'react-native';
+import SmsConfirmCodeInputsStyle from './SmsConfirmCodeInputs.style';
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../../../assets/svgs';
+import PropTypes from 'prop-types';
+import {t} from 'i18next';
+import {BLUE, GREY} from '../../../../helpers/style/constants';
 
-const OTPScreen = (props) => {
-  const { handleResend = () => {}, setOTP = () => {}, otp = [] } = props;
+const OTPScreen = props => {
+  const {handleResend = () => {}, setOTP = () => {}, otp = []} = props;
   // const [otp, setOTP] = useState(["", "", "", ""]);
   const [otpIndex, setOtpIndex] = useState(0);
   const inputRefs = useRef([]);
@@ -32,9 +32,9 @@ const OTPScreen = (props) => {
     }
   };
 
-  const handleInputDelete = (index) => {
+  const handleInputDelete = index => {
     const newOTP = [...otp];
-    newOTP[index] = "";
+    newOTP[index] = '';
     setOTP(newOTP);
     if (otpIndex > -1) {
       setOtpIndex(otpIndex - 1);
@@ -62,14 +62,14 @@ const OTPScreen = (props) => {
             style={SmsConfirmCodeInputsStyle.text}
             maxLength={1}
             keyboardType="numeric"
-            onChangeText={(text) => handleInputChange(text, index)}
-            onKeyPress={({ nativeEvent }) => {
-              if (nativeEvent.key === "Backspace") {
+            onChangeText={text => handleInputChange(text, index)}
+            onKeyPress={({nativeEvent}) => {
+              if (nativeEvent.key === 'Backspace') {
                 handleInputDelete(index);
               }
             }}
             value={digit}
-            ref={(ref) => (inputRefs.current[index] = ref)}
+            ref={ref => (inputRefs.current[index] = ref)}
             showSoftInputOnFocus={false}
             selectTextOnFocus={false}
             caretHidden={true}
@@ -80,16 +80,14 @@ const OTPScreen = (props) => {
         <TouchableOpacity
           onPress={hadnleReset}
           style={SmsConfirmCodeInputsStyle.resendBtn}
-          disabled={isLoading}
-        >
+          disabled={isLoading}>
           <View style={SmsConfirmCodeInputsStyle.dummyView} />
           <Text
             style={{
               ...SmsConfirmCodeInputsStyle.resendCodeBoxText,
               color: isLoading ? GREY : BLUE,
-            }}
-          >
-            {t("resend_code")}
+            }}>
+            {t('resend_code')}
           </Text>
           {isLoading && (
             <View style={SmsConfirmCodeInputsStyle.loadingWrapper}>
@@ -101,70 +99,67 @@ const OTPScreen = (props) => {
       </View>
       <View style={SmsConfirmCodeInputsStyle.keyPadContainer}>
         <View style={styles.row}>
-          {[1, 2, 3].map((key) => (
+          {/* TODO: Verify hardcoded array logic */}
+          {[1, 2, 3].map(key => (
             <TouchableOpacity
               key={key}
               style={SmsConfirmCodeInputsStyle.keyPadItem}
               onPress={() => {
-                const nextIndex = otp.findIndex((digit) => digit === "");
+                const nextIndex = otp.findIndex(digit => digit === '');
                 if (nextIndex !== -1) {
                   handleInputChange(key.toString(), nextIndex);
                 }
-              }}
-            >
+              }}>
               <Text style={SmsConfirmCodeInputsStyle.keyPadLabel}>{key}</Text>
             </TouchableOpacity>
           ))}
         </View>
         <View style={styles.row}>
-          {[4, 5, 6].map((key) => (
+          {[4, 5, 6].map(key => (
             <TouchableOpacity
               key={key}
               style={SmsConfirmCodeInputsStyle.keyPadItem}
               onPress={() => {
-                const nextIndex = otp.findIndex((digit) => digit === "");
+                const nextIndex = otp.findIndex(digit => digit === '');
                 if (nextIndex !== -1) {
                   handleInputChange(key.toString(), nextIndex);
                 }
-              }}
-            >
+              }}>
               <Text style={SmsConfirmCodeInputsStyle.keyPadLabel}>{key}</Text>
             </TouchableOpacity>
           ))}
         </View>
         <View style={styles.row}>
-          {[7, 8, 9].map((key) => (
+          {[7, 8, 9].map(key => (
             <TouchableOpacity
               key={key}
               style={SmsConfirmCodeInputsStyle.keyPadItem}
               onPress={() => {
-                const nextIndex = otp.findIndex((digit) => digit === "");
+                const nextIndex = otp.findIndex(digit => digit === '');
                 if (nextIndex !== -1) {
                   handleInputChange(key.toString(), nextIndex);
                 }
-              }}
-            >
+              }}>
               <Text style={SmsConfirmCodeInputsStyle.keyPadLabel}>{key}</Text>
             </TouchableOpacity>
           ))}
         </View>
         <View style={styles.row}>
-          {["?", 0, "<-"].map((key) => (
+          {['?', 0, '<-'].map(key => (
             <TouchableOpacity
               key={key}
               style={SmsConfirmCodeInputsStyle.keyPadItem}
               onPress={() => {
-                const nextIndex = otp.findIndex((digit) => digit === "");
-                if (nextIndex !== -1 && key !== "<-" && key !== "?") {
+                const nextIndex = otp.findIndex(digit => digit === '');
+                if (nextIndex !== -1 && key !== '<-' && key !== '?') {
                   handleInputChange(key.toString(), nextIndex);
-                } else if (key === "<-") {
+                } else if (key === '<-') {
                   handleInputDelete(otpIndex);
                 }
-              }}
-            >
-              {key === "?" ? (
+              }}>
+              {key === '?' ? (
                 <SvgXml xml={svgs.ask} width={26} height={26} />
-              ) : key === "<-" ? (
+              ) : key === '<-' ? (
                 <SvgXml xml={svgs.backSpace} width={26} height={19} />
               ) : (
                 <Text style={SmsConfirmCodeInputsStyle.keyPadLabel}>{key}</Text>
@@ -179,13 +174,13 @@ const OTPScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
 });
 

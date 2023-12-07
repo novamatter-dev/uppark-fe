@@ -1,4 +1,4 @@
-package com.uppark.newarchitecture.components;
+package com.constantaparking.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

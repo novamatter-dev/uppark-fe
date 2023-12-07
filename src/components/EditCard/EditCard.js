@@ -1,35 +1,36 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect} from 'react';
 import {
   Text,
   View,
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-} from "react-native";
-import PropTypes from "prop-types";
-import moment from "moment";
-import { useToast } from "native-base";
-import { NativeBaseBackButton, Title, ButtonComponent } from "../index";
-import BaseInput from "../BaseInput";
-import ActionModal from "../ActionModal/ActionModal";
+} from 'react-native';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import {useToast} from 'native-base';
+import {NativeBaseBackButton, Title, ButtonComponent} from '../index';
+import BaseInput from '../BaseInput';
+import ActionModal from '../ActionModal/ActionModal';
 //style
-import { SvgXml } from "react-native-svg";
-import svgs from "../../assets/svgs";
-import AddCardStyle from "./AddCard.style";
-import { AQUA, RED } from "../../helpers/style/constants";
-import { Toast } from "../Toast";
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../assets/svgs';
+import AddCardStyle from './AddCard.style';
+import {AQUA, RED} from '../../helpers/style/constants';
+import {Toast} from '../Toast';
 //redux
 import {
   useCreateCardMutation,
   useGetCardsMutation,
   useEditCardMutation,
-} from "../../services/wallets";
-import { useSelector } from "react-redux";
-import { t } from "i18next";
-import { useDeleteCardMutation } from "../../services/wallets";
+} from '../../services/wallets';
+import {useSelector} from 'react-redux';
+import {t} from 'i18next';
+import {useDeleteCardMutation} from '../../services/wallets';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 
-const EditCard = (props) => {
-  const { onClosePress, cardInfo, handleGetAllWallets } = props;
+const EditCard = props => {
+  const {onClosePress, cardInfo, handleGetAllWallets} = props;
 
   const toast = useToast();
 
@@ -44,7 +45,7 @@ const EditCard = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteCardModal, setDeleteCardModal] = useState(false);
 
-  const personalState = useSelector((state) => state.users.personal);
+  const personalState = useSelector(state => state.users.personal);
 
   const [createCard] = useCreateCardMutation();
   const [getCards] = useGetCardsMutation();
@@ -103,14 +104,13 @@ const EditCard = (props) => {
       expirationMonth: formState?.expirationMonth,
       expirationYear: formState?.expirationYear,
     };
-    await editCard({ cardId: cardInfo?.id, reqBody: body })
+    await editCard({cardId: cardInfo?.id, reqBody: body})
       .then(() => {
-        handleGetCards();
-        handleSuccessToast("Card was edited successfully!");
+        handleSuccessToast('Card was edited successfully!');
         onClosePress();
       })
-      .catch((err) => {
-        console.log("err edit card: ", err);
+      .catch(err => {
+        console.log('err edit card: ', err);
       });
   };
 
@@ -119,9 +119,9 @@ const EditCard = (props) => {
 
     val = event;
 
-    setFormState((formState) => ({
+    setFormState(formState => ({
       ...formState,
-      [name]: name === "cardNumber" ? event : val,
+      [name]: name === 'cardNumber' ? event : val,
     }));
   };
 
@@ -139,9 +139,9 @@ const EditCard = (props) => {
     setModalVisible(false);
   };
 
-  const handleSuccessToast = (message) => {
+  const handleSuccessToast = message => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
@@ -151,20 +151,18 @@ const EditCard = (props) => {
               padding: 16,
               borderRadius: 15,
               shadowColor: AQUA,
-              shadowOffset: { width: -2, height: 4 },
+              shadowOffset: {width: -2, height: 4},
               shadowOpacity: 0.9,
               shadowRadius: 4,
               elevation: 25,
               shadowColor: AQUA,
-            }}
-          >
+            }}>
             <Text
               style={{
-                color: "#F5F5F5",
+                color: '#F5F5F5',
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
-              }}
-            >
+                fontFamily: 'AzoSans-Medium',
+              }}>
               {message}
             </Text>
           </View>
@@ -178,15 +176,15 @@ const EditCard = (props) => {
   };
 
   const handleDeleteCard = async () => {
-    await deleteCard({ cardId: cardInfo.id })
+    await deleteCard({cardId: cardInfo.id})
       .then(() => {
         handleGetAllWallets();
-        handleSuccessToast("Card was removed with success!");
+        handleSuccessToast('Card was removed with success!');
         onClosePress();
         setDeleteCardModal(false);
       })
-      .catch((err) => {
-        console.log("remove card err", err);
+      .catch(err => {
+        console.log('remove card err', err);
       });
   };
 
@@ -195,7 +193,7 @@ const EditCard = (props) => {
       return inputString;
     }
 
-    const maskedPart = "*".repeat(numVisible);
+    const maskedPart = '*'.repeat(numVisible);
     const visiblePart = inputString.substring(numVisible);
 
     return maskedPart + visiblePart;
@@ -279,140 +277,74 @@ const EditCard = (props) => {
         <View style={AddCardStyle.inputContainer}>
           <View>
             <NativeBaseBackButton
-              style={{ ...AddCardStyle.closeButton, marginHorizontal: "10%" }}
+              style={{...AddCardStyle.closeButton}}
               handleOnPress={onClosePress}
-              iconType={"exit"}
+              iconType={'exit'}
             />
-            <Title
-              label={"Edit card"}
-              style={{ ...AddCardStyle.title, marginHorizontal: "10%" }}
-            />
-            {/* <KeyboardAwareScrollView> */}
-            {formState?.cardNumber?.length > 0 &&
-              formState?.cardNumber?.length < 16 && (
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: "red",
-                    fontFamily: "AzoSans-Medium",
-                    marginTop: 10,
-                    paddingHorizontal: "10%",
-                  }}
-                >
-                  {t("card_langht_validation")}
-                </Text>
-              )}
+            <Title label={t('edit_card')} style={{...AddCardStyle.title}} />
 
             <BaseInput
               ref={cardNrRef}
-              style={{ ...AddCardStyle.baseInput, marginHorizontal: "10%" }}
-              icon={
-                <SvgXml
-                  xml={
-                    formState?.cardNumber?.length < 1 ||
-                    formState?.cardNumber === null
-                      ? svgs.cardDisabled
-                      : formState?.cardNumber?.length < 16 ||
-                        formState?.cardNumber?.length > 16
-                      ? svgs.cardDanger
-                      : svgs.card
-                  }
-                  width={22}
-                  height={22}
-                />
-              }
+              style={{...AddCardStyle.baseInput}}
+              icon={<SvgXml xml={svgs.card} width={22} height={22} />}
+              isDisabled={true}
               maxLength={16}
               name={svgs.copy}
-              placeHolder={"Card Number"}
-              onChangeText={(event) => handleChange(event, "cardNumber")}
-              value={formState.cardNumber}
+              placeHolder={'Card Number'}
+              onChangeText={event => handleChange(event, 'cardNumber')}
+              value={`**** ${formState?.cardNumber?.slice(-4)}`}
               keyboardType="numeric"
-              isInvalid={
-                formState?.cardNumber?.length > 0 &&
-                formState?.cardNumber?.length < 16
-                  ? true
-                  : false
-              }
-              handleFocus={() =>
-                setFormState((formState) => ({
-                  ...formState,
-                  cardNumber: "",
-                }))
-              }
             />
 
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                paddingHorizontal: "10%",
-              }}
-            >
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                // paddingHorizontal: '10%',
+              }}>
               {(isInvalidDate || showInvalidDate()) && (
                 <Text
                   style={{
                     fontSize: 12,
-                    color: "red",
-                    fontFamily: "AzoSans-Bold",
-                  }}
-                >
-                  {t("invalid_date")}
+                    color: 'red',
+                    fontFamily: 'AzoSans-Bold',
+                  }}>
+                  {t('invalid_date')}
                 </Text>
               )}
             </View>
             <View
               style={{
                 ...AddCardStyle.rowContainer,
-                paddingHorizontal: "10%",
-              }}
-            >
+                // paddingHorizontal: '10%',
+              }}>
               <BaseInput
-                style={{ ...AddCardStyle.rowInput }}
+                style={{...AddCardStyle.rowInput}}
                 icon={
-                  <SvgXml
-                    xml={
-                      !formState?.expirationMonth
-                        ? svgs.copyDisabled
-                        : showInvalidDate()
-                        ? svgs.copyDanger
-                        : svgs.drivingLicense
-                    }
-                    width={22}
-                    height={22}
-                  />
+                  <SvgXml xml={svgs.drivingLicense} width={22} height={22} />
                 }
                 name={svgs.copy}
-                placeHolder={"Month"}
-                onChangeText={(event) => handleChange(event, "expirationMonth")}
-                value={`${formState?.expirationMonth}`}
+                placeHolder={'Month'}
+                onChangeText={event => handleChange(event, 'expirationMonth')}
+                value={`${formState?.expirationMonth || ''}`}
                 keyboardType="numeric"
                 maxLength={2}
+                isDisabled={true}
               />
 
-              <View style={{ ...AddCardStyle.rowInput }}>
+              <View style={{...AddCardStyle.rowInput}}>
                 <BaseInput
                   icon={
-                    <SvgXml
-                      xml={
-                        !formState?.expirationYear
-                          ? svgs.copyDisabled
-                          : showInvalidDate()
-                          ? svgs.copyDanger
-                          : svgs.drivingLicense
-                      }
-                      width={22}
-                      height={22}
-                    />
+                    <SvgXml xml={svgs.drivingLicense} width={22} height={22} />
                   }
                   name={svgs.copy}
-                  placeHolder={"Year"}
-                  onChangeText={(event) =>
-                    handleChange(event, "expirationYear")
-                  }
-                  value={`${formState?.expirationYear}`}
+                  placeHolder={'Year'}
+                  onChangeText={event => handleChange(event, 'expirationYear')}
+                  value={`${formState?.expirationYear || ''}`}
                   keyboardType="numeric"
                   maxLength={4}
+                  isDisabled={true}
                 />
               </View>
             </View>
@@ -422,70 +354,57 @@ const EditCard = (props) => {
                 <Text
                   style={{
                     ...AddCardStyle.invalidLabel,
-                    paddingHorizontal: "10%",
+                    // paddingHorizontal: '10%',
                     color: RED,
-                    fontFamily: "AzoSans-Bold",
-                  }}
-                >
-                  {t("holder_name_validation")}
+                    fontFamily: 'AzoSans-Bold',
+                  }}>
+                  {t('holder_name_validation')}
                 </Text>
               )}
             <BaseInput
-              style={{ ...AddCardStyle.baseInput, marginHorizontal: "10%" }}
-              icon={
-                <SvgXml
-                  xml={
-                    formState?.holderName === null
-                      ? svgs.profileDisabled
-                      : formState?.holderName.length < 3
-                      ? svgs.profileDanger
-                      : svgs.profile
-                  }
-                  width={22}
-                  height={22}
-                />
-              }
+              style={{...AddCardStyle.baseInput}}
+              icon={<SvgXml xml={svgs.profile} width={22} height={22} />}
               name={svgs.copy}
-              placeHolder={t("holder_name")}
-              onChangeText={(event) => handleChange(event, "holderName")}
-              value={formState.holderName || ""}
+              placeHolder={t('holder_name')}
+              onChangeText={event => handleChange(event, 'holderName')}
+              value={formState.holderName || ''}
+              isDisabled={true}
             />
+            {/* </KeyboardAwareScrollView> */}
+            {/* <Actionsheet
+            isOpen={modalVisible}
+            // isOpen={true}
+            style={{ height: "45%", position: "absolute", bottom: 0, zIndex: 10 }}
+            _backdrop={() => setModalVisible(false)}
+            disableOverlay={false}
+          > */}
+
+            {/* </Actionsheet> */}
           </View>
           <View
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
               // position: "absolute",
               // bottom: "0%",
-              paddingHorizontal: "10%",
-            }}
-          >
-            <View style={{ marginVertical: 8, width: "100%" }}>
+              // paddingHorizontal: '10%',
+            }}>
+            {/* <View style={{marginVertical: 8, width: '100%'}}>
               <ButtonComponent
-                text={"DELETE CARD"}
+                text={t('delete_card_button').toUpperCase()}
                 onPress={() => handleShowDeleteModal()}
                 isDisabled={false}
-                color={"transparent"}
+                color={'transparent'}
                 labelColor={RED}
               />
-            </View>
-            <View style={{ marginVertical: 8, width: "100%" }}>
+            </View> */}
+            <View style={{marginVertical: 8, width: '100%'}}>
               <ButtonComponent
-                text={t("confirm").toUpperCase()}
-                onPress={() => handleModal()}
-                // isDisabled={false}
-                isDisabled={
-                  formState?.cardNumber?.length >= 16 &&
-                  formState?.holderName?.length > 3 &&
-                  validateDate(
-                    formState?.expirationMonth,
-                    formState?.expirationYear
-                  )
-                    ? false
-                    : true
-                }
+                text={t('delete_card_button').toUpperCase()}
+                color={RED}
+                onPress={() => handleShowDeleteModal()}
               />
             </View>
           </View>
@@ -494,16 +413,13 @@ const EditCard = (props) => {
       {deleteCardModal && (
         <View
           style={{
-            // height: "50%",
-            position: "absolute",
+            position: 'absolute',
             bottom: 0,
-            zIndex: 10,
-            // paddingBottom: "10%",
-            width: "100%",
-          }}
-        >
+            zIndex: 100,
+            width: widthPercentageToDP(100),
+          }}>
           <ActionModal
-            text={t("add_card_confirmation")}
+            text={t('add_card_confirmation')}
             handleNo={() => setDeleteCardModal(false)}
             handleYes={handleDeleteCard}
             reverseButtons={false}
@@ -513,16 +429,15 @@ const EditCard = (props) => {
       {modalVisible && (
         <View
           style={{
-            height: "50%",
-            position: "absolute",
+            height: '50%',
+            position: 'absolute',
             bottom: 0,
             zIndex: 10,
-            paddingBottom: Platform.OS === "ios" ? "10%" : 0,
-            width: "100%",
-          }}
-        >
+            paddingBottom: Platform.OS === 'ios' ? '10%' : 0,
+            width: '100%',
+          }}>
           <ActionModal
-            text={t("add_card_confirmation")}
+            text={t('add_card_confirmation')}
             handleNo={handleNo}
             handleYes={handleYes}
             reverseButtons={true}
