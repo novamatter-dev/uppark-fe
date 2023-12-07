@@ -1,11 +1,11 @@
-import { View, Text } from "react-native";
-import React from "react";
-import nativeBaseButtonStyle from "./NativeBaseButton.style";
-import { Button } from "native-base";
+import {View, Text} from 'react-native';
+import React from 'react';
+import nativeBaseButtonStyle from './NativeBaseButton.style';
+import {Button} from 'native-base';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-const NativeBaseButton = (props) => {
+const NativeBaseButton = props => {
   const {
     handleOnPress = () => {},
     isLoading,
@@ -33,27 +33,26 @@ const NativeBaseButton = (props) => {
               ...nativeBaseButtonStyle.isDisabled,
               ...style,
             }
-          : { ...nativeBaseButtonStyle.button, ...style }
+          : {...nativeBaseButtonStyle.button, ...style}
       }
-      primary
-    >
+      primary>
       <View style={icon ? nativeBaseButtonStyle.withIcon : null}>
-        {(iconPlacement === "start" || !iconPlacement) && (
-          <View style={{ ...nativeBaseButtonStyle.iconSpacing, ...iconStyle }}>
+        {(iconPlacement === 'start' || !iconPlacement) && (
+          <View style={{...nativeBaseButtonStyle.iconSpacing, ...iconStyle}}>
             {icon}
           </View>
         )}
-        <Text style={{ ...nativeBaseButtonStyle.buttonText, ...labelStyle }}>
+        <Text style={{...nativeBaseButtonStyle.buttonText, ...labelStyle}}>
           {label}
         </Text>
-        {iconPlacement === "end" && (
-          <View style={{ ...nativeBaseButtonStyle.iconSpacing, ...iconStyle }}>
+        {iconPlacement === 'end' && (
+          <View style={{...nativeBaseButtonStyle.iconSpacing, ...iconStyle}}>
             {icon}
           </View>
         )}
-        {rightLabel ? (
+        {rightLabel && (
           <Text style={nativeBaseButtonStyle.rightLabel}>{rightLabel}</Text>
-        ) : null}
+        )}
       </View>
     </Button>
   );
@@ -71,7 +70,7 @@ NativeBaseButton.propTypes = {
   iconStyle: PropTypes.object,
   withIconStyle: PropTypes.object,
   rightLabel: PropTypes.string,
-  iconPlacement: PropTypes.oneOf([null, "start", "end"]),
+  iconPlacement: PropTypes.oneOf([null, 'start', 'end']),
 };
 
 export default NativeBaseButton;

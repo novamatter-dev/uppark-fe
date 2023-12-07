@@ -1,43 +1,45 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { View, Dimensions, TouchableOpacity, Text } from "react-native";
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {Dimensions, Text, TouchableOpacity, View} from 'react-native';
 //style && assets
-import SetYourPinStyle from "./SetYourParkPin.style";
+import SetYourPinStyle from './SetYourParkPin.style';
 //components
 import {
-  NativeBaseButton,
-  Title,
   // Map,
   ButtonComponent,
-} from "../../components";
-import Map from "./Map/Map";
-import { SearchBar } from "../../components";
-import Directions from "../../components/Directions/Directions";
+  Title,
+} from '../../components';
+import Map from './Map/Map';
 //libraries
-import { Box } from "native-base";
-import { debounce, floor, map } from "lodash";
-import { useNavigation } from "@react-navigation/native";
-import Geolocation from "@react-native-community/geolocation";
-import ViewShot from "react-native-view-shot";
+import Geolocation from '@react-native-community/geolocation';
+import {useNavigation} from '@react-navigation/native';
+import {debounce} from 'lodash';
+import {Box} from 'native-base';
+import ViewShot from 'react-native-view-shot';
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import {t} from 'i18next';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   parkingsState,
   setCarLocationSlice,
+  setIsParkingSelected,
   setSearchLocation,
   setShowCounter,
-  setIsParkingSelected,
-} from "../../redux/features/parkings/parkingsSlice";
+} from '../../redux/features/parkings/parkingsSlice';
+import {useSendParkingConfirmationNotificationMutation} from '../../services/notifications';
 import {
-  usePostUploadScreenshotMutation,
   useGetCurrentReservationsMutation,
-} from "../../services/parkings";
-import { useSendParkingConfirmationNotificationMutation } from "../../services/notifications";
-import { t } from "i18next";
+  usePostUploadScreenshotMutation,
+} from '../../services/parkings';
 
 const SetYourParkPin = () => {
-  const { userId } = useSelector((state) => state.auth);
-  const { currentReservations, hasSensors, selectedSensor, reservedPolygon } =
-    useSelector((state) => state.parkings.parkingsState);
+  const {userId} = useSelector(state => state.auth);
+  const {
+    currentReservations,
+    hasSensors,
+    selectedSensor,
+    reservedPolygon,
+    reservationDetails,
+  } = useSelector(state => state.parkings.parkingsState);
   const parkingsData = useSelector(parkingsState);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -55,13 +57,13 @@ const SetYourParkPin = () => {
   });
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const { width, height } = Dimensions.get("window");
+  const {width, height} = Dimensions.get('window');
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.0008;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
   const handleGetCurrentReservation = async () => {
-    await getCurrentReservations().then((answer) => {});
+    await getCurrentReservations().then(answer => {});
   };
 
   useEffect(() => {
@@ -69,15 +71,17 @@ const SetYourParkPin = () => {
     handleGetCurrentReservation();
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // TODO: check method
   const handleCarLocation = useCallback(
-    debounce((location) => {
-      setCarLocation((data) => ({
+    debounce(location => {
+      setCarLocation(data => ({
         ...data,
         latitude: location.latitude,
         longitude: location.longitude,
       }));
       setIsDisabled(false);
-    }, 800)
+    }, 800),
   );
 
   const handleCarLocationSlice = () => {
@@ -86,73 +90,68 @@ const SetYourParkPin = () => {
   };
 
   const locateCurrentPosition = () => {
-    Geolocation.getCurrentPosition((position) => {
+    Geolocation.getCurrentPosition(position => {
       dispatch(
         setSearchLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
-        })
+        }),
       );
     });
   };
 
-  const handleUploadScreenshot = (uri) => {
+  const handleUploadScreenshot = uri => {
     const uploadScreenshotUri = async () =>
       await postUploadScreenshot({
-        parkingId:
-          currentReservations[currentReservations.length - 1]
-            ?.parkingReservationId,
+        parkingId: reservationDetails.reservationId,
         reqBody: {
           base_64_Screenshot: uri,
         },
       });
 
-    // console.log(
-    //   "b64 image string: ",
-    //   parkingsData.reservationDetails.reservationId,
-    //   "    /    ",
-    //   uri
-    // );
-
     try {
       uploadScreenshotUri()
-        .then((answer) => {
+        .then(answer => {
           if (answer.data.isSucces) {
-            // handleConfirmNotification();
             handleGetCurrentReservation();
-            navigation.navigate("HomePage");
+            navigation.navigate('HomePage');
           }
         })
-        .catch((err) => {
-          console.log("PROMISE SCREENSHOT ERR >>>", err);
-          navigation.navigate("HomePage");
+        .catch(err => {
+          console.log('uploadScreenshotUri err:', err);
+          navigation.navigate('HomePage');
         });
     } catch (err) {
-      console.log("CATCH POST UPLOAD SCREENSHOT ERR >>>", err);
+      console.log('CATCH POST UPLOAD SCREENSHOT ERR >>>', err);
     }
   };
 
   const handleSnapshot = async () => {
-    await mapRef.current.capture().then((uri) => {
+    // TODO: verify logic for capture ( possibly API problem )
+    await mapRef.current.capture().then(uri => {
       handleUploadScreenshot(uri);
       dispatch(setShowCounter(true));
       dispatch(setIsParkingSelected(false));
     });
   };
 
+  const handleSkipSnapshot = () => {
+    navigation.navigate('HomePage');
+  };
+
   const handleConfirmNotification = async () => {
     try {
-      await confirmNotification({ userId: userId })
-        .then((answer) => {
-          console.log("success notification");
+      await confirmNotification({userId: userId})
+        .then(answer => {
+          console.log('success notification');
         })
-        .catch((err) => {
-          console.log("notification err: ", err);
+        .catch(err => {
+          console.log('notification err: ', err);
         });
     } catch (err) {
-      console.log("notification err: ", err);
+      console.log('notification err: ', err);
     }
   };
 
@@ -185,24 +184,23 @@ const SetYourParkPin = () => {
       <View style={SetYourPinStyle.content}>
         <View
           style={{
-            display: "flex",
+            display: 'flex',
             marginVertical: 16,
-          }}
-        >
-          <Title label={t("set_pin")} style={SetYourPinStyle.title} />
+          }}>
+          <Title label={t('set_pin')} style={SetYourPinStyle.title} />
         </View>
 
         <Box style={SetYourPinStyle.mapSmall}>
           <ViewShot
             ref={mapRef}
             options={{
-              fileName: "map-shot",
-              format: "jpg",
+              fileName: 'map-shot',
+              format: 'jpg',
+              // TODO: verify quality
               quality: 0.2,
-              result: "base64",
-            }}
-          >
-            <View style={{ overflow: "hidden", borderRadius: 24 }}>
+              result: 'base64',
+            }}>
+            <View style={{overflow: 'hidden', borderRadius: 24}}>
               <Map
                 isPinDraggable={true}
                 location={{
@@ -211,7 +209,6 @@ const SetYourParkPin = () => {
                   latitudeDelta: LATITUDE_DELTA,
                   longitudeDelta: LONGITUDE_DELTA,
                 }}
-                // polygonGroup={parkingGroups}
                 reservedPolygon={reservedPolygon?.parkings}
                 handleCarLocation={handleCarLocation}
               />
@@ -226,15 +223,14 @@ const SetYourParkPin = () => {
       <View style={SetYourPinStyle.buttonsContainer}>
         <TouchableOpacity
           style={SetYourPinStyle.declineBtn}
-          onPress={handleSnapshot}
-        >
+          onPress={handleSkipSnapshot}>
           <Text style={SetYourPinStyle.declineText}>
-            {t("no_thanks").toUpperCase()}!
+            {t('no_thanks').toUpperCase()}!
           </Text>
         </TouchableOpacity>
 
         <ButtonComponent
-          text={t("confirm").toUpperCase()}
+          text={t('confirm').toUpperCase()}
           onPress={handleCarLocationSlice}
           isDisabled={isDisabled}
         />

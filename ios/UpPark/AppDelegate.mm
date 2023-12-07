@@ -1,3 +1,43 @@
+//#import "AppDelegate.h"
+//
+//#import <React/RCTBundleURLProvider.h>
+//#import <GoogleMaps/GoogleMaps.h>
+//#import <Firebase.h>
+//#import <GoogleSignIn/GIDSignIn.h>
+//#import <RNGoogleSignin/RNGoogleSignin.h>
+//
+//@implementation AppDelegate
+//
+//
+//
+//
+//- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+//{
+//  [GMSServices provideAPIKey:@"AIzaSyBdtEDFVI-INMipfxqPGUIQQG5Jx6_A0g4"];
+//  [FIRApp configure];
+//  self.moduleName = @"constantaparking";
+//  // You can add your custom initial props in the dictionary below.
+//  // They will be passed down to the ViewController used by React Native.
+//  self.initialProps = @{};
+//
+//  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+//}
+//
+//- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+//{
+//#if DEBUG
+//  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+//#else
+//  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+//#endif
+//}
+//
+//
+//
+//
+//@end
+
+
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
@@ -83,7 +123,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
   NSDictionary *initProps = [self prepareInitialProps];
-  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"UpPark", initProps, true);
+  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"constantaparking", initProps, true);
 
   if (@available(iOS 13.0, *)) {
     rootView.backgroundColor = [UIColor systemBackgroundColor];

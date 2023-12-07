@@ -1,27 +1,32 @@
-import { StyleSheet } from "react-native";
-import { BLACK, WHITE } from "../../helpers/style/constants";
+import {StyleSheet} from 'react-native';
+import {BLACK, WHITE} from '../../helpers/style/constants';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 const style = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     backgroundColor: WHITE,
-    borderRadius: 25,
-    alignItems: "center",
+    borderRadius: hp(2.95),
+    height: hp(7.88),
+    alignItems: 'center',
     paddingHorizontal: 18,
     paddingVertical: 8,
-    width: "100%",
-    justifyContent: "space-between",
+    width: '100%',
+    justifyContent: 'space-between',
   },
   leftIconContainer: {
     // width: "10%",
   },
   customInput: {
-    fontSize: 18,
-    fontFamily: "AzoSans-Medium",
+    fontSize: hp(2.21),
+    fontFamily: 'AzoSans-Medium',
     marginLeft: 16,
     color: BLACK,
-    width: "80%",
+    width: '80%',
   },
 });
 

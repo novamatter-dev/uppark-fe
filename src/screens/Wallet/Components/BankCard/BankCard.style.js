@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { WHITE, BLACK, AQUA } from "../../../../helpers/style/constants";
+import { WHITE, BLACK } from "../../../../helpers/style/constants";
 
 const BankCardStyle = StyleSheet.create({
   container: {
@@ -44,17 +44,6 @@ const BankCardStyle = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-end",
     width: "15%",
-  },
-  toastWrapper: {
-    backgroundColor: AQUA,
-    padding: 16,
-    borderRadius: 15,
-    shadowColor: AQUA,
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.9,
-    shadowRadius: 4,
-    elevation: 25,
-    shadowColor: AQUA,
   },
 });
 

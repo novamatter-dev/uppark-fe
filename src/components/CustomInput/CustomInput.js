@@ -7,7 +7,10 @@ import svgs from "../../assets/svgs";
 //libraires
 import PropTypes from "prop-types";
 import { GREY } from "../../helpers/style/constants";
-
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 const CustomInput = (props) => {
   const {
     placeholder = "",
@@ -23,7 +26,7 @@ const CustomInput = (props) => {
     <View style={style.container}>
       {leftIcon && (
         <View style={style.leftIconContainer}>
-          <SvgXml xml={svgs[leftIcon]} width={24} height={24} />
+          <SvgXml xml={svgs[leftIcon]} width={hp(2.95)} height={hp(2.95)} />
         </View>
       )}
       <TextInput
@@ -37,7 +40,7 @@ const CustomInput = (props) => {
       />
       {rightIcon && (
         <View style={style.leftIconContainer}>
-          <SvgXml xml={svgs[rightIcon]} width={24} height={24} />
+          <SvgXml xml={svgs[rightIcon]} width={hp(2.95)} height={hp(2.95)} />
         </View>
       )}
     </View>

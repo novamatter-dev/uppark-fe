@@ -1,27 +1,38 @@
-import React, { useState } from "react";
-import { Text, View, TouchableWithoutFeedback, Keyboard } from "react-native";
-import PropTypes from "prop-types";
-import moment from "moment";
-import { useToast, Actionsheet } from "native-base";
-import { NativeBaseBackButton, Title, ButtonComponent } from "../index";
-import BaseInput from "../BaseInput";
-import ActionModal from "../ActionModal/ActionModal";
+import React, {useState} from 'react';
+import {
+  Text,
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+  SafeAreaView,
+} from 'react-native';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import {useToast, Actionsheet} from 'native-base';
+import {NativeBaseBackButton, Title, ButtonComponent} from '../index';
+import BaseInput from '../BaseInput';
+import ActionModal from '../ActionModal/ActionModal';
 //style
-import { SvgXml } from "react-native-svg";
-import svgs from "../../assets/svgs";
-import AddCardStyle from "./AddCard.style";
-import { AQUA } from "../../helpers/style/constants";
-import { Toast } from "../Toast";
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../assets/svgs';
+import AddCardStyle from './AddCard.style';
+import {AQUA} from '../../helpers/style/constants';
+import {Toast} from '../Toast';
 //redux
 import {
   useCreateCardMutation,
   useGetCardsMutation,
-} from "../../services/wallets";
-import { useSelector } from "react-redux";
-import { t } from "i18next";
+} from '../../services/wallets';
+import {useSelector} from 'react-redux';
+import {t} from 'i18next';
 
-const AddCard = (props) => {
-  const { onClosePress } = props;
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+
+const AddCard = props => {
+  const {onClosePress} = props;
 
   const toast = useToast();
 
@@ -35,7 +46,7 @@ const AddCard = (props) => {
   const [isInvalidDate, setIsInvalidDate] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const personalState = useSelector((state) => state.users.personal);
+  const personalState = useSelector(state => state.users.personal);
 
   const [createCard] = useCreateCardMutation();
   const [getCards] = useGetCardsMutation();
@@ -72,20 +83,20 @@ const AddCard = (props) => {
     // setIsInvalidDate(false);
   };
 
-  const year = moment(new Date()).format("yyyy");
-  const currentMonth = moment(new Date()).format("MM");
+  const year = moment(new Date()).format('yyyy');
+  const currentMonth = moment(new Date()).format('MM');
 
   const handleSubmit = async () => {
-    const currentYear = moment(new Date()).format("yyyy");
-    const currentMonth = moment(new Date()).format("M");
+    const currentYear = moment(new Date()).format('yyyy');
+    const currentMonth = moment(new Date()).format('M');
 
     const body = {
       cardNumber: formState.cardNumber,
       expirationMonth: formState.expirationMonth,
       expirationYear: formState.expirationYear,
       holderName: formState.holderName,
-      netopiaToken: "string",
-      netopiaTokenExpirationDate: "2023-01-05T17:24:10.688Z",
+      netopiaToken: 'string',
+      netopiaTokenExpirationDate: '2023-01-05T17:24:10.688Z',
     };
 
     if (
@@ -97,14 +108,14 @@ const AddCard = (props) => {
       if (body.cardNumber.length && !isInvalidDate) {
         setIsInvalidDate(false);
         await createCard(body)
-          .then((answer) => {
+          .then(answer => {
             onClosePress();
             handleSuccessToast();
             handleGetCards();
             setModalVisible(false);
 
             toast.show({
-              placement: "top",
+              placement: 'top',
               duration: 1000,
               render: () => {
                 return (
@@ -114,29 +125,27 @@ const AddCard = (props) => {
                       padding: 16,
                       borderRadius: 15,
                       shadowColor: AQUA,
-                      shadowOffset: { width: -2, height: 4 },
+                      shadowOffset: {width: -2, height: 4},
                       shadowOpacity: 0.9,
                       shadowRadius: 4,
                       elevation: 25,
                       shadowColor: AQUA,
-                    }}
-                  >
+                    }}>
                     <Text
                       style={{
-                        color: "#F5F5F5",
+                        color: '#F5F5F5',
                         fontSize: 18,
-                        fontFamily: "AzoSans-Medium",
-                      }}
-                    >
-                      {t("card_added")}
+                        fontFamily: 'AzoSans-Medium',
+                      }}>
+                      {t('card_added')}
                     </Text>
                   </View>
                 );
               },
             });
           })
-          .catch((err) => {
-            console.log("ERR createCard >>> ", err);
+          .catch(err => {
+            console.log('ERR createCard >>> ', err);
           });
       } else {
         // console;
@@ -154,9 +163,9 @@ const AddCard = (props) => {
     // } else {
     val = event;
     // }
-    setFormState((formState) => ({
+    setFormState(formState => ({
       ...formState,
-      [name]: name === "cardNumber" ? event : val,
+      [name]: name === 'cardNumber' ? event : val,
     }));
   };
 
@@ -174,7 +183,7 @@ const AddCard = (props) => {
 
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
@@ -184,21 +193,19 @@ const AddCard = (props) => {
               padding: 16,
               borderRadius: 15,
               shadowColor: AQUA,
-              shadowOffset: { width: -2, height: 4 },
+              shadowOffset: {width: -2, height: 4},
               shadowOpacity: 0.9,
               shadowRadius: 4,
               elevation: 25,
               shadowColor: AQUA,
-            }}
-          >
+            }}>
             <Text
               style={{
-                color: "#F5F5F5",
+                color: '#F5F5F5',
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
-              }}
-            >
-              Card was added your wallet !
+                fontFamily: 'AzoSans-Medium',
+              }}>
+              {t('card_added')}
             </Text>
           </View>
         );
@@ -267,34 +274,29 @@ const AddCard = (props) => {
   return (
     <View style={AddCardStyle.container}>
       <NativeBaseBackButton
-        style={{ ...AddCardStyle.closeButton, marginHorizontal: "10%" }}
+        style={{...AddCardStyle.closeButton}}
         handleOnPress={onClosePress}
-        iconType={"exit"}
+        iconType={'exit'}
       />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={AddCardStyle.inputContainer}>
-          <Title
-            label={t("add_card")}
-            style={{ ...AddCardStyle.title, marginHorizontal: "10%" }}
-          />
+          <Title label={t('add_card')} style={{...AddCardStyle.title}} />
           {/* <KeyboardAwareScrollView> */}
           {formState?.cardNumber?.length > 0 &&
             formState?.cardNumber?.length < 16 && (
               <Text
                 style={{
                   fontSize: 14,
-                  color: "red",
-                  fontFamily: "AzoSans-Medium",
+                  color: 'red',
+                  fontFamily: 'AzoSans-Medium',
                   marginTop: 10,
-                  paddingHorizontal: "10%",
-                }}
-              >
-                {t("card_langht_validation")}
+                }}>
+                {t('card_langht_validation')}
               </Text>
             )}
 
           <BaseInput
-            style={{ ...AddCardStyle.baseInput, marginHorizontal: "10%" }}
+            style={{...AddCardStyle.baseInput}}
             icon={
               <SvgXml
                 xml={
@@ -306,14 +308,14 @@ const AddCard = (props) => {
                     ? svgs.cardDanger
                     : svgs.card
                 }
-                width={22}
-                height={22}
+                width={hp(2.70)}
+                height={hp(2.70)}
               />
             }
             maxLength={16}
             name={svgs.copy}
-            placeHolder={"Card Number"}
-            onChangeText={(event) => handleChange(event, "cardNumber")}
+            placeHolder={'Card Number'}
+            onChangeText={event => handleChange(event, 'cardNumber')}
             value={formState.cardNumber}
             keyboardType="numeric"
             isInvalid={
@@ -326,32 +328,27 @@ const AddCard = (props) => {
 
           <View
             style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              paddingHorizontal: "10%",
-            }}
-          >
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+            }}>
             {!isInvalidDate && showInvalidDate() && (
               <Text
                 style={{
                   fontSize: 12,
-                  color: "red",
-                  fontFamily: "AzoSans-Bold",
-                }}
-              >
-                {t("invalid_date")}
+                  color: 'red',
+                  fontFamily: 'AzoSans-Bold',
+                }}>
+                {t('invalid_date')}
               </Text>
             )}
           </View>
           <View
             style={{
               ...AddCardStyle.rowContainer,
-              paddingHorizontal: "10%",
-            }}
-          >
+            }}>
             <BaseInput
-              style={{ ...AddCardStyle.rowInput }}
+              style={{...AddCardStyle.rowInput}}
               icon={
                 !isInvalidDate ? (
                   <SvgXml
@@ -362,22 +359,22 @@ const AddCard = (props) => {
                         ? svgs.copyDanger
                         : svgs.drivingLicense
                     }
-                    width={22}
-                    height={22}
+                    width={hp(2.70)}
+                    height={hp(2.70)}
                   />
                 ) : (
-                  <SvgXml xml={svgs.copyDanger} width={22} height={22} />
+                  <SvgXml xml={svgs.copyDanger} width={hp(2.70)} height={hp(2.70)} />
                 )
               }
               name={svgs.copy}
-              placeHolder={"Month"}
-              onChangeText={(event) => handleChange(event, "expirationMonth")}
+              placeHolder={'Month'}
+              onChangeText={event => handleChange(event, 'expirationMonth')}
               value={formState.expirationMonth}
               keyboardType="numeric"
               maxLength={2}
             />
 
-            <View style={{ ...AddCardStyle.rowInput }}>
+            <View style={{...AddCardStyle.rowInput}}>
               <BaseInput
                 icon={
                   <SvgXml
@@ -388,14 +385,14 @@ const AddCard = (props) => {
                         ? svgs.copyDanger
                         : svgs.drivingLicense
                     }
-                    width={22}
-                    height={22}
+                    width={hp(2.70)}
+                    height={hp(2.70)}
                   />
                 }
                 name={svgs.copy}
-                placeHolder={"Year"}
-                onChangeText={(event) => handleChange(event, "expirationYear")}
-                value={formState.expirationYear || ""}
+                placeHolder={'Year'}
+                onChangeText={event => handleChange(event, 'expirationYear')}
+                value={formState.expirationYear || ''}
                 keyboardType="numeric"
                 maxLength={4}
               />
@@ -405,11 +402,11 @@ const AddCard = (props) => {
           {formState?.holderName?.length > 0 &&
             formState?.holderName?.length < 3 && (
               <Text style={AddCardStyle.invalidLabel}>
-                {t("holder_name_validation")}
+                {t('holder_name_validation')}
               </Text>
             )}
           <BaseInput
-            style={{ ...AddCardStyle.baseInput, marginHorizontal: "10%" }}
+            style={{...AddCardStyle.baseInput}}
             icon={
               <SvgXml
                 xml={
@@ -419,14 +416,14 @@ const AddCard = (props) => {
                     ? svgs.profileDanger
                     : svgs.profile
                 }
-                width={22}
-                height={22}
+                width={hp(2.70)}
+                height={hp(2.70)}
               />
             }
             name={svgs.copy}
-            placeHolder={t("holder_name")}
-            onChangeText={(event) => handleChange(event, "holderName")}
-            value={formState.holderName || ""}
+            placeHolder={t('holder_name')}
+            onChangeText={event => handleChange(event, 'holderName')}
+            value={formState.holderName || ''}
           />
           {/* </KeyboardAwareScrollView> */}
           {/* <Actionsheet
@@ -436,46 +433,18 @@ const AddCard = (props) => {
           _backdrop={() => setModalVisible(false)}
           disableOverlay={false}
         > */}
-          {modalVisible && (
-            <View
-              style={{
-                height: "50%",
-                position: "absolute",
-                bottom: 0,
-                zIndex: 10,
-                paddingBottom: "10%",
-                width: "100%",
-              }}
-            >
-              <ActionModal
-                text={t("add_card_confirmation")}
-                handleNo={handleNo}
-                handleYes={handleYes}
-                reverseButtons={true}
-              />
-            </View>
-          )}
+
           {/* </Actionsheet> */}
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              position: "absolute",
-              bottom: "10%",
-              paddingHorizontal: "10%",
-            }}
-          >
+          <View style={AddCardStyle.buttonWrapper}>
             <ButtonComponent
-              text={"CONFIRM"}
+              text={'CONFIRM'}
               onPress={() => handleModal()}
               isDisabled={
                 formState?.cardNumber?.length >= 16 &&
                 formState?.holderName?.length > 3 &&
                 validateDate(
                   formState?.expirationMonth,
-                  formState?.expirationYear
+                  formState?.expirationYear,
                 )
                   ? false
                   : true
@@ -484,6 +453,24 @@ const AddCard = (props) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      {/* TODO: verify this style */}
+      {modalVisible && (
+        <View
+          style={{
+            height: '50%',
+            position: 'absolute',
+            bottom: -10,
+            zIndex: 10,
+            width: wp(100),
+          }}>
+          <ActionModal
+            text={t('add_card_confirmation')}
+            handleNo={handleNo}
+            handleYes={handleYes}
+            reverseButtons={true}
+          />
+        </View>
+      )}
     </View>
   );
 };

@@ -1,21 +1,20 @@
-import React, { useState } from "react";
-import { View, TouchableOpacity, Text, Modal } from "react-native";
-import { NativeBaseButton } from "../../../../components";
-import BankCardStyle from "./BankCard.style";
-import visa from "../../../../assets/icons/visa.png";
-import { Image } from "react-native";
-import { SvgXml } from "react-native-svg";
-import svgs from "../../../../assets/svgs";
-import { useToast, Actionsheet } from "native-base";
-import { AQUA, RED } from "../../../../helpers/style/constants";
+import {Actionsheet, useToast} from 'native-base';
+import React, {useState} from 'react';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import visa from '../../../../assets/icons/visa.png';
+import {AQUA} from '../../../../helpers/style/constants';
+import BankCardStyle from './BankCard.style';
 //redux
-import { useDeleteCardMutation } from "../../../../services/wallets";
-import ActionModal from "../../../../components/ActionModal/ActionModal";
-import { t } from "i18next";
+import {t} from 'i18next';
+import ActionModal from '../../../../components/ActionModal/ActionModal';
+import {useDeleteCardMutation} from '../../../../services/wallets';
+import {useTranslation} from 'react-i18next';
 
-const BankCard = (props) => {
-  const { cards, handleOnPress, handleGetAllWallets, handleEdit, setCardInfo } =
+const BankCard = props => {
+  const {cards, handleOnPress, handleGetAllWallets, handleEdit, setCardInfo} =
     props;
+
+  const {t} = useTranslation();
 
   const [deleteCard] = useDeleteCardMutation();
 
@@ -30,20 +29,20 @@ const BankCard = (props) => {
     }
   };
 
-  const handleDeleteCard = async (id) => {
-    await deleteCard({ cardId: id })
+  const handleDeleteCard = async id => {
+    await deleteCard({cardId: id})
       .then(() => {
         handleGetAllWallets();
         handleSuccessToast();
       })
-      .catch((err) => {
-        console.log("remove card err", err);
+      .catch(err => {
+        console.log('remove card err', err);
       });
   };
 
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
@@ -53,26 +52,28 @@ const BankCard = (props) => {
               padding: 16,
               borderRadius: 15,
               shadowColor: AQUA,
-              shadowOffset: { width: -2, height: 4 },
+              shadowOffset: {width: -2, height: 4},
               shadowOpacity: 0.9,
               shadowRadius: 4,
               elevation: 25,
               shadowColor: AQUA,
-            }}
-          >
+            }}>
             <Text
               style={{
-                color: "#F5F5F5",
+                color: '#F5F5F5',
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
-              }}
-            >
-              Card was removed from your wallet !
+                fontFamily: 'AzoSans-Medium',
+              }}>
+              {t('card_was_removed')}
             </Text>
           </View>
         );
       },
     });
+  };
+
+  const handleModal = () => {
+    setModalVisible(!modalVisible);
   };
 
   const handleNo = () => {
@@ -83,25 +84,48 @@ const BankCard = (props) => {
     setModalVisible(false);
   };
 
-  const handleEditCard = (card) => {
+  const handleEditCard = card => {
     handleEdit();
     setCardInfo(card);
   };
 
   return (
+    // <Box>
     <View>
-      {cards?.map((item) => {
+      {cards?.map(item => {
         return (
           <View style={BankCardStyle.container} key={`item--${item?.id}`}>
+            {/* <NativeBaseButton
+              handleOnPress={handleSelectCard}
+              key={item.cardNumber}
+              style={BankCardStyle.card}
+              label={item.cardNumber.replace(/^.{12}/g, "**** **** **** ")}
+              labelStyle={BankCardStyle.cardText}
+              icon={<Image style={BankCardStyle.icon} source={visa} />}
+              iconStyle={BankCardStyle.iconSpacing}
+            /> */}
             <TouchableOpacity
               key={item.cardNumber}
               style={BankCardStyle.card}
-              onPress={() => handleEditCard(item)}
-            >
+              onPress={() => handleEditCard(item)}>
               <Image style={BankCardStyle.icon} source={visa} />
               <Text style={BankCardStyle.cardText}>
-                {item?.cardNumber && `**** ${item.cardNumber.slice(-4)}`}
+                {`**** ${item.cardNumber.slice(-4)}`}
               </Text>
+              {/* <TouchableOpacity
+                onPress={() => {
+                  setCardId(item.id);
+                  handleModal();
+                }}
+                style={BankCardStyle.deleteBtn}
+              >
+                <SvgXml
+                  xml={svgs.deleteIcon}
+                  width={22}
+                  height={22}
+                  fill={RED}
+                />
+              </TouchableOpacity> */}
             </TouchableOpacity>
           </View>
         );
@@ -109,15 +133,15 @@ const BankCard = (props) => {
       <Actionsheet
         isOpen={modalVisible}
         // isOpen={true}
-        style={{ height: "45%", position: "absolute", bottom: 0 }}
-      >
+        style={{height: '45%', position: 'absolute', bottom: 0}}>
         <ActionModal
-          text={t("delete_card")}
+          text={t('delete_card')}
           handleNo={handleNo}
           handleYes={handleYes}
         />
       </Actionsheet>
     </View>
+    // </Box>
   );
 };
 

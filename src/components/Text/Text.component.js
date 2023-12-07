@@ -5,7 +5,7 @@ import TextStyle from "./Text.style";
 const Text = (props) => {
   const { children, style } = props;
   return (
-    <TextNative style={{ ...TextStyle.container, ...style }}>
+    <TextNative allowFontScaling={false} style={{ ...TextStyle.container, ...style }}>
       {children}
     </TextNative>
   );

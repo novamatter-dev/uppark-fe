@@ -1,12 +1,12 @@
-export const en = `GENERAL TERMS OF USE OF UPPARK WEBSITE AND APPLICATION
+export const en = `GENERAL TERMS OF USE OF ConstantaParking WEBSITE AND APPLICATION
 These general terms and conditions constitute the contractual agreement between FAST PARK CO S.R.L.
 and you, regulating both the conditions under which you can access FAST PARK services and the rights
 and obligations of each party.
 The undersigned, FAST PARK CO S.R.L., is a Romanian company, with headquarters in Voluntari, Bd.
 Pipera nr.1B, Cubic Center Office Building, et. 7, Ilfov County, Romania and owns the intellectual property
-rights to the UPPARK website and application.
-If you choose to download the UPPARK application and register in this application, thereby using the
-UPPARK services, it is presumed that you unconditionally agree to these terms.
+rights to the ConstantaParking website and application.
+If you choose to download the ConstantaParking application and register in this application, thereby using the
+ConstantaParking services, it is presumed that you unconditionally agree to these terms.
 Therefore, please read them carefully before proceeding further with downloading and registering your
 personal data in the application.
 Any responsibility for the control, activity and consequences of the access of minors to virtual spaces is the
@@ -17,18 +17,18 @@ subject to change, which will be posted immediately on the website and via the a
 our services, it is presumed that you agree to the changes to these terms and conditions. If you do not
 agree with the changes, you have the option to stop using FAST PARK services. These general terms and
 conditions were updated on ..............., since when they have not undergone any other changes.
-UPPARK offers you a remote payment method, using your mobile phone or other compatible mobile
+ConstantaParking offers you a remote payment method, using your mobile phone or other compatible mobile
 equipment (tablet, laptop, etc.), for parking services offered by our partners. You can pay for these services
 either using your bank card or via your mobile operator, in which case you opt for payment by SMS.
 Please note that FAST PARK does not offer parking services and these general terms and
 conditions do not constitute a parking contract. FAST PARK only offers services to facilitate the
 payment of parking fees to public or private operators. The contract for parking services is concluded
 between you and the parking service provider in the area/town where you park.
-UPPARK services are only available in certain areas of Romania and we do not guarantee its availability
+ConstantaParking services are only available in certain areas of Romania and we do not guarantee its availability
 throughout the country.
 
 The following terms have the meanings indicated below:
-Account or accounts means all parking payment service accounts opened by you on the UPPARK
+Account or accounts means all parking payment service accounts opened by you on the ConstantaParking
 application;;
 Service means the services offered by FAST PARK CO S.R.L. to mediate the payment of the services of
 the partner providers for which you opt via the application (e.g. payment of hourly rates or parking passes,
@@ -40,11 +40,11 @@ and any other entity that the undersigned or our associates may establish in the
 Website, or Site, means the website currently in use as well as any successor to this website, to which
 FAST PARK owns the intellectual property rights;
 
-UPPARK means the parking payment application by bank card or SMS, on which FAST PARK owns the
+ConstantaParking means the parking payment application by bank card or SMS, on which FAST PARK owns the
 intellectual property rights.
 
 USE AND PAYMENT OF SERVICES
-In order to access FAST PARK parking facilitation services, you need to download the UPPARK app on
+In order to access FAST PARK parking facilitation services, you need to download the ConstantaParking app on
 your mobile phone, available in the AppStore and GooglePlay Store.
 After being downloaded, in order to log into the application, you need to either create a user account with
 your chosen password, providing the requested personal data, or use a valid Facebook or Google account.
@@ -76,7 +76,7 @@ not store any details related to your card, other than those required exclusivel
 platform.
 FAST PARK accepts the following cards: Visa, Mastercard, Discover, AmericanExpress, JCB,
 WrightExpress, Carte Blanche și Diner's Club.
-Through the UPPARK application, payments can only be made to FAST PARK or to our partners, parking
+Through the ConstantaParking application, payments can only be made to FAST PARK or to our partners, parking
 service providers.
 For SMS service payments:
 
@@ -98,16 +98,16 @@ has not been processed and you are consequently sanctioned by the parking servic
 We reiterate the fact that we do not provide parking services, only payment facilitation. Therefore, we are
 not responsible for the security and integrity of your vehicle or the goods inside.
 IMPORTANT
-If the option to receive UPPARK notifications is unchecked, either from the app or from the general phone
+If the option to receive ConstantaParking notifications is unchecked, either from the app or from the general phone
 settings, the user will not be notified when a product reservation in the app is about to expire. We
-recommend that you keep all notifications for UPPARK turned on.
+recommend that you keep all notifications for ConstantaParking turned on.
 To turn on system notifications, for iOS, you need to go to the Settings - Notifications menu, then select the
-UPPARK app and check Allow Notifications.
-For Android, go to Settings - Notifications menu then select the UPPARK app and check Show Notifications
+ConstantaParking app and check Allow Notifications.
+For Android, go to Settings - Notifications menu then select the ConstantaParking app and check Show Notifications
 option.
 
 SERVICE AVAILABILITY
-The UPPARK service is available in certain areas of Romania and we do not guarantee its availability
+The ConstantaParking service is available in certain areas of Romania and we do not guarantee its availability
 throughout the country, although we are constantly trying to expand.
 Parking rates are constantly updated and may differ depending on location, zoning and parking operator.
 Please be advised that we assume no liability to you or any third party for any modification, suspension or
@@ -121,7 +121,7 @@ However, we assume the obligation to restore all affected services as soon as po
 You are responsible for obtaining the internet network access necessary to use the Services provided and
 for paying any charges and fees applied by your mobile network provider, including data usage while using
 
-the UPPARK applications. You are also responsible for accessing compatible devices and operating
+the ConstantaParking applications. You are also responsible for accessing compatible devices and operating
 systems required to use the Internet Services, including any software or hardware updates.
 The User declares that he is the rightful owner of the means of payment used for payment. FAST PARK is
 not responsible for any claims related to the incorrect use of the means of payment by persons other than
@@ -130,8 +130,8 @@ transaction by the holder.
 
 USE OF PHONES OR OTHER MOBILE DEVICES WHILE DRIVING
 The user is warned that using mobile phones or other mobile devices while driving is dangerous. FAST
-PARK recommends the user not to use the UPPARK service while handling a moving vehicle. The User
-agrees to hold FAST PARK harmless for any claim for damages resulting from the use of the UPPARK
+PARK recommends the user not to use the ConstantaParking service while handling a moving vehicle. The User
+agrees to hold FAST PARK harmless for any claim for damages resulting from the use of the ConstantaParking
 service while handling any type of vehicle.
 The user is responsible for the parking fines received (or notices for non-payment of parking or notices for
 incorrect payment) and for their payment. FAST PARK has no competence between the car park user and
@@ -147,7 +147,7 @@ As a registered user, your data will only be available for the approved purpose 
 use is possible, except for payments to the subscriber or our suppliers with whom we have a working
 relationship. Even in the unlikely event of unauthorized access to your data, our system does not allow you
 to make payments other than those mentioned above.
-You can review and edit your recorded data via the UPPARK application.
+You can review and edit your recorded data via the ConstantaParking application.
 If you have reason to suspect unauthorized use of this data, including bank card details, you should inform
 us immediately by contacting us via the form on the website. If you have reported your card as stolen, the
 usual security measures provided by applicable laws will be applied and your account will be suspended to
@@ -158,7 +158,7 @@ believe that your mobile phone has been stolen or misused, you should inform us 
 order to limit any further use of the phone for FAST PARK services and to limit any financial implications
 you may have as a result of the stealing. If you do not notify us in a timely manner of such an event, we
 assume no liability for any fraudulent transactions carried out by third parties in such circumstances.
-You commit not to take any steps to misuse the UPPARK service, including, without limitation, attempting
+You commit not to take any steps to misuse the ConstantaParking service, including, without limitation, attempting
 to gain unauthorized access to the site or any part of the FAST PARK systems or knowingly introducing
 any viruses, worms or other malware.
 We reserve the right to refuse your registration and/or suspend and/or terminate your account if we believe
@@ -166,20 +166,20 @@ that you have violated or may violate these terms and conditions or if required 
 
 not be required to provide you with reasons for doing so. We may further suspend your account if we
 suspect unauthorized use or abuse.
-We use cookies to show you the correct information and settings when you use the UPPARK application.
+We use cookies to show you the correct information and settings when you use the ConstantaParking application.
 We use Security cookies for user authentication, to prevent fraudulent login usage and to protect user data
 from unauthorized parties.
 
 INTELLECTUAL PROPERTY RIGHTS
-The UPPARK application, services and website are protected by intellectual property rights belonging to
+The ConstantaParking application, services and website are protected by intellectual property rights belonging to
 FAST PARK CO S.R.L. or its affiliates. These intellectual property rights also apply to derivative products,
 new versions, improvements, updates, modifications.
-Both the UPPARK trademark and any other trademarks displayed on the FAST PARK website are
+Both the ConstantaParking trademark and any other trademarks displayed on the FAST PARK website are
 registered trademarks of FAST PARK CO S.R.L. or our affiliates.
-The UPPARK trademark may not be used in connection with any product or service that does not belong
+The ConstantaParking trademark may not be used in connection with any product or service that does not belong
 to FAST PARK CO S.R.L. or its affiliates, in any manner that is likely to cause confusion among customers
 or in any manner that disparages FAST PARK CO S.R.L.
-By activating your account in the UPPARK application, you acquire from FAST PARK a non-exclusive,
+By activating your account in the ConstantaParking application, you acquire from FAST PARK a non-exclusive,
 temporary and non-transferable license to use FAST PARK products, on which we hold intellectual property
 rights. Apart from those expressly mentioned in these terms and conditions, FAST PARK does not grant
 you any other intellectual property rights, and you are obliged to refrain from any infringement of FAST
@@ -208,6 +208,6 @@ the competent courts of our headquarters.
 You also agree to comply with all laws, including but not limited to those applicable to online conduct.
 
 I have read these terms and conditions in full and agree to them - TO BE CHECKED
-I agree to receive regular newsletters informing me about news related to UPPARK services - TO
+I agree to receive regular newsletters informing me about news related to ConstantaParking services - TO
 BE CHECKED
 I agree to receive promotional materials from FAST PARK CO and its affiliates - TO BE CHECKED`;

@@ -1,15 +1,18 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import PropTypes from "prop-types";
-import { WHITE } from "../../helpers/style/constants";
-import { t } from "i18next";
-
-const DropdownButton = (props) => {
+import React from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
+import {WHITE} from '../../helpers/style/constants';
+import {t} from 'i18next';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+const DropdownButton = props => {
   const {
     expanded = false,
     setExpanded = () => {},
     setProfileType = () => {},
-    profileType = "Personal",
+    profileType = 'Personal',
   } = props;
 
   return (
@@ -20,8 +23,7 @@ const DropdownButton = (props) => {
           borderBottomLeftRadius: expanded ? 0 : 24,
           borderBottomRightRadius: expanded ? 0 : 24,
         }}
-        onPress={() => setExpanded(!expanded)}
-      >
+        onPress={() => setExpanded(!expanded)}>
         <Text style={styles.buttonText}>{profileType}</Text>
       </TouchableOpacity>
       {expanded && (
@@ -30,18 +32,17 @@ const DropdownButton = (props) => {
             ...styles.button,
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
-            position: "absolute",
+            position: 'absolute',
             top: 50,
           }}
           onPress={() => {
             setExpanded(!expanded);
             setProfileType(
-              profileType === "Personal" ? t("business") : t("personal")
+              profileType === 'Personal' ? t('business') : t('personal'),
             );
-          }}
-        >
+          }}>
           <Text style={styles.buttonText}>
-            {profileType === "Personal" ? t("business") : t("personal")}
+            {profileType === 'Personal' ? t('business') : t('personal')}
           </Text>
         </TouchableOpacity>
       )}
@@ -51,44 +52,44 @@ const DropdownButton = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     zIndex: 100,
   },
   button: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: WHITE,
-    borderRadius: 20,
-    width: "100%",
-    height: 60,
+    borderRadius: hp(2.95),
+    width: '100%',
+    height: hp(7.88),
   },
   buttonText: {
-    color: "black",
-    fontSize: 16,
-    padding: 20,
-    fontFamily: "AzoSans-Bold",
+    color: 'black',
+    fontSize: hp(1.97),
+    // padding: 20,
+    fontFamily: 'AzoSans-Bold',
     zIndex: 10,
   },
   item: {
     padding: 20,
   },
   itemText: {
-    color: "black",
+    color: 'black',
     fontSize: 16,
     zIndex: 100,
   },
   listContainer: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     width: 125,
     zIndex: 100,
   },
   separator: {
     height: 1,
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
   },
 });
 

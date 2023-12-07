@@ -2,19 +2,28 @@ import { StyleSheet, Dimensions } from "react-native";
 import { WHITE } from "../../helpers/style/constants";
 
 // const { height } = Dimensions.get('window');
-
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 const AddCardStyle = StyleSheet.create({
   safeAreaContainer: {
-    // flex: 1,
+    flex: 1,
   },
-
+  buttonWrapper: {
+    display: 'flex',
+    width: '100%',
+    marginTop: "auto",
+    marginBottom: hp(5.92),
+  },
   container: {
     display: "flex",
-    // width: "100%",
-    height: "100%",
+    position: "relative",
+    height: "99%",
     flexDirection: "column",
-    paddingVertical: 32,
-    // paddingHorizontal: "10%",
+    paddingHorizontal: wp(8.20),
+    paddingVertical: hp(4.92),
+    paddingTop: Platform.OS === "ios" ? hp(6.92) : hp(4.92)
   },
 
   inputContainer: {
@@ -22,7 +31,6 @@ const AddCardStyle = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     height: "100%",
-    marginVertical: 16,
   },
 
   title: {
@@ -30,8 +38,8 @@ const AddCardStyle = StyleSheet.create({
   },
 
   image: {
-    width: 23,
-    height: 23,
+    width: hp(2.83),
+    height: hp(2.83),
   },
 
   closeButton: {

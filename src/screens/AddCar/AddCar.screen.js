@@ -1,13 +1,13 @@
-import React, { useRef, useState } from "react";
-import { Image, TouchableOpacity, Text, View } from "react-native";
-import { Box, ScrollView, useToast } from "native-base";
-import BaseInput from "../../components/BaseInput";
+import React, { useRef, useState } from 'react';
+import { Image, TouchableOpacity, Text, View } from 'react-native';
+import { Box, ScrollView, useToast } from 'native-base';
+import BaseInput from '../../components/BaseInput';
 //style & assets
-import AddCarStyle from "./AddCar.style";
-import blueCar from "../../assets/icons/blueCar.png";
-import { SvgXml } from "react-native-svg";
-import svgs from "../../assets/svgs";
-import { AQUA } from "../../helpers/style/constants";
+import AddCarStyle from './AddCar.style';
+import blueCar from '../../assets/icons/blueCar.png';
+import { SvgXml } from 'react-native-svg';
+import svgs from '../../assets/svgs';
+import { AQUA } from '../../helpers/style/constants';
 //components
 import {
   DatePicker,
@@ -15,55 +15,55 @@ import {
   NativeBaseBackButton,
   NativeBaseButton,
   Title,
-} from "../../components";
+} from '../../components';
 //libraries
-import PropTypes from "prop-types";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import moment from "moment";
-import { useNavigation } from "@react-navigation/native";
-import Toast from "react-native-toast-notifications";
+import PropTypes from 'prop-types';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import moment from 'moment';
+import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-notifications';
 //redux
-import { useAddCarMutation, useGetCarsMutation } from "../../services/cars";
-import { addCarInitialState } from "./AddCar.initialState";
-import { useSelector, useDispatch } from "react-redux";
-import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
-import { t } from "i18next";
+import { useAddCarMutation, useGetCarsMutation } from '../../services/cars';
+import { addCarInitialState } from './AddCar.initialState';
+import { useSelector, useDispatch } from 'react-redux';
+import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
+import { t } from 'i18next';
 
-const AddCar = (props) => {
+const AddCar = props => {
   const {
     inModal = false,
     inHomeModal = false,
-    handleAddCar = () => {},
-    setShowCarModal = () => {},
-    handleSetActiveCar = () => {},
+    handleAddCar = () => { },
+    setShowCarModal = () => { },
+    handleSetActiveCar = () => { },
     step = 1,
-    setStep = () => {},
+    setStep = () => { },
   } = props;
 
   const dispatch = useDispatch();
-  const { activeCar } = useSelector((state) => state.cars);
+  const { activeCar } = useSelector(state => state.cars);
 
   const navigation = useNavigation();
   const [addCar, { isLoading }] = useAddCarMutation();
   const [getCars, { isLoading: isLoadingGetCars }] = useGetCarsMutation();
   const [addCarFormState, setAddCarFormState] = useState(addCarInitialState);
   const [calendarModalIsVisible, setCalendarModalIsVisible] = useState(false);
-  const [dateFieldNameForCalendar, setDateFieldForCalendar] = useState("");
+  const [dateFieldNameForCalendar, setDateFieldForCalendar] = useState('');
 
   const toastRef = useRef();
   const toast = useToast();
 
   const [carToAdd, setCarToAdd] = useState({
-    licensePlateNumber: "",
+    licensePlateNumber: '',
   });
 
-  const onChangeText = (carPlate) => {
+  const onChangeText = carPlate => {
     const regex = /^[a-zA-Z0-9]+$/;
 
     if (regex.test(carPlate)) {
       setCarToAdd({ licensePlateNumber: carPlate });
-    } else if (carPlate === "") {
-      setCarToAdd({ licensePlateNumber: "" });
+    } else if (carPlate === '') {
+      setCarToAdd({ licensePlateNumber: '' });
     }
   };
 
@@ -80,9 +80,9 @@ const AddCar = (props) => {
   };
 
   const handleChangeDate = ({ dateFieldName, dateFieldValue }) => {
-    setAddCarFormState((prevState) => {
+    setAddCarFormState(prevState => {
       const label = addCarFormState[dateFieldName].label;
-      const value = moment(dateFieldValue, "DD.MM.YYYY").utc().format();
+      const value = moment(dateFieldValue, 'DD.MM.YYYY').utc().format();
       const svg = addCarFormState[dateFieldName].svg;
 
       return {
@@ -111,12 +111,12 @@ const AddCar = (props) => {
     try {
       await getCars()
         .unwrap()
-        .then((answer) => {
+        .then(answer => {
           handleNavigateBackToCars();
           handleSetActiveCar();
         })
-        .catch((err) => {
-          console.log("Get cars error: ", err);
+        .catch(err => {
+          console.log('Get cars error: ', err);
         });
     } catch (err) {
       console.log(err);
@@ -142,7 +142,7 @@ const AddCar = (props) => {
           ...timestamps,
         })
           .unwrap()
-          .then((answer) => {
+          .then(answer => {
             handleGetCars();
             if (inHomeModal) {
               setShowCarModal(false);
@@ -157,7 +157,7 @@ const AddCar = (props) => {
 
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
@@ -172,16 +172,14 @@ const AddCar = (props) => {
               shadowRadius: 4,
               elevation: 25,
               shadowColor: AQUA,
-            }}
-          >
+            }}>
             <Text
               style={{
-                color: "#F5F5F5",
+                color: '#F5F5F5',
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
-              }}
-            >
-              {t("new_car_added")}!
+                fontFamily: 'AzoSans-Medium',
+              }}>
+              {t('new_car_added')}!
             </Text>
           </View>
         );
@@ -190,112 +188,108 @@ const AddCar = (props) => {
   };
 
   return (
-    <ScrollView>
-      <Box style={AddCarStyle.container}>
-        <NativeBaseBackButton
-          style={AddCarStyle.closeButton}
-          handleOnPress={handleNavigateBackToCars}
-          iconType={"exit"}
+
+    <Box style={AddCarStyle.container}>
+      <NativeBaseBackButton
+        style={AddCarStyle.closeButton}
+        handleOnPress={handleNavigateBackToCars}
+        iconType={'exit'}
+      />
+
+      <Title
+        label={t('please_enter_your_car_details')}
+        style={AddCarStyle.title}
+      />
+      <ScrollView  showsVerticalScrollIndicator={false} style={AddCarStyle.scrollViewContainer}>
+        {/* <KeyboardAwareScrollView> */}
+        <BaseInput
+          style={AddCarStyle.baseInput}
+          icon={<SvgXml xml={svgs.car} width={22} height={22} />}
+          name={'licensePlateNumber'}
+          placeHolder={t('license_place')}
+          onChangeText={onChangeText}
+          value={carToAdd.licensePlateNumber}
+          maxLength={12}
+          capitalize={'characters'}
         />
-        <Box style={AddCarStyle.inputContainer}>
-          <Title
-            label={t("please_enter_your_car_details")}
-            style={AddCarStyle.title}
-          />
-          {/* <KeyboardAwareScrollView> */}
-          <BaseInput
-            style={AddCarStyle.baseInput}
-            icon={<SvgXml xml={svgs.car} width={22} height={22} />}
-            name={"licensePlateNumber"}
-            placeHolder={t("license_place")}
-            onChangeText={onChangeText}
-            value={carToAdd.licensePlateNumber}
-            maxLength={12}
-            capitalize={"characters"}
-          />
-          {Object.keys(addCarFormState).map((item, index) => {
-            return (
-              <TouchableOpacity
-                key={`addCar-touchable-${index}`}
-                onPress={() =>
-                  handleCalendarModalOpen({
-                    dateFieldName: item,
-                  })
-                }
-                style={AddCarStyle.propBtn}
-              >
-                <SvgXml
-                  xml={addCarFormState[item].svg}
-                  width={22}
-                  height={22}
-                />
-                <Text style={AddCarStyle.propBtnLabel}>{`${
-                  // addCarFormState[item].label
-                  t(addCarFormState[item].label)
-                } ${
-                  addCarFormState[item].value
-                    ? `- ${moment(addCarFormState[item].value).format(
-                        "DD.MM.YYYY"
-                      )}`
-                    : ""
+        {Object.keys(addCarFormState).map((item, index) => {
+          return (
+            <TouchableOpacity
+              key={`addCar-touchable-${index}`}
+              onPress={() =>
+                handleCalendarModalOpen({
+                  dateFieldName: item,
+                })
+              }
+              style={AddCarStyle.propBtn}>
+              <SvgXml
+                xml={addCarFormState[item].svg}
+                width={22}
+                height={22}
+              />
+              <Text style={AddCarStyle.propBtnLabel}>{`${
+                // addCarFormState[item].label
+                t(addCarFormState[item].label)
+                } ${addCarFormState[item].value
+                  ? `- ${moment(addCarFormState[item].value).format(
+                    'DD.MM.YYYY',
+                  )}`
+                  : ''
                 } `}</Text>
-              </TouchableOpacity>
-            );
-          })}
+            </TouchableOpacity>
+          );
+        })}
 
-          <Modal isFullScreen={true} modalVisible={calendarModalIsVisible}>
-            <View style={AddCarStyle.modalContainer}>
-              <View>
-                <NativeBaseBackButton
-                  style={AddCarStyle.closeButton}
-                  handleOnPress={handleCloseCalendarModal}
-                  iconType={"exit"}
-                />
-                <Title
-                  label={addCarFormState[dateFieldNameForCalendar]?.label}
-                  style={AddCarStyle.title}
-                />
-                <DatePicker
-                  onChangeDate={(e) => {
-                    handleChangeDate({
-                      dateFieldName: dateFieldNameForCalendar,
-                      dateFieldValue: e,
-                    });
-                  }}
-                />
-              </View>
-
-              <NativeBaseButton
-                label={"CLOSE"}
+        <Modal isFullScreen={true} modalVisible={calendarModalIsVisible}>
+          <View style={AddCarStyle.modalContainer}>
+            <View>
+              <NativeBaseBackButton
+                style={AddCarStyle.closeButton}
                 handleOnPress={handleCloseCalendarModal}
-                isDisabled={false}
-                isFloating={true}
+                iconType={'exit'}
+              />
+              <Title
+                label={addCarFormState[dateFieldNameForCalendar]?.label}
+                style={AddCarStyle.title}
+              />
+              <DatePicker
+                onChangeDate={e => {
+                  handleChangeDate({
+                    dateFieldName: dateFieldNameForCalendar,
+                    dateFieldValue: e,
+                  });
+                }}
               />
             </View>
-            <Toast
-              ref={toastRef}
-              style={{
-                zIndex: 3,
-                elevation: 3,
-              }}
-            />
-          </Modal>
-          <View
-            style={{
-              paddingVertical: 20,
-              width: "100%",
-              display: "flex",
-            }}
-          >
-            <ButtonComponent
-              text={t("confirm").toUpperCase()}
-              isDisabled={isLoading || !carToAdd.licensePlateNumber}
-              onPress={handleOnAddCarSubmit}
+
+            <NativeBaseButton
+              label={'CLOSE'}
+              handleOnPress={handleCloseCalendarModal}
+              isDisabled={false}
+              isFloating={true}
             />
           </View>
-        </Box>
-      </Box>
-    </ScrollView>
+          <Toast
+            ref={toastRef}
+            style={{
+              zIndex: 3,
+              elevation: 3,
+            }}
+          />
+        </Modal>
+
+        {/* </Box> */}
+      </ScrollView>
+      <View
+        style={AddCarStyle.buttonWrapper}>
+        <ButtonComponent
+          text={t('confirm').toUpperCase()}
+          isDisabled={isLoading || !carToAdd.licensePlateNumber}
+          onPress={handleOnAddCarSubmit}
+        />
+      </View>
+    </Box>
+
   );
 };
 

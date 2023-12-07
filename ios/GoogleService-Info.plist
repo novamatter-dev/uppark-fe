@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>391670446091-dl6craukrc560k07n0sjulvmts109gom.apps.googleusercontent.com</string>
+	<string>491197556139-mk3t8pnj05106lmqs2sra54pqpb57364.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.391670446091-dl6craukrc560k07n0sjulvmts109gom</string>
+	<string>com.googleusercontent.apps.491197556139-mk3t8pnj05106lmqs2sra54pqpb57364</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>391670446091-14626rj4f96verihfpso7omuihi7guhc.apps.googleusercontent.com</string>
+	<string>491197556139-nlce5rht713mtm4oacqnvl2mdbcbcfbo.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAY6YyaqRmGbgB0KHVZfPz3kt6cyqjgPsg</string>
+	<string>AIzaSyDXnz79F2Nwlt_YmPVOT2blwBZ68Ub76I0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>391670446091</string>
+	<string>491197556139</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>ro.fastpark.uppark.client</string>
+	<string>com.fastpark.constantaparking</string>
 	<key>PROJECT_ID</key>
-	<string>uppark-fastpark-245411</string>
+	<string>constantaparking</string>
 	<key>STORAGE_BUCKET</key>
-	<string>uppark-fastpark-245411.appspot.com</string>
+	<string>constantaparking.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:391670446091:ios:01b1f9c657dbed1e</string>
-	<key>DATABASE_URL</key>
-	<string>https://uppark-fastpark-245411.firebaseio.com</string>
+	<string>1:491197556139:ios:64f4aa95a479b91e1f1eee</string>
 </dict>
 </plist>

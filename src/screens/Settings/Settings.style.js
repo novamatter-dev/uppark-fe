@@ -6,21 +6,22 @@ import {
   RED,
   GREY,
 } from "../../helpers/style/constants";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 const SettingsScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: PLATINUM,
-    // padding: 32,
     display: "flex",
     justifyContent: "space-between",
-    paddingHorizontal: "8%",
-    paddingVertical: Platform.OS === "ios" ? "10%" : "5%",
+    paddingHorizontal: wp(8.20),
+    paddingVertical: hp(4.92),
+    paddingTop: Platform.OS === "ios" ? hp(6.92) : hp(4.92)
   },
   backButton: {
-    marginTop: "5%",
-    height: 60,
-    width: 60,
     backgroundColor: WHITE,
   },
   title: {

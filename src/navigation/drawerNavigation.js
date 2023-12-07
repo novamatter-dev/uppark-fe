@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   Text,
@@ -6,10 +6,8 @@ import {
   View,
   BackHandler,
   Alert,
-  PermissionsAndroid,
-  Platform,
-} from "react-native";
-import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer";
+} from 'react-native';
+import {createDrawerNavigator, DrawerItem} from '@react-navigation/drawer';
 import {
   Home,
   Profile,
@@ -24,62 +22,61 @@ import {
   CreateCard,
   ParkingsList,
   SelectCar,
-} from "../screens";
-import { BLACK, WHITE } from "../helpers/style/constants";
-import profile from "../assets/icons/profile.png";
-import settings from "../assets/icons/settings.png";
-import wallet from "../assets/icons/wallet.png";
-import star from "../assets/icons/star.png";
-import help from "../assets/icons/question.png";
-import home from "../assets/icons/home.png";
-import logout from "../assets/icons/logout.png";
-import NavigationStyle from "./Navigation.style";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { clearToken, resetAuthState } from "../redux/features/auth/authSlice";
-import { resetCarsState } from "../redux/features/cars/carsSlice";
-import { resetNotificationsState } from "../redux/features/notifications/notificationSlice";
-import { resetParkingState } from "../redux/features/parkings/parkingsSlice";
-import { resetUserState } from "../redux/features/users/userSlice";
-import { useUpdateFcmTokenMutation } from "../services/notifications";
-import DeviceInfo from "react-native-device-info";
+} from '../screens';
+import {BLACK, WHITE} from '../helpers/style/constants';
+import profile from '../assets/icons/profile.png';
+import settings from '../assets/icons/settings.png';
+import wallet from '../assets/icons/wallet.png';
+import star from '../assets/icons/star.png';
+import help from '../assets/icons/question.png';
+import home from '../assets/icons/home.png';
+import logout from '../assets/icons/logout.png';
+import NavigationStyle from './Navigation.style';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {clearToken, resetAuthState} from '../redux/features/auth/authSlice';
+import {resetCarsState} from '../redux/features/cars/carsSlice';
+import {resetNotificationsState} from '../redux/features/notifications/notificationSlice';
+import {resetParkingState} from '../redux/features/parkings/parkingsSlice';
+import {resetUserState} from '../redux/features/users/userSlice';
+import {useUpdateFcmTokenMutation} from '../services/notifications';
+import DeviceInfo from 'react-native-device-info';
 
 import {
   GoogleSignin,
   statusCodes,
-} from "@react-native-google-signin/google-signin";
+} from '@react-native-google-signin/google-signin';
 
 import {
   requestUserPermission,
   NotificationListener,
-} from "../utils/pushNotificationsHelper";
-import usePrevious from "../hooks/usePrevious.hook";
-import { Toast, NotificationPopup, CustomDrawer } from "../components";
+} from '../utils/pushNotificationsHelper';
+import usePrevious from '../hooks/usePrevious.hook';
+import {Toast, NotificationPopup, CustomDrawer} from '../components';
 
-import { useToast, Actionsheet } from "native-base";
-import messaging from "@react-native-firebase/messaging";
-import { setModaltitle } from "../redux/features/notifications/notificationSlice";
+import {useToast, Actionsheet} from 'native-base';
+import messaging from '@react-native-firebase/messaging';
+import {setModaltitle} from '../redux/features/notifications/notificationSlice';
 
 import {
   NavigationContainer,
   useNavigationContainerRef,
-} from "@react-navigation/native";
-import { t } from "i18next";
-import { setCurrentReservations } from "../redux/features/parkings/parkingsSlice";
-import { useGetCurrentReservationsMutation } from "../services/parkings";
+} from '@react-navigation/native';
+import {t} from 'i18next';
+import {setCurrentReservations} from '../redux/features/parkings/parkingsSlice';
+import {useGetCurrentReservationsMutation} from '../services/parkings';
 
 const Drawer = createDrawerNavigator();
 
 const MainDrawerNavigation = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
 
-  const { modalTitle, modalBody, activeLoadingScreen, messageId } = useSelector(
-    (state) => state.notification
+  const {modalTitle, modalBody, activeLoadingScreen, messageId} = useSelector(
+    state => state.notification,
   );
-  const { currentReservations, parkingDetails } = useSelector(
-    (state) => state.parkings.parkingsState
+  const {currentReservations, parkingDetails} = useSelector(
+    state => state.parkings.parkingsState,
   );
 
   const [getCurrentReservations] = useGetCurrentReservationsMutation();
@@ -92,7 +89,7 @@ const MainDrawerNavigation = () => {
   const updateFcmToken = async () => {
     const id = await DeviceInfo.getUniqueId();
     const body = {
-      newFirbaseToken: "",
+      newFirbaseToken: '',
       deviceId: id,
     };
     await updateToken(body);
@@ -101,7 +98,7 @@ const MainDrawerNavigation = () => {
   const handleLogout = async () => {
     try {
       await GoogleSignin.signOut().then(() => {
-        console.log("ggl sign out ");
+        console.log('ggl sign out ');
         updateFcmToken();
       });
       // this.setState({ user: null }); // Remember to remove the user from your app's state as well
@@ -115,24 +112,24 @@ const MainDrawerNavigation = () => {
     dispatch(resetNotificationsState());
     dispatch(resetParkingState());
     dispatch(resetUserState());
-    navigation.navigate("Login", { paramPropKey: "paramPropValue" });
+    navigation.navigate('Login', {paramPropKey: 'paramPropValue'});
   };
 
-  const handleBackButton = (screen) => {
-    if (screen === "HomePage") {
-      Alert.alert("Are you sure you want to exit ?", "", [
+  const handleBackButton = screen => {
+    if (screen === 'HomePage') {
+      Alert.alert('Are you sure you want to exit ?', '', [
         {
-          text: "NO",
+          text: 'NO',
           onPress: () => {
             // console.log("Cancel Pressed");
           },
-          style: "cancel",
+          style: 'cancel',
         },
-        { text: "YES", onPress: () => BackHandler.exitApp() },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
       ]);
       return true;
     } else {
-      navigation.navigate("HomePage");
+      navigation.navigate('HomePage');
       return true;
     }
   };
@@ -153,39 +150,31 @@ const MainDrawerNavigation = () => {
         messageId,
         parkingId,
         type,
-      })
+      }),
     );
   };
-  const checkApplicationPermission = async () => {
-    if (Platform.OS === "android") {
-      try {
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
-        );
-      } catch (error) {}
-    }
-  };
+
   useEffect(() => {
     requestUserPermission();
     NotificationListener(handleNotification);
 
-    messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-      console.log("Message handlel in the background: ", remoteMessage);
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handlel in the background: ', remoteMessage);
     });
   }, []);
 
-  const handleRemoveExpiredreservation = async (reservationId) => {
+  const handleRemoveExpiredreservation = async reservationId => {
     const newList = currentReservations?.filter(
-      (reservation) => reservation.parkingReservationId !== reservationId
+      reservation => reservation.parkingReservationId !== reservationId,
     );
     await getCurrentReservations();
     setCurrentReservations(newList);
   };
 
   useEffect(() => {
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
       // Alert.alert("A new FCM message arrived!", JSON.stringify(remoteMessage));
-      console.log("Message handlel in the foreground: ", remoteMessage);
+      console.log('Message handlel in the foreground: ', remoteMessage);
       handleRemoveExpiredreservation(remoteMessage?.data?.parkingReservationId);
       setIsVisible(true);
     });
@@ -198,12 +187,6 @@ const MainDrawerNavigation = () => {
       setIsVisible(true);
     }
   }, [messageId]);
-
-  useEffect(() => {
-    if (isFocused) {
-      checkApplicationPermission();
-    }
-  }, [isFocused]);
 
   return (
     <>
@@ -220,24 +203,23 @@ const MainDrawerNavigation = () => {
             },
             drawerInactiveTintColor: WHITE,
             drawerActiveTintColor: WHITE,
-            drawerPosition: "right",
-            drawerType: "front",
+            drawerPosition: 'right',
+            drawerType: 'front',
           }}
-          drawerContent={() => <CustomDrawer />}
-        >
+          drawerContent={() => <CustomDrawer />}>
           <Drawer.Screen
             name="HomePage"
             component={Home}
             options={{
               drawerItemStyle: {
-                display: "none",
+                display: 'none',
               },
-              title: "",
+              title: '',
               headerShown: false,
-              inactiveTintColor: "white",
-              activeTintColor: "pink",
+              inactiveTintColor: 'white',
+              activeTintColor: 'pink',
               gestureEnabled: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={home} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>HOME</Text>
@@ -246,26 +228,26 @@ const MainDrawerNavigation = () => {
             }}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("HomePage")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('HomePage'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("HomePage")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('HomePage'),
                 ),
             }}
           />
           <Drawer.Screen
             name="Profile"
             options={{
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={profile} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>
-                    {t("profile").toUpperCase()}
+                    {t('profile').toUpperCase()}
                   </Text>
                 </View>
               ),
@@ -273,25 +255,25 @@ const MainDrawerNavigation = () => {
             component={Profile}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("Profile")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('Profile'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("Profile")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('Profile'),
                 ),
             }}
           />
           <Drawer.Screen
             name="Wallet"
             options={{
-              title: "",
+              title: '',
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={wallet} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>
-                    {t("wallet").toUpperCase()}
+                    {t('wallet').toUpperCase()}
                   </Text>
                 </View>
               ),
@@ -299,26 +281,26 @@ const MainDrawerNavigation = () => {
             component={Wallet}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("Wallet")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('Wallet'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("Wallet")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('Wallet'),
                 ),
             }}
           />
           <Drawer.Screen
             name="Settings"
             options={{
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={settings} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>
-                    {t("settings").toUpperCase()}
+                    {t('settings').toUpperCase()}
                   </Text>
                 </View>
               ),
@@ -326,26 +308,26 @@ const MainDrawerNavigation = () => {
             component={SettingsScreen}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("Settings")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('Settings'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("Settings")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('Settings'),
                 ),
             }}
           />
           <Drawer.Screen
             name="Invite"
             options={{
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={star} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>
-                    {t("invite_friends").toUpperCase()}
+                    {t('invite_friends').toUpperCase()}
                   </Text>
                 </View>
               ),
@@ -353,26 +335,26 @@ const MainDrawerNavigation = () => {
             component={Invite}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("Invite")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('Invite'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("Invite")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('Invite'),
                 ),
             }}
           />
           <Drawer.Screen
             name="Help"
             options={{
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={help} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>
-                    {t("help").toUpperCase()}
+                    {t('help').toUpperCase()}
                   </Text>
                 </View>
               ),
@@ -380,12 +362,12 @@ const MainDrawerNavigation = () => {
             component={HelpScreen}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("Help")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('Help'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("Help")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('Help'),
                 ),
             }}
           />
@@ -393,12 +375,12 @@ const MainDrawerNavigation = () => {
             name="QrScanner"
             options={{
               drawerItemStyle: {
-                display: "none",
+                display: 'none',
               },
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={help} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>HELP</Text>
@@ -408,12 +390,12 @@ const MainDrawerNavigation = () => {
             component={QrScanner}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("QrScanner")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('QrScanner'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("QrScanner")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('QrScanner'),
                 ),
             }}
           />
@@ -421,12 +403,12 @@ const MainDrawerNavigation = () => {
             name="CreateCard"
             options={{
               drawerItemStyle: {
-                display: "none",
+                display: 'none',
               },
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={help} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>CreateCard</Text>
@@ -436,12 +418,12 @@ const MainDrawerNavigation = () => {
             component={CreateCard}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("CreateCard")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('CreateCard'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("CreateCard")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('CreateCard'),
                 ),
             }}
           />
@@ -449,16 +431,16 @@ const MainDrawerNavigation = () => {
             name="ReservetionsList"
             options={{
               drawerItemStyle: {
-                display: "none",
+                display: 'none',
               },
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={help} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>
-                    reservations list
+                    {t('reservations_list')}
                   </Text>
                 </View>
               ),
@@ -466,12 +448,12 @@ const MainDrawerNavigation = () => {
             component={ReservationsList}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("ReservetionsList")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('ReservetionsList'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("ReservetionsList")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('ReservetionsList'),
                 ),
             }}
           />
@@ -479,27 +461,27 @@ const MainDrawerNavigation = () => {
             name="ParkingsList"
             options={{
               drawerItemStyle: {
-                display: "none",
+                display: 'none',
               },
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={help} style={NavigationStyle.linkImg} />
-                  <Text style={NavigationStyle.linkText}>parkings list</Text>
+                  <Text style={NavigationStyle.linkText}>{t('parkings')}</Text>
                 </View>
               ),
             }}
             component={ParkingsList}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("ParkingsList")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('ParkingsList'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("ParkingsList")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('ParkingsList'),
                 ),
             }}
           />
@@ -507,44 +489,45 @@ const MainDrawerNavigation = () => {
             name="SelectCar"
             options={{
               drawerItemStyle: {
-                display: "none",
+                display: 'none',
               },
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={help} style={NavigationStyle.linkImg} />
-                  <Text style={NavigationStyle.linkText}>select car</Text>
+                  <Text style={NavigationStyle.linkText}>
+                    {t('select_car')}
+                  </Text>
                 </View>
               ),
             }}
             component={SelectCar}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("SelectCar")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('SelectCar'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("SelectCar")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('SelectCar'),
                 ),
             }}
           />
           <Drawer.Screen
             name="LogOut"
             options={{
-              title: "",
+              title: '',
               gestureEnabled: false,
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <TouchableOpacity
                   onPress={handleLogout}
-                  style={NavigationStyle.logOutContainer}
-                >
+                  style={NavigationStyle.logOutContainer}>
                   <Image source={logout} style={NavigationStyle.logOutImg} />
                   <View>
-                    <Text style={NavigationStyle.linkText}>{t("log_out")}</Text>
+                    <Text style={NavigationStyle.linkText}>{t('log_out')}</Text>
                   </View>
                 </TouchableOpacity>
               ),
@@ -554,17 +537,17 @@ const MainDrawerNavigation = () => {
           <Drawer.Screen
             name="SetYourParkPin"
             options={{
-              title: "",
+              title: '',
               gestureEnabled: false,
               drawerItemStyle: {
-                display: "none",
+                display: 'none',
               },
               headerShown: false,
-              drawerIcon: ({ color }) => (
+              drawerIcon: ({color}) => (
                 <View style={NavigationStyle.linkContainer}>
                   <Image source={star} style={NavigationStyle.linkImg} />
                   <Text style={NavigationStyle.linkText}>
-                    Set your park pin
+                    {t('set_park_pin')}
                   </Text>
                 </View>
               ),
@@ -572,12 +555,12 @@ const MainDrawerNavigation = () => {
             component={SetYourParkPin}
             listeners={{
               focus: () =>
-                BackHandler.addEventListener("hardwareBackPress", () =>
-                  handleBackButton("SetYourParkPin")
+                BackHandler.addEventListener('hardwareBackPress', () =>
+                  handleBackButton('SetYourParkPin'),
                 ),
               blur: () =>
-                BackHandler.removeEventListener("hardwareBackPress", () =>
-                  handleBackButton("SetYourParkPin")
+                BackHandler.removeEventListener('hardwareBackPress', () =>
+                  handleBackButton('SetYourParkPin'),
                 ),
             }}
           />
@@ -585,8 +568,7 @@ const MainDrawerNavigation = () => {
       </>
       <Actionsheet
         isOpen={isVisible}
-        style={{ height: "45%", position: "absolute", bottom: 0 }}
-      >
+        style={{height: '45%', position: 'absolute', bottom: 0}}>
         <NotificationPopup setIsVisible={setIsVisible} />
       </Actionsheet>
     </>

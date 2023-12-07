@@ -1,14 +1,19 @@
 import { StyleSheet } from "react-native";
 import { PLATINUM, WHITE, GREY } from "../../helpers/style/constants";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
 const WalletStyle = StyleSheet.create({
   container: {
     display: "flex",
     width: "100%",
     height: "100%",
-    paddingVertical: 32,
-    paddingHorizontal: "10%",
+    paddingHorizontal: wp(8.20),
+    paddingVertical: hp(4.92),
     backgroundColor: PLATINUM,
+    paddingTop: Platform.OS === "ios" ? hp(6.92) : hp(4.92)
   },
 
   backButton: {

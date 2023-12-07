@@ -1,17 +1,17 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 //style && assets
-import style from "./style";
-import { RED, PLATINUM, BLACK } from "../../helpers/style/constants";
+import style from './style';
+import {RED, PLATINUM, BLACK} from '../../helpers/style/constants';
 //libs
-import PropTypes from "prop-types";
-import { t } from "i18next";
+import PropTypes from 'prop-types';
+import {t} from 'i18next';
 
-const ActionModal = (props) => {
+const ActionModal = props => {
   const {
     handleNo = () => {},
     handleYes = () => {},
-    text = "",
+    text = '',
     isAction = true,
     reverseButtons = false,
   } = props;
@@ -22,51 +22,45 @@ const ActionModal = (props) => {
       <View
         style={{
           ...style.btnContainer,
-          flexDirection: reverseButtons ? "column-reverse" : "column",
-        }}
-      >
+          flexDirection: reverseButtons ? 'column-reverse' : 'column',
+        }}>
         {isAction && (
           <>
             <TouchableOpacity
               style={{
                 ...style.btn,
-                backgroundColor: reverseButtons ? PLATINUM : "transparent",
+                backgroundColor: reverseButtons ? PLATINUM : 'transparent',
               }}
-              onPress={handleYes}
-            >
+              onPress={handleYes}>
               <Text
                 style={{
                   ...style.btnLabel,
                   color: reverseButtons ? BLACK : RED,
-                }}
-              >
-                {t("yes")}
+                }}>
+                {t('yes')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
                 ...style.btn,
-                backgroundColor: reverseButtons ? "transparent" : PLATINUM,
+                backgroundColor: reverseButtons ? 'transparent' : PLATINUM,
               }}
-              onPress={() => handleNo()}
-            >
+              onPress={() => handleNo()}>
               <Text
                 style={{
                   ...style.btnLabel,
                   color: reverseButtons ? RED : BLACK,
-                }}
-              >
-                {t("no")}
+                }}>
+                {t('no')}
               </Text>
             </TouchableOpacity>
           </>
         )}
         {!isAction && (
           <TouchableOpacity
-            style={{ ...style.btn, backgroundColor: PLATINUM }}
-            onPress={() => handleNo()}
-          >
-            <Text style={{ ...style.btnLabel, color: RED }}>OK</Text>
+            style={{...style.btn, backgroundColor: PLATINUM}}
+            onPress={() => handleNo()}>
+            <Text style={{...style.btnLabel, color: RED}}>OK</Text>
           </TouchableOpacity>
         )}
       </View>

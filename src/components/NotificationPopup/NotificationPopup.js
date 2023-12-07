@@ -1,38 +1,37 @@
-import React, { useRef } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import React, {useRef} from 'react';
+import {Text, View} from 'react-native';
 //style && assets
-import dtyle from "./style";
 //libraries
-import PropTypes from "prop-types";
-import Toast, { ToastProvider } from "react-native-toast-notifications";
-import style from "./style";
-import { useNavigation } from "@react-navigation/native";
+import {useNavigation} from '@react-navigation/native';
+import PropTypes from 'prop-types';
+import Toast from 'react-native-toast-notifications';
+import style from './style';
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
+import {WHITE} from '../../helpers/style/constants';
 import {
+  setGroupId,
+  setIsParkingSelected,
+  setParkingDetails,
+  setWorksWithHub,
+} from '../../redux/features/parkings/parkingsSlice';
+import {
+  useGetCurrentReservationsMutation,
   useGetParkingDetailsMutation,
   useGetParkingProductsMutation,
-  useGetCurrentReservationsMutation,
-} from "../../services/parkings";
-import {
-  setWorksWithHub,
-  setParkingDetails,
-  setIsParkingSelected,
-  setGroupId,
-  setCurrentReservation,
-} from "../../redux/features/parkings/parkingsSlice";
-import ButtonComponent from "../ButtonComponent";
-import { AQUA, WHITE } from "../../helpers/style/constants";
-import { t } from "i18next";
+} from '../../services/parkings';
+import ButtonComponent from '../ButtonComponent';
+import {useTranslation} from 'react-i18next';
 
-const NotificationPopup = (props) => {
-  const { setIsVisible = () => {} } = props;
+const NotificationPopup = props => {
+  const {setIsVisible = () => {}} = props;
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
-  const { modalTitle, modalBody, sentTime, messageId, parkingId, type } =
-    useSelector((state) => state.notification);
+  const {modalTitle, modalBody, sentTime, messageId, parkingId, type} =
+    useSelector(state => state.notification);
   const [getParkingDetails] = useGetParkingDetailsMutation();
   const [getParkingProducts] = useGetParkingProductsMutation();
   const [getCurrentReservations] = useGetCurrentReservationsMutation();
@@ -49,7 +48,7 @@ const NotificationPopup = (props) => {
     //   })
     // );
     handleGetParkingProducts(parkingId);
-    navigation.navigate("ParkFromScreen");
+    navigation.navigate('ParkFromScreen');
 
     // handleParkingDetails(parkingId);
   };
@@ -59,7 +58,7 @@ const NotificationPopup = (props) => {
   };
 
   const handleParkingDetails = async (id, lat, lng) => {
-    const { data, error: apiError } = await getParkingDetails({ id: id });
+    const {data, error: apiError} = await getParkingDetails({id: id});
 
     if (!apiError) {
       const body = {
@@ -78,17 +77,15 @@ const NotificationPopup = (props) => {
 
       dispatch(setWorksWithHub(data.worksWithHub));
       dispatch(setParkingDetails(body));
-      dispatch(
-        setIsParkingSelected({ isParkingSelected: true, parkingId: id })
-      );
+      dispatch(setIsParkingSelected({isParkingSelected: true, parkingId: id}));
       dispatch(setGroupId(parkingGroup));
     } else {
-      console.log("getParkingDetails apiError: ", apiError);
+      console.log('getParkingDetails apiError: ', apiError);
     }
   };
 
-  const handleGetParkingProducts = async (parkingId) => {
-    await getParkingProducts({ parkingId });
+  const handleGetParkingProducts = async parkingId => {
+    await getParkingProducts({parkingId});
   };
 
   const handleOk = () => {
@@ -96,60 +93,49 @@ const NotificationPopup = (props) => {
     setIsVisible(false);
   };
 
-  //TODO: types to UPPERCASE
-  //TODO: get types for all notifications
   return (
     <>
       <View style={style.container}>
-        {/* <Text style={style.title}>{modalTitle}</Text> */}
-        {type === "YOU_JUST_PARKED" && (
-          <Text style={style.title}>{t("you_ve_just_parked")}</Text>
+        {type === 'YOU_JUST_PARKED' && (
+          <Text style={style.title}>{t('YOU_JUST_PARKED')}</Text>
         )}
-        {type === "YOU_JUST_EXTEND_CURRENT_PARKING" && (
+        {type === 'YOU_JUST_EXTEND_CURRENT_PARKING' && (
           <Text style={style.title}>
-            {t("YOU_JUST_EXTEND_CURRENT_PARKING")}
+            {t('YOU_JUST_EXTEND_CURRENT_PARKING')}
           </Text>
         )}
-        {type === "YOUR_RESERVATION_EXPIRED" && (
-          <Text style={style.title}>{t("YOUR_RESERVATION_EXPIRED")}</Text>
+        {type === 'YOUR_RESERVATION_EXPIRED' && (
+          <Text style={style.title}>{t('YOUR_RESERVATION_EXPIRED')}</Text>
         )}
-        {/* {type === "YOUR_RESERVATION_EXPIRED" && (
-          <Text style={style.title}>{modalBody}</Text>
-        )} */}
-        {type === "YOU_JUST_PARKED" ||
-          (type === "YOU_JUST_EXTEND_CURRENT_PARKING" && (
-            <Text style={style.content}>{t("uppark_services")}</Text>
-          ))}
-
-        {type === "YOUR_RESERVATION_EXPIRED" && (
-          // <ButtonComponent
-          //   onPress={handleExtend}
-          //   text={"Extend"}
-          //   isDisabled={false}
-          //   labelColor="black"
-          //   color={WHITE}
-          // />
-          <TouchableOpacity onPress={handleExtend}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: "AzoSans-Bold",
-                color: AQUA,
-                textTransform: "uppercase",
-              }}
-            >
-              {t("extend")}
+        {type === 'YOUR_RESERVATION_EXPIRED' && (
+          <Text style={style.content}>
+            {t('YOUR_RESERVATION_EXPIRED_BODY')}
+          </Text>
+        )}
+        {type === 'YOU_JUST_PARKED' ||
+          (type === 'YOU_JUST_EXTEND_CURRENT_PARKING' && (
+            <Text style={style.content}>
+              {t('THANK_YOU_FOR_USING_OUR_APP')}
             </Text>
-          </TouchableOpacity>
-        )}
+          ))}
 
         <ButtonComponent
           onPress={() => handleOk()}
-          text={"OK"}
+          text={'OK'}
           isDisabled={false}
           labelColor="black"
           color={WHITE}
         />
+
+        {type === 'YOUR_RESERVATION_EXPIRED' && (
+          <ButtonComponent
+            onPress={handleExtend}
+            text={'Extend'}
+            isDisabled={false}
+            labelColor="black"
+            color={WHITE}
+          />
+        )}
       </View>
       <Toast
         ref={toastRef}

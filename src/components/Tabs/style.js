@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 import { BLACK, WHITE } from "../../helpers/style/constants";
-
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 const style = StyleSheet.create({
   container: {
     display: "flex",
@@ -13,12 +16,13 @@ const style = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "47%",
-    paddingVertical: 10,
-    borderRadius: 16,
+    width: wp(39.74),
+    height: hp(4.92),
+    borderRadius: hp(1.97),
+
   },
   btnLabel: {
-    fontSize: 16,
+    fontSize: hp(1.97),
     fontFamily: "AzoSans-Medium",
     color: WHITE,
   },

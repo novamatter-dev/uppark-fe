@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,28 +8,31 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
-} from "react-native";
-import { BLACK, BLUE, RED, WHITE } from "../../helpers/style/constants";
-import svgs from "../../assets/svgs";
-import styles from "./mapStyle";
+} from 'react-native';
+import {BLACK, BLUE, RED, WHITE} from '../../helpers/style/constants';
+import svgs from '../../assets/svgs';
+import styles from './mapStyle';
 //libraries
-import { PROVIDER_GOOGLE } from "react-native-maps";
-import Geolocation from "@react-native-community/geolocation";
-import MapView from "react-native-map-clustering";
-import PropTypes from "prop-types";
-import carPin from "../../assets/icons/pin.png";
-import MapViewDirections from "react-native-maps-directions";
-import { SvgXml } from "react-native-svg";
-import { useToast } from "native-base";
-import { t } from "i18next";
-import { Actionsheet } from "native-base";
-import { useNavigation } from "@react-navigation/native";
-import * as geolib from "geolib";
+import {PROVIDER_GOOGLE} from 'react-native-maps';
+// TODO: In ConstantaPark this library should be used instead of react-native-map-clustering
+// import MapView from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
+// TODO: In UpPark this library should be used instead of react-native-maps
+import MapView from 'react-native-map-clustering';
+import PropTypes from 'prop-types';
+import carPin from '../../assets/icons/pin.png';
+import MapViewDirections from 'react-native-maps-directions';
+import {SvgXml} from 'react-native-svg';
+import {useToast} from 'native-base';
+import {t} from 'i18next';
+import {Actionsheet} from 'native-base';
+import {useNavigation} from '@react-navigation/native';
+import * as geolib from 'geolib';
 
 //components
-import { CustomPolygon, CustomMarker, Toast } from "../../components";
+import {CustomPolygon, CustomMarker, Toast} from '../../components';
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
 import {
   parkingsState,
   setIsParkingSelected,
@@ -42,7 +45,7 @@ import {
   setSearchLocation,
   setSensorParking,
   setIsLoading as parkingGroupIsLoading,
-} from "../../redux/features/parkings/parkingsSlice";
+} from '../../redux/features/parkings/parkingsSlice';
 import {
   useGetSensorsMutation,
   usePostBookSensorMutation,
@@ -50,9 +53,12 @@ import {
   useGetParkingDetailsMutation,
   useGetGroupDetailsMutation,
   useNearestMutation,
-} from "../../services/parkings";
+  useGetCurrentReservationsMutation,
+} from '../../services/parkings';
+import {useTranslation} from 'react-i18next';
+import {customMapStyle} from './customMapStyle';
 
-const Map = (props) => {
+const Map = props => {
   const {
     isPinDraggable = false,
     location = {
@@ -68,18 +74,20 @@ const Map = (props) => {
     currentLocation = {},
     handleNearbyParkings = () => {},
     setIsToggled = () => {},
-    showExtend = false,
+    noParkings = false,
   } = props;
 
   const navigation = useNavigation();
   const toast = useToast();
+  const {t} = useTranslation();
 
   const polygonRef = useRef();
 
   const dispatch = useDispatch();
   const parkingsData = useSelector(parkingsState);
-  const { selectedSensor, hasSensors, sensors, currentReservations } =
-    useSelector((state) => state.parkings.parkingsState);
+  const {selectedSensor, hasSensors, sensors, showCounter} = useSelector(
+    state => state.parkings.parkingsState,
+  );
 
   const [getSensors] = useGetSensorsMutation();
   const [postBookSensor] = usePostBookSensorMutation();
@@ -87,6 +95,7 @@ const Map = (props) => {
   const [getParkingDetails] = useGetParkingDetailsMutation();
   const [getGroupDetails] = useGetGroupDetailsMutation();
   const [nearestParking] = useNearestMutation();
+  const [getCurrentReservations] = useGetCurrentReservationsMutation();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [showReserver, setShowReserve] = useState(false);
@@ -99,20 +108,18 @@ const Map = (props) => {
 
   const mapRef = useRef(null);
 
-  // TODO: Verify the loading logic
   useEffect(() => {
     dispatch(parkingGroupIsLoading(false));
+    // eslint-disable-next-line
   }, [polygonGroup]);
 
   const handleUnselectParking = () => {
     dispatch(setUnselectParking());
+    handleExtendBtn();
     setIsToggled(false);
-    if (currentReservations.length === 0) {
-      handleExtendBtn();
-    }
   };
 
-  const onRegionChange = (region) => {
+  const onRegionChange = region => {
     // handleCarLocation(region);
     // debouncedNearby();
     if (!isDrag) {
@@ -122,16 +129,22 @@ const Map = (props) => {
 
   const handleGetSensors = async () => {
     const body = parkingsData?.nearByParkings?.parkingGroups
-      ?.filter((item) => item.hasSensors)
-      .map((item) => item.parkingId);
-    await getSensors(body);
+      ?.filter(item => item.hasSensors)
+      .map(item => item.parkingId);
+    await getSensors(body)
+      .then(answer => {
+        console.log('GET SENSORS ANSW:');
+      })
+      .catch(err => {
+        console.log('getSensors err:', err);
+      });
   };
 
-  const handleGetParkingProducts = async (parkingId) => {
-    await getParkingProducts({ parkingId })
+  const handleGetParkingProducts = async parkingId => {
+    await getParkingProducts({parkingId})
       .then(() => {})
-      .catch((err) => {
-        console.log("getParkingProducts err ", err);
+      .catch(err => {
+        console.log('getParkingProducts err ', err);
       });
   };
 
@@ -143,21 +156,26 @@ const Map = (props) => {
       fromDate: time,
     };
 
-    await postBookSensor(body).then(() => {
-      setModalVisible(false);
-      setShowReserve(false);
-      handleGetSensors();
-    });
+    await postBookSensor(body)
+      .then(answer => {
+        setModalVisible(false);
+        setShowReserve(false);
+        handleGetSensors();
+        getCurrentReservations();
+      })
+      .catch(err => {
+        console.log('postBookSensor err:', err);
+      });
   };
 
   const openModal = () => {
     setModalVisible(true);
   };
 
-  const handleReserveSensor = (data) => {
-    // TODO: use constatnts for OCUPAT and REZERVAT
-    if (data.status === "Ocupat" || data.status === "Rezervat") {
-      console.log("this parking space is not available! ", data);
+  const handleReserveSensor = data => {
+    // TODO: status in romanian?
+    if (data.status === 'Ocupat' || data.status === 'Rezervat') {
+      console.log('this parking space is not available! ', data);
     } else {
       dispatch(setSelectedSensor(data));
       openModal();
@@ -165,18 +183,21 @@ const Map = (props) => {
   };
 
   const handleParkingDetails = async (id, lat, lng) => {
-    const { data, error: apiError } = await getParkingDetails({ id: id });
+    dispatch(parkingGroupIsLoading(true));
+    const {data, error: apiError} = await getParkingDetails({id: id});
 
     if (data?.externalParkingId != null) {
       dispatch(setIsMiniPark(true));
     } else {
       dispatch(setIsMiniPark(false));
     }
+
     if (!apiError) {
       const body = {
         parkingId: id,
         amenities: data?.amenities,
         isOpened: data?.isOpened,
+        isAvailable: data?.isAvailable,
         noLots: data?.noLots,
         parkingLongitude: lng,
         parkingLatitude: lat,
@@ -188,7 +209,6 @@ const Map = (props) => {
         externalParkingId: data?.externalParkingId,
         ShortNumber: data?.shortNumber,
         Code: data?.code,
-        // groupId:
       };
 
       if (data?.hasSensors) {
@@ -200,26 +220,33 @@ const Map = (props) => {
         };
         dispatch(setSensorParking(body));
       }
+
       dispatch(setWorksWithHub(data.worksWithHub));
       dispatch(setParkingDetails(body));
-      dispatch(
-        setIsParkingSelected({ isParkingSelected: true, parkingId: id })
-      );
+      dispatch(setIsParkingSelected({isParkingSelected: true, parkingId: id}));
       setShowExtend(false);
+      dispatch(parkingGroupIsLoading(false));
+
+      if (data.externalParkingId !== null) {
+        // TODO:call api for getting the amount for payment
+      }
     } else {
       console.log(
-        "map component ERR getParkingDetails apiError >>> ",
-        apiError
+        'map component ERR getParkingDetails apiError >>> ',
+        apiError,
       );
+      dispatch(parkingGroupIsLoading(false));
     }
+
+    dispatch(parkingGroupIsLoading(false));
   };
 
   const handleRecenter = () => {
-    const { width, height } = Dimensions.get("window");
+    const {width, height} = Dimensions.get('window');
     const ASPECT_RATIO = width / height;
     const LATITUDE_DELTA = 0.02;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-    Geolocation.getCurrentPosition((position) => {
+    Geolocation.getCurrentPosition(position => {
       setMyLocation({
         longitude: position?.coords?.longitude,
         latitude: position?.coords?.latitude,
@@ -247,26 +274,37 @@ const Map = (props) => {
     setIsLoading(true);
 
     await nearestParking(body)
-      .then((answer) => {
-        handleNearesGroupDetails(answer, isAutoSearch, isFromCurrentLocation);
-        dispatch(parkingGroupIsLoading(false));
+      .then(answer => {
+        if (answer?.data?.errors?.status === 400) {
+          toast.show({
+            placement: 'top',
+            duration: 1500,
+            render: () => {
+              return (
+                <Toast message={t('missing_parking_lots')} type={'danger'} />
+              );
+            },
+          });
+        } else {
+          handleNearesGroupDetails(answer, isAutoSearch, isFromCurrentLocation);
+        }
       })
-      .catch((err) => {
-        console.log("ERR nearestParking >>> ", err);
+      .catch(err => {
+        console.log('ERR nearestParking >>> ', err);
       });
   };
 
   const handleNearesGroupDetails = async (
     parkingData,
     isAutoSearch,
-    isFromCurrentLocation
+    isFromCurrentLocation,
   ) => {
-    const { width, height } = Dimensions.get("window");
+    const {width, height} = Dimensions.get('window');
     const ASPECT_RATIO = width / height;
     const LATITUDE_DELTA = 0.0008;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-    const { data, error: apiError } = await getGroupDetails({
+    const {data, error: apiError} = await getGroupDetails({
       groupId: parkingData?.data?.groupId,
       parkingId: parkingData?.data?.parkingId,
     });
@@ -291,7 +329,6 @@ const Map = (props) => {
       };
 
       setIsLoading(false);
-      dispatch(parkingGroupIsLoading(false));
 
       if (data?.hasSensors) {
         handleGetSensors(parkingData?.data?.parkingId);
@@ -302,6 +339,7 @@ const Map = (props) => {
         };
         dispatch(setSensorParking(body));
       }
+
       if (isFromCurrentLocation) {
         dispatch(setSearchLocation(body));
       }
@@ -310,88 +348,80 @@ const Map = (props) => {
         latitude: data.entranceLatitude,
         longitude: data.entranceLongitude,
       };
-      handleNearbyParkings(coords, isAutoSearch);
+      handleNearbyParkings(coords, false);
     } else {
       if (isAutoSearch) {
         dispatch(setUnselectParking());
-        dispatch(parkingGroupIsLoading(false));
       }
       setIsLoading(false);
 
       toast.show({
-        placement: "top",
+        placement: 'top',
         duration: 1500,
         render: () => {
-          return <Toast message={t("missing_parking_lots")} type={"danger"} />;
+          return <Toast message={t('missing_parking_lots')} type={'danger'} />;
         },
       });
-      dispatch(parkingGroupIsLoading(false));
-      console.log("getGroupDetails apiError: ", apiError);
+      console.log('getGroupDetails apiError: ', apiError);
     }
   };
 
-  const handleSavePolygon = (polygon) => {
+  const handleSavePolygon = polygon => {
     dispatch(setReservedPolygon(polygon));
   };
 
   const polygons = [];
-  polygonGroup.forEach((element) => {
+  polygonGroup.forEach(element => {
     polygons.push(element.parkings);
   });
 
-  const handleIsInside = (center) => {
+  const handleIsInside = center => {
     if (polygons?.length > 0) {
-      const isInside = polygons?.some((polygon) =>
+      const isInside = polygons?.some(polygon =>
         geolib.isPointInPolygon(
-          { latitude: center?.latitude, longitude: center?.longitude },
-          polygon
-        )
+          {latitude: center?.latitude, longitude: center?.longitude},
+          polygon,
+        ),
       );
 
-      const polygon = polygons.find((polygon) =>
+      const polygon = polygons.find(polygon =>
         geolib.isPointInPolygon(
-          { latitude: center?.latitude, longitude: center?.longitude },
-          polygon
-        )
+          {latitude: center?.latitude, longitude: center?.longitude},
+          polygon,
+        ),
       );
 
       if (isInside) {
         const parking = polygonGroup.find(
-          (element) => element.parkings === polygon
+          element => element.parkings === polygon,
         );
-
         handleAutoSelectPolygon(parking);
+
         setOutsidezone(false);
         setTimeout(() => {
           setOutsidezone(true);
         }, 3000);
       } else {
-        handleCheckIfUserHasActivereservations();
+        setOutsidezone(true);
+        handleUnselectParking();
       }
+
+      // setIsLoading(false);
     }
   };
 
-  const handleCheckIfUserHasActivereservations = () => {
-    if (currentReservations.length > 0) {
-      setShowExtend(true);
-    } else {
-      setOutsidezone(true);
-      handleUnselectParking();
-    }
-  };
-
-  const handleAutoSelectPolygon = (parking) => {
+  const handleAutoSelectPolygon = parking => {
     handleParkingDetails(
       parking?.ids,
       parking?.parkings[0].latitude,
-      parking?.parkings[0].longitude
+      parking?.parkings[0].longitude,
     );
     handleGetParkingProducts(parking?.ids);
     handleSavePolygon(parking);
     setShowExtend(false);
   };
 
-  const autoSearchLocation = (data) => {
+  const autoSearchLocation = data => {
     if (isDrag) {
       const body = {
         latitude: data?.latitude,
@@ -408,17 +438,14 @@ const Map = (props) => {
     if (centerCoords) {
       handleIsInside(centerCoords);
     }
+
+    // eslint-disable-next-line
   }, [polygonGroup]);
 
   useEffect(() => {
     handleRecenter();
-    if (showExtend) {
-      handleParkingDetails(
-        currentReservations[0]?.parkingId,
-        currentReservations[0]?.parkingLatitude,
-        currentReservations[0]?.parkingLongitude
-      );
-    }
+
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -431,10 +458,9 @@ const Map = (props) => {
       <View style={styles.findParkingBtn}>
         <TouchableOpacity
           onPress={() => handleNearestParkings(true, true)}
-          disabled={isLoading}
-        >
+          disabled={isLoading}>
           {isLoading ? (
-            <ActivityIndicator size={"small"} color={WHITE} />
+            <ActivityIndicator size={'small'} color={WHITE} />
           ) : (
             <SvgXml xml={svgs.parkingIcon} width={27} height={27} />
           )}
@@ -452,11 +478,10 @@ const Map = (props) => {
             <Text
               style={{
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
+                fontFamily: 'AzoSans-Medium',
                 color: BLACK,
-              }}
-            >
-              {t("outside_payment_hours")}
+              }}>
+              {t('outside_payment_hours')}
             </Text>
           </View>
         )}
@@ -466,27 +491,24 @@ const Map = (props) => {
         ref={mapRef}
         style={styles.map}
         region={location}
+        customMapStyle={customMapStyle}
         zoomControlEnabled={false}
         showsMyLocationButton={false}
         showsUserLocation
         onPress={handleUnselectParking}
         onRegionChange={onRegionChange}
-        onRegionChangeComplete={(data) => {
-          // autoSearchLocation(data);
-          // checkIfMapCenterInsidePolygon(data);
-          // if (!hasSensors) handleIsInside(data);
+        onMapReady={() => {}}
+        onRegionChangeComplete={data => {
           handleIsInside(data);
           setCenterCoords(data);
         }}
-        customMapStyle={{ borderRadius: 20 }}
         clusteringEnabled={true}
+        clusterColor={'green'}
         spiralEnabled={false}
         minZoom={15}
-        minPoints={4}
-        clusterColor={"green"}
-      >
+        minPoints={4}>
         {hasSensors &&
-          sensors?.map((item) => {
+          sensors?.map(item => {
             return (
               <CustomMarker
                 key={item.id}
@@ -497,7 +519,7 @@ const Map = (props) => {
                   handleParkingDetails(
                     item.parkingId,
                     item.latitude,
-                    item.longitude
+                    item.longitude,
                   );
                   handleGetParkingProducts(item.parkingId);
                 }}
@@ -512,28 +534,26 @@ const Map = (props) => {
             );
           })}
 
-        <>
-          {polygonGroup?.map((item, index) => {
-            // TODO: Iasi parking id needs to be fetched from api
-            if (item.ids === 65) return null;
+        {!hasSensors && (
+          <>
+            {polygonGroup?.map((item, index) => {
+              return (
+                <CustomPolygon
+                  ref={polygonRef}
+                  coordinate={item?.parkings}
+                  key={`${index}--${index * item.ids}`}
+                  parkingId={item?.ids}
+                  parkingGroup={item?.groupId}
+                  isDraggable={isPinDraggable}
+                  setModalVisible={openModal}
+                  setShowExtend={setShowExtend}
+                />
+              );
+            })}
 
-            return (
-              <CustomPolygon
-                ref={polygonRef}
-                coordinate={item?.parkings}
-                key={`${index}--${index * item.ids}`}
-                parkingId={item?.ids}
-                parkingGroup={item?.groupId}
-                isDraggable={isPinDraggable}
-                setModalVisible={openModal}
-                setShowExtend={setShowExtend}
-              />
-            );
-          })}
-
-          {/* {parkingsData?.carLocation?.latitude && showCounter && ( */}
-          {/* <> */}
-          {/* <MapViewDirections
+            {/* {parkingsData?.carLocation?.latitude && showCounter && ( */}
+            {/* <> */}
+            {/* <MapViewDirections
                   origin={currentLocation}
                   destination={parkingsData?.carLocation}
                   apikey={apikey}
@@ -555,7 +575,7 @@ const Map = (props) => {
                     console.log("GOT AN ERROR", errorMessage);
                   }}
                 /> */}
-          {/* {parkingsData.reservedPolygon.length > 0 && (
+            {/* {parkingsData.reservedPolygon.length > 0 && (
                   <CustomPolygon
                     coordinate={parkingsData?.reservedPolygon}
                     // key={`${index}--${index * item.ids}`}
@@ -567,10 +587,10 @@ const Map = (props) => {
                     setModalVisible={openModal}
                   />
                 )} */}
-          {/* </>
+            {/* </>
             )} */}
-        </>
-        {/* )} */}
+          </>
+        )}
       </MapView>
       {isPinDraggable && (
         <View style={styles.carpinContainer}>
@@ -580,28 +600,27 @@ const Map = (props) => {
 
       <Actionsheet
         isOpen={modalVisible}
-        style={{ height: "45%", position: "absolute", bottom: 0 }}
-        transparent={true}
-      >
+        style={{height: '45%', position: 'absolute', bottom: 0}}
+        transparent={true}>
         {!showReserver && (
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Parking sensor selected</Text>
+            <Text style={styles.modalTitle}>
+              {t('parking_sensor_selected')}
+            </Text>
 
             <View style={styles.modalBtnContainer}>
               <TouchableOpacity
                 style={styles.modalCancelBtn}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.btnCancelLabel}>Cancel</Text>
+                onPress={() => setModalVisible(false)}>
+                <Text style={styles.btnCancelLabel}>{t('cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.modalBtn}
                 onPress={() => {
                   setModalVisible(false);
-                  navigation.navigate("ParkFromScreen");
-                }}
-              >
-                <Text style={styles.btnLabel}>PAY</Text>
+                  navigation.navigate('ParkFromScreen');
+                }}>
+                <Text style={styles.btnLabel}>{t('pay')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -609,9 +628,10 @@ const Map = (props) => {
                 onPress={() => {
                   // setModalVisible(false);
                   setShowReserve(true);
-                }}
-              >
-                <Text style={styles.btnLabel}>RESERVE</Text>
+                }}>
+                <Text style={styles.btnLabel}>
+                  {t('reserve').toUpperCase()}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -619,7 +639,9 @@ const Map = (props) => {
 
         {showReserver && (
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Reserve for 30 minutes ?</Text>
+            <Text style={styles.modalTitle}>
+              {t('reserve_for_30_minutes')} ?
+            </Text>
 
             <View style={styles.modalBtnContainer}>
               <TouchableOpacity
@@ -627,16 +649,14 @@ const Map = (props) => {
                 onPress={() => {
                   setModalVisible(false);
                   setShowReserve(false);
-                }}
-              >
-                <Text style={styles.btnCancelLabel}>No</Text>
+                }}>
+                <Text style={styles.btnCancelLabel}>{t('no')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.modalBtn}
-                onPress={handleBookSensor}
-              >
-                <Text style={styles.btnLabel}>Yes</Text>
+                onPress={handleBookSensor}>
+                <Text style={styles.btnLabel}>{t('yes')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -660,7 +680,7 @@ Map.propTypes = {
   handleExtendBtn: PropTypes.func,
   handleNearbyParkings: PropTypes.func,
   setIsToggled: PropTypes.func,
-  showExtend: PropTypes.bool,
+  noParkings: PropTypes.bool,
 };
 
 export default Map;

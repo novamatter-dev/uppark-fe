@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Box, Actionsheet } from "native-base";
+import React, {useState, useEffect, useRef} from 'react';
+import {Box, Actionsheet} from 'native-base';
 import {
   Text,
   Image,
@@ -8,67 +8,66 @@ import {
   ActivityIndicator,
   Linking,
   AppState,
-} from "react-native";
+} from 'react-native';
 //style & assets
-import svgs from "../../assets/svgs";
-import PaymentDetailsStyle from "./PaymentDetails.style";
-import visa from "../../assets/icons/visa.png";
-import { AQUA, BLUE, WHITE } from "../../helpers/style/constants";
+import svgs from '../../assets/svgs';
+import PaymentDetailsStyle from './PaymentDetails.style';
+import visa from '../../assets/icons/visa.png';
+import {AQUA, BLUE, WHITE} from '../../helpers/style/constants';
 //netopia assets
 //components
-import CarsTab from "../Profile/Components/CarsTab/CarsTab.screen";
-import { ModalConfirmPayment, PaymentOptions, SummaryInfo } from "./components";
+import CarsTab from '../Profile/Components/CarsTab/CarsTab.screen';
+import {ModalConfirmPayment, PaymentOptions, SummaryInfo} from './components';
 import {
   NativeBaseBackButton,
   Title,
   Modal,
   DropdownButton,
   ButtonComponent,
-} from "../../components";
+} from '../../components';
 
 //libraries
-import moment from "moment";
-import { SvgXml } from "react-native-svg";
-import { WebView } from "react-native-webview";
-import { useIsFocused } from "@react-navigation/native";
+import moment from 'moment';
+import {SvgXml} from 'react-native-svg';
+import {WebView} from 'react-native-webview';
+import {useIsFocused} from '@react-navigation/native';
 //hooks
-import useInterval from "../../hooks/useInterval.hook";
+import useInterval from '../../hooks/useInterval.hook';
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import {useSelector, useDispatch} from 'react-redux';
 import {
   usePostParkingReservationMutation,
   useExtendReservationMutation,
   useInitiatePaymentMutation,
   useChecktransactionMutation,
   useReturnLinkMutation,
-} from "../../services/parkings";
-import { setSelectingCar } from "../../redux/features/cars/carsSlice";
+} from '../../services/parkings';
+import {setSelectingCar} from '../../redux/features/cars/carsSlice';
 import {
   parkingsState,
   setNearByParkings,
   setIsParkingSelected,
   setReservationDetails,
-  setWorksWithHub,
-} from "../../redux/features/parkings/parkingsSlice";
-import { setLoadingScreen } from "../../redux/features/notifications/notificationSlice";
+} from '../../redux/features/parkings/parkingsSlice';
+import {setLoadingScreen} from '../../redux/features/notifications/notificationSlice';
 import {
   useGetPersonalDefailtCardMutation,
   useGetBusinessDefaultCardMutation,
-} from "../../services/wallets";
-import Toast from "react-native-toast-notifications";
-import AddCar from "../AddCar";
-import { t } from "i18next";
-import SelectCar from "../SelectCar/SelectCar";
+} from '../../services/wallets';
+import Toast from 'react-native-toast-notifications';
+import AddCar from '../AddCar';
+import {t} from 'i18next';
+import SelectCar from '../SelectCar/SelectCar';
 
-const PaymentDetails = ({ navigation }) => {
+const PaymentDetails = ({navigation}) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const parkingsData = useSelector(parkingsState);
-  const { activeCar } = useSelector((state) => state.cars);
-  const { currentReservations, selectedSensor } = useSelector(
-    (state) => state.parkings.parkingsState
+  const {activeCar} = useSelector(state => state.cars);
+  const {currentReservations, selectedSensor} = useSelector(
+    state => state.parkings.parkingsState,
   );
-  const { activeLoadingScreen } = useSelector((state) => state.notification);
+  const {activeLoadingScreen} = useSelector(state => state.notification);
 
   const toastRef = useRef();
 
@@ -84,18 +83,19 @@ const PaymentDetails = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [addCarModal, setAddCarModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [profileType, setProfileType] = useState("Personal");
+  const [profileType, setProfileType] = useState('Personal');
   const [selectedCard, setSelectedCard] = useState(null);
   const [step, setStep] = useState(1);
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
   const [netopiaVisible, setNetopiaVisible] = useState(false);
   const [initiateNetopia, setInitiateNetopia] = useState({
-    html: "",
+    html: '',
     transactionId: null,
   });
   const [transactionInProgress, setTransactionInProgress] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isCardMissing, setIsCardMissing] = useState(false);
+  const [isPayButtonDisabled, setIsPayButtonDisabled] = useState(false);
 
   const [isForeground, setIsForeground] = useState(false);
 
@@ -103,18 +103,24 @@ const PaymentDetails = ({ navigation }) => {
     getProfileDefaultCard();
   }, [profileType]);
 
+  useEffect(() => {
+    if (initiateNetopia.html) {
+      setNetopiaVisible(true);
+    }
+  }, [initiateNetopia]);
+
   const getProfileDefaultCard = async () => {
-    if (profileType === "Personal") {
+    if (profileType === 'Personal') {
       await getPersonalDefailtCard()
-        .then((answer) => {
+        .then(answer => {
           // setSelectedCard(answer?.data?.cardNumber?.substring(8, 16));
           setSelectedCard(answer?.data);
         })
-        .catch((err) => {
-          console.log("err personal card : ", err);
+        .catch(err => {
+          console.log('err personal card : ', err);
         });
     } else {
-      await getBusinessDefaultCard().then((answer) => {
+      await getBusinessDefaultCard().then(answer => {
         // setSelectedCard(answer?.data?.cardNumber?.substring(8, 16));
         setSelectedCard(answer?.data);
       });
@@ -125,9 +131,8 @@ const PaymentDetails = ({ navigation }) => {
     setModalVisible(!modalVisible);
   };
 
-  const handleSelectCardFromList = (card) => {
+  const handleSelectCardFromList = card => {
     setSelectedCard(card.substring(8, 16));
-    getProfileDefaultCard();
     handleModal();
   };
 
@@ -141,15 +146,16 @@ const PaymentDetails = ({ navigation }) => {
       // SENZORI !
       const body = {
         carId: activeCar.carId,
-        parkingId: parkingsData?.parkingDetails?.parkingId,
+        parkingId: parkingsData.parkingDetails.parkingId,
         groupId: parkingsData?.reservedPolygon?.groupId,
-        productId: parkingsData?.parkingForm?.productId,
+        productId: parkingsData.parkingForm.productId,
         paymentProfileType: `${profileType}Profile`,
-        parkingLotId: selectedSensor?.id, // trebuie doar daca este selectata parcarea de la Iasi !!
+        parkingLotId: null, // trebuie doar daca este selectata parcarea de la Iasi !!
+        CardId: selectedCard?.id,
       };
-      console.log(" sensor reservation body >>>", body);
+
       await postParkingReservation(body)
-        .then((answer) => {
+        .then(answer => {
           dispatch(setNearByParkings([]));
           dispatch(setIsParkingSelected(false));
           dispatch(
@@ -157,21 +163,25 @@ const PaymentDetails = ({ navigation }) => {
               reservationId: answer.data.parkingReservationId,
               start: answer.data.reservedFrom,
               end: answer.data.reservedTo,
-            })
+            }),
           );
           dispatch(setLoadingScreen(false));
-          //setez loading false
+
           setIsLoading(false);
-          navigation.navigate("SetYourParkPin");
+          navigation.navigate('PaymentConfirmed', {
+            type: 'CONFIRMED',
+          });
 
           return answer;
         })
-        .catch((err) => {
-          console.log("parking reservation err: ", err);
+        .catch(err => {
           setIsLoading(false);
+          console.log('parking reservation err: ', err);
+          // TODO: Aici s-a intamplat ceva cu crearea de rezervare
+          // TODO: Aceasta portiune de cod va disparea
         });
     } else {
-      if (parkingsData?.worksWithHub || parkingsData?.isMiniPark) {
+      if (parkingsData?.worksWithHub) {
         handleHubReservation();
       } else {
         handleRegularReservation();
@@ -188,17 +198,25 @@ const PaymentDetails = ({ navigation }) => {
       productId: null,
       paymentProfileType: `${profileType}Profile`,
       reservedFrom: moment(parkingsData?.parkingForm?.startTime).format(
-        "yyyy-MM-DD HH:mm:ss"
+        'yyyy-MM-DD HH:mm:ss',
       ), //(acel entryDate) din QrScanner
       amount: parkingsData.parkingForm.totalAmounts, //din QrScanner
       ticketIdentifier: parkingsData?.parkingForm?.ticketId, // din QrScanner
+      CardId: selectedCard?.id,
     };
 
-    dispatch(setWorksWithHub(false));
+    await postParkingReservation(body)
+      .then(answer => {
+        navigation.navigate('PaymentConfirmed', {
+          type: 'CONFIRMED',
+        });
+      })
+      .catch(err => {
+        setIsLoading(false);
 
-    await postParkingReservation(body).then((answer) => {
-      navigation.navigate("HomeDrawer");
-    });
+        // TODO: Aici s-a intamplat ceva cu crearea de rezervare
+        // TODO: Aceasta portiune de cod va disparea
+      });
   };
 
   const handleRegularReservation = async () => {
@@ -214,8 +232,9 @@ const PaymentDetails = ({ navigation }) => {
       reservedFrom: null,
       CardId: selectedCard?.id,
     };
+
     await postParkingReservation(body)
-      .then((answer) => {
+      .then(answer => {
         dispatch(setNearByParkings([]));
         dispatch(setIsParkingSelected(false));
         dispatch(
@@ -223,17 +242,28 @@ const PaymentDetails = ({ navigation }) => {
             reservationId: answer.data.parkingReservationId,
             start: answer.data.reservedFrom,
             end: answer.data.reservedTo,
-          })
+          }),
         );
         setIsLoading(false);
         dispatch(setLoadingScreen(false));
-        navigation.navigate("SetYourParkPin");
+
+        // TODO: verify improve payment flow
+        // navigation.navigate('SetYourParkPin');
+        navigation.navigate('PaymentConfirmation', {
+          type: 'CONFIRMED',
+        });
 
         return answer;
       })
-      .catch((err) => {
-        console.log("parking reservation err: ", err);
+      .catch(err => {
+        console.log('parking reservation err: ', err);
         setIsLoading(false);
+        // navigation.navigate('PaymentConfirmed', {
+        //   type: 'REJECTED',
+        // });
+
+        // TODO: Aici s-a intamplat ceva cu crearea de rezervare
+        // TODO: Aceasta portiune de cod va disparea
       });
   };
 
@@ -243,24 +273,35 @@ const PaymentDetails = ({ navigation }) => {
       paymentProfileType: `${profileType}Profile`,
     };
 
+    // TODO: improve payment flow
     await extendReservation({
       prakingReservationId: parkingsData.reservationDetails.reservationId,
       reqBody: body,
     })
       .then(() => {
-        navigation.navigate("HomeDrawer");
+        navigation.navigate('PaymentConfirmation', {
+          type: 'EXTEND',
+        });
       })
-      .catch((err) => {
-        console.log("err >>> ", err);
+      .catch(err => {
+        console.log('err >>> ', err);
+        setIsLoading(false);
+
+        // TODO: Aici s-a intamplat ceva cu extinderea de rezervare
+        // TODO: Aceasta portiune de cod va disparea
+
+        navigation.navigate('PaymentConfirmed', {
+          type: 'REJECTED',
+        });
       });
   };
 
   const handlePayConfirm = () => {
     setIsConfirmModalVisible(false);
     const findId = currentReservations.some(
-      (item) =>
+      item =>
         item.parkingId === parkingsData.parkingDetails.parkingId &&
-        item.plateNumber === activeCar.licensePlateNumber
+        item.plateNumber === activeCar.licensePlateNumber,
     );
     if (currentReservations.length >= 1 && findId) {
       handleExtendReservation();
@@ -271,7 +312,7 @@ const PaymentDetails = ({ navigation }) => {
 
   const handlePay = () => {
     // navigation.navigate("SetYourParkPin");
-    if (parkingsData.parkingDetails.currencyType === "EURO") {
+    if (parkingsData.parkingDetails.currencyType === 'EURO') {
       // setIsConfirmModalVisible(true);
       handleInitiatePayment();
     } else {
@@ -286,90 +327,103 @@ const PaymentDetails = ({ navigation }) => {
   };
 
   const handleInitiatePayment = async () => {
-    if (parkingsData.parkingDetails.currencyType === "EURO") {
+    setIsPayButtonDisabled(true);
+    if (parkingsData.parkingDetails.currencyType === 'EURO') {
       Linking.openURL(
-        `sms:${parkingsData.parkingForm.shortNumber}?&body=${parkingsData.parkingForm.code}-${activeCar?.licensePlateNumber}`
+        `sms:${parkingsData.parkingForm.shortNumber}?&body=${parkingsData.parkingForm.code}-${activeCar?.licensePlateNumber}`,
       );
     } else {
-      let productId = parkingsData.parkingForm.productId;
+      if (parkingsData.parkingForm.totalAmounts === 0) {
+        handleOnPress();
+        return;
+      }
+      let productId = parkingsData?.parkingForm.productId;
       if (
-        parkingsData.parkingForm.productId ===
-          "00000000-0000-0000-0000-000000000000" ||
-        parkingsData.parkingForm.productId ||
+        parkingsData?.parkingForm.productId ===
+          '00000000-0000-0000-0000-000000000000' ||
+        parkingsData?.parkingForm.productId ||
         null
       ) {
         productId = 0;
       }
 
+      // TODO: improve payment flow
       const body = {
-        Amount: parkingsData.parkingForm.totalAmounts,
-        Currency: parkingsData.parkingDetails.currencyType,
-        // ProductId: parkingsData.parkingForm.productId
-        //   ? parkingsData.parkingForm.productId
-        //   : parkingsData.isMiniPark
-        //   ? // ? "3342F4B4-C193-40BD-96D0-85EF41037A39"
-        //     125
-        //   : 0,
-        ProductId: parkingsData.parkingForm.productId
-          ? parkingsData.parkingForm.productId
-          : productId,
-        ParkingId: parkingsData.parkingDetails.parkingId,
-        isPersonalProfile: profileType === "Personal" ? true : false,
+        Amount: parkingsData?.parkingForm.totalAmounts,
+        Currency: parkingsData?.parkingDetails.currencyType,
+        ProductId: parkingsData?.parkingForm.productId,
+        ParkingId: parkingsData?.parkingDetails.parkingId,
+        isPersonalProfile: profileType === 'Personal' ? true : false,
         CardId: selectedCard?.id,
         LicensePlate: activeCar.licensePlateNumber,
-        TicketIdentifier: parkingsData.worksWithHub
-          ? parkingsData?.parkingForm?.ticketId
-          : null,
+        ParkingReservationDto: {
+          carId: activeCar?.carId,
+          parkingId: parkingsData?.parkingDetails?.parkingId,
+          groupId: parkingsData?.reservedPolygon?.groupId,
+          productId: parkingsData?.parkingForm?.productId,
+          paymentProfileType: `${profileType}Profile`,
+          parkingLotId: null,
+          ticketIdentifier: parkingsData?.parkingForm?.ticketId
+            ? parkingsData?.parkingForm?.ticketId
+            : null,
+          amount: parkingsData.parkingForm.totalAmounts
+            ? parkingsData.parkingForm.totalAmounts
+            : 0,
+          // ticketIdentifier: null,
+          // amount: 0,
+          reservedFrom: null,
+          CardId: selectedCard?.id,
+        },
       };
 
-      console.log("body initiate payment >>>> ", body);
+      console.log('>>> initiatePayment body:', body);
 
       await initiatePayment(body)
-        .then((answer) => {
-          let form = answer.data.form;
-          form = form.replace(/\\"/g, '"');
+        .then(answer => {
+          // let form = answer.data.form;
+          // form = form.replace(/\\"/g, '"');
 
-          console.log("answer.data >>>> ", answer.data);
+          console.log('>>> initiatePayment answer:', answer.data);
 
           setTransactionInProgress(true);
-
           setInitiateNetopia({
             html: answer.data.form,
             transactionId: answer.data.transactionId,
           });
-
-          // setNetopiaVisible(true);
         })
-        .catch((err) => {
-          console.log("initiate payment err >>> ", err);
+        .catch(err => {
+          console.log('>>> initiatePayment err:', err);
         });
     }
   };
 
-  useEffect(() => {
-    if (initiateNetopia.html) {
-      setNetopiaVisible(true);
-    }
-  }, [initiateNetopia]);
-
   const handleCheckTransaction = async () => {
-    await checktransaction({ transactionId: initiateNetopia.transactionId })
-      .then((answer) => {
-        //to set your pin
+    setIsLoading(true);
+    await checktransaction({transactionId: initiateNetopia.transactionId})
+      .then(answer => {
+        console.log('Checktransaction:', answer);
         if (answer.data) {
-          setTransactionInProgress(false);
           setNetopiaVisible(false);
-
-          handlePayConfirm();
+          setTransactionInProgress(false);
           dispatch(setLoadingScreen(true));
-          setIsLoading(true);
-        } else {
-          // console.log("checking transaction >>> ");
+
+          // TODO: Aici trebuie sa scapam de handlePayConfirm ( rezervarea o va face backend-ul )
+          // TODO: Daca e totul ok aici, afisam ecranul de plata confirmata
+          // handlePayConfirm();
+
+          navigation.navigate('PaymentConfirmation', {
+            type: 'CONFIRMED',
+          });
         }
       })
-      .catch((err) => {
-        console.log("err", err);
+      .catch(err => {
+        console.log('handleCheckTransaction err', err);
+        // TODO: Aici calin trebuie sa ne intorci pe respnse ca plata a fost rejected !!!
+        // TODO: Daca plata a fost rejected, afisam ecranul de plata respinsa
         setIsLoading(false);
+        navigation.navigate('PaymentConfirmation', {
+          type: 'REJECTED',
+        });
       });
   };
 
@@ -377,27 +431,28 @@ const PaymentDetails = ({ navigation }) => {
     () => {
       handleCheckTransaction();
     },
-    transactionInProgress ? 1000 : null
+    transactionInProgress ? 1000 : null,
   );
 
   const find = () => {
     return currentReservations.some(
-      (obj) => obj.parkingId === parkingsData.parkingDetails.parkingId
+      obj => obj.parkingId === parkingsData.parkingDetails.parkingId,
     );
   };
 
-  const handleAppState = (state) => {
-    setIsForeground(state === "active");
+  // TODO: Verify this function
+  const handleAppState = state => {
+    setIsForeground(state === 'active');
 
-    if (state === "active") {
-      navigation.navigate("HomeDrawer");
+    if (state === 'active') {
+      navigation.navigate('HomeDrawer');
     }
   };
 
   useEffect(() => {
-    if (parkingsData.parkingDetails.currencyType === "EURO") {
-      const subscribe = AppState.addEventListener("change", (state) =>
-        handleAppState(state)
+    if (parkingsData.parkingDetails.currencyType === 'EURO') {
+      const subscribe = AppState.addEventListener('change', state =>
+        handleAppState(state),
       );
 
       return () => subscribe.remove();
@@ -408,31 +463,31 @@ const PaymentDetails = ({ navigation }) => {
     return (
       <>
         <Box style={PaymentDetailsStyle.container}>
-          <View style={PaymentDetailsStyle.topHalf}>
+          <View>
             <NativeBaseBackButton
               style={PaymentDetailsStyle.backButton}
               handleOnPress={() => {
                 if (parkingsData.worksWithHub) {
-                  navigation.navigate("HomeDrawer");
+                  navigation.navigate('HomeDrawer');
                 } else {
                   navigation.goBack();
                 }
               }}
             />
             <Title
-              label={t("payment_details")}
+              label={t('payment_details')}
               style={PaymentDetailsStyle.title}
             />
             <SummaryInfo
               startTime={moment(parkingsData.parkingForm.startTime).format(
-                "HH:mm"
+                'HH:mm',
               )}
-              endTime={moment(parkingsData.parkingForm.endTime).format("HH:mm")}
+              endTime={moment(parkingsData.parkingForm.endTime).format('HH:mm')}
               startDate={moment(parkingsData.parkingForm.startTime).format(
-                "dd, MMM DD"
+                'dd, MMM DD',
               )}
               endDate={moment(parkingsData.parkingForm.endTime).format(
-                "dd, MMM DD"
+                'dd, MMM DD',
               )}
               address={parkingsData?.parkingDetails?.parkingShortTitle}
               handleAddCar={handleAddCar}
@@ -440,68 +495,67 @@ const PaymentDetails = ({ navigation }) => {
             />
           </View>
 
-          <View style={PaymentDetailsStyle.bottomHalf}>
-            {/* OPTIONS CONTAINER */}
+          <View style={{flex: 1}}>
+            <View style={PaymentDetailsStyle.buttonContainer}>
+              <View style={PaymentDetailsStyle.optionsContainer}>
+                <Box style={PaymentDetailsStyle.paymentOptionsContainer}>
+                  <Text style={PaymentDetailsStyle.grayText}>
+                    {t('payment_options')}
+                  </Text>
 
-            <View style={PaymentDetailsStyle.optionsContainer}>
-              <Box style={PaymentDetailsStyle.paymentOptionsContainer}>
-                <Text style={PaymentDetailsStyle.grayText}>
-                  {t("payment_options")}
+                  {parkingsData.parkingDetails.currencyType !== 'EURO' && (
+                    <TouchableOpacity
+                      style={PaymentDetailsStyle.btnContainer}
+                      onPress={handleModal}>
+                      <Image style={PaymentDetailsStyle.icon} source={visa} />
+                      <Text style={PaymentDetailsStyle.contentText}>
+                        {selectedCard?.cardNumber
+                          ? `**** ${selectedCard?.cardNumber?.slice(-4)}`
+                          : t('selected_card')}
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                  {parkingsData.parkingDetails.currencyType === 'EURO' && (
+                    <TouchableOpacity style={PaymentDetailsStyle.btnContainer}>
+                      <SvgXml xml={svgs.sms} width={22} height={22} />
+                      <Text style={PaymentDetailsStyle.contentText}>SMS</Text>
+                    </TouchableOpacity>
+                  )}
+                </Box>
+
+                <Box style={PaymentDetailsStyle.paymentOptionsContainer}>
+                  <Text style={PaymentDetailsStyle.grayText}>
+                    {t('profile')}
+                  </Text>
+                  <DropdownButton
+                    expanded={expanded}
+                    setExpanded={setExpanded}
+                    setProfileType={setProfileType}
+                    profileType={profileType}
+                  />
+                </Box>
+              </View>
+
+              {/* OPTIONS CONTAINER */}
+
+              <Box style={PaymentDetailsStyle.bottomTextContainer}>
+                <Text style={PaymentDetailsStyle.mediumBoldText}>
+                  {t('total_amount')}
                 </Text>
-
-                {parkingsData.parkingDetails.currencyType !== "EURO" && (
-                  <TouchableOpacity
-                    style={PaymentDetailsStyle.btnContainer}
-                    onPress={handleModal}
-                  >
-                    <Image style={PaymentDetailsStyle.icon} source={visa} />
-                    <Text style={PaymentDetailsStyle.contentText}>
-                      {selectedCard?.cardNumber
-                        ? `**** ${selectedCard?.cardNumber?.slice(-4)}`
-                        : t("selected_card")}
-                    </Text>
-                  </TouchableOpacity>
-                )}
-                {parkingsData.parkingDetails.currencyType === "EURO" && (
-                  <TouchableOpacity style={PaymentDetailsStyle.btnContainer}>
-                    <SvgXml xml={svgs.sms} width={22} height={22} />
-                    <Text style={PaymentDetailsStyle.contentText}>SMS</Text>
-                  </TouchableOpacity>
+                {!expanded && (
+                  <Text style={PaymentDetailsStyle.bigBoldText}>
+                    {parkingsData.parkingForm.totalAmounts}{' '}
+                    {parkingsData.parkingDetails.currencyType}
+                  </Text>
                 )}
               </Box>
-
-              <Box style={PaymentDetailsStyle.paymentOptionsContainer}>
-                <Text style={PaymentDetailsStyle.grayText}>{t("profile")}</Text>
-                <DropdownButton
-                  expanded={expanded}
-                  setExpanded={setExpanded}
-                  setProfileType={setProfileType}
-                  profileType={profileType}
-                />
-              </Box>
-            </View>
-
-            {/* OPTIONS CONTAINER */}
-
-            <Box style={PaymentDetailsStyle.bottomTextContainer}>
-              <Text style={PaymentDetailsStyle.mediumBoldText}>
-                {t("total_amount")}
-              </Text>
-              {!expanded && (
-                <Text style={PaymentDetailsStyle.bigBoldText}>
-                  {parkingsData.parkingForm.totalAmounts}{" "}
-                  {parkingsData.parkingDetails.currencyType}
-                </Text>
-              )}
-            </Box>
-
-            <View>
               <ButtonComponent
-                text={t("confirm_and_pay").toUpperCase()}
+                text={t('confirm_and_pay').toUpperCase()}
+                isDisabled={isPayButtonDisabled}
                 onPress={handlePay}
               />
               <Text style={PaymentDetailsStyle.disclaimerTxt}>
-                {t("purchase_disclaimer")}
+                {t('purchase_disclaimer')}
               </Text>
             </View>
           </View>
@@ -510,6 +564,7 @@ const PaymentDetails = ({ navigation }) => {
           <Modal isFullScreen={true} modalVisible={modalVisible}>
             <PaymentOptions
               onCardPress={handleSelectCardFromList}
+              getProfileDefaultCard={getProfileDefaultCard}
               onExitPress={handleModal}
               onSmsPress={handleModal}
               isFromPaymentDetails={true}
@@ -552,24 +607,22 @@ const PaymentDetails = ({ navigation }) => {
             isOpen={isCardMissing}
             // isOpen={true}
             style={{
-              height: "30%",
-              position: "absolute",
+              height: '30%',
+              position: 'absolute',
               bottom: 0,
-            }}
-          >
+            }}>
             <View style={PaymentDetailsStyle.missingCardContainer}>
               <Text style={PaymentDetailsStyle.missingCardTitle}>
-                {t("card_missing")}
+                {t('card_missing')}
               </Text>
               <TouchableOpacity
                 style={PaymentDetailsStyle.missingCardBtn}
                 onPress={() => {
                   setIsCardMissing(false);
                   handleModal();
-                }}
-              >
+                }}>
                 <Text style={PaymentDetailsStyle.missingBtnLabel}>
-                  {t("ok").toUpperCase()}
+                  {t('ok').toUpperCase()}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -578,18 +631,16 @@ const PaymentDetails = ({ navigation }) => {
           <Modal
             animationType="slide"
             transparent={true}
-            visible={activeLoadingScreen}
-          >
+            visible={activeLoadingScreen}>
             <View
               style={{
-                backgroundColor: "rgba(0,0,0,0.5)",
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
               <ActivityIndicator size="large" color={AQUA} />
             </View>
           </Modal>
@@ -597,15 +648,14 @@ const PaymentDetails = ({ navigation }) => {
         {isLoading && (
           <View
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-              backgroundColor: "rgba(0,0,0,0.3)",
-            }}
-          >
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
+              backgroundColor: 'rgba(0,0,0,0.3)',
+            }}>
             <ActivityIndicator size="large" color={BLUE} />
           </View>
         )}
@@ -615,25 +665,23 @@ const PaymentDetails = ({ navigation }) => {
     return (
       <View
         style={{
-          display: "flex",
-          width: "100%",
-          height: "100%",
-        }}
-      >
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+        }}>
         <View
           style={{
-            display: "flex",
-            position: "absolute",
-            top: "3%",
-            right: "5%",
+            display: 'flex',
+            position: 'absolute',
+            top: '3%',
+            right: '5%',
             zIndex: 100,
-          }}
-        >
+          }}>
           <NativeBaseBackButton
             style={PaymentDetailsStyle.backButton}
             handleOnPress={() => {
               if (parkingsData.worksWithHub) {
-                navigation.navigate("HomeDrawer");
+                navigation.navigate('HomeDrawer');
               } else {
                 navigation.goBack();
               }
@@ -642,15 +690,30 @@ const PaymentDetails = ({ navigation }) => {
         </View>
         <WebView
           startInLoadingState={true}
-          androidLayerType={"software"}
+          androidLayerType={'software'}
           style={{
-            marginTop: "8%",
+            marginTop: '8%',
             flex: 1,
           }}
           source={{
             html: initiateNetopia?.html,
-          }}
-        ></WebView>
+          }}>
+          {/* <NativeBaseBackButton
+            style={{
+              backgroundColor: WHITE,
+              position: "absolute",
+              top: 50,
+              left: 20,
+            }}
+            handleOnPress={() => {
+              if (parkingsData.worksWithHub) {
+                navigation.navigate("HomeDrawer");
+              } else {
+                navigation.goBack();
+              }
+            }}
+          /> */}
+        </WebView>
       </View>
     );
   }

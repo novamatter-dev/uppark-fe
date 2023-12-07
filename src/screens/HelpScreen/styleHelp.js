@@ -1,18 +1,22 @@
 import { StyleSheet } from "react-native";
 import { BLACK, PLATINUM, WHITE } from "../../helpers/style/constants";
-
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 const style = StyleSheet.create({
   container: {
-    padding: 20,
     width: "100%",
     height: "100%",
-    paddingVertical: 45,
-    paddingHorizontal: 32,
     backgroundColor: PLATINUM,
+    paddingHorizontal: wp(8.20),
+    paddingVertical: hp(4.92),
+    paddingTop: Platform.OS === "ios" ? hp(6.92) : hp(4.92)
   },
   backBtn: {
-    marginVertical: 12,
+    // marginVertical: 12,
     backgroundColor: WHITE,
+    marginBottom: hp(2.95)
   },
   titleContainer: {
     marginVertical: 12,
@@ -38,8 +42,9 @@ const style = StyleSheet.create({
   },
   textComponentWrapper: {
     display: "flex",
-    paddingHorizontal: "8%",
-    paddingVertical: "5%",
+    paddingHorizontal: wp(8.20),
+    paddingVertical: hp(4.92),
+    paddingTop: Platform.OS === "ios" ? hp(6.92) : hp(4.92)
   },
   textComponentContent: {
     paddingVertical: 10,

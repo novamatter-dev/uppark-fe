@@ -1,19 +1,21 @@
 import { StyleSheet } from "react-native";
 import { PLATINUM, WHITE } from "../../helpers/style/constants";
-
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 const InviteStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: PLATINUM,
     height: "100%",
-    padding: 24,
     display: "flex",
     justifyContent: "space-between",
+    paddingHorizontal: wp(8.20),
+    paddingVertical: hp(4.92),
+    paddingTop: Platform.OS === "ios" ? hp(6.92) : hp(4.92)
   },
   backButton: {
-    marginTop: "10%",
-    height: 60,
-    width: 60,
     backgroundColor: WHITE,
   },
   title: {
@@ -36,7 +38,7 @@ const InviteStyles = StyleSheet.create({
     marginTop: "5%",
   },
   inputContainer: {
-    width: 326,
+    width: "100%",
     marginTop: "7%",
     backgroundColor: WHITE,
     borderRadius: 25,

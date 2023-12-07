@@ -1,17 +1,36 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { GREY, BLACK, BLUE } from "../../helpers/style/constants";
-
+import { GREY, BLACK, BLUE, PLATINUM, WHITE } from "../../helpers/style/constants";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 const style = StyleSheet.create({
   container: {
     display: "flex",
     width: "100%",
     height: "100%",
-    padding: 32,
-    paddingTop: 40,
+    backgroundColor: PLATINUM,
+    paddingHorizontal: wp(8.20),
+    paddingVertical: hp(4.92),
+    paddingTop: Platform.OS === "ios" ? hp(6.92) : hp(4.92)
   },
 
   backButton: {
-    marginBottom: 25,
+    // marginBottom: 25,
+    marginBottom: hp(2.95),
+    backgroundColor: WHITE,
+  },
+
+  iconAlignment: {
+    width: "60%",
+    // backgroundColor: 'red',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+    // alignItems: "center",
+    // // marginTop: 28,
+    // alignSelf: "center",
+    // marginHorizontal: 40,
   },
 
   //Amount container:

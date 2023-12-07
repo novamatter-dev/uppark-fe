@@ -1,32 +1,33 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Box, Text } from "native-base";
-
-import { FlatList, TouchableOpacity, View } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {FlatList, TouchableOpacity, View} from 'react-native';
+//assets & style
+import {partialyFreeProducts} from '../../constants/products';
+import {BLACK, BLUE, PLATINUM, WHITE} from '../../helpers/style/constants';
+import ParkFromScreenStyle from './ParkFromScreen.style';
+//components
 import {
   ButtonComponent,
   NativeBaseBackButton,
   Title,
   Toast,
-} from "../../components";
-import { BLACK, BLUE, PLATINUM, WHITE } from "../../helpers/style/constants";
-import { Tabs } from "../../components";
-import ParkFromScreenStyle from "./ParkFromScreen.style";
-//libs
-import { useToast } from "native-base";
-import moment from "moment";
+} from '../../components';
+import {Tabs} from '../../components';
+//libraries
+import {useNavigation} from '@react-navigation/native';
+import {Box, Text} from 'native-base';
+import {useToast} from 'native-base';
+import moment from 'moment';
+import {t} from 'i18next';
 //redux
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
 import {
   setParkingForm,
   setIsParkingSelected,
   setReservedPolygon,
   setSensorParking,
   resetParkingState,
-} from "../../redux/features/parkings/parkingsSlice";
-import { t } from "i18next";
-import { partialyFreeProducts } from "../../constants/products";
+} from '../../redux/features/parkings/parkingsSlice';
 
 const ParkFromScreen = () => {
   const navigation = useNavigation();
@@ -34,35 +35,35 @@ const ParkFromScreen = () => {
 
   const toast = useToast();
   // const parkingsData = useSelector(parkingsState);
-  const { currentReservations, parkingDetails, parkingForm, parkingProducts } =
-    useSelector((state) => state.parkings.parkingsState);
+  const {currentReservations, parkingDetails, parkingForm, parkingProducts} =
+    useSelector(state => state.parkings.parkingsState);
 
   const [payload, setPayload] = useState({
     values: {
       id: null,
-      title: "",
+      title: '',
       time: 0,
-      totalAmounts: "",
-      type: "",
-      startTime: "",
-      endTime: "",
+      totalAmounts: '',
+      type: '',
+      startTime: '',
+      endTime: '',
       index: 0,
-      code: "",
-      shortNumber: "",
+      code: '',
+      shortNumber: '',
     },
   });
   const [tab, setTab] = useState(0);
   const [productDisclaimer, setProductDisclaimer] = useState({
     isVisible: false,
-    text: "",
+    text: '',
   });
 
   const today = new Date();
 
-  const handleSetPayload = (data) => {
+  const handleSetPayload = data => {
     const find = () => {
       return currentReservations?.some(
-        (obj) => obj.parkingId === parkingDetails?.parkingId
+        obj => obj.parkingId === parkingDetails?.parkingId,
       );
     };
 
@@ -70,20 +71,20 @@ const ParkFromScreen = () => {
       const reservations = [];
 
       const filter = currentReservations?.filter(
-        (currentReservations) =>
+        currentReservations =>
           // reservations.push(
           (currentReservations.parkingId === currentReservations.lenght) === 1
             ? currentReservations[0].parkingId
-            : parkingForm?.parkingId
+            : parkingForm?.parkingId,
         // )
       );
 
       const startTime = moment(filter[0]?.endTime).format(
-        "yyyy-MM-DDTHH:mm:ss"
+        'yyyy-MM-DDTHH:mm:ss',
       );
       const endTime = moment(filter[0]?.endTime)
-        .add(data?.time / 60, "hours")
-        .format("yyyy-MM-DDTHH:mm:ss");
+        .add(data?.time / 60, 'hours')
+        .format('yyyy-MM-DDTHH:mm:ss');
 
       const body = {
         minutes: data?.time,
@@ -100,10 +101,10 @@ const ParkFromScreen = () => {
 
       dispatch(setParkingForm(body));
     } else {
-      const startTime = moment(today).format("yyyy-MM-DDTHH:mm:ss");
+      const startTime = moment(today).format('yyyy-MM-DDTHH:mm:ss');
       const endTime = moment(startTime)
-        .add(data?.time / 60, "hours")
-        .format("yyyy-MM-DDTHH:mm:ss");
+        .add(data?.time / 60, 'hours')
+        .format('yyyy-MM-DDTHH:mm:ss');
       const body = {
         minutes: data?.time,
         // totalAmounts: (data.time / 60) * parkingsData.parkingDetails.pricePerHour,
@@ -121,37 +122,58 @@ const ParkFromScreen = () => {
   };
 
   const handleOnPress = () => {
-    navigation.navigate("PaymentDetails");
+    navigation.navigate('PaymentDetails');
   };
 
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
-        return <Toast message={t("select_product")} type={"danger"} />;
+        return <Toast message={t('select_product')} type={'danger'} />;
       },
     });
   };
 
-  const handleSelectProduct = (item) => {
+  // const handleAutoSelect = (product) => {
+  //   console.log("de cate ori intru aici ?", product);
+  //   setPayload((payload) => ({
+  //     ...payload,
+  //     values: {
+  //       ...payload.values,
+  //       id: product?.productId,
+  //       title:
+  //         product?.durationMinutes > 60
+  //           ? `${Math.floor(product?.durationMinutes / 60)} H`
+  //           : `${product?.durationMinutes} Min`,
+  //       time: product?.time,
+  //       // time: 1,
+  //       totalAmounts: `${product?.price} ${product?.currency}`,
+  //       type: product?.type,
+  //       code: product?.code,
+  //       shortNumber: product?.shortNumber,
+  //     },
+  //   }));
+  // };
+
+  const handleSelectProduct = item => {
     if (item) {
       const hasGracePeriod = partialyFreeProducts?.find(
-        (product) => product === item.code
+        product => product === item.code,
       );
       if (hasGracePeriod) {
         setProductDisclaimer({
           isVisible: true,
-          text: t("partially_free_product_disclaimer"),
+          text: t('partially_free_product_disclaimer'),
         });
       } else {
         setProductDisclaimer({
           isVisible: false,
-          text: "",
+          text: '',
         });
       }
       handleSetPayload(item);
-      setPayload((payload) => ({
+      setPayload(payload => ({
         ...payload,
         values: {
           ...payload.values,
@@ -187,20 +209,20 @@ const ParkFromScreen = () => {
 
     const days = minutes / (minutesPerHour * hoursPerDay);
     if (days > 1) {
-      return Math.floor(days) + " ZILE"; // Z pentru zile
+      return Math.floor(days) + ' ZILE'; // Z pentru zile
     }
 
     const hours = minutes / minutesPerHour;
     if (hours >= 1) {
-      return Math.floor(hours) + " H"; // H pentru ore
+      return Math.floor(hours) + ' H'; // H pentru ore
     }
 
-    return minutes + "Min";
+    return minutes + 'Min';
   }
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({item, index}) => {
     const hasGracePeriod = partialyFreeProducts?.find(
-      (product) => product === item.code
+      product => product === item.code,
     );
     return (
       <TouchableOpacity
@@ -211,14 +233,12 @@ const ParkFromScreen = () => {
           ...ParkFromScreenStyle.timeBtn,
           backgroundColor: item.id === payload.values.id ? BLUE : WHITE,
           marginLeft: index === 0 ? 0 : 10,
-        }}
-      >
+        }}>
         <Text
           style={{
             ...ParkFromScreenStyle.timeTitle,
             color: item.id === payload.values.id ? WHITE : BLACK,
-          }}
-        >
+          }}>
           {/* {item.title} */}
           {convertMinutes(item?.time)}
         </Text>
@@ -226,13 +246,12 @@ const ParkFromScreen = () => {
           <Text
             style={{
               ...ParkFromScreenStyle.availableZones,
-              position: "absolute",
-              top: "15%",
-              right: "15%",
+              position: 'absolute',
+              top: '15%',
+              right: '15%',
               zIndex: 10,
               fontSize: 16,
-            }}
-          >
+            }}>
             *
           </Text>
         )}
@@ -242,11 +261,11 @@ const ParkFromScreen = () => {
 
   const handleShowProducts = () => {
     // console.log("parkingsData.parkingProducts", parkingsData.parkingProducts);
-    const cardItem = parkingProducts.filter((product) =>
-      tab === 0 ? product.currency === "RON" : product.currency === "EURO"
+    const cardItem = parkingProducts.filter(product =>
+      tab === 0 ? product.currency === 'RON' : product.currency === 'EURO',
     );
     const sortedProducts = cardItem.sort(
-      (a, b) => a.durationMinutes - b.durationMinutes
+      (a, b) => a.durationMinutes - b.durationMinutes,
     );
     // handleAutoSelect(sortedProducts[0]);
 
@@ -258,7 +277,7 @@ const ParkFromScreen = () => {
             ? `${item.durationMinutes} m`
             : `${Math.ceil(item.durationMinutes / 60)}H`,
         time: item.durationMinutes,
-        type: item.durationMinutes < 60 ? "minutes" : "hours",
+        type: item.durationMinutes < 60 ? 'minutes' : 'hours',
         currencyType: item.currency,
         price: item.price,
         idx: index,
@@ -276,12 +295,12 @@ const ParkFromScreen = () => {
       setSensorParking({
         sensors: null,
         hasSensors: false,
-      })
+      }),
     );
-    navigation.navigate("HomeDrawer");
+    navigation.navigate('HomeDrawer');
   };
 
-  const handleTab = (val) => {
+  const handleTab = val => {
     setTab(val);
   };
 
@@ -295,24 +314,23 @@ const ParkFromScreen = () => {
   //   handleAutoSelect(sortedProducts[0]);
   // }, [parkingProducts, tab]);
   useEffect(() => {
-    setPayload((payload) => ({
+    setPayload(payload => ({
       ...payload,
       values: {
         ...payload.values,
         id: null,
-        title: "",
+        title: '',
         time: 0,
-        totalAmounts: "",
-        type: "",
-        startTime: "",
-        endTime: "",
+        totalAmounts: '',
+        type: '',
+        startTime: '',
+        endTime: '',
         index: 0,
-        code: "",
-        shortNumber: "",
+        code: '',
+        shortNumber: '',
       },
     }));
   }, [tab]);
-
   return (
     <Box style={ParkFromScreenStyle.container}>
       <NativeBaseBackButton
@@ -321,32 +339,31 @@ const ParkFromScreen = () => {
         handleOnPress={() => handleBackBtn()}
       />
       <Title
-        label={t("parking_form_title")}
+        label={t('parking_form_title')}
         style={ParkFromScreenStyle.title}
       />
       <Box style={ParkFromScreenStyle.listContainer}>
         <Tabs tab={tab} handleTab={handleTab} />
-        <Text style={ParkFromScreenStyle.text}>{t("quick_time_slots")}</Text>
+        <Text style={ParkFromScreenStyle.text}>{t('quick_time_slots')}</Text>
         <View style={ParkFromScreenStyle.productsWrapper}>
           <FlatList
             style={ParkFromScreenStyle.flatList}
             data={handleShowProducts()}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={item => item.id}
             extraData={payload.values.id}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
         </View>
-        <View
-          style={{ display: "flex", width: "100%", marginTop: 8, height: 20 }}
-        >
-          {payload.values.totalAmounts === "399 RON" && (
+        <View>
+          {/* TODO: verify this hardcoded values */}
+          {payload.values.totalAmounts === '399 RON' && (
             <Text style={ParkFromScreenStyle.availableZones}>
               Valabilitate: Zona 0, Zona 1, Zona 2, Zona 3
             </Text>
           )}
-          {payload.values.totalAmounts === "199 RON" && (
+          {payload.values.totalAmounts === '199 RON' && (
             <Text style={ParkFromScreenStyle.availableZones}>
               Valabilitate: Zona 0, Zona 1
             </Text>
@@ -360,9 +377,9 @@ const ParkFromScreen = () => {
       </Box>
       <Box style={ParkFromScreenStyle.priceContainer}>
         <Box style={ParkFromScreenStyle.textBox}>
-          <Text style={ParkFromScreenStyle.timeSlotText}>{t("time_slot")}</Text>
+          <Text style={ParkFromScreenStyle.timeSlotText}>{t('time_slot')}</Text>
           <Text style={ParkFromScreenStyle.toBePaidText}>
-            {t("amount_to_be_paid")}
+            {t('amount_to_be_paid')}
           </Text>
         </Box>
         <Box style={ParkFromScreenStyle.textBox}>
@@ -372,15 +389,16 @@ const ParkFromScreen = () => {
           </Text>
           <Text style={ParkFromScreenStyle.equalsText}>=</Text>
           <Text style={ParkFromScreenStyle.ammountText}>
-            {payload?.values?.totalAmounts}{" "}
+            {payload?.values?.totalAmounts}{' '}
             {/* {parkingDetails?.currencyType?.toUpperCase()} */}
           </Text>
         </Box>
+
         <Box style={ParkFromScreenStyle.sliderContainer}>
           {/* <Box style={ParkFromScreenStyle.confirmBtnContainer}> */}
 
           <ButtonComponent
-            text={t("confirm").toUpperCase()}
+            text={t('confirm').toUpperCase()}
             onPress={() => {
               if (!payload?.values?.id) {
                 handleSuccessToast();

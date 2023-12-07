@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
-import { Box, ScrollView } from "native-base";
-import { ButtonComponent, NativeBaseBackButton } from "../../../../components";
-import CarDetailsStyle from "./CarDetails.style";
-import PropTypes from "prop-types";
-import moment from "moment";
-import { RED } from "../../../../helpers/style/constants";
-import DatePicker from "react-native-date-picker";
-import { SvgXml } from "react-native-svg";
-import svgs from "../../../../assets/svgs";
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {Box, ScrollView} from 'native-base';
+import {ButtonComponent, NativeBaseBackButton} from '../../../../components';
+import CarDetailsStyle from './CarDetails.style';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import {RED} from '../../../../helpers/style/constants';
+import DatePicker from 'react-native-date-picker';
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../../../assets/svgs';
 //redux
-import { useUpdateCarMutation } from "../../../../services/cars";
+import {useUpdateCarMutation} from '../../../../services/cars';
+import {position} from 'native-base/lib/typescript/theme/styled-system';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
-const CarDetails = (props) => {
-  const { onDeletePress, onClosePress, item, onConfirm = () => {} } = props;
+const CarDetails = props => {
+  const {onDeletePress, onClosePress, item, onConfirm = () => {}} = props;
   const {
     carId,
     licensePlateNumber,
@@ -26,15 +31,15 @@ const CarDetails = (props) => {
   } = item;
 
   const carProps = [
-    { id: 0, name: "RCA", shortName: "RCAExpirationDate" },
-    { id: 1, name: "ITP", shortName: "ITPExpirationDate" },
-    { id: 2, name: "Rovinieta", shortName: "RovinietaExpirationDate" },
-    { id: 3, name: "Casco", shortName: "CascoExpirationDate" },
-    { id: 4, name: "Medical kit", shortName: "MedicalKitExpirationDate" },
+    {id: 0, name: 'RCA', shortName: 'RCAExpirationDate'},
+    {id: 1, name: 'ITP', shortName: 'ITPExpirationDate'},
+    {id: 2, name: 'Rovinieta', shortName: 'RovinietaExpirationDate'},
+    {id: 3, name: 'Casco', shortName: 'CascoExpirationDate'},
+    {id: 4, name: 'Medical kit', shortName: 'MedicalKitExpirationDate'},
     {
       id: 5,
-      name: "Fire extinguisher",
-      shortName: "FireExtinguisherExpirationDate",
+      name: 'Fire extinguisher',
+      shortName: 'FireExtinguisherExpirationDate',
     },
   ];
 
@@ -50,17 +55,17 @@ const CarDetails = (props) => {
     MedicalKitExpirationDate: medicalKitExpirationDate,
     FireExtinguisherExpirationDate: fireExtinguisherExpirationDate,
   });
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
 
   const handleChange = (e, name) => {
-    setData((data) => ({
+    setData(data => ({
       ...data,
       [name]: e,
     }));
   };
 
-  const handleBtn = (name) => {
+  const handleBtn = name => {
     setOpen(!open);
     setName(name);
   };
@@ -76,54 +81,59 @@ const CarDetails = (props) => {
       MedicalKitExpirationDate: data.MedicalKitExpirationDate,
       FireExtinguisherExpirationDate: data.FireExtinguisherExpirationDate,
     };
+
+    console.log('body >>> ', body);
     await updateCar(body).then(() => {
       onConfirm();
     });
   };
 
   return (
-    <SafeAreaView style={CarDetailsStyle.container}>
-      <ScrollView>
+    <View style={CarDetailsStyle.container}>
+      <NativeBaseBackButton
+        style={CarDetailsStyle.closeButton}
+        handleOnPress={onClosePress}
+        iconType={'exit'}
+      />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{paddingBottom: 30, height: 300, overflow: 'hidden'}}>
         <Box style={CarDetailsStyle.boxContainer}>
-          <NativeBaseBackButton
-            style={CarDetailsStyle.closeButton}
-            handleOnPress={onClosePress}
-            iconType={"exit"}
-          />
-          <View style={CarDetailsStyle.carContainer}>
+          <View style={CarDetailsStyle.itemWrapper}>
             <View style={CarDetailsStyle.carInfo}>
               <SvgXml xml={svgs.car} width={24} height={24} />
               <Text style={CarDetailsStyle.carText}>{licensePlateNumber}</Text>
             </View>
             <TouchableOpacity
               style={{}}
-              onPress={() => onDeletePress({ carId, licensePlateNumber })}
-            >
+              onPress={() => onDeletePress({carId, licensePlateNumber})}>
               <SvgXml xml={svgs.deleteIcon} width={24} height={24} fill={RED} />
             </TouchableOpacity>
           </View>
 
-          <View style={{ width: "100%" }}>
-            {carProps?.map((item) => {
+          <View style={{width: '100%'}}>
+            {carProps?.map(item => {
               return (
                 <TouchableOpacity
                   key={item.id}
                   style={CarDetailsStyle.itemWrapper}
-                  onPress={() => handleBtn(item.shortName)}
-                >
-                  <SvgXml xml={svgs.drivingLicense} width={24} height={24} />
+                  onPress={() => handleBtn(item.shortName)}>
+                  <SvgXml
+                    xml={svgs.drivingLicense}
+                    width={hp(2.95)}
+                    height={hp(2.95)}
+                  />
                   <Text
                     style={CarDetailsStyle.itemName}
                     numberOfLines={1}
-                    ellipsizeMode="tail"
-                  >
-                    {item.name}
-                    {":"}
+                    ellipsizeMode="tail">
+                    {item?.name || ''}
+                    {':'}
                   </Text>
                   <Text style={CarDetailsStyle.itemShortName}>
-                    {data[item.shortName] === null
-                      ? "-"
-                      : moment(data[item.shortName]).format("DD-MM-yyyy")}
+                    {data[item?.shortName] === null
+                      ? '-'
+                      : moment(data[item.shortName]).format('DD-MM-yyyy')}
                   </Text>
                   <SvgXml xml={svgs.edit} width={24} height={24} />
                 </TouchableOpacity>
@@ -135,26 +145,26 @@ const CarDetails = (props) => {
             mode="date"
             open={open}
             date={new Date()}
-            onConfirm={(date) => {
+            onConfirm={date => {
               handleChange(date, name);
               setOpen(false);
             }}
             onCancel={() => setOpen(false)}
             minimumDate={new Date()}
           />
-
-          <View
-            style={{
-              display: "flex",
-              width: "100%",
-              marginVertical: 8,
-            }}
-          >
-            <ButtonComponent text={"CONFIRM"} onPress={handleUpdate} />
-          </View>
         </Box>
       </ScrollView>
-    </SafeAreaView>
+      <View
+        style={{
+          display: 'flex',
+          width: '100%',
+          position: 'absolute',
+          bottom: hp(4.92),
+          marginHorizontal: wp(8.2),
+        }}>
+        <ButtonComponent text={'CONFIRM'} onPress={handleUpdate} />
+      </View>
+    </View>
   );
 };
 

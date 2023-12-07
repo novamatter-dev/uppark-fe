@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "UpPark.app"
-               BlueprintName = "UpPark"
-               ReferencedContainer = "container:UpPark.xcodeproj">
+               BuildableName = "constantaparking.app"
+               BlueprintName = "constantaparking"
+               ReferencedContainer = "container:constantaparking.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "UpParkTests.xctest"
-               BlueprintName = "UpParkTests"
-               ReferencedContainer = "container:UpPark.xcodeproj">
+               BuildableName = "constantaparkingTests.xctest"
+               BlueprintName = "constantaparkingTests"
+               ReferencedContainer = "container:constantaparking.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,7 +44,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      disableMainThreadChecker = "YES"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -56,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "UpPark.app"
-            BlueprintName = "UpPark"
-            ReferencedContainer = "container:UpPark.xcodeproj">
+            BuildableName = "constantaparking.app"
+            BlueprintName = "constantaparking"
+            ReferencedContainer = "container:constantaparking.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -73,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "UpPark.app"
-            BlueprintName = "UpPark"
-            ReferencedContainer = "container:UpPark.xcodeproj">
+            BuildableName = "constantaparking.app"
+            BlueprintName = "constantaparking"
+            ReferencedContainer = "container:constantaparking.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

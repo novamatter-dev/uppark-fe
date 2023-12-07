@@ -1,26 +1,37 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { WHITE, BLACK, BLUE } from "../../../../helpers/style/constants";
+import {StyleSheet, Dimensions, Platform} from 'react-native';
+import {WHITE, BLACK, BLUE} from '../../../../helpers/style/constants';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 const CarDetailsStyle = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: wp(8.2),
+    paddingVertical: hp(4.92),
+    paddingTop: Platform.OS === 'ios' ? hp(6.92) : hp(4.92),
   },
 
   boxContainer: {
-    display: "flex",
-    flexDirection: "column",
+    height: hp(66),
+    overflow: 'hidden',
+    // backgroundColor: "red",
+    display: 'flex',
+    flexDirection: 'column',
     flex: 1,
-    margin: 30,
+    marginTop: hp(2.95),
+    // margin: 30,
   },
 
   closeButton: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     backgroundColor: WHITE,
   },
 
   imageContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   carContainer: {
@@ -33,10 +44,10 @@ const CarDetailsStyle = StyleSheet.create({
     // // marginVertical: Dimensions.get("window").height * 0.05,
     // marginVertical: 8,
 
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: WHITE,
     borderRadius: 25,
     marginVertical: 8,
@@ -45,38 +56,38 @@ const CarDetailsStyle = StyleSheet.create({
   },
 
   optionsContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     borderRadius: 24,
     height: 64,
   },
   carInfo: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   carText: {
-    fontFamily: "AzoSans-Medium",
+    fontFamily: 'AzoSans-Medium',
     letterSpacing: 1,
-    textTransform: "uppercase",
-    textAlign: "left",
+    textTransform: 'uppercase',
+    textAlign: 'left',
     color: BLACK,
-    fontSize: 18,
+    fontSize: hp(2.21),
     paddingHorizontal: 10,
     // width: 250,
   },
 
   optionsText: {
-    fontFamily: "AzoSans-Medium",
+    fontFamily: 'AzoSans-Medium',
     letterSpacing: 1,
-    textAlign: "left",
+    textAlign: 'left',
     color: BLACK,
-    fontSize: 18,
+    fontSize: hp(2.21),
     height: 64,
     width: 250,
-    paddingLeft: Dimensions.get("window").width * 0.07,
+    paddingLeft: Dimensions.get('window').width * 0.07,
   },
 
   binIcon: {
@@ -86,7 +97,7 @@ const CarDetailsStyle = StyleSheet.create({
 
   saveButton: {
     backgroundColor: BLUE,
-    marginTop: Dimensions.get("window").height * 0.12,
+    marginTop: Dimensions.get('window').height * 0.12,
     height: 65,
     borderRadius: 30,
   },
@@ -97,28 +108,28 @@ const CarDetailsStyle = StyleSheet.create({
   },
 
   itemWrapper: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: WHITE,
-    borderRadius: 25,
+    borderRadius: hp(2.95),
+    padding: 20,
     marginVertical: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 20,
+    height: hp(7.88),
   },
   itemName: {
     color: BLACK,
-    fontSize: 18,
-    fontFamily: "AzoSans-Medium",
-    width: "35%",
+    fontSize: hp(2.21),
+    fontFamily: 'AzoSans-Medium',
+    width: '35%',
   },
   itemShortName: {
     color: BLACK,
-    fontSize: 18,
-    fontFamily: "AzoSans-Medium",
-    width: "40%",
-    textAlign: "center",
+    fontSize: hp(2.21),
+    fontFamily: 'AzoSans-Medium',
+    width: '40%',
+    textAlign: 'center',
     // marginLeft: 16,
   },
 });

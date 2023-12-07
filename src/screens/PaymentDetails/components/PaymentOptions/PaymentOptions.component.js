@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Box, ScrollView } from "native-base";
-import { Image, View, Linking } from "react-native";
+import React, {useState, useEffect} from 'react';
+import {Box, ScrollView} from 'native-base';
+import {Image, View, Linking} from 'react-native';
 //style & assets
-import PaymentOptionsStyle from "./PaymentOptions.style";
-import forward from "../../../../assets/icons/forward.png";
-import svgs from "../../../../assets/svgs";
-import { SvgXml } from "react-native-svg";
+import PaymentOptionsStyle from './PaymentOptions.style';
+import forward from '../../../../assets/icons/forward.png';
+import svgs from '../../../../assets/svgs';
+import {SvgXml} from 'react-native-svg';
 //components
 import {
   NativeBaseBackButton,
@@ -13,21 +13,21 @@ import {
   Title,
   AddCard,
   Modal,
-} from "../../../../components";
-import PropTypes from "prop-types";
+} from '../../../../components';
+import PropTypes from 'prop-types';
 
 //redux
-import { useSelector } from "react-redux";
+import {useSelector} from 'react-redux';
 import {
   useSetBusinessDefaultPaymentMutation,
   useSetPersonalDefaultPaymentMutation,
   useGetCardsMutation,
-} from "../../../../services/wallets";
-import { t } from "i18next";
-import { useNavigation } from "@react-navigation/native";
-import { useGetPersonalProfileMutation } from "../../../../services/users";
+} from '../../../../services/wallets';
+import {t} from 'i18next';
+import {useNavigation} from '@react-navigation/native';
+import {useGetPersonalProfileMutation} from '../../../../services/users';
 
-const PaymentOptions = (props) => {
+const PaymentOptions = props => {
   const {
     data,
     onCardPress,
@@ -35,10 +35,11 @@ const PaymentOptions = (props) => {
     onSmsPress,
     isFromPaymentDetails,
     profileType,
+    getProfileDefaultCard,
   } = props;
   const navigation = useNavigation();
 
-  const { cards } = useSelector((state) => state.users);
+  const {cards} = useSelector(state => state.users);
 
   const [addCardModalVisible, setAddCardModalVisible] = useState(false);
 
@@ -61,45 +62,56 @@ const PaymentOptions = (props) => {
   };
 
   const createBusinessCard = async (cardId, cardNumber) => {
-    await setBusinessDefaultPayment({ cardId: cardId })
-      .then((answer) => {
+    await setBusinessDefaultPayment({cardId: cardId})
+      .then(answer => {
         handleOnCardPress(cardNumber);
+        // handleGetPersonalDetails();
+        getProfileDefaultCard();
+        onExitPress();
       })
-      .catch((err) => {
-        console.log("err >>> ", err);
+      .catch(err => {
+        console.log('err >>> ', err);
       });
   };
 
   const handleGetPersonalDetails = async () => {
     await getPersonalProfile()
-      .then((answer) => {})
-      .catch((err) => {
-        console.log("ERR getPersonalProfile >>> ", err);
+      .then(answer => {
+        console.log('getPersonalProfile >>> ', answer.data);
+        onExitPress();
+      })
+      .catch(err => {
+        console.log('ERR getPersonalProfile >>> ', err);
       });
   };
 
+  console.log('profileType', profileType);
+
   const createPersonalCard = async (cardId, cardNumber) => {
-    await setPersonalDefaultPayment({ cardId: cardId })
-      .then((answer) => {
+    await setPersonalDefaultPayment({cardId: cardId})
+      .then(answer => {
         // setModalVisible(false);
-        handleGetPersonalDetails();
-        handleOnCardPress(cardNumber);
+        // console.log('answer.data set personal >>>', answer.data);
+        getProfileDefaultCard();
+        // handleGetPersonalDetails();
+        onExitPress();
+        // handleOnCardPress(cardNumber);
       })
-      .catch((err) => {
-        console.log("err >>> ", err);
+      .catch(err => {
+        console.log('err >>> ', err);
       });
   };
 
   const handlePress = (cardId, cardNumber) => {
-    if (profileType === "Business") {
-      console.log("intru pe Business");
+    if (profileType === 'Business') {
+      console.log('intru pe Business');
       createBusinessCard(cardId, cardNumber);
     } else {
       createPersonalCard(cardId, cardNumber);
     }
   };
 
-  const handleOnCardPress = (cardNumber) => {
+  const handleOnCardPress = cardNumber => {
     if (isFromPaymentDetails) {
       onCardPress(cardNumber);
     } else {
@@ -117,11 +129,11 @@ const PaymentOptions = (props) => {
         <NativeBaseBackButton
           handleOnPress={onExitPress}
           style={PaymentOptionsStyle.exitButton}
-          iconType={"exit"}
+          iconType={'exit'}
         />
-        <Title label={t("payment_options")} style={PaymentOptionsStyle.title} />
-        <ScrollView>
-          {cards?.map((item) => {
+        <Title label={t('payment_options')} style={PaymentOptionsStyle.title} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {cards?.map(item => {
             return (
               <NativeBaseButton
                 key={item.id}
@@ -130,28 +142,21 @@ const PaymentOptions = (props) => {
                 }}
                 labelStyle={PaymentOptionsStyle.nativeBaseLabelStyle}
                 style={PaymentOptionsStyle.nativeButtonStyle}
-                label={item.cardNumber}
-                icon={<SvgXml xml={svgs.copy} width={22} height={24} />}
+                label={`**** ${item.cardNumber.slice(-4)}`}
+                icon={
+                  // <Image style={PaymentOptionsStyle.icon} source={item.icon} />
+                  <SvgXml xml={svgs.copy} width={22} height={24} />
+                }
               />
             );
           })}
-          {/* <NativeBaseButton
-            handleOnPress={() => {
-              Linking.openURL("sms:123?&body=UMFO-B464ALX");
-              onSmsPress();
-            }}
-            style={PaymentOptionsStyle.nativeButtonStyle}
-            label={"SMS"}
-            labelStyle={PaymentOptionsStyle.nativeBaseLabelStyle}
-            icon={<Image source={forward} />}
-          /> */}
 
           {profileType && (
             <View>
               <NativeBaseButton
                 handleOnPress={handleAddNewCard}
                 style={PaymentOptionsStyle.nativeButtonStyle}
-                label={t("add_card")}
+                label={t('add_card')}
                 labelStyle={PaymentOptionsStyle.nativeBaseLabelStyle}
                 icon={<Image source={forward} />}
               />

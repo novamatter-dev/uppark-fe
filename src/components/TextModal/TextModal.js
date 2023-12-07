@@ -12,7 +12,7 @@ const TextModal = (props) => {
   const { setIsVisible = () => {}, text = "" } = props;
   return (
     <ScrollView>
-      <View style={style.textComponentWrapper}>
+      <View  showsVerticalScrollIndicator={false} style={style.textComponentWrapper}>
         <NativeBaseBackButton
           handleOnPress={() => setIsVisible(false)}
           style={style.backBtn}

@@ -48,7 +48,6 @@ const CustomDrawer = () => {
     await updateToken(body);
   };
 
-  // TODO: check Error: apiClient is null
   const handleLogout = async () => {
     try {
       await GoogleSignin.signOut().then(() => {

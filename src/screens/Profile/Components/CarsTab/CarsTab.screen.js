@@ -1,36 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Alert, View } from "react-native";
+import React, {useEffect, useRef, useState} from 'react';
+import {Alert, View} from 'react-native';
 //style
-import ProfileStyle from "../../Profile.style";
+import ProfileStyle from '../../Profile.style';
 
-import { Box, Text } from "native-base";
+import {Box, Text} from 'native-base';
 //components
 import {
   Modal,
   NativeBaseBackButton,
   Toast as ToastComponent,
-} from "../../../../components";
-import ButtonComponent from "../../../../components/ButtonComponent/ButtonComponent";
-import { CarRow } from "../index";
-import CarDetails from "../CarDetails";
+} from '../../../../components';
+import ButtonComponent from '../../../../components/ButtonComponent/ButtonComponent';
+import {CarRow} from '../index';
+import CarDetails from '../CarDetails';
 //libraires
-import { useNavigation } from "@react-navigation/native";
-import { t } from "i18next";
-import PropTypes from "prop-types";
-import Toast from "react-native-toast-notifications";
-import { setActiveCar } from "../../../../redux/features/cars/carsSlice";
-import { useToast } from "native-base";
+import {useNavigation} from '@react-navigation/native';
+import {t} from 'i18next';
+import PropTypes from 'prop-types';
+import Toast from 'react-native-toast-notifications';
+import {setActiveCar} from '../../../../redux/features/cars/carsSlice';
+import {useToast} from 'native-base';
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import {useSelector, useDispatch} from 'react-redux';
 import {
   useGetCarsMutation,
   useDeleteCarMutation,
-} from "../../../../services/cars";
+} from '../../../../services/cars';
 
-const CarsTab = (props) => {
+const CarsTab = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { cars, activeCarId, activeCar } = useSelector((state) => state.cars);
+  const {cars, activeCarId, activeCar} = useSelector(state => state.cars);
   const toast = useToast();
 
   const {
@@ -60,7 +60,7 @@ const CarsTab = (props) => {
     try {
       setIsLoading(true);
       await getCars()
-        .then((answer) => {
+        .then(answer => {
           if (answer?.userCars?.length < 1) {
             dispatch(setActiveCar(null));
           }
@@ -70,45 +70,45 @@ const CarsTab = (props) => {
           }
           setIsLoading(false);
         })
-        .catch((err) => {
-          console.log("Get cars error: ", err);
+        .catch(err => {
+          console.log('Get cars error: ', err);
         });
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleOnDeletePress = ({ carId, licensePlateNumber }) => {
+  const handleOnDeletePress = ({carId, licensePlateNumber}) => {
     Alert.alert(
-      t("delete_car"),
-      `${t("delete_car_confirmation")} ${licensePlateNumber.toUpperCase()}`,
+      t('delete_car'),
+      `${t('delete_car_confirmation')} ${licensePlateNumber.toUpperCase()}`,
       [
-        { text: t("yes"), onPress: () => handleDeleteCarById(carId) },
+        {text: t('yes'), onPress: () => handleDeleteCarById(carId)},
         {
-          text: t("no"),
+          text: t('no'),
           onPress: () => {
             // console.log("NO Pressed");
           },
         },
-      ]
+      ],
     );
   };
 
-  const handleDeleteCarById = async (carId) => {
+  const handleDeleteCarById = async carId => {
     try {
       if (cars.length > 1) {
-        await deleteCar({ id: carId })
-          .then((answer) => {
+        await deleteCar({id: carId})
+          .then(answer => {
             setCarDetailsModalVisible(false);
             handleGetCars();
             dispatch(setActiveCar(cars[0]));
           })
-          .catch((err) => {
-            console.log("err", err);
+          .catch(err => {
+            console.log('err', err);
           });
       } else {
         setCarDetailsModalVisible(false);
-        handleToast(t("delete_restriction"));
+        handleToast(t('delete_restriction'));
       }
     } catch (err) {
       console.log(err);
@@ -124,7 +124,7 @@ const CarsTab = (props) => {
       // setAddCarModal(false);
       setStep(2);
     } else {
-      navigation.navigate("AddCar");
+      navigation.navigate('AddCar');
     }
   };
 
@@ -139,12 +139,12 @@ const CarsTab = (props) => {
     handleGetCars();
   };
 
-  const handleToast = (message) => {
+  const handleToast = message => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
-        return <ToastComponent message={message} type={"danger"} />;
+        return <ToastComponent message={message} type={'danger'} />;
       },
     });
   };
@@ -153,9 +153,8 @@ const CarsTab = (props) => {
     return (
       <Box style={ProfileStyle.screenContainer}>
         <Text
-          style={{ fontSize: 14, fontFamily: "AzoSans-Bold", color: "black" }}
-        >
-          {t("loading")} ...
+          style={{fontSize: 14, fontFamily: 'AzoSans-Bold', color: 'black'}}>
+          {t('loading')} ...
         </Text>
       </Box>
     );
@@ -164,29 +163,27 @@ const CarsTab = (props) => {
   return (
     <View
       style={{
-        width: "100%",
-        height: "70%",
-      }}
-    >
+        width: '100%',
+        height: '65%',
+      }}>
       {inModal && (
-        <View style={{ margin: 30 }}>
+        <View style={{margin: 30}}>
           <NativeBaseBackButton
             handleOnPress={handleAddCar}
             style={ProfileStyle.exitButton}
-            iconType={"exit"}
+            iconType={'exit'}
           />
         </View>
       )}
       <View style={ProfileStyle.screenContainer}>
         <View
           style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
             // paddingHorizontal: "7%",
-            paddingTop: 24,
-          }}
-        >
+            paddingTop: 0,
+          }}>
           {cars?.map((item, index) => {
             return (
               <CarRow
@@ -200,7 +197,7 @@ const CarsTab = (props) => {
                 style={ProfileStyle.carEntry}
                 item={item}
                 isSelected={activeCarId === item.carId}
-                marginBottom={5}
+                // marginBottom={5}
               />
             );
           })}
@@ -208,7 +205,7 @@ const CarsTab = (props) => {
       </View>
       <View style={ProfileStyle.addCarBtnBox}>
         <ButtonComponent
-          text={t("add_a_new_car")}
+          text={t('add_a_new_car')}
           isDisabled={false}
           onPress={handleNavigateToAddCar}
         />

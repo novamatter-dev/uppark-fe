@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import styles from "./Dropdown.style";
+import React, {useRef, useState} from 'react';
+import styles from './Dropdown.style';
 
 import {
   View,
@@ -9,16 +9,19 @@ import {
   Modal,
   SafeAreaView,
   Alert,
-} from "react-native";
+} from 'react-native';
 
-import { ChevronDownIcon } from "native-base";
-import Toast from "react-native-toast-notifications";
-import { SvgXml } from "react-native-svg";
-import svgs from "../../assets/svgs";
+import {ChevronDownIcon} from 'native-base';
+import Toast from 'react-native-toast-notifications';
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../assets/svgs';
+import {useTranslation} from 'react-i18next';
 
-const Dropdown = (props) => {
-  const { data, setDial, dial } = props;
+const Dropdown = props => {
+  const {data, setDial, dial} = props;
   const [showList, setShowList] = useState(false);
+
+  const {t} = useTranslation();
 
   const toastRef = useRef();
 
@@ -26,7 +29,7 @@ const Dropdown = (props) => {
     setShowList(!showList);
   };
 
-  const handleChange = (code) => {
+  const handleChange = code => {
     setDial(code);
     handleList();
   };
@@ -48,26 +51,26 @@ const Dropdown = (props) => {
           onRequestClose={() => {
             // Alert.alert("Modal has been closed.");
             setShowList(!showList);
-          }}
-        >
+          }}>
           <View style={styles.mappedList}>
             <View style={styles.closeBtnWrapper}>
               <TouchableOpacity onPress={handleList} style={styles.closeBtn}>
                 <SvgXml xml={svgs.closeDisabled} width={20} height={20} />
               </TouchableOpacity>
-              <Text style={styles.title}>Select Country</Text>
-              <View style={{ width: 1, height: 1 }} />
+              <Text style={styles.title}>{t('select_country')}</Text>
+              <View style={{width: 1, height: 1}} />
             </View>
-            <ScrollView style={styles.elementsWrapper}>
-              {data?.map((item) => {
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              style={styles.elementsWrapper}>
+              {data?.map(item => {
                 return (
                   <TouchableOpacity
-                    key={item.name}
+                    key={item.name || ''}
                     onPress={() => handleChange(item.dial_code)}
-                    style={styles.element}
-                  >
+                    style={styles.element}>
                     <Text style={styles.elementLabel}>
-                      {item.name} ({item.dial_code})
+                      {item.name || ''} ({item.dial_code || ''})
                     </Text>
                   </TouchableOpacity>
                 );

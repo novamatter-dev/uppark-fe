@@ -1,40 +1,40 @@
-import React from "react";
-import { SafeAreaView, View, Text } from "react-native";
+import React from 'react';
+import { SafeAreaView, View, Text } from 'react-native';
 //style && assets
-import { AQUA } from "../../helpers/style/constants";
+import { AQUA } from '../../helpers/style/constants';
 //libraries
-import { Box, useToast } from "native-base";
+import { Box, useToast } from 'native-base';
 //components
-import KeyboardView from "../KeyboardView";
+import KeyboardView from '../KeyboardView';
 import {
   ButtonComponent,
   CustomInput,
   NativeBaseBackButton,
   Title,
-} from "../index";
-import AddPhoneStyle from "./AddPhone.style";
-import PropTypes from "prop-types";
+} from '../index';
+import AddPhoneStyle from './AddPhone.style';
+import PropTypes from 'prop-types';
 //redux
-import { setPhoneNumber } from "../../redux/features/auth/authSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { t } from "i18next";
+import { setPhoneNumber } from '../../redux/features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { t } from 'i18next';
 
-const AddEmail = (props) => {
+const AddEmail = props => {
   const { onClosePress, onConfirmPress, isDisabled } = props;
 
   const dispatch = useDispatch();
 
-  const { phoneNumber } = useSelector((state) => state.auth);
+  const { phoneNumber } = useSelector(state => state.auth);
 
   const toast = useToast();
 
-  const handleChangePhone = (value) => {
+  const handleChangePhone = value => {
     dispatch(setPhoneNumber({ phoneNumber: value }));
   };
 
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
@@ -49,16 +49,14 @@ const AddEmail = (props) => {
               shadowRadius: 4,
               elevation: 25,
               shadowColor: AQUA,
-            }}
-          >
+            }}>
             <Text
               style={{
-                color: "#F5F5F5",
+                color: '#F5F5F5',
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
-              }}
-            >
-              Phone number was added !
+                fontFamily: 'AzoSans-Medium',
+              }}>
+              {t('phone_number_added')}
             </Text>
           </View>
         );
@@ -67,27 +65,28 @@ const AddEmail = (props) => {
   };
 
   return (
-    <SafeAreaView style={AddPhoneStyle.safeAreaContainer}>
+    <View style={AddPhoneStyle.safeAreaContainer}>
       <KeyboardView boxStyle={AddPhoneStyle.container}>
         <NativeBaseBackButton
-          style={AddPhoneStyle.closeButton}
+          isLoading={false}
           handleOnPress={onClosePress}
-          iconType={"exit"}
+          isDisabled={false}
+          style={{backgroundColor: "#F5F5F5"}}
         />
         <Box style={AddPhoneStyle.inputContainer}>
-          <Title label={t("add_phone")} style={AddPhoneStyle.title} />
-          <View style={{ marginTop: 25, width: "100%" }}>
+          <Title label={t('add_phone')} style={AddPhoneStyle.title} />
+          <View>
             <CustomInput
-              leftIcon={"phone"}
-              placeholder={t("add_phone")}
+              leftIcon={'phone'}
+              placeholder={t('add_phone')}
               onChange={handleChangePhone}
               value={phoneNumber}
-              keyboardType={"numeric"}
+              keyboardType={'numeric'}
             />
           </View>
         </Box>
         <ButtonComponent
-          text={t("confirm").toUpperCase()}
+          text={t('confirm').toUpperCase()}
           isDisabled={isDisabled}
           onPress={() => {
             onConfirmPress();
@@ -95,7 +94,7 @@ const AddEmail = (props) => {
           }}
         />
       </KeyboardView>
-    </SafeAreaView>
+    </View>
   );
 };
 
