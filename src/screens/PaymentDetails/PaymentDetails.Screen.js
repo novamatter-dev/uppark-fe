@@ -371,7 +371,11 @@ const PaymentDetails = ({navigation}) => {
             : 0,
           // ticketIdentifier: null,
           // amount: 0,
-          reservedFrom: null,
+          ReservedFrom: parkingsData?.worksWithHub
+            ? moment(parkingsData.parkingForm.startTime).format(
+                'YYYY-MM-DD HH:mm:ss',
+              )
+            : null,
           CardId: selectedCard?.id,
         },
       };

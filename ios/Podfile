@@ -23,7 +23,7 @@ use_modular_headers!
 platform :ios, '13.2'
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'constantaparking' do
+target 'UpPark' do
   permissions_path = '../node_modules/react-native-permissions/ios'
 
 
@@ -42,12 +42,6 @@ target 'constantaparking' do
 
 
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
-
-
-  # pod 'Google-Maps-iOS-Utils', :git => 'https://github.com/Simon-TechForm/google-maps-ios-utils.git', :branch => 'feat/support-apple-silicon'
-
-  rn_maps_path = '../node_modules/react-native-maps'
-  pod 'react-native-google-maps', :path => rn_maps_path
 
 
   config = use_native_modules!
@@ -71,7 +65,7 @@ target 'constantaparking' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'constantaparkingTests' do
+  target 'UpParkTests' do
     inherit! :complete
     # Pods for testing
   end

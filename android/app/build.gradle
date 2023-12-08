@@ -227,7 +227,7 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-
+        // TODO: verifica cu calea asta
         release {
                 storeFile file('/Users/alexandruivana/Documents/DEV/fe-constantaparking/android/app/my_release_key.keystore')
                 storePassword 'android'
