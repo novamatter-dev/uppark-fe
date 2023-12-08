@@ -955,6 +955,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = UpPark/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = UpPark;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -986,6 +987,7 @@
 				DEVELOPMENT_TEAM = 9LKHB22MV7;
 				INFOPLIST_FILE = UpPark/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = UpPark;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1113,10 +1115,7 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
-					"HAVE_GOOGLE_MAPS=1",
-					" ",
-				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "HAVE_GOOGLE_MAPS=1  ";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

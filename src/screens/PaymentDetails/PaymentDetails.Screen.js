@@ -384,9 +384,6 @@ const PaymentDetails = ({navigation}) => {
 
       await initiatePayment(body)
         .then(answer => {
-          // let form = answer.data.form;
-          // form = form.replace(/\\"/g, '"');
-
           console.log('>>> initiatePayment answer:', answer.data);
 
           setTransactionInProgress(true);
