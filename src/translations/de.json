@@ -221,5 +221,6 @@
   "payment_rejected_content": "A fizetést nem sikerült feldolgozni. Kérjük, ellenőrizze fizetési adatait, és próbálja újra. Ha segítségre van szüksége, keresse fel a Súgót, vagy lépjen kapcsolatba az ügyfélszolgálattal.",
   "delete_card_button": "Kártya törlése",
   "edit_card": "Kártya szerkesztése",
-  "card_pay": "Kártyás fizetés"
+  "card_pay": "Kártyás fizetés",
+  "parcomat_payment": "Parcomat fizetés"
 }

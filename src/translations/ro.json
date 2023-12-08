@@ -178,7 +178,7 @@
   "covered_parking": "Parcare acoperită",
   "card_payment": "Plată prin card",
   "electric_car_charger": "Încărcător mașină electrică",
-  "disabled_parking": "Locuri pentru handicap",
+  "disabled_parking": "Locuri pentru persoane cu handicap",
   "open_24_7": "Deschis 24/7",
   "toilets": "Toalete",
   "update_available": "Actualizare nouă disponibilă!",
@@ -220,5 +220,6 @@
   "payment_rejected_title": "Plată eșuată!",
   "payment_rejected_content": "Plata nu a putut fi procesată. Verifică detaliile plății și încearcă din nou. Pentru asistență, accesează Centrul de Ajutor sau contactează suportul.",
   "delete_card_button": "Șterge card",
-  "edit_card": "Editează card"
+  "edit_card": "Editează card",
+  "parcomat_payment": "Plată parcomat"
 }

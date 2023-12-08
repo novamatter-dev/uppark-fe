@@ -221,5 +221,6 @@
   "delete_card_button": "Delete card",
   "edit_card": "Edit card",
   "parking_unavailable": "Parking is unavailable for the moment",
-  "card_pay": "Card payment"
+  "card_pay": "Card payment",
+  "parcomat_payment": "Parcomat payment"
 }

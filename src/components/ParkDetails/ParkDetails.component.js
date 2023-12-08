@@ -66,8 +66,13 @@ const ParkDetails = () => {
           </Text>
         </Text>
       )}
-      {console.log('amenities:', parkingDetails?.amenities)}
-      <View style={{display: 'flex', flexDirection: 'row'}}>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          width: '100%',
+          flexWrap: 'wrap',
+        }}>
         {parkingDetails?.amenities.map((parking, index) => {
           return (
             <Text
@@ -78,6 +83,8 @@ const ParkDetails = () => {
                   ? t('disabled_parking')
                   : parking === 'Plata prin card'
                   ? t('card_pay')
+                  : parking === 'Plata Parcometru'
+                  ? t('parcomat_payment')
                   : t(parking)}
               </Text>
               {index !== parkingDetails?.amenities.length - 1 && (

@@ -221,5 +221,6 @@
   "payment_rejected_content": "Le paiement n'a pas pu être traité. Veuillez vérifier vos informations de paiement et réessayer. Pour obtenir de l'aide, visitez le centre d'aide ou contactez l'assistance.",
   "delete_card_button": "Supprimer la carte",
   "edit_card": "Modifier la carte",
-  "card_pay": "Payer avec cette carte"
+  "card_pay": "Payer avec cette carte",
+  "parcomat_payment": "Paiement parcomat"
 }

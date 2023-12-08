@@ -580,12 +580,12 @@ const Home = () => {
         </View>
 
         <View style={HomeStyle.bodyWrapper}>
-          <View style={HomeStyle.infoTextWrapper}>
+          {/* <View style={HomeStyle.infoTextWrapper}>
             <Image source={WarningImage} style={HomeStyle.warningImage} />
             <Text style={HomeStyle.redInfoText}>
               {t('be_sure_to_select_correct_zone')}
             </Text>
-          </View>
+          </View> */}
 
           <Box style={HomeStyle.mapSmall}>
             <View style={{overflow: 'hidden', borderRadius: 24}}>
