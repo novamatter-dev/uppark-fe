@@ -296,7 +296,6 @@ const Home = () => {
 
   const getparkingDetails = async id => {
     const {data, error: apiError} = await getParkingDetails({id: id});
-    console.log('interu pe aicisa');
     if (!apiError) {
       const body = {
         parkingId: id,
@@ -729,10 +728,16 @@ const Home = () => {
               showExtend
                 ? false
                 : parkingsData.isParkingSelected &&
-                  parkingsData.parkingDetails.isOpened &&
-                  parkingsData.parkingDetails.isAvailable
+                  parkingsData.parkingDetails.isOpened
                 ? false
                 : true
+              // showExtend
+              //   ? false
+              //   : parkingsData.isParkingSelected &&
+              //     parkingsData.parkingDetails.isOpened &&
+              //     parkingsData.parkingDetails.isAvailable
+              //   ? false
+              //   : true
             }
           />
         </View>

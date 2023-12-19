@@ -135,76 +135,76 @@ const AddBusiness = props => {
   return (
     <View style={AddBusinessStyle.safeAreaContainer}>
       {/* <KeyboardView boxStyle={AddBusinessStyle.container}> */}
-      
-        <NativeBaseBackButton
-          isLoading={false}    
-          handleOnPress={onClosePress}
-          isDisabled={false}
-          style={{backgroundColor: "#F5F5F5"}}
-        />
-                  <Title label={'Business Profile'} style={AddBusinessStyle.title} />
 
-                  <ScrollView showsVerticalScrollIndicator={false} style={AddBusinessStyle.container}>
-          <KeyboardAwareScrollView>
-            {Object.keys(businessState).map((item, index) => {
-              if (item === 'cardNumber') {
-                return (
-                  <TouchableOpacity
-                    onPress={() => handleChooseDefaultPayment(true)}
-                    style={AddBusinessStyle.detailsBtn}
-                    key={`key--${item}`}>
-                    <SvgXml xml={svgs.copy} width={22} height={24} />
-                    <Text style={AddBusinessStyle.btnLabel}>
-                      {businessState.cardNumber.value
-                        ? businessState.cardNumber.value
-                        : t('default_payment')}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              } else {
-                return (
-                  <BaseInput
-                    onPress={
-                      item === 'cardNumber'
-                        ? handleChooseDefaultPayment()
-                        : null
-                    }
-                    isDisabled={businessState[item].isDisabled}
-                    style={AddBusinessStyle.baseInput}
-                    icon={
-                      <SvgXml
-                        xml={businessState[item].svg}
-                        width={22}
-                        height={22}
-                      />
-                    }
-                    name={item}
-                    placeHolder={t(businessState[item].placeholder)}
-                    onChangeText={value =>
-                      handleChangeFormState({
-                        type: item,
-                        value,
-                        label: businessState[item].label,
-                      })
-                    }
-                    value={businessState[item].value}
-                    key={`personal-inputs-${String(index)}`}
-                    capitalize={'sentences'}
-                    // onEndEditing={(event) => handleUpdateInfo(event, item)}
-                  />
-                  // <View
-                  //   style={{
-                  //     display: "flex",
-                  //     width: "100%",
-                  //     marginVertical: 8,
-                  //   }}
-                  // >
-                  //   <CustomInput placeholder={businessState[item]?.label} />
-                  // </View>
-                );
-              }
-            })}
-          </KeyboardAwareScrollView>
+      <NativeBaseBackButton
+        isLoading={false}
+        handleOnPress={onClosePress}
+        isDisabled={false}
+        style={{backgroundColor: '#F5F5F5'}}
+      />
+      <Title label={'Business Profile'} style={AddBusinessStyle.title} />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={AddBusinessStyle.container}>
+        <KeyboardAwareScrollView>
+          {Object.keys(businessState).map((item, index) => {
+            if (item === 'cardNumber') {
+              return (
+                <TouchableOpacity
+                  onPress={() => handleChooseDefaultPayment(true)}
+                  style={AddBusinessStyle.detailsBtn}
+                  key={`key--${item}`}>
+                  <SvgXml xml={svgs.copy} width={22} height={24} />
+                  <Text style={AddBusinessStyle.btnLabel}>
+                    {businessState.cardNumber.value
+                      ? businessState.cardNumber.value
+                      : t('default_payment')}
+                  </Text>
+                </TouchableOpacity>
+              );
+            } else {
+              return (
+                <BaseInput
+                  onPress={
+                    item === 'cardNumber' ? handleChooseDefaultPayment() : null
+                  }
+                  isDisabled={businessState[item].isDisabled}
+                  style={AddBusinessStyle.baseInput}
+                  icon={
+                    <SvgXml
+                      xml={businessState[item].svg}
+                      width={22}
+                      height={22}
+                    />
+                  }
+                  name={item}
+                  placeHolder={t(businessState[item].placeholder)}
+                  onChangeText={value =>
+                    handleChangeFormState({
+                      type: item,
+                      value,
+                      label: businessState[item].label,
+                    })
+                  }
+                  value={businessState[item].value}
+                  key={`personal-inputs-${String(index)}`}
+                  capitalize={'sentences'}
+                  // onEndEditing={(event) => handleUpdateInfo(event, item)}
+                />
+                // <View
+                //   style={{
+                //     display: "flex",
+                //     width: "100%",
+                //     marginVertical: 8,
+                //   }}
+                // >
+                //   <CustomInput placeholder={businessState[item]?.label} />
+                // </View>
+              );
+            }
+          })}
+        </KeyboardAwareScrollView>
       </ScrollView>
       <View style={AddBusinessStyle.floatingContainer}>
         <ButtonComponent

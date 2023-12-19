@@ -155,9 +155,10 @@ export const parkingsApi = createApi({
         body: reqBody,
       }),
     }),
+    // TODO: add in constanta parking
     checktransaction: builder.mutation({
       query: ({transactionId}) => ({
-        url: `/api/Payment/check-transaction/${transactionId}`,
+        url: `/api/Payment/check-transaction-state/${transactionId}`,
         method: 'GET',
       }),
     }),

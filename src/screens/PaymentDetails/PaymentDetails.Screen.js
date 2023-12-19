@@ -24,6 +24,7 @@ import {
   Modal,
   DropdownButton,
   ButtonComponent,
+  AddPersonal,
 } from '../../components';
 
 //libraries
@@ -58,6 +59,9 @@ import Toast from 'react-native-toast-notifications';
 import AddCar from '../AddCar';
 import {t} from 'i18next';
 import SelectCar from '../SelectCar/SelectCar';
+import {validatePhoneNumberPersonalData} from '../../helpers/validatePersonalData';
+import AddPersonalDataModalContent from '../../components/AddPersonal/AddPersonalDataModalContent';
+import AddBusinessModalComponent from '../../components/AddBusiness/AddBusinessDataModalContent';
 
 const PaymentDetails = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -68,6 +72,8 @@ const PaymentDetails = ({navigation}) => {
     state => state.parkings.parkingsState,
   );
   const {activeLoadingScreen} = useSelector(state => state.notification);
+  const personalState = useSelector(state => state.users.personal);
+  const businessState = useSelector(state => state.users.business);
 
   const toastRef = useRef();
 
@@ -81,6 +87,12 @@ const PaymentDetails = ({navigation}) => {
   const [returnLink] = useReturnLinkMutation();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [profileDataActionSheetVisible, setProfileDataActionSheetVisible] =
+    useState(false);
+  const [
+    businessProfileDataActionSheetVisible,
+    setBusinessProfileDataActionSheetVisible,
+  ] = useState(false);
   const [addCarModal, setAddCarModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [profileType, setProfileType] = useState('Personal');
@@ -98,6 +110,7 @@ const PaymentDetails = ({navigation}) => {
   const [isPayButtonDisabled, setIsPayButtonDisabled] = useState(false);
 
   const [isForeground, setIsForeground] = useState(false);
+  const [isProfileComplete, setIsProfileComplete] = useState(false);
 
   useEffect(() => {
     getProfileDefaultCard();
@@ -311,18 +324,32 @@ const PaymentDetails = ({navigation}) => {
   };
 
   const handlePay = () => {
-    // navigation.navigate("SetYourParkPin");
+    //TODO: check phone number
+    console.log({personalState});
+    if (profileType === 'Personal') {
+      if (!validatePhoneNumberPersonalData(personalState)) {
+        setProfileDataActionSheetVisible(true);
+        return;
+      }
+    } else {
+      if (!validatePhoneNumberPersonalData(businessState)) {
+        setBusinessProfileDataActionSheetVisible(true);
+        return;
+      }
+    }
+
     if (parkingsData.parkingDetails.currencyType === 'EURO') {
       // setIsConfirmModalVisible(true);
       handleInitiatePayment();
     } else {
-      if (selectedCard) {
-        // setIsConfirmModalVisible(true);
-        handleInitiatePayment();
-        return true;
-      } else {
-        setIsCardMissing(true);
-      }
+      handleInitiatePayment();
+      return true;
+      // if (selectedCard) {
+      //   handleInitiatePayment();
+      //   return true;
+      // } else {
+      //   setIsCardMissing(true);
+      // }
     }
   };
 
@@ -351,16 +378,20 @@ const PaymentDetails = ({navigation}) => {
       const body = {
         Amount: parkingsData?.parkingForm.totalAmounts,
         Currency: parkingsData?.parkingDetails.currencyType,
-        ProductId: parkingsData?.parkingForm.productId,
+        ProductId: parkingsData?.worksWithHub
+          ? 0
+          : parkingsData?.parkingForm.productId,
         ParkingId: parkingsData?.parkingDetails.parkingId,
         isPersonalProfile: profileType === 'Personal' ? true : false,
-        CardId: selectedCard?.id,
+        CardId: selectedCard?.id ? selectedCard?.id : null,
         LicensePlate: activeCar.licensePlateNumber,
         ParkingReservationDto: {
           carId: activeCar?.carId,
           parkingId: parkingsData?.parkingDetails?.parkingId,
           groupId: parkingsData?.reservedPolygon?.groupId,
-          productId: parkingsData?.parkingForm?.productId,
+          productId: parkingsData?.worksWithHub
+            ? 0
+            : parkingsData?.parkingForm?.productId,
           paymentProfileType: `${profileType}Profile`,
           parkingLotId: null,
           ticketIdentifier: parkingsData?.parkingForm?.ticketId
@@ -376,16 +407,16 @@ const PaymentDetails = ({navigation}) => {
                 'YYYY-MM-DD HH:mm:ss',
               )
             : null,
-          CardId: selectedCard?.id,
+          CardId: selectedCard?.id ? selectedCard?.id : null,
         },
       };
 
       console.log('>>> initiatePayment body:', body);
 
+      // TODO: out of code
       await initiatePayment(body)
         .then(answer => {
           console.log('>>> initiatePayment answer:', answer.data);
-
           setTransactionInProgress(true);
           setInitiateNetopia({
             html: answer.data.form,
@@ -402,19 +433,27 @@ const PaymentDetails = ({navigation}) => {
     setIsLoading(true);
     await checktransaction({transactionId: initiateNetopia.transactionId})
       .then(answer => {
-        console.log('Checktransaction:', answer);
-        if (answer.data) {
-          setNetopiaVisible(false);
-          setTransactionInProgress(false);
-          dispatch(setLoadingScreen(true));
-
+        console.log('CheckTransaction answer:', answer.data);
+        if (answer.data.status) {
           // TODO: Aici trebuie sa scapam de handlePayConfirm ( rezervarea o va face backend-ul )
           // TODO: Daca e totul ok aici, afisam ecranul de plata confirmata
           // handlePayConfirm();
 
-          navigation.navigate('PaymentConfirmation', {
-            type: 'CONFIRMED',
-          });
+          if (answer.data.status === 'Cancelled') {
+            setNetopiaVisible(false);
+            setTransactionInProgress(false);
+            dispatch(setLoadingScreen(true));
+            navigation.navigate('PaymentConfirmation', {
+              type: 'CANCELED',
+            });
+          } else if (answer.data.status === 'Completed') {
+            setNetopiaVisible(false);
+            setTransactionInProgress(false);
+            dispatch(setLoadingScreen(true));
+            navigation.navigate('PaymentConfirmation', {
+              type: 'CONFIRMED',
+            });
+          }
         }
       })
       .catch(err => {
@@ -581,13 +620,6 @@ const PaymentDetails = ({navigation}) => {
           </Modal>
           <Modal isFullScreen={true} modalVisible={addCarModal}>
             {step === 1 ? (
-              // <CarsTab
-              //   inModal={true}
-              //   handleAddCar={handleAddCar}
-              //   setAddCarModal={setAddCarModal}
-              //   setStep={setStep}
-              //   step={step}
-              // />
               <SelectCar
                 inModal={true}
                 closeModal={() => setAddCarModal(false)}
@@ -596,39 +628,24 @@ const PaymentDetails = ({navigation}) => {
               <AddCar setStep={setStep} step={step} inModal={true} />
             )}
           </Modal>
-          <ModalConfirmPayment
-            isVisible={isConfirmModalVisible}
-            closeModal={() => setIsConfirmModalVisible(false)}
-            handleYesButton={handleInitiatePayment}
-            profileType={profileType}
-            selectedCard={selectedCard?.cardNumber?.substring(8, 16)}
-          />
-
-          <Actionsheet
-            isOpen={isCardMissing}
-            // isOpen={true}
-            style={{
-              height: '30%',
-              position: 'absolute',
-              bottom: 0,
-            }}>
-            <View style={PaymentDetailsStyle.missingCardContainer}>
-              <Text style={PaymentDetailsStyle.missingCardTitle}>
-                {t('card_missing')}
-              </Text>
-              <TouchableOpacity
-                style={PaymentDetailsStyle.missingCardBtn}
-                onPress={() => {
-                  setIsCardMissing(false);
-                  handleModal();
-                }}>
-                <Text style={PaymentDetailsStyle.missingBtnLabel}>
-                  {t('ok').toUpperCase()}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </Actionsheet>
-
+          <Modal
+            isFullScreen={true}
+            animationType="slide"
+            modalVisible={profileDataActionSheetVisible}>
+            <AddPersonalDataModalContent
+              onClosePress={() => setProfileDataActionSheetVisible(false)}
+            />
+          </Modal>
+          <Modal
+            isFullScreen={true}
+            animationType="slide"
+            modalVisible={businessProfileDataActionSheetVisible}>
+            <AddBusinessModalComponent
+              onClosePress={() =>
+                setBusinessProfileDataActionSheetVisible(false)
+              }
+            />
+          </Modal>
           <Modal
             animationType="slide"
             transparent={true}

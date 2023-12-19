@@ -16,6 +16,14 @@ const PaymentConfirmation = ({route, navigation}) => {
     // } else {
     //   navigation.navigate('HomeDrawer');
     // }
+
+    // TODO: before update check back
+    // if (type !== 'CONFIRMED' || type !== 'EXTEND') {
+    //   navigation.goBack(-2);
+    // } else {
+    //   navigation.navigate('HomeDrawer');
+    // }
+
     navigation.navigate('HomeDrawer');
   };
 

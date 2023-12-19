@@ -296,7 +296,7 @@ const EditCard = props => {
               keyboardType="numeric"
             />
 
-            <View
+            {/* <View
               style={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -369,7 +369,7 @@ const EditCard = props => {
               onChangeText={event => handleChange(event, 'holderName')}
               value={formState.holderName || ''}
               isDisabled={true}
-            />
+            /> */}
             {/* </KeyboardAwareScrollView> */}
             {/* <Actionsheet
             isOpen={modalVisible}

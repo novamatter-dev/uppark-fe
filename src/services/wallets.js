@@ -1,85 +1,85 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { authURL } from "../config";
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {authURL} from '../config';
 
 export const walletsApi = createApi({
-  reducerPath: "walletsApi",
+  reducerPath: 'walletsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${authURL}/api/`,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, {getState}) => {
       const state = getState();
-      const { jwt } = state.auth;
+      const {jwt} = state.auth;
       if (jwt) {
-        headers.set("Authorization", `Bearer ${jwt}`);
+        headers.set('Authorization', `Bearer ${jwt}`);
       }
 
-      headers.set("X-engage-initiator", "frontend");
-      headers.set("Content-Type", "application/json");
+      headers.set('X-engage-initiator', 'frontend');
+      headers.set('Content-Type', 'application/json');
 
       return headers;
     },
   }),
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     postNewWallet: builder.mutation({
-      query: (payload) => ({
+      query: payload => ({
         url: `/Wallets/Create`,
-        method: "POST",
+        method: 'POST',
         body: payload,
       }),
     }),
     getAllWallets: builder.mutation({
-      query: (payload) => ({
+      query: payload => ({
         url: `/Wallets/GetAll`,
-        method: "GET",
+        method: 'GET',
         body: payload,
       }),
     }),
     getCards: builder.mutation({
       query: () => ({
         url: `/Cards/GetAll`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     createCard: builder.mutation({
-      query: (reqBody) => ({
+      query: reqBody => ({
         url: `/Cards/Create`,
-        method: "POST",
+        method: 'POST',
         body: reqBody,
       }),
     }),
     setPersonalDefaultPayment: builder.mutation({
-      query: ({ cardId }) => ({
+      query: ({cardId}) => ({
         url: `Cards/SetPersonalDefaultCard/${cardId}`,
-        method: "POST",
+        method: 'POST',
       }),
     }),
     setBusinessDefaultPayment: builder.mutation({
-      query: ({ cardId }) => ({
+      query: ({cardId}) => ({
         url: `Cards/SetBusinessDefaultCard/${cardId}`,
-        method: "POST",
+        method: 'POST',
       }),
     }),
     getPersonalDefailtCard: builder.mutation({
       query: () => ({
         url: `Cards/GetPersonalDefaultCard`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     getBusinessDefaultCard: builder.mutation({
       query: () => ({
         url: `Cards/GetBusinessDefaultCard`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     deleteCard: builder.mutation({
-      query: ({ cardId }) => ({
+      query: ({cardId}) => ({
         url: `Cards/Delete/${cardId}`,
-        method: "POST",
+        method: 'POST',
       }),
     }),
     editCard: builder.mutation({
-      query: ({ cardId, reqBody }) => ({
+      query: ({cardId, reqBody}) => ({
         url: `Cards/Edit/${cardId}`,
-        method: "POST",
+        method: 'POST',
         body: reqBody,
       }),
     }),

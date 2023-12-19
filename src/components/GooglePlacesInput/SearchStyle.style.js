@@ -1,4 +1,9 @@
 import {StyleSheet} from 'react-native';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
+import {WHITE} from '../../helpers/style/constants';
 
 const SearchStyle = StyleSheet.create({
   container: {
@@ -18,8 +23,9 @@ const SearchStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: 330,
+    width: '100%',
     height: 75,
+    paddingHorizontal: wp(5),
   },
   contentBody: {
     height: '100%',
@@ -48,21 +54,31 @@ const SearchStyle = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 25,
     height: 20,
+    width: '100%',
+  },
+  emptyInputContainer: {
+    backgroundColor: 'white',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    height: hp(8),
+    width: '100%',
   },
   textInput: {
     height: '100%',
     color: 'black',
-    marginHorizontal: 10,
     zIndex: 20,
     fontSize: 18,
     fontFamily: 'AzoSans-Medium',
   },
   listView: {
     position: 'absolute',
-    top: 60,
+    top: hp(7),
     zIndex: 1,
     borderBottomLeftRadius: 24,
     borderBottomRightRadius: 24,
+    backgroundColor: 'white',
   },
   row: {
     display: 'flex',
@@ -71,6 +87,14 @@ const SearchStyle = StyleSheet.create({
   },
   blackText: {
     color: 'black',
+  },
+  backIcon: {
+    height: '100%',
+    width: wp(15),
+    borderRadius: 100,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default SearchStyle;

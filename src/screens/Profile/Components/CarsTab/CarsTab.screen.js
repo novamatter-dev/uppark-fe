@@ -181,7 +181,6 @@ const CarsTab = props => {
             width: '100%',
             display: 'flex',
             alignItems: 'center',
-            // paddingHorizontal: "7%",
             paddingTop: 0,
           }}>
           {cars?.map((item, index) => {
@@ -197,7 +196,6 @@ const CarsTab = props => {
                 style={ProfileStyle.carEntry}
                 item={item}
                 isSelected={activeCarId === item.carId}
-                // marginBottom={5}
               />
             );
           })}
@@ -211,6 +209,8 @@ const CarsTab = props => {
         />
       </View>
 
+      {console.log({activeCarItem})}
+
       <Modal isFullScreen={true} modalVisible={carDetailsModalVisible}>
         <CarDetails
           item={activeCarItem}
@@ -219,14 +219,14 @@ const CarsTab = props => {
           onDeletePress={handleOnDeletePress}
           onConfirm={handleUpdate}
         />
-        <Toast
-          ref={toastRef}
-          style={{
-            zIndex: 3,
-            elevation: 3,
-          }}
-        />
       </Modal>
+      <Toast
+        ref={toastRef}
+        style={{
+          zIndex: 3,
+          elevation: 3,
+        }}
+      />
     </View>
   );
 };

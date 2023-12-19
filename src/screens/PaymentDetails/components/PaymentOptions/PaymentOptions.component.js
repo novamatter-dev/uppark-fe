@@ -54,7 +54,7 @@ const PaymentOptions = props => {
 
   const handleAddNewCard = () => {
     setAddCardModalVisible(true);
-    // navigation.navigate("CreateCard");
+    navigation.navigate('CreateCard');
   };
 
   const handleOnClosePress = () => {
@@ -84,8 +84,6 @@ const PaymentOptions = props => {
         console.log('ERR getPersonalProfile >>> ', err);
       });
   };
-
-  console.log('profileType', profileType);
 
   const createPersonalCard = async (cardId, cardNumber) => {
     await setPersonalDefaultPayment({cardId: cardId})
@@ -151,7 +149,7 @@ const PaymentOptions = props => {
             );
           })}
 
-          {profileType && (
+          {/* {profileType && (
             <View>
               <NativeBaseButton
                 handleOnPress={handleAddNewCard}
@@ -161,7 +159,7 @@ const PaymentOptions = props => {
                 icon={<Image source={forward} />}
               />
             </View>
-          )}
+          )} */}
         </ScrollView>
 
         <Modal modalVisible={addCardModalVisible} isFullScreen={true}>

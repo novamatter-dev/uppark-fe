@@ -64,7 +64,7 @@ const CarRow = props => {
         <Text style={carRowStyle.buttonText}>{item.licensePlateNumber}</Text>
       </View>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           position: 'absolute',
           right: 18,
@@ -76,7 +76,7 @@ const CarRow = props => {
         }}
         onPress={() => handleOnPress()}>
         <SvgXml xml={svgs.edit} width={24} height={18} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </TouchableOpacity>
   );
 };

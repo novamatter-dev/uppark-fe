@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.constantaparking",
+  "applicationId": "com.uppark",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 36,
-      "versionName": "1.0.36",
+      "versionCode": 54,
+      "versionName": "1.1.2",
       "outputFile": "app-release.apk"
     }
   ],

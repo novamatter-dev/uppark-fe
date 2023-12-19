@@ -220,6 +220,9 @@
   "payment_rejected_title": "Plată eșuată!",
   "payment_rejected_content": "Plata nu a putut fi procesată. Verifică detaliile plății și încearcă din nou. Pentru asistență, accesează Centrul de Ajutor sau contactează suportul.",
   "delete_card_button": "Șterge card",
+  "parking_card_payment_unavailable": "Plata cu cardul este momentan indisponibilă",
   "edit_card": "Editează card",
-  "parcomat_payment": "Plată parcomat"
+  "parcomat_payment": "Plată parcomat",
+  "billing_information_required": "Informații de facturare necesare",
+  "billing_information_required_content": "Avem nevoie de detaliile de facturare pentru a procesa plata. Informațiile vor fi salvate în siguranță pentru tranzacțiile viitoare. Îți mulțumim!"
 }

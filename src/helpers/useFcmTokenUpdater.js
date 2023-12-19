@@ -12,7 +12,7 @@ export function useFcmTokenUpdater() {
 
       if (fcmtoken) {
         await AsyncStorage.setItem('fcmtoken', fcmtoken).then(answer => {
-          console.log('new token ', answer);
+          // console.log('new token ', answer);
         });
 
         const id = await DeviceInfo.getUniqueId();
@@ -22,7 +22,7 @@ export function useFcmTokenUpdater() {
         };
         await updateToken(body)
           .then(answer => {
-            console.log('updateToken answer >>> ', answer);
+            // console.log('updateToken answer >>> ', answer);
           })
           .catch(err => {
             console.log('Error updateToken: ', err);

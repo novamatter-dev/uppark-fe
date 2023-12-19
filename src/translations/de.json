@@ -221,6 +221,9 @@
   "payment_rejected_content": "A fizetést nem sikerült feldolgozni. Kérjük, ellenőrizze fizetési adatait, és próbálja újra. Ha segítségre van szüksége, keresse fel a Súgót, vagy lépjen kapcsolatba az ügyfélszolgálattal.",
   "delete_card_button": "Kártya törlése",
   "edit_card": "Kártya szerkesztése",
+  "parking_card_payment_unavailable": "A parkoló nem elérhető",
   "card_pay": "Kártyás fizetés",
-  "parcomat_payment": "Parcomat fizetés"
+  "parcomat_payment": "Parcomat fizetés",
+  "billing_information_required": "Számlázási információk szükségesek",
+  "billing_information_required_content": "Kérjük, adja meg a számlázási információkat a fizetéshez"
 }

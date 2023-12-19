@@ -260,7 +260,6 @@ const ParkFromScreen = () => {
   };
 
   const handleShowProducts = () => {
-    // console.log("parkingsData.parkingProducts", parkingsData.parkingProducts);
     const cardItem = parkingProducts.filter(product =>
       tab === 0 ? product.currency === 'RON' : product.currency === 'EURO',
     );
@@ -331,6 +330,7 @@ const ParkFromScreen = () => {
       },
     }));
   }, [tab]);
+
   return (
     <Box style={ParkFromScreenStyle.container}>
       <NativeBaseBackButton
