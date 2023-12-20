@@ -731,13 +731,6 @@ const Home = () => {
                   parkingsData.parkingDetails.isOpened
                 ? false
                 : true
-              // showExtend
-              //   ? false
-              //   : parkingsData.isParkingSelected &&
-              //     parkingsData.parkingDetails.isOpened &&
-              //     parkingsData.parkingDetails.isAvailable
-              //   ? false
-              //   : true
             }
           />
         </View>

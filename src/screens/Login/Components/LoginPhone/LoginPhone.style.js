@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {BLUE, WHITE, PLATINUM} from '../../../../helpers/style/constants';
 
 import {
@@ -20,7 +20,6 @@ const LoginPhoneStyle = StyleSheet.create({
     // borderTopEndRadius: 20,
     // borderTopStartRadius: 20,
     padding: 35,
-    alignItems: 'center',
     paddingTop: Platform.OS === 'ios' ? hp(6.92) : hp(4.92),
     // shadowColor: "#000",
     // shadowOffset: {

@@ -36,7 +36,7 @@ export const usersApi = createApi({
     }),
     updateUserPhoneNumber: builder.mutation({
       query: ({phoneNumber}) => ({
-        url: `Users/Post/UpdatePhoneNumber/${phoneNumber}`,
+        url: `Users/Post/UpdatePhoneNumber`,
         method: 'POST',
         body: {
           PhoneNumber: phoneNumber,
