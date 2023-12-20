@@ -175,7 +175,6 @@ const ReservartionDetailsScreen = () => {
       </View>
 
       {/* TODO: change this after backend updated */}
-      {console.log({historyDetails})}
       <View style={style.infoBox}>
         <View style={style.infoItem}>
           <Text style={style.greyText}>{t('payments_method')}</Text>

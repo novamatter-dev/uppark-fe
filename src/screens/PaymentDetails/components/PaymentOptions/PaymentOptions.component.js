@@ -36,6 +36,7 @@ const PaymentOptions = props => {
     isFromPaymentDetails,
     profileType,
     getProfileDefaultCard,
+    handleAddNewCard,
   } = props;
   const navigation = useNavigation();
 
@@ -50,11 +51,6 @@ const PaymentOptions = props => {
 
   const handleGetCards = async () => {
     await getCards();
-  };
-
-  const handleAddNewCard = () => {
-    setAddCardModalVisible(true);
-    navigation.navigate('CreateCard');
   };
 
   const handleOnClosePress = () => {
@@ -149,7 +145,7 @@ const PaymentOptions = props => {
             );
           })}
 
-          {/* {profileType && (
+          {profileType && (
             <View>
               <NativeBaseButton
                 handleOnPress={handleAddNewCard}
@@ -159,7 +155,7 @@ const PaymentOptions = props => {
                 icon={<Image source={forward} />}
               />
             </View>
-          )} */}
+          )}
         </ScrollView>
 
         <Modal modalVisible={addCardModalVisible} isFullScreen={true}>

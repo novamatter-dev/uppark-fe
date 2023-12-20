@@ -149,7 +149,7 @@ const AddBusiness = props => {
         style={AddBusinessStyle.container}>
         <KeyboardAwareScrollView>
           {Object.keys(businessState).map((item, index) => {
-            if (item === 'cardNumber') {
+            if (item === 'cardNumber' && item !== 'phoneNumber') {
               return (
                 <TouchableOpacity
                   onPress={() => handleChooseDefaultPayment(true)}
@@ -163,7 +163,7 @@ const AddBusiness = props => {
                   </Text>
                 </TouchableOpacity>
               );
-            } else {
+            } else if (item !== 'phoneNumber') {
               return (
                 <BaseInput
                   onPress={

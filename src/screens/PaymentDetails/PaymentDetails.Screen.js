@@ -27,6 +27,8 @@ import {
   AddPersonal,
 } from '../../components';
 
+import {setPersonalEntry} from '../../redux/features/users/userSlice';
+
 //libraries
 import moment from 'moment';
 import {SvgXml} from 'react-native-svg';
@@ -59,9 +61,13 @@ import Toast from 'react-native-toast-notifications';
 import AddCar from '../AddCar';
 import {t} from 'i18next';
 import SelectCar from '../SelectCar/SelectCar';
-import {validatePhoneNumberPersonalData} from '../../helpers/validatePersonalData';
+import {
+  validatePhoneNumberBusinessData,
+  validatePhoneNumberPersonalData,
+} from '../../helpers/validateProfileData';
 import AddPersonalDataModalContent from '../../components/AddPersonal/AddPersonalDataModalContent';
 import AddBusinessModalComponent from '../../components/AddBusiness/AddBusinessDataModalContent';
+import {useGetUserMutation} from '../../services/users';
 
 const PaymentDetails = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -82,9 +88,13 @@ const PaymentDetails = ({navigation}) => {
   const [getPersonalDefailtCard] = useGetPersonalDefailtCardMutation();
   const [getBusinessDefaultCard] = useGetBusinessDefaultCardMutation();
 
+  const [getUserDetails] = useGetUserMutation();
+
   const [initiatePayment] = useInitiatePaymentMutation();
   const [checktransaction] = useChecktransactionMutation();
   const [returnLink] = useReturnLinkMutation();
+
+  const {jwt} = useSelector(state => state.auth);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [profileDataActionSheetVisible, setProfileDataActionSheetVisible] =
@@ -138,6 +148,11 @@ const PaymentDetails = ({navigation}) => {
         setSelectedCard(answer?.data);
       });
     }
+  };
+
+  const handleAddNewCard = () => {
+    setModalVisible(!modalVisible);
+    setSelectedCard('NEW_CARD');
   };
 
   const handleModal = () => {
@@ -323,34 +338,95 @@ const PaymentDetails = ({navigation}) => {
     }
   };
 
-  const handlePay = () => {
-    //TODO: check phone number
-    console.log({personalState});
+  const handlePay = async () => {
+    // TODO: verify logic for phone number
     if (profileType === 'Personal') {
-      if (!validatePhoneNumberPersonalData(personalState)) {
-        setProfileDataActionSheetVisible(true);
-        return;
+      if (!personalState.phoneNumber.value) {
+        await getUserDetails().then(answer => {
+          if (answer.data.phoneNumber) {
+            dispatch(
+              setPersonalEntry({
+                type: 'phoneNumber',
+                label: 'Phone Number',
+                value: answer.data.phoneNumber,
+              }),
+            );
+
+            const updatedPersonalStateLocal = {
+              ...personalState,
+              phoneNumber: {
+                ...personalState.phoneNumber,
+                value: answer.data.phoneNumber,
+              },
+            };
+
+            const personalDataValid = validatePhoneNumberPersonalData(
+              updatedPersonalStateLocal,
+            );
+            if (!personalDataValid) {
+              setProfileDataActionSheetVisible(true);
+              return;
+            }
+          }
+        });
+      } else {
+        const personalDataValid =
+          validatePhoneNumberPersonalData(personalState);
+        if (!personalDataValid) {
+          setProfileDataActionSheetVisible(true);
+          return;
+        }
       }
     } else {
-      if (!validatePhoneNumberPersonalData(businessState)) {
-        setBusinessProfileDataActionSheetVisible(true);
-        return;
+      if (!personalState.phoneNumber.value) {
+        await getUserDetails().then(answer => {
+          if (answer.data.phoneNumber) {
+            dispatch(
+              setPersonalEntry({
+                type: 'phoneNumber',
+                label: 'Phone Number',
+                value: answer.data.phoneNumber,
+              }),
+            );
+
+            const updatedBusinessStateLocal = {
+              ...businessState,
+              phoneNumber: {
+                ...personalState.phoneNumber,
+                value: answer.data.phoneNumber,
+              },
+            };
+
+            const businessDataValid = validatePhoneNumberBusinessData(
+              updatedBusinessStateLocal,
+            );
+            if (!businessDataValid) {
+              setBusinessProfileDataActionSheetVisible(true);
+              return;
+            }
+          }
+        });
+      } else {
+        const businessDataValid =
+          validatePhoneNumberBusinessData(businessState);
+        if (!businessDataValid) {
+          setBusinessProfileDataActionSheetVisible(true);
+          return;
+        }
       }
     }
 
-    if (parkingsData.parkingDetails.currencyType === 'EURO') {
-      // setIsConfirmModalVisible(true);
-      handleInitiatePayment();
-    } else {
-      handleInitiatePayment();
-      return true;
-      // if (selectedCard) {
-      //   handleInitiatePayment();
-      //   return true;
-      // } else {
-      //   setIsCardMissing(true);
-      // }
-    }
+    handleInitiatePayment();
+    return true;
+
+    // if (parkingsData.parkingDetails.currencyType === 'EURO') {
+    //   // setIsConfirmModalVisible(true);
+    //   handleInitiatePayment();
+    //   return true;
+    // } else {
+    //   handleInitiatePayment();
+    //   return true;
+    // }
   };
 
   const handleInitiatePayment = async () => {
@@ -383,7 +459,13 @@ const PaymentDetails = ({navigation}) => {
           : parkingsData?.parkingForm.productId,
         ParkingId: parkingsData?.parkingDetails.parkingId,
         isPersonalProfile: profileType === 'Personal' ? true : false,
-        CardId: selectedCard?.id ? selectedCard?.id : null,
+        CardId:
+          selectedCard === 'NEW_CARD'
+            ? null
+            : selectedCard?.id
+            ? selectedCard.id
+            : null,
+
         LicensePlate: activeCar.licensePlateNumber,
         ParkingReservationDto: {
           carId: activeCar?.carId,
@@ -407,7 +489,12 @@ const PaymentDetails = ({navigation}) => {
                 'YYYY-MM-DD HH:mm:ss',
               )
             : null,
-          CardId: selectedCard?.id ? selectedCard?.id : null,
+          CardId:
+            selectedCard === 'NEW_CARD'
+              ? null
+              : selectedCard?.id
+              ? selectedCard.id
+              : null,
         },
       };
 
@@ -549,8 +636,10 @@ const PaymentDetails = ({navigation}) => {
                       onPress={handleModal}>
                       <Image style={PaymentDetailsStyle.icon} source={visa} />
                       <Text style={PaymentDetailsStyle.contentText}>
-                        {selectedCard?.cardNumber
-                          ? `**** ${selectedCard?.cardNumber?.slice(-4)}`
+                        {selectedCard === 'NEW_CARD'
+                          ? t('add_card')
+                          : selectedCard?.cardNumber
+                          ? `**** ${selectedCard.cardNumber.slice(-4)}`
                           : t('selected_card')}
                       </Text>
                     </TouchableOpacity>
@@ -609,6 +698,7 @@ const PaymentDetails = ({navigation}) => {
               onSmsPress={handleModal}
               isFromPaymentDetails={true}
               profileType={profileType}
+              handleAddNewCard={handleAddNewCard}
             />
             <Toast
               ref={toastRef}
@@ -698,11 +788,7 @@ const PaymentDetails = ({navigation}) => {
           <NativeBaseBackButton
             style={PaymentDetailsStyle.backButton}
             handleOnPress={() => {
-              if (parkingsData.worksWithHub) {
-                navigation.navigate('HomeDrawer');
-              } else {
-                navigation.goBack();
-              }
+              navigation.navigate('HomeDrawer');
             }}
           />
         </View>

@@ -1,45 +1,45 @@
-import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, View, TouchableOpacity, Text } from "react-native";
+import React, {useEffect, useRef, useState} from 'react';
+import {SafeAreaView, View, TouchableOpacity, Text} from 'react-native';
 //assets & style
-import { SvgXml } from "react-native-svg";
-import AddPersonalStyle from "./AddPersonal.style";
-import svgs from "../../assets/svgs";
-import visa from "../../assets/icons/visa.png";
-import { AQUA } from "../../helpers/style/constants";
+import {SvgXml} from 'react-native-svg';
+import AddPersonalStyle from './AddPersonal.style';
+import svgs from '../../assets/svgs';
+import visa from '../../assets/icons/visa.png';
+import {AQUA} from '../../helpers/style/constants';
 //libraries
-import { Box, ScrollView, useToast } from "native-base";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import PropTypes from "prop-types";
+import {Box, ScrollView, useToast} from 'native-base';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import PropTypes from 'prop-types';
 //components
-import BaseInput from "../BaseInput";
-import KeyboardView from "../KeyboardView";
+import BaseInput from '../BaseInput';
+import KeyboardView from '../KeyboardView';
 import {
   NativeBaseBackButton,
   NativeBaseButton,
   Title,
   Modal,
   ButtonComponent,
-} from "../index";
-import { PaymentOptions } from "../../screens/PaymentDetails/components";
+} from '../index';
+import {PaymentOptions} from '../../screens/PaymentDetails/components';
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import {useSelector, useDispatch} from 'react-redux';
 import {
   setPersonalEntry,
   resetUserState,
-} from "../../redux/features/users/userSlice";
+} from '../../redux/features/users/userSlice';
 import {
   useUpdatePersonalProfileMutation,
   useGetPersonalProfileMutation,
-} from "../../services/users";
-import { useSetPersonalDefaultPaymentMutation } from "../../services/wallets";
-import Toast from "react-native-toast-notifications";
-import { t } from "i18next";
+} from '../../services/users';
+import {useSetPersonalDefaultPaymentMutation} from '../../services/wallets';
+import Toast from 'react-native-toast-notifications';
+import {t} from 'i18next';
 
-const AddPersonal = (props) => {
-  const { onClosePress, isDisabled, isLoading, handleGetCards } = props;
+const AddPersonal = props => {
+  const {onClosePress, isDisabled, isLoading, handleGetCards} = props;
 
-  const personalState = useSelector((state) => state.users.personal);
-  const businessState = useSelector((state) => state.users.business);
+  const personalState = useSelector(state => state.users.personal);
+  const businessState = useSelector(state => state.users.business);
   const dispatch = useDispatch();
   const toastRef = useRef();
   const toast = useToast();
@@ -56,14 +56,14 @@ const AddPersonal = (props) => {
 
   const handleGetPersonalDetails = async () => {
     await getPersonalProfile()
-      .then((answer) => { })
-      .catch((err) => {
-        console.log("ERR getPersonalProfile >>> ", err);
+      .then(answer => {})
+      .catch(err => {
+        console.log('ERR getPersonalProfile >>> ', err);
       });
   };
 
-  const handleChangeFormState = ({ type, label, value }) => {
-    dispatch(setPersonalEntry({ type, label, value }));
+  const handleChangeFormState = ({type, label, value}) => {
+    dispatch(setPersonalEntry({type, label, value}));
   };
 
   const handleChooseDefaultPayment = () => {
@@ -71,7 +71,7 @@ const AddPersonal = (props) => {
     setModalVisible(true);
   };
 
-  const handleSubmit = async ({ closeModal = false }) => {
+  const handleSubmit = async ({closeModal = false}) => {
     const body = {
       firstName: personalState?.firstName?.value,
       lastName: personalState?.lastName?.value,
@@ -86,8 +86,8 @@ const AddPersonal = (props) => {
         closeModal && onClosePress();
         handleSuccessToast();
       })
-      .catch((err) => {
-        console.log("ERR updatePersonalDetails >>> ", err);
+      .catch(err => {
+        console.log('ERR updatePersonalDetails >>> ', err);
       });
   };
 
@@ -95,22 +95,22 @@ const AddPersonal = (props) => {
     setModalVisible(!modalVisible);
   };
 
-  const hadleSetPersonalCard = async (id) => {
-    await handleSubmit({ closeModal: false }).then(async () => {
-      await setPersonalDefaultPayment({ cardId: id })
-        .then((answer) => {
+  const hadleSetPersonalCard = async id => {
+    await handleSubmit({closeModal: false}).then(async () => {
+      await setPersonalDefaultPayment({cardId: id})
+        .then(answer => {
           setModalVisible(false);
           handleGetPersonalDetails();
         })
-        .catch((err) => {
-          console.log("ERR setPersonalDefaultPayment >>> ", err);
+        .catch(err => {
+          console.log('ERR setPersonalDefaultPayment >>> ', err);
         });
     });
   };
 
   const handleSuccessToast = () => {
     toast.show({
-      placement: "top",
+      placement: 'top',
       duration: 1500,
       render: () => {
         return (
@@ -120,21 +120,19 @@ const AddPersonal = (props) => {
               padding: 16,
               borderRadius: 15,
               shadowColor: AQUA,
-              shadowOffset: { width: -2, height: 4 },
+              shadowOffset: {width: -2, height: 4},
               shadowOpacity: 0.9,
               shadowRadius: 4,
               elevation: 25,
               shadowColor: AQUA,
-            }}
-          >
+            }}>
             <Text
               style={{
-                color: "#F5F5F5",
+                color: '#F5F5F5',
                 fontSize: 18,
-                fontFamily: "AzoSans-Medium",
-              }}
-            >
-              {t("personal_profile_saved")}
+                fontFamily: 'AzoSans-Medium',
+              }}>
+              {t('personal_profile_saved')}
             </Text>
           </View>
         );
@@ -142,25 +140,25 @@ const AddPersonal = (props) => {
     });
   };
 
-  const handlePlaceholder = (name) => {
+  const handlePlaceholder = name => {
     switch (name) {
-      case "First Name":
-        return t("first_name");
+      case 'First Name':
+        return t('first_name');
 
-      case "Last Name":
-        return t("last_name");
+      case 'Last Name':
+        return t('last_name');
 
-      case "Address":
-        return t("address");
+      case 'Address':
+        return t('address');
 
-      case "City":
-        return t("city");
+      case 'City':
+        return t('city');
 
-      case "County":
-        return t("county");
+      case 'County':
+        return t('county');
 
-      case "Email for receipt":
-        return t("email_for_receipt");
+      case 'Email for receipt':
+        return t('email_for_receipt');
     }
   };
 
@@ -170,40 +168,39 @@ const AddPersonal = (props) => {
       {/* <KeyboardView boxStyle={AddPersonalStyle.container}> */}
       <NativeBaseBackButton
         isLoading={false}
-        style={{backgroundColor: "#F5F5F5"}}
+        style={{backgroundColor: '#F5F5F5'}}
         handleOnPress={onClosePress}
         isDisabled={false}
       />
-              <Title label={t("personal_profile")} style={AddPersonalStyle.title} />
+      <Title label={t('personal_profile')} style={AddPersonalStyle.title} />
 
       {/* <Box style={AddPersonalStyle.inputContainer}>
       
       </Box> */}
-      <ScrollView showsVerticalScrollIndicator={false} style={AddPersonalStyle.container}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={AddPersonalStyle.container}>
         <KeyboardAwareScrollView>
           {Object.keys(personalState).map((item, index) => {
-            if (item === "cardNumber") {
+            if (item === 'cardNumber' && item !== 'phoneNumber') {
               return (
                 <TouchableOpacity
                   onPress={() => handleChooseDefaultPayment(true)}
                   style={AddPersonalStyle.detailsBtn}
-                  key={`key--${item}`}
-                >
+                  key={`key--${item}`}>
                   <SvgXml xml={svgs.copy} width={22} height={24} />
                   <Text style={AddPersonalStyle.btnLabel}>
                     {personalState.cardNumber.value
                       ? `**** ${personalState.cardNumber.value.slice(-4)}`
-                      : t("default_payment")}
+                      : t('default_payment')}
                   </Text>
                 </TouchableOpacity>
               );
-            } else {
+            } else if (item !== 'phoneNumber') {
               return (
                 <BaseInput
                   onPress={
-                    item === "cardNumber"
-                      ? handleChooseDefaultPayment()
-                      : null
+                    item === 'cardNumber' ? handleChooseDefaultPayment() : null
                   }
                   isDisabled={personalState[item].isDisabled}
                   style={AddPersonalStyle.baseInput}
@@ -217,7 +214,7 @@ const AddPersonal = (props) => {
                   name={item}
                   // placeHolder={personalState[item].label}
                   placeHolder={t(personalState[item].placeholder)}
-                  onChangeText={(value) =>
+                  onChangeText={value =>
                     handleChangeFormState({
                       type: item,
                       value,
@@ -226,7 +223,7 @@ const AddPersonal = (props) => {
                   }
                   value={personalState[item].value}
                   key={`personal-inputs-${String(index)}`}
-                  capitalize={"sentences"}
+                  capitalize={'sentences'}
                 />
               );
             }
@@ -237,8 +234,8 @@ const AddPersonal = (props) => {
 
       <View style={AddPersonalStyle.floatingContainer}>
         <ButtonComponent
-          text={t("confirm").toUpperCase()}
-          onPress={() => handleSubmit({ closeModal: true })}
+          text={t('confirm').toUpperCase()}
+          onPress={() => handleSubmit({closeModal: true})}
           isDisabled={isDisabled}
         />
       </View>
@@ -248,7 +245,7 @@ const AddPersonal = (props) => {
           onExitPress={handleModal}
           onSmsPress={handleModal}
           isFromPaymentDetails={false}
-          profileType={"Personal"}
+          profileType={'Personal'}
         />
         <Toast
           ref={toastRef}

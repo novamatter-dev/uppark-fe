@@ -209,8 +209,6 @@ const CarsTab = props => {
         />
       </View>
 
-      {console.log({activeCarItem})}
-
       <Modal isFullScreen={true} modalVisible={carDetailsModalVisible}>
         <CarDetails
           item={activeCarItem}

@@ -89,9 +89,11 @@ const MainStackNavigation = () => {
       source: 'UPPARK', // 'UPPARK'
     };
 
+    console.log('>>> checkForUpates body: ', body);
+
     await checkForUpates(body)
       .then(answer => {
-        console.log('>>> checkMaintenanceMode data:', answer.data);
+        console.log('>>> checkForUpates answer:', answer.data);
         if (answer?.data?.maintenanceMode) {
           navigation.navigate('Maintenance');
         }

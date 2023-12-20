@@ -56,17 +56,22 @@ const ParkFromScreenStyle = StyleSheet.create({
     paddingTop: hp(7.88),
   },
   backButton: {
-    // marginTop: Platform.OS === 'ios' ? '10%' : '5%',
-    // marginLeft: '10%',
-    // marginTop: '5%',
     backgroundColor: WHITE,
   },
-
+  timelineTitleContainer: {
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'row',
+    marginTop: hp(2.95),
+    justifyContent: 'space-between',
+  },
+  icon: {
+    marginTop: 2,
+  },
   text: {
     color: GREY,
-    fontSize: hp(1.47),
-    fontFamily: 'AzoSans-Medium',
-    marginTop: hp(2.95),
+    fontSize: hp(1.75),
+    fontFamily: 'AzoSans-Bold',
   },
   confirmButton: {
     backgroundColor: WHITE,

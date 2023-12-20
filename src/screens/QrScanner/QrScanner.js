@@ -50,6 +50,8 @@ const QrScanner = () => {
     {checkInverted: true},
   );
 
+  // TODO: only one call
+
   const handleScan = async qr => {
     console.log('qr', qr, '   ', parkingDetails?.parkingId);
     await paymentInfoBarcode({

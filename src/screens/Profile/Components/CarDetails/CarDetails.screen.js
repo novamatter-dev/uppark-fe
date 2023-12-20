@@ -30,8 +30,6 @@ const CarDetails = props => {
     fireExtinguisherExpirationDate,
   } = item;
 
-  console.log({props});
-
   const carProps = [
     {id: 0, name: 'RCA', shortName: 'RCAExpirationDate'},
     {id: 1, name: 'ITP', shortName: 'ITPExpirationDate'},
@@ -129,7 +127,6 @@ const CarDetails = props => {
                     width={hp(2.95)}
                     height={hp(2.95)}
                   />
-                  {console.log({item})}
                   <Text
                     style={CarDetailsStyle.itemName}
                     numberOfLines={1}

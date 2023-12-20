@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, {useState, useEffect} from 'react';
-import {FlatList, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, TouchableOpacity, View} from 'react-native';
 //assets & style
 import {partialyFreeProducts} from '../../constants/products';
 import {BLACK, BLUE, PLATINUM, WHITE} from '../../helpers/style/constants';
@@ -28,6 +28,9 @@ import {
   setSensorParking,
   resetParkingState,
 } from '../../redux/features/parkings/parkingsSlice';
+
+import LeftArrowIcon from '../../assets/icons/LeftArrowIcon.png';
+import RightArrowIcon from '../../assets/icons/RightArrowIcon.png';
 
 const ParkFromScreen = () => {
   const navigation = useNavigation();
@@ -344,7 +347,11 @@ const ParkFromScreen = () => {
       />
       <Box style={ParkFromScreenStyle.listContainer}>
         <Tabs tab={tab} handleTab={handleTab} />
-        <Text style={ParkFromScreenStyle.text}>{t('quick_time_slots')}</Text>
+        <View style={ParkFromScreenStyle.timelineTitleContainer}>
+          <Image source={LeftArrowIcon} style={ParkFromScreenStyle.icon} />
+          <Text style={ParkFromScreenStyle.text}>{t('quick_time_slots')}</Text>
+          <Image source={RightArrowIcon} style={ParkFromScreenStyle.icon} />
+        </View>
         <View style={ParkFromScreenStyle.productsWrapper}>
           <FlatList
             style={ParkFromScreenStyle.flatList}

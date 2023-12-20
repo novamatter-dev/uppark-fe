@@ -19,12 +19,18 @@ import {
   useUpdateBusinessProfileMutation,
   useGetBusinessProfileMutation,
   useGetUserMutation,
+  useUpdateUserPhoneNumberMutation,
 } from '../../services/users';
 import {useDispatch, useSelector} from 'react-redux';
 import {setBusinessEntry} from '../../redux/features/users/userSlice';
 import {useSetBusinessDefaultPaymentMutation} from '../../services/wallets';
 import Toast from 'react-native-toast-notifications';
 import {t} from 'i18next';
+import LoginPhoneStyle from '../../screens/Login/Components/LoginPhone/LoginPhone.style';
+import Dropdown from '../Dropdown/Dropdown';
+import {dialCodes} from '../../constants/dialCodes';
+import {TextInput} from 'react-native';
+import {Platform} from 'react-native';
 
 const AddBusinessModalComponent = props => {
   const {onClosePress, isDisabled, handleGetCards} = props;
@@ -36,9 +42,11 @@ const AddBusinessModalComponent = props => {
   const [getBusinessProfile] = useGetBusinessProfileMutation();
   const [setBusinessDefaultPayment] = useSetBusinessDefaultPaymentMutation();
   const [getUserDetails] = useGetUserMutation();
+  const [updateUserPhoneNumber] = useUpdateUserPhoneNumberMutation();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [userPhoneNumber, setUserPhoneNumber] = useState('');
+  const [prefix, setPrefix] = useState('+40');
 
   const toastRef = useRef();
   const toast = useToast();
@@ -51,7 +59,12 @@ const AddBusinessModalComponent = props => {
 
   const getDetails = async () => {
     await getUserDetails().then(answer => {
-      setUserPhoneNumber(answer?.data?.phoneNumber);
+      console.log('>>> getUserDetails:', answer.data.phoneNumber);
+      if (answer.data.phoneNumber) {
+        const phoneNumberWithoutPrefix = answer.data.phoneNumber.substring(3);
+        setUserPhoneNumber(answer?.data?.phoneNumber);
+        handleChangePhoneNumber(phoneNumberWithoutPrefix);
+      }
     });
   };
 
@@ -74,11 +87,19 @@ const AddBusinessModalComponent = props => {
       registryCom: businessState.registryCom.value,
       iban: businessState.iban.value,
       bankName: businessState.bankName.value,
-      // cardNumber: businessState.cardNumber.value,
     };
 
     await updateBusinessProfile(body)
       .then(() => {
+        updateUserPhoneNumber({phoneNumber: `${prefix}${userPhoneNumber}`})
+          .then(answer => {
+            console.log('>>>UPDATE PHONE NUMBER:', answer);
+            handleSuccessToast();
+          })
+          .catch(err => {
+            console.log('>>>UPDATE PHONE NUMBER ERR:', err);
+          });
+
         closeModal && onClosePress();
         handleSuccessToast();
       })
@@ -142,6 +163,63 @@ const AddBusinessModalComponent = props => {
     });
   };
 
+  const handleChangePhoneNumber = value => {
+    setUserPhoneNumber(value);
+    handleChangeFormState({
+      type: 'phoneNumber',
+      value: prefix + value,
+      label: 'Phone Number',
+    });
+  };
+
+  const isButtonDisabled =
+    businessState.companyName.value?.length > 0 &&
+    businessState.cui.value?.length > 0 &&
+    businessState.email.value?.length > 0 &&
+    businessState.city.value?.length > 0 &&
+    businessState.county.value?.length > 0 &&
+    businessState.registryCom.value?.length > 0 &&
+    businessState.iban.value?.length > 0 &&
+    businessState.bankName.value?.length > 0 &&
+    userPhoneNumber?.length > 0
+      ? true
+      : false;
+
+  // log every statement in isButtonDisabled
+  console.log(
+    '>>> businessState.companyName.value?.length',
+    businessState.companyName.value?.length,
+  );
+  console.log(
+    '>>> businessState.cui.value?.length',
+    businessState.cui.value?.length,
+  );
+  console.log(
+    '>>> businessState.email.value?.length',
+    businessState.email.value?.length,
+  );
+  console.log(
+    '>>> businessState.city.value?.length',
+    businessState.city.value?.length,
+  );
+  console.log(
+    '>>> businessState.county.value?.length',
+    businessState.county.value?.length,
+  );
+  console.log(
+    '>>> businessState.registryCom.value?.length',
+    businessState.registryCom.value?.length,
+  );
+  console.log(
+    '>>> businessState.iban.value?.length',
+    businessState.iban.value?.length,
+  );
+  console.log(
+    '>>> businessState.bankName.value?.length',
+    businessState.bankName.value?.length,
+  );
+  console.log('>>> userPhoneNumber?.length', userPhoneNumber?.length);
+
   return (
     <View style={AddBusinessStyle.safeAreaContainer}>
       {/* <KeyboardView boxStyle={AddBusinessStyle.container}> */}
@@ -152,18 +230,18 @@ const AddBusinessModalComponent = props => {
         isDisabled={false}
         style={{backgroundColor: '#F5F5F5'}}
       />
-      <Title
-        label={t('billing_information_required')}
-        style={AddBusinessStyle.title}
-      />
-      <Text style={AddBusinessStyle.subtitle}>
-        {t('billing_information_required_content')}
-      </Text>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={AddBusinessStyle.container}>
         <KeyboardAwareScrollView>
+          <Title
+            label={t('billing_information_required')}
+            style={AddBusinessStyle.title}
+          />
+          <Text style={AddBusinessStyle.subtitle}>
+            {t('billing_information_required_content')}
+          </Text>
           {Object.keys(businessState).map((item, index) => {
             if (item !== 'cardNumber' && item !== 'phoneNumber') {
               return (
@@ -198,25 +276,44 @@ const AddBusinessModalComponent = props => {
             }
           })}
 
-          <BaseInput
+          {/* <BaseInput
             onPress={null}
             isDisabled={false}
             style={AddBusinessStyle.baseInput}
             icon={<SvgXml xml={svgs.drivingLicense} width={22} height={22} />}
             name={'userPhoneNumber'}
             placeHolder={t('phone_number_placeholder')}
-            onChangeText={value => setUserPhoneNumber(value)}
+            onChangeText={handleChangePhoneNumber}
             value={userPhoneNumber}
             key={`personal-inputs-phone`}
             capitalize={'sentences'}
-          />
+          /> */}
+
+          <View style={{marginTop: 9}}>
+            <Box style={AddBusinessStyle.input}>
+              <Dropdown data={dialCodes} setDial={setPrefix} dial={prefix} />
+              <TextInput
+                onChangeText={event => handleChangePhoneNumber(event)}
+                value={userPhoneNumber}
+                name={'phoneNumber'}
+                placeholder={t('phone_number')}
+                placeholderTextColor={'#e3e3e3'}
+                keyboardType="numeric"
+                style={{
+                  ...LoginPhoneStyle.textInput,
+                  paddingVertical: 0,
+                }}
+                maxLength={prefix === '+40' ? 9 : 15}
+              />
+            </Box>
+          </View>
         </KeyboardAwareScrollView>
       </ScrollView>
       <View style={AddBusinessStyle.floatingContainer}>
         <ButtonComponent
           text={'CONFIRM'}
           onPress={() => handleSubmit({closeModal: true})}
-          isDisabled={isDisabled}
+          isDisabled={!isButtonDisabled}
         />
       </View>
       {/* </KeyboardView> */}

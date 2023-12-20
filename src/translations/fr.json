@@ -225,5 +225,6 @@
   "card_pay": "Payer avec cette carte",
   "parcomat_payment": "Paiement parcomat",
   "billing_information_required": "Informations de facturation requises",
-  "billing_information_required_content": "Veuillez ajouter vos informations de facturation pour continuer"
+  "billing_information_required_content": "Veuillez ajouter vos informations de facturation pour continuer",
+  "the_ticket_was_already_paid": "Le ticket a déjà été payé"
 }
