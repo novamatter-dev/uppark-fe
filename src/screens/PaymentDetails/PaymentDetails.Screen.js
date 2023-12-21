@@ -343,79 +343,61 @@ const PaymentDetails = ({navigation}) => {
     if (parkingsData.parkingDetails.currencyType === 'EURO') {
     } else {
       if (profileType === 'Personal') {
-        if (!personalState.phoneNumber.value) {
-          await getUserDetails().then(answer => {
-            if (answer.data.phoneNumber) {
-              dispatch(
-                setPersonalEntry({
-                  type: 'phoneNumber',
-                  label: 'Phone Number',
-                  value: answer.data.phoneNumber,
-                }),
-              );
+        await getUserDetails().then(answer => {
+          if (answer.data.phoneNumber) {
+            dispatch(
+              setPersonalEntry({
+                type: 'phoneNumber',
+                label: 'Phone Number',
+                value: answer.data.phoneNumber,
+              }),
+            );
 
-              const updatedPersonalStateLocal = {
-                ...personalState,
-                phoneNumber: {
-                  ...personalState.phoneNumber,
-                  value: answer.data.phoneNumber,
-                },
-              };
+            const updatedPersonalStateLocal = {
+              ...personalState,
+              phoneNumber: {
+                ...personalState.phoneNumber,
+                value: answer.data.phoneNumber,
+              },
+            };
 
-              const personalDataValid = validatePhoneNumberPersonalData(
-                updatedPersonalStateLocal,
-              );
-              if (!personalDataValid) {
-                setProfileDataActionSheetVisible(true);
-                return;
-              }
+            const personalDataValid = validatePhoneNumberPersonalData(
+              updatedPersonalStateLocal,
+            );
+            if (!personalDataValid) {
+              setProfileDataActionSheetVisible(true);
+              return;
             }
-          });
-        } else {
-          const personalDataValid =
-            validatePhoneNumberPersonalData(personalState);
-          if (!personalDataValid) {
-            setProfileDataActionSheetVisible(true);
-            return;
           }
-        }
+        });
       } else {
-        if (!personalState.phoneNumber.value) {
-          await getUserDetails().then(answer => {
-            if (answer.data.phoneNumber) {
-              dispatch(
-                setPersonalEntry({
-                  type: 'phoneNumber',
-                  label: 'Phone Number',
-                  value: answer.data.phoneNumber,
-                }),
-              );
+        await getUserDetails().then(answer => {
+          if (answer.data.phoneNumber) {
+            dispatch(
+              setPersonalEntry({
+                type: 'phoneNumber',
+                label: 'Phone Number',
+                value: answer.data.phoneNumber,
+              }),
+            );
 
-              const updatedBusinessStateLocal = {
-                ...businessState,
-                phoneNumber: {
-                  ...personalState.phoneNumber,
-                  value: answer.data.phoneNumber,
-                },
-              };
+            const updatedBusinessStateLocal = {
+              ...businessState,
+              phoneNumber: {
+                ...personalState.phoneNumber,
+                value: answer.data.phoneNumber,
+              },
+            };
 
-              const businessDataValid = validatePhoneNumberBusinessData(
-                updatedBusinessStateLocal,
-              );
-              if (!businessDataValid) {
-                setBusinessProfileDataActionSheetVisible(true);
-                return;
-              }
+            const businessDataValid = validatePhoneNumberBusinessData(
+              updatedBusinessStateLocal,
+            );
+            if (!businessDataValid) {
+              setBusinessProfileDataActionSheetVisible(true);
+              return;
             }
-          });
-        } else {
-          const businessDataValid =
-            validatePhoneNumberBusinessData(businessState);
-          if (!businessDataValid) {
-            setBusinessProfileDataActionSheetVisible(true);
-            return;
           }
-        }
+        });
       }
     }
 

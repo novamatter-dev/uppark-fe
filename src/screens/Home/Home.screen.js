@@ -413,8 +413,6 @@ const Home = () => {
     }
   };
 
-  console.log({jwt});
-
   const handleSetUserDetails = () => {
     if (jwt) {
       let userId = jwt_decode(jwt);

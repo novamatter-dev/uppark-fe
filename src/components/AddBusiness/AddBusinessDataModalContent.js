@@ -174,6 +174,7 @@ const AddBusinessModalComponent = props => {
 
   const isButtonDisabled =
     businessState.companyName.value?.length > 0 &&
+    businessState.address.value?.length > 0 &&
     businessState.cui.value?.length > 0 &&
     businessState.email.value?.length > 0 &&
     businessState.city.value?.length > 0 &&
@@ -184,41 +185,6 @@ const AddBusinessModalComponent = props => {
     userPhoneNumber?.length > 0
       ? true
       : false;
-
-  // log every statement in isButtonDisabled
-  console.log(
-    '>>> businessState.companyName.value?.length',
-    businessState.companyName.value?.length,
-  );
-  console.log(
-    '>>> businessState.cui.value?.length',
-    businessState.cui.value?.length,
-  );
-  console.log(
-    '>>> businessState.email.value?.length',
-    businessState.email.value?.length,
-  );
-  console.log(
-    '>>> businessState.city.value?.length',
-    businessState.city.value?.length,
-  );
-  console.log(
-    '>>> businessState.county.value?.length',
-    businessState.county.value?.length,
-  );
-  console.log(
-    '>>> businessState.registryCom.value?.length',
-    businessState.registryCom.value?.length,
-  );
-  console.log(
-    '>>> businessState.iban.value?.length',
-    businessState.iban.value?.length,
-  );
-  console.log(
-    '>>> businessState.bankName.value?.length',
-    businessState.bankName.value?.length,
-  );
-  console.log('>>> userPhoneNumber?.length', userPhoneNumber?.length);
 
   return (
     <View style={AddBusinessStyle.safeAreaContainer}>

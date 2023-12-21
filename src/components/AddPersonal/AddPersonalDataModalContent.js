@@ -95,7 +95,7 @@ const AddPersonalDataModalContent = props => {
         console.log('>>>UPDATE PHONE NUMBER', `${prefix}${userPhoneNumber}`);
         updateUserPhoneNumber({phoneNumber: `${prefix}${userPhoneNumber}`})
           .then(answer => {
-            console.log('>>>UPDATE PHONE NUMBER:', answer);
+            console.log('>>>UPDATE PHONE NUMBER answer:', answer);
             handleSuccessToast();
           })
           .catch(err => {
@@ -194,8 +194,7 @@ const AddPersonalDataModalContent = props => {
     personalState.firstName.value?.length > 0 &&
     personalState.lastName.value?.length > 0 &&
     personalState.address.value?.length > 0 &&
-    personalState.city.value?.length > 0 &&
-    personalState.county.value?.length > 0 &&
+    personalState.email.value?.length > 0 &&
     userPhoneNumber?.length > 0
       ? true
       : false;
