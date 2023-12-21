@@ -19,6 +19,12 @@ const ProfileStyle = StyleSheet.create({
     height: '100%',
     backgroundColor: PLATINUM,
   },
+  carsListContainer: {
+    width: '100%',
+    display: 'flex',
+    height: hp(50),
+    paddingTop: 0,
+  },
   buttonsContainer: {
     paddingTop: hp(1.97),
     display: 'flex',

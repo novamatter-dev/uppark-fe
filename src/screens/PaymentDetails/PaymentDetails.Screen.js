@@ -340,78 +340,81 @@ const PaymentDetails = ({navigation}) => {
 
   const handlePay = async () => {
     // TODO: verify logic for phone number
-    if (profileType === 'Personal') {
-      if (!personalState.phoneNumber.value) {
-        await getUserDetails().then(answer => {
-          if (answer.data.phoneNumber) {
-            dispatch(
-              setPersonalEntry({
-                type: 'phoneNumber',
-                label: 'Phone Number',
-                value: answer.data.phoneNumber,
-              }),
-            );
-
-            const updatedPersonalStateLocal = {
-              ...personalState,
-              phoneNumber: {
-                ...personalState.phoneNumber,
-                value: answer.data.phoneNumber,
-              },
-            };
-
-            const personalDataValid = validatePhoneNumberPersonalData(
-              updatedPersonalStateLocal,
-            );
-            if (!personalDataValid) {
-              setProfileDataActionSheetVisible(true);
-              return;
-            }
-          }
-        });
-      } else {
-        const personalDataValid =
-          validatePhoneNumberPersonalData(personalState);
-        if (!personalDataValid) {
-          setProfileDataActionSheetVisible(true);
-          return;
-        }
-      }
+    if (parkingsData.parkingDetails.currencyType === 'EURO') {
     } else {
-      if (!personalState.phoneNumber.value) {
-        await getUserDetails().then(answer => {
-          if (answer.data.phoneNumber) {
-            dispatch(
-              setPersonalEntry({
-                type: 'phoneNumber',
-                label: 'Phone Number',
-                value: answer.data.phoneNumber,
-              }),
-            );
+      if (profileType === 'Personal') {
+        if (!personalState.phoneNumber.value) {
+          await getUserDetails().then(answer => {
+            if (answer.data.phoneNumber) {
+              dispatch(
+                setPersonalEntry({
+                  type: 'phoneNumber',
+                  label: 'Phone Number',
+                  value: answer.data.phoneNumber,
+                }),
+              );
 
-            const updatedBusinessStateLocal = {
-              ...businessState,
-              phoneNumber: {
-                ...personalState.phoneNumber,
-                value: answer.data.phoneNumber,
-              },
-            };
+              const updatedPersonalStateLocal = {
+                ...personalState,
+                phoneNumber: {
+                  ...personalState.phoneNumber,
+                  value: answer.data.phoneNumber,
+                },
+              };
 
-            const businessDataValid = validatePhoneNumberBusinessData(
-              updatedBusinessStateLocal,
-            );
-            if (!businessDataValid) {
-              setBusinessProfileDataActionSheetVisible(true);
-              return;
+              const personalDataValid = validatePhoneNumberPersonalData(
+                updatedPersonalStateLocal,
+              );
+              if (!personalDataValid) {
+                setProfileDataActionSheetVisible(true);
+                return;
+              }
             }
+          });
+        } else {
+          const personalDataValid =
+            validatePhoneNumberPersonalData(personalState);
+          if (!personalDataValid) {
+            setProfileDataActionSheetVisible(true);
+            return;
           }
-        });
+        }
       } else {
-        const businessDataValid =
-          validatePhoneNumberBusinessData(businessState);
-        if (!businessDataValid) {
-          setBusinessProfileDataActionSheetVisible(true);
-          return;
+        if (!personalState.phoneNumber.value) {
+          await getUserDetails().then(answer => {
+            if (answer.data.phoneNumber) {
+              dispatch(
+                setPersonalEntry({
+                  type: 'phoneNumber',
+                  label: 'Phone Number',
+                  value: answer.data.phoneNumber,
+                }),
+              );
+
+              const updatedBusinessStateLocal = {
+                ...businessState,
+                phoneNumber: {
+                  ...personalState.phoneNumber,
+                  value: answer.data.phoneNumber,
+                },
+              };
+
+              const businessDataValid = validatePhoneNumberBusinessData(
+                updatedBusinessStateLocal,
+              );
+              if (!businessDataValid) {
+                setBusinessProfileDataActionSheetVisible(true);
+                return;
+              }
+            }
+          });
+        } else {
+          const businessDataValid =
+            validatePhoneNumberBusinessData(businessState);
+          if (!businessDataValid) {
+            setBusinessProfileDataActionSheetVisible(true);
+            return;
+          }
         }
       }
     }
