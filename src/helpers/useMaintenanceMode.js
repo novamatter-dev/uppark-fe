@@ -23,6 +23,7 @@ export const useMaintenanceMode = () => {
     await checkForUpates(body)
       .then(answer => {
         // TODO: Maintenance mode
+        // TOOD: SOLVE IN THE NEXT UPDATE, IN THE 1.2.1 VERSION THE MAINTENANCE MODE IS NEGATED
         if (answer?.data?.maintenanceMode) {
           console.log('check for updates go to maintenance');
           navigation.navigate('Maintenance');

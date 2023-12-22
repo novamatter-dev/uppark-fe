@@ -342,6 +342,7 @@ const PaymentDetails = ({navigation}) => {
     // TODO: verify logic for phone number
     if (parkingsData.parkingDetails.currencyType !== 'EURO') {
       const answer = await getUserDetails();
+      console.log('handlePay:', answer);
       const phoneNumber = answer.data.phoneNumber;
 
       // Update state with the fetched phone number
