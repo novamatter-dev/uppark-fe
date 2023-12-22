@@ -150,7 +150,7 @@ const PaymentOptions = props => {
               <NativeBaseButton
                 handleOnPress={handleAddNewCard}
                 style={PaymentOptionsStyle.nativeButtonStyle}
-                label={t('add_card')}
+                label={t('new_card')}
                 labelStyle={PaymentOptionsStyle.nativeBaseLabelStyle}
                 icon={<Image source={forward} />}
               />

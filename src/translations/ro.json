@@ -225,5 +225,6 @@
   "parcomat_payment": "Plată parcomat",
   "billing_information_required": "Informații de facturare necesare",
   "billing_information_required_content": "Avem nevoie de detaliile de facturare pentru a procesa plata. Informațiile vor fi salvate în siguranță pentru tranzacțiile viitoare. Îți mulțumim!",
-  "the_ticket_was_already_paid": "Tichetul a fost deja plătit"
+  "the_ticket_was_already_paid": "Tichetul a fost deja plătit",
+  "new_card": "Card nou"
 }

@@ -5,6 +5,10 @@ apply plugin: "com.facebook.react"
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
 
+project.ext.react = [
+    jsBundleDirRelease: "$buildDir/intermediates/assets/release",
+]
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -15,6 +19,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
  * `apply from: "../../node_modules/react-native/react.gradle"` line.
  *
  * project.ext.react = [
+     jsBundleDirRelease: "$buildDir/intermediates/assets/release",
  *   // the name of the generated asset file containing your JS bundle
  *   bundleAssetName: "index.android.bundle",
  *
@@ -148,7 +153,7 @@ android {
         applicationId "com.uppark"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 55
+        versionCode 56
         versionName "1.2.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 

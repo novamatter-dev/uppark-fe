@@ -225,5 +225,6 @@
   "parcomat_payment": "Parcomat payment",
   "billing_information_required": "Billing information required",
   "billing_information_required_content": "We need your billing details to process the payment. Your information will be securely saved for future transactions. Thank you!",
-  "the_ticket_was_already_paid": "The ticket was already paid"
+  "the_ticket_was_already_paid": "The ticket was already paid",
+  "new_card": "New card"
 }

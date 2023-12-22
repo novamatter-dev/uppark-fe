@@ -89,8 +89,6 @@ const MainStackNavigation = () => {
       source: 'UPPARK', // 'UPPARK'
     };
 
-    console.log('>>> checkForUpates body: ', body);
-
     await checkForUpates(body)
       .then(answer => {
         console.log('>>> checkForUpates answer:', answer.data);
@@ -363,6 +361,7 @@ const MainStackNavigation = () => {
               display: 'flex',
               alignItems: 'center',
               marginBottom: 18,
+              width: '100%',
             }}>
             <Text style={style.title}>{t('update_available')}</Text>
             <Text style={style.text}>{t('update_text')}</Text>

@@ -340,66 +340,64 @@ const PaymentDetails = ({navigation}) => {
 
   const handlePay = async () => {
     // TODO: verify logic for phone number
-    if (parkingsData.parkingDetails.currencyType === 'EURO') {
-    } else {
+    if (parkingsData.parkingDetails.currencyType !== 'EURO') {
+      const answer = await getUserDetails();
+      const phoneNumber = answer.data.phoneNumber;
+
+      // Update state with the fetched phone number
+      dispatch(
+        setPersonalEntry({
+          type: 'phoneNumber',
+          label: 'Phone Number',
+          value: phoneNumber,
+        }),
+      );
+
       if (profileType === 'Personal') {
-        await getUserDetails().then(answer => {
-          if (answer.data.phoneNumber) {
-            dispatch(
-              setPersonalEntry({
-                type: 'phoneNumber',
-                label: 'Phone Number',
-                value: answer.data.phoneNumber,
-              }),
-            );
+        // Update personal state
+        const updatedPersonalStateLocal = {
+          ...personalState,
+          phoneNumber: {
+            ...personalState.phoneNumber,
+            value: phoneNumber,
+          },
+        };
 
-            const updatedPersonalStateLocal = {
-              ...personalState,
-              phoneNumber: {
-                ...personalState.phoneNumber,
-                value: answer.data.phoneNumber,
-              },
-            };
+        // Validate personal data
+        const personalDataValid = validatePhoneNumberPersonalData(
+          updatedPersonalStateLocal,
+        );
 
-            const personalDataValid = validatePhoneNumberPersonalData(
-              updatedPersonalStateLocal,
-            );
-            if (!personalDataValid) {
-              setProfileDataActionSheetVisible(true);
-              return;
-            }
-          }
-        });
+        console.log({updatedPersonalStateLocal});
+        console.log({personalDataValid});
+
+        if (!personalDataValid) {
+          console.log('DISPLAY PERSONAL DATA MODAL');
+          setProfileDataActionSheetVisible(true);
+          return; // Exit from handlePay
+        }
       } else {
-        await getUserDetails().then(answer => {
-          if (answer.data.phoneNumber) {
-            dispatch(
-              setPersonalEntry({
-                type: 'phoneNumber',
-                label: 'Phone Number',
-                value: answer.data.phoneNumber,
-              }),
-            );
+        const updatedBusinessStateLocal = {
+          ...businessState,
+          phoneNumber: {
+            ...businessState.phoneNumber,
+            value: phoneNumber,
+          },
+        };
 
-            const updatedBusinessStateLocal = {
-              ...businessState,
-              phoneNumber: {
-                ...personalState.phoneNumber,
-                value: answer.data.phoneNumber,
-              },
-            };
+        // Validate business data
+        const businessDataValid = validatePhoneNumberBusinessData(
+          updatedBusinessStateLocal,
+        );
 
-            const businessDataValid = validatePhoneNumberBusinessData(
-              updatedBusinessStateLocal,
-            );
-            if (!businessDataValid) {
-              setBusinessProfileDataActionSheetVisible(true);
-              return;
-            }
-          }
-        });
+        if (!businessDataValid) {
+          setBusinessProfileDataActionSheetVisible(true);
+          return; // Exit from handlePay
+        }
       }
     }
+
+    console.log('INITIATE PAYMENT');
 
     handleInitiatePayment();
     return true;
@@ -619,10 +617,12 @@ const PaymentDetails = ({navigation}) => {
                     <TouchableOpacity
                       style={PaymentDetailsStyle.btnContainer}
                       onPress={handleModal}>
-                      <Image style={PaymentDetailsStyle.icon} source={visa} />
+                      {selectedCard !== 'NEW_CARD' && (
+                        <Image style={PaymentDetailsStyle.icon} source={visa} />
+                      )}
                       <Text style={PaymentDetailsStyle.contentText}>
                         {selectedCard === 'NEW_CARD'
-                          ? t('add_card')
+                          ? t('new_card')
                           : selectedCard?.cardNumber
                           ? `**** ${selectedCard.cardNumber.slice(-4)}`
                           : t('selected_card')}

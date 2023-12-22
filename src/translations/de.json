@@ -226,5 +226,6 @@
   "parcomat_payment": "Parcomat fizetés",
   "billing_information_required": "Számlázási információk szükségesek",
   "billing_information_required_content": "Kérjük, adja meg a számlázási információkat a fizetéshez",
-  "the_ticket_was_already_paid": "A jegyet már kifizették"
+  "the_ticket_was_already_paid": "A jegyet már kifizették",
+  "new_card": "Új kártya"
 }
