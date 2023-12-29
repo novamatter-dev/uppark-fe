@@ -422,8 +422,6 @@ const Home = () => {
     }
   };
 
-  console.log({jwt});
-
   const goToReservations = () => {
     if (currentReservations.length > 1) {
       handleGetCurrentReservation();
