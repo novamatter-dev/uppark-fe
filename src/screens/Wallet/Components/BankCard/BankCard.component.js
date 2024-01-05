@@ -2,13 +2,15 @@ import {Actionsheet, useToast} from 'native-base';
 import React, {useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import visa from '../../../../assets/icons/visa.png';
-import {AQUA} from '../../../../helpers/style/constants';
+import {AQUA, RED} from '../../../../helpers/style/constants';
 import BankCardStyle from './BankCard.style';
 //redux
 import {t} from 'i18next';
 import ActionModal from '../../../../components/ActionModal/ActionModal';
 import {useDeleteCardMutation} from '../../../../services/wallets';
 import {useTranslation} from 'react-i18next';
+import {SvgXml} from 'react-native-svg';
+import svgs from '../../../../assets/svgs';
 
 const BankCard = props => {
   const {cards, handleOnPress, handleGetAllWallets, handleEdit, setCardInfo} =
@@ -104,29 +106,28 @@ const BankCard = props => {
               icon={<Image style={BankCardStyle.icon} source={visa} />}
               iconStyle={BankCardStyle.iconSpacing}
             /> */}
-            <TouchableOpacity
+            <View
               key={item.cardNumber}
               style={BankCardStyle.card}
-              onPress={() => handleEditCard(item)}>
+              onPress={null}>
               <Image style={BankCardStyle.icon} source={visa} />
               <Text style={BankCardStyle.cardText}>
                 {`**** ${item.cardNumber.slice(-4)}`}
               </Text>
-              {/* <TouchableOpacity
+              <TouchableOpacity
                 onPress={() => {
                   setCardId(item.id);
                   handleModal();
                 }}
-                style={BankCardStyle.deleteBtn}
-              >
+                style={BankCardStyle.deleteBtn}>
                 <SvgXml
                   xml={svgs.deleteIcon}
                   width={22}
                   height={22}
                   fill={RED}
                 />
-              </TouchableOpacity> */}
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           </View>
         );
       })}

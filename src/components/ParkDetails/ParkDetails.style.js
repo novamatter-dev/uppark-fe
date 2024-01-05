@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
-import { AQUA, BLUE, GREY, ORANGE } from "../../helpers/style/constants";
+import {StyleSheet} from 'react-native';
+import {AQUA, BLUE, GREY, ORANGE, RED} from '../../helpers/style/constants';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
+} from 'react-native-responsive-screen';
 
 const HomeStyle = StyleSheet.create({
   placeDetailsShowMore: {
@@ -21,9 +21,9 @@ const HomeStyle = StyleSheet.create({
   },
   placeDetailsEntryTitle: {
     color: GREY,
-    fontFamily: "AzoSans-Medium",
+    fontFamily: 'AzoSans-Medium',
     fontSize: hp(1.47),
-    marginBottom: hp(3)
+    marginBottom: hp(3),
   },
   placeDetailsEntryTitleStatus: {
     color: AQUA,
@@ -31,27 +31,33 @@ const HomeStyle = StyleSheet.create({
   placeDetailsEntryContent: {
     fontSize: hp(1.97),
     marginTop: hp(1),
-    fontFamily: "AzoSans-Bold",
+    fontFamily: 'AzoSans-Bold',
+  },
+  placeDetailsEntryContentRed: {
+    fontSize: hp(1.97),
+    marginTop: hp(1),
+    fontFamily: 'AzoSans-Bold',
+    color: 'red',
   },
   placeDetailsEntryBullet: {
     color: GREY,
     fontSize: 15,
-    paddingLeft: "10%",
-    paddingRight: "10%",
+    paddingLeft: '10%',
+    paddingRight: '10%',
   },
   opened: {
     color: AQUA,
-    fontFamily: "AzoSans-Medium",
+    fontFamily: 'AzoSans-Medium',
     fontSize: hp(1.47),
   },
   closed: {
     color: ORANGE,
-    fontFamily: "AzoSans-Medium",
+    fontFamily: 'AzoSans-Medium',
     fontSize: hp(1.47),
   },
   detailsText: {
     fontSize: hp(1.97),
-    fontFamily: "AzoSans-Bold",
+    fontFamily: 'AzoSans-Bold',
   },
 });
 

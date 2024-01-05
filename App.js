@@ -33,6 +33,8 @@ import {View, ActivityIndicator} from 'react-native';
 import {BLUE} from './src/helpers/style/constants';
 import {t} from 'i18next';
 
+import {LogBox} from 'react-native';
+
 let persistor = persistStore(store);
 
 const AppWrapper = () => {
@@ -73,6 +75,10 @@ const AppWrapper = () => {
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('Message handlel in the background: ', remoteMessage);
     });
+
+    LogBox.ignoreLogs([
+      'In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.',
+    ]);
   }, []);
 
   useEffect(() => {

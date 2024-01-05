@@ -1,21 +1,24 @@
-import { StyleSheet } from "react-native";
-import { WHITE, BLACK } from "../../../../helpers/style/constants";
+import {StyleSheet} from 'react-native';
+import {WHITE, BLACK} from '../../../../helpers/style/constants';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 const BankCardStyle = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     // marginVertical: 5,
     paddingVertical: 10,
   },
   card: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
     backgroundColor: WHITE,
     borderRadius: 25,
     paddingHorizontal: 16,
@@ -25,9 +28,10 @@ const BankCardStyle = StyleSheet.create({
   cardText: {
     fontSize: 18,
     color: BLACK,
-    width: "70%",
-    textAlign: "left",
-    fontFamily: "AzoSans-Medium",
+    width: '70%',
+    textAlign: 'left',
+    fontFamily: 'AzoSans-Medium',
+    marginLeft: wp(5),
   },
 
   icon: {
@@ -40,10 +44,10 @@ const BankCardStyle = StyleSheet.create({
   },
 
   deleteBtn: {
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    width: "15%",
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    width: '15%',
   },
 });
 

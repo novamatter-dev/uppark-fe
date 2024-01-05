@@ -261,7 +261,7 @@ const Map = props => {
         longitudeDelta: LONGITUDE_DELTA,
       };
 
-      mapRef.current.animateToRegion(region, 1000);
+      mapRef.current?.animateToRegion(region, 1000);
       handleNearbyParkings(region);
     });
   };
@@ -317,7 +317,7 @@ const Map = props => {
         longitudeDelta: LONGITUDE_DELTA,
       };
 
-      mapRef.current.animateToRegion(region, 1000);
+      mapRef.current?.animateToRegion(region, 1000);
     }
 
     if (!apiError) {

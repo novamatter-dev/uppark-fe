@@ -102,9 +102,8 @@ const SearchBar = props => {
       {searchIsActive && (
         <View
           style={{
-            height: "100%",
-          }}
-        >
+            height: '100%',
+          }}>
           <GooglePlacesInput
             handleNearbyParkings={handleNearbyParkings}
             closeSearch={closeSearch}

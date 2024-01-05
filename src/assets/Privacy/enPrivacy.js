@@ -2,7 +2,7 @@ export const en = `Privacy policy
 FASTPARK means FAST PARK CO S.R.L., with headquarters in Voluntari, Bd. Pipera nr. 1B, Cubic Center Office Building, et.7, Ilfov County, Romania, together with our successors, affiliates or associates and any other entity that the undersigned or our associates may establish in the future.
 At the core of FASTPARK commitment to provide exceptional services there is the compliance with your data privacy and compliance with the applicable laws on the protection of personal data. The herein Privacy Policy describes the rights and obligations of FASTPARK regarding personal data and it is meant to help you understand the way in which we collect, use and protect your personal data.
 FASTPARK's commitment to you regarding confidentiality includes ensuring the accuracy, confidentiality and security of your personal data, allowing you to request access, correct or delete your personal data. Your personal data shall be transferred to other service providers, as well, to complete the payment service for the parking, under the terms detailed below.
-When you create an account with ConstantaParking application or when you use FASTPARK services, you conclude an agreement with FASTPARK and you consent to the herein Privacy Policy. Each time you use your account or FASTPARK services or you provide information, the processing of your personal data shall be governed by the current version of the herein Privacy Policy.
+When you create an account with UpPark application or when you use FASTPARK services, you conclude an agreement with FASTPARK and you consent to the herein Privacy Policy. Each time you use your account or FASTPARK services or you provide information, the processing of your personal data shall be governed by the current version of the herein Privacy Policy.
 If you do not agree to the terms of this Privacy Policy, please refrain from creating an account and from using FASTPARK services.
 FASTPARK is subject to the laws of Romania on the protection of personal data, including Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (“General Data Protection Regulation”).
 SPECIAL NOTICE REGARDING UNDERAGED
@@ -13,7 +13,7 @@ FASTPARK is subject to the laws of Romania on the protection of personal data, i
 The General Data Protection Regulation, which came into force on 25 May 2018, sets out the basic rules for the way in which controllers, such as FASTPARK, can collect, use and disclose personal data. FASTPARK undertakes to comply with the rules of the General Data Protection Regulation and with the internal legislation (“Data Protection Laws”).
 PERSONAL DATA PROCESSED
 FASTPARK collects data to provide services and only processes the personal data needed to help you create a user Account or to provide you with the best possible Services.
-You provide part of such data when creating an Account, using the ConstantaParking service or when contacting FASTPARK for support.
+You provide part of such data when creating an Account, using the UpPark service or when contacting FASTPARK for support.
 The personal data we process are:
 • the mobile telephone number;
 • the vehicle registration number;
@@ -23,7 +23,7 @@ The personal data we process are:
 • transaction data;
 • your location;
 • data required by customer support.
-We collect certain data indirectly when you interact with the ConstantaParking services using technologies such as cookies, error messages, or usage data from FASTPARK software that interact with your device and various software, including:
+We collect certain data indirectly when you interact with the UpPark services using technologies such as cookies, error messages, or usage data from FASTPARK software that interact with your device and various software, including:
 • the IP address and information on the device you use to access the services;
 • Media Access Control (MAC address);
 • the name and version of the operating system;
@@ -32,7 +32,7 @@ We collect certain data indirectly when you interact with the ConstantaParking s
 • the type and version of the Internet-type browser;
 • the name and version of the application you use.
 Please see the Cookie Policy for more information.
-Moreover, we sometimes obtain data from third parties. For example, when you register a bank card in your app to use the ConstantaParking services, we shall use the services for authorising the card.
+Moreover, we sometimes obtain data from third parties. For example, when you register a bank card in your app to use the UpPark services, we shall use the services for authorising the card.
 
 PURPOSE OF PERSONAL DATA PROCESSING
 We process the data we request you to provide to be able to offer FASTPARK services and to be able to communicate with you.
@@ -76,7 +76,7 @@ the submission of information on the vehicle to parking operators and parking ag
 •	sending information to auditors regarding the independent auditing of FASTPARK financial statements and operations. However, such auditors may not use personally identifiable information for any other purpose;
 •	sharing personal data with a potential buyer of FASTPARK (or of majority of its shares) or in case of merger, reorganisation or internal purchase;
 •	submitting information to our affiliates. Any personal data we send to our affiliates shall be treated by those affiliates in accordance with this policy and we are responsible for managing the jointly used personal data;
-We may disclose aggregated statistical data for statistical or public relations purposes. For example, we may disclose that a certain percentage of ConstantaParking users pay via SMS. Such information is not related to personal information.
+We may disclose aggregated statistical data for statistical or public relations purposes. For example, we may disclose that a certain percentage of UpPark users pay via SMS. Such information is not related to personal information.
 TRANSFER OF YOUR PERSONAL DATA
 We may transfer your personal data to third-party providers to provide you with some of FASTPARK services. Some of these suppliers may be based in countries outside the European Union. We shall take measures to ensure that any third-party service provider ensures adequate protection of your personal data by entering into agreements with them, which contain data protection clauses complying with the laws on the protection of personal data.
 Your personal data may be accessible to the authorities and subject to disclosure in accordance with applicable laws.
@@ -84,11 +84,11 @@ SAFEKEEPING OF YOUR PERSONAL DATA
 Although data transfer by Internet cannot be warranted as being 100% secure, we undertake to protect your personal data and has taken appropriate technical and organizational protection measures to protect your personal data against unauthorized access, collection, disclosure, copying, modification or removal, or against other similar risks.
 FASTPARK undertakes to comply with the following security measures to ensure that your personal data is properly protected:
 •	all personal data is stored electronically in an encrypted database and protected by a firewall;
-•	the ConstantaParking service is hosted in a secure environment using a firewall and other advanced technologies to prevent interferences or external access;
-•	the access of staff to the database where personal data is stored shall be limited to those who need access. The servers where the ConstantaParking service is hosted are supervised and are provided with around-the-clock physical security.
+•	the UpPark service is hosted in a secure environment using a firewall and other advanced technologies to prevent interferences or external access;
+•	the access of staff to the database where personal data is stored shall be limited to those who need access. The servers where the UpPark service is hosted are supervised and are provided with around-the-clock physical security.
 RETENTION PERIOD FOR YOUR PERSONAL DATA
 FASTPARK shall keep your data in accordance with the laws on data protection.
-If you create an account or if you use ConstantaParking services, we shall retain the personal data (including information relating to each parking session and for each of your transactions) only as long as it is reasonably necessary to fulfil the identified purposes for which the data was collected or as long as it is necessary for legal purposes.
+If you create an account or if you use UpPark services, we shall retain the personal data (including information relating to each parking session and for each of your transactions) only as long as it is reasonably necessary to fulfil the identified purposes for which the data was collected or as long as it is necessary for legal purposes.
 If you create an account we shall keep your personal data as long as you have the respective account. If you choose to close your account, we shall mark your Account in FASTPARK database as “closed”, but we shall keep a certain amount of information in FASTPARK database for as long as it is necessary to comply with legal obligations, or until the prescription time of FASTPARK budgetary obligations elapses, whichever is shorter.
 YOUR RIGHTS REGARDING THE PROTECTION OF PERSONAL DATA
 You have the right to request access to your personal data and to know how FASTPARK uses your personal data.
@@ -109,7 +109,7 @@ We may reject your request for data erasure if:
 (b)	if we need such data to acknowledge, enforce or defend FASTPARK rights before the court.
 There are also other circumstances in which we are not under the obligation to comply with your request for data erasure, although these two are the most probable circumstances in which we could deny this request.
 Please keep in mind that, before exercising such right, you should download from your account and you should save all documents related to all transactions performed through the undersigned.
-In case you do not proceed as such before you exercise your right to erasure, you shall lose all such documents and the undersigned shall be in the incapacity to make them available to you, as the case, because the data erasing process, namely the erasure of ConstantaParking account, with all its data and documents, is an irreversible process.
+In case you do not proceed as such before you exercise your right to erasure, you shall lose all such documents and the undersigned shall be in the incapacity to make them available to you, as the case, because the data erasing process, namely the erasure of UpPark account, with all its data and documents, is an irreversible process.
 Right to restriction of processing - you may request the restriction of processing in case:
 a)	you challenge the accuracy of data for a period of time which allows us to verify the correctness of data;
 b)	processing is illegal but you oppose to personal data erasure, requesting in return restriction;

@@ -1,113 +1,125 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { usersApi, walletsApi, notificationsApi } from "../../../services";
-import svgs from "../../../assets/svgs";
+import {createSlice} from '@reduxjs/toolkit';
+import {usersApi, walletsApi, notificationsApi} from '../../../services';
+import svgs from '../../../assets/svgs';
 
 const initialState = {
   personal: {
     firstName: {
-      label: "First Name",
+      label: 'First Name',
       value: null,
       svg: svgs.drivingLicense,
-      placeholder: "first_name",
+      placeholder: 'first_name',
     },
     lastName: {
-      label: "Last Name",
+      label: 'Last Name',
       value: null,
       svg: svgs.drivingLicense,
-      placeholder: "last_name",
+      placeholder: 'last_name',
     },
     address: {
-      label: "Address",
+      label: 'Address',
       value: null,
       svg: svgs.location,
-      placeholder: "address",
+      placeholder: 'address',
     },
     city: {
-      label: "City",
+      label: 'City',
       value: null,
       svg: svgs.location,
-      placeholder: "city",
+      placeholder: 'city',
     },
     county: {
-      label: "County",
+      label: 'County',
       value: null,
       svg: svgs.location,
-      placeholder: "county",
+      placeholder: 'county',
     },
     email: {
-      label: "Email for receipt",
+      label: 'Email for receipt',
       value: null,
       svg: svgs.mail,
-      placeholder: "email_for_receipt",
+      placeholder: 'email_for_receipt',
     },
     cardNumber: {
-      label: "Default Payment",
-      value: "123",
+      label: 'Default Payment',
+      value: '123',
       svg: svgs.copy,
       isDisabled: true,
-      placeholder: "default_payment",
+      placeholder: 'default_payment',
+    },
+    phoneNumber: {
+      label: 'Phone Number',
+      value: null,
+      svg: svgs.drivingLicense,
+      placeholder: 'phone_number_placeholder',
     },
   },
   business: {
     companyName: {
-      label: "Company Name",
+      label: 'Company Name',
       value: null,
       svg: svgs.drivingLicense,
-      placeholder: "company_name",
+      placeholder: 'company_name',
     },
     cui: {
-      label: "CUI",
+      label: 'CUI',
       value: null,
       svg: svgs.drivingLicense,
-      placeholder: "cui",
+      placeholder: 'cui',
     },
     address: {
-      label: "Address",
+      label: 'Address',
       value: null,
       svg: svgs.location,
-      placeholder: "address",
+      placeholder: 'address',
     },
     city: {
-      label: "City",
+      label: 'City',
       value: null,
       svg: svgs.location,
-      placeholder: "city",
+      placeholder: 'city',
     },
     county: {
-      label: "County",
+      label: 'County',
       value: null,
       svg: svgs.location,
-      placeholder: "county",
+      placeholder: 'county',
     },
     email: {
-      label: "Email for receipt",
+      label: 'Email for receipt',
       value: null,
       svg: svgs.mail,
-      placeholder: "email_for_receipt",
+      placeholder: 'email_for_receipt',
     },
     registryCom: {
-      label: "Registry Com No.",
+      label: 'Registry Com No.',
       value: null,
       svg: svgs.drivingLicense,
-      placeholder: "registry_com_no",
+      placeholder: 'registry_com_no',
     },
     iban: {
-      label: "IBAN",
+      label: 'IBAN',
       value: null,
       svg: svgs.drivingLicense,
-      placeholder: "iban",
+      placeholder: 'iban',
     },
     bankName: {
-      label: "Bank Name",
+      label: 'Bank Name',
       value: null,
       svg: svgs.drivingLicense,
-      placeholder: "bank_name",
+      placeholder: 'bank_name',
     },
     cardNumber: {
-      label: "Default Payment",
+      label: 'Default Payment',
       value: null,
       svg: svgs.wallet,
-      placeholder: "default_payment",
+      placeholder: 'default_payment',
+    },
+    phoneNumber: {
+      label: 'Phone Number',
+      value: null,
+      svg: svgs.location,
+      placeholder: 'phone_number_placeholder',
     },
   },
   parkingHistory: {},
@@ -120,30 +132,30 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
   reducers: {
     clearUserSlice(state, action) {
-      state.details = { ...initialState.details };
+      state.details = {...initialState.details};
     },
     setPhone: (state, action) => {
       state.phoneNr = action.payload.phone;
     },
     setBusiness: (state, action) => {
-      const { business } = action.payload;
-      Object.keys(business).forEach((item) => {
+      const {business} = action.payload;
+      Object.keys(business).forEach(item => {
         business[item] = business[item].value;
       });
 
-      state.business = { ...business };
+      state.business = {...business};
     },
     setPersonalEntry: (state, action) => {
-      const { type, label, value } = action.payload;
-      state.personal[type] = { ...state.personal[type], value };
+      const {type, label, value} = action.payload;
+      state.personal[type] = {...state.personal[type], value};
     },
     setBusinessEntry: (state, action) => {
-      const { type, label, value } = action.payload;
-      state.business[type] = { ...state.business[type], value };
+      const {type, label, value} = action.payload;
+      state.business[type] = {...state.business[type], value};
     },
     setLicense: (state, action) => {
       state.expirationDateDrivingLicense = action.payload;
@@ -164,69 +176,69 @@ export const userSlice = createSlice({
       state.hasInternetConnection = action.payload;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addMatcher(
       usersApi.endpoints.getUser.matchFulfilled,
-      (state, { payload }) => {
-        state.details = { ...state.details, ...payload.data };
-      }
+      (state, {payload}) => {
+        state.details = {...state.details, ...payload.data};
+      },
     );
 
     builder.addMatcher(
       usersApi.endpoints.updateUser.matchFulfilled,
-      (state, { payload }) => {
-        state.details = { ...state.details, ...payload.data };
-      }
+      (state, {payload}) => {
+        state.details = {...state.details, ...payload.data};
+      },
     );
 
     builder.addMatcher(
       usersApi.endpoints.getPersonalProfile.matchFulfilled,
-      (state, { payload }) => {
-        Object.keys(state.personal).forEach((item) => {
+      (state, {payload}) => {
+        Object.keys(state.personal).forEach(item => {
           state.personal[item].value = payload[item];
         });
-      }
+      },
     );
 
     builder.addMatcher(
       usersApi.endpoints.getBusinessProfile.matchFulfilled,
-      (state, { payload }) => {
-        Object.keys(state.business).forEach((item) => {
+      (state, {payload}) => {
+        Object.keys(state.business).forEach(item => {
           state.business[item].value = payload[item];
         });
-      }
+      },
     );
 
     builder.addMatcher(
       walletsApi.endpoints.getCards.matchFulfilled,
-      (state, { payload }) => {
+      (state, {payload}) => {
         state.cards = payload;
-      }
+      },
     );
     builder.addMatcher(
       walletsApi.endpoints.getPersonalDefailtCard.matchFulfilled,
-      (state, { payload }) => {
+      (state, {payload}) => {
         state.defaultCard = payload;
-      }
+      },
     );
     builder.addMatcher(
       walletsApi.endpoints.getBusinessDefaultCard.matchFulfilled,
-      (state, { payload }) => {
+      (state, {payload}) => {
         state.defaultCard = payload;
-      }
+      },
     );
     builder.addMatcher(
       usersApi.endpoints.getSettings.matchFulfilled,
-      (state, { payload }) => {
+      (state, {payload}) => {
         state.accountSettings = payload;
-      }
+      },
     );
 
     builder.addMatcher(
       notificationsApi.endpoints.updateFcmToken.matchFulfilled,
-      (state, { payload }) => {
+      (state, {payload}) => {
         // console.log("sucess updatce fcm token >> ", payload);
-      }
+      },
     );
   },
 });

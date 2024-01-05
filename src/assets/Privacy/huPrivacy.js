@@ -6,7 +6,7 @@ A FASTPARK jelentése a FAST PARK Co. K.F.T., székhelye: Voluntari, Pipera sug�
 A FASTPARK kivételes szolgáltatás nyújtása iránti elkötelezettségének középpontjában az Ön magánéletének tiszteletben tartása és az alkalmazandó adatvédelmi törvények betartása áll. Ez az adatvédelmi szabályzat ismerteti a FASTPARK személyes adatokkal kapcsolatos jogait és kötelezettségeit, és célja, hogy segítsen Önnek megérteni, hogyan gyűjtjük, használjuk és védjük az Ön személyes adatait.
 A FASTPARK adatvédelmi kötelezettségvállalása Önnel szemben magában foglalja a személyes adatai pontosságának, bizalmas jellegének és biztonságának biztosítását azáltal, hogy lehetővé teszi Önnek, hogy hozzáférést kérjen személyes adataihoz, kijavítsa vagy törölje azokat.
 Az Ön személyes adatait más szolgáltatóknak is továbbítjuk a parkolási fizetési szolgáltatás teljes körű megvalósítása érdekében, az alábbiakban részletezett feltételek mellett.
-Amikor Ön fiókot hoz létre az ConstantaParking alkalmazásban vagy használja a FASTPARK szolgáltatásait, Ön megállapodást köt a FASTPARK-kal, és elfogadja a jelen Adatvédelmi szabályzatot. Amikor Ön használja a FASTPARK-fiókját vagy szolgáltatásait, vagy információt szolgáltat nekünk, az Ön személyes adatainak feldolgozására a jelen Adatvédelmi szabályzat aktuális változata lesz irányadó.
+Amikor Ön fiókot hoz létre az UpPark alkalmazásban vagy használja a FASTPARK szolgáltatásait, Ön megállapodást köt a FASTPARK-kal, és elfogadja a jelen Adatvédelmi szabályzatot. Amikor Ön használja a FASTPARK-fiókját vagy szolgáltatásait, vagy információt szolgáltat nekünk, az Ön személyes adatainak feldolgozására a jelen Adatvédelmi szabályzat aktuális változata lesz irányadó.
 Ha nem ért egyet a jelen Adatvédelmi szabályzat feltételeivel, kérjük, tartózkodjon a fiók létrehozásától vagy a FASTPARK szolgáltatásainak használatától.
 Ebben a szabályzatban a „személyes adatok” a személyes adatok feldolgozása vonatkozásában az egyének védelméről és az ilyen adatok szabad áramlásáról, valamint a 95/46/EK irányelv hatályon kívül helyezéséről szóló, 2016. április 27-i (EU) 2016/679 európai parlamenti és tanácsi rendelet (2016/679) szerinti személyes adatokat jelenti.
 A KISKORÚAKRA VONATKOZÓ KÜLÖN FELHÍVÁS
@@ -17,7 +17,7 @@ A FASTPARK a személyes adatok védelmére vonatkozó romániai jogszabályok ha
 A 2018. május 25-én hatályba lépett általános adatvédelmi rendelet meghatározza azokat az alapvető szabályokat, amelyek alapján az adatkezelők, mint például a FASTPARK, személyes adatokat gyűjthetnek, használhatnak és adhatnak ki. A FASTPARK elkötelezett az Általános Adatvédelmi Rendelet szabályainak és a hazai jogszabályoknak (Adatvédelmi törvények) való megfelelés mellett.
 Feldolgozott személyes adatok
 A FASTPARK adatokat gyűjt annak érdekében, hogy szolgáltatásokat nyújtson Önnek, és csak olyan személyes adatokat dolgoz fel, amelyek szükségesek ahhoz, hogy segítsen Önnek létrehozni egy felhasználói fiókot, vagy hogy a lehető legjobb szolgáltatásokat nyújtsa Önnek.
-Ezen adatok egy részét akkor adja meg, amikor Fiókot hoz létre, amikor az ConstantaParking szolgáltatást használja, vagy amikor segítségért kapcsolatba lép a FASTPARK-kal.
+Ezen adatok egy részét akkor adja meg, amikor Fiókot hoz létre, amikor az UpPark szolgáltatást használja, vagy amikor segítségért kapcsolatba lép a FASTPARK-kal.
 Az általunk feldolgozott személyes adatok a következők:
 	 - mobiltelefonszám;
 	 - a jármű rendszámát;
@@ -29,7 +29,7 @@ Az általunk feldolgozott személyes adatok a következők:
 	 - az ügyfélszolgálat által kért adatok.
 
 
-Bizonyos adatokat közvetve gyűjtünk, amikor Ön kapcsolatba lép a ConstantaParking szolgáltatásaival, olyan technológiák segítségével, mint a cookie-k, hibaüzenetek vagy az eszközével és különböző programokkal együttműködő FASTPARK szoftverek használati adatai, többek között:
+Bizonyos adatokat közvetve gyűjtünk, amikor Ön kapcsolatba lép a UpPark szolgáltatásaival, olyan technológiák segítségével, mint a cookie-k, hibaüzenetek vagy az eszközével és különböző programokkal együttműködő FASTPARK szoftverek használati adatai, többek között:
 
 	 -IP-cím és a szolgáltatások eléréséhez használt eszközre vonatkozó információk;
 	 -Media Access Control (MAC-cím);
@@ -41,7 +41,7 @@ Bizonyos adatokat közvetve gyűjtünk, amikor Ön kapcsolatba lép a ConstantaP
 
 
 További információkért lásd a Cookie-szabályzatunkat.
-Néha harmadik felektől is kapunk adatokat. Például, amikor Ön bankkártyát regisztrál az alkalmazásban, hogy a ConstantaParking szolgáltatásait igénybe vehesse, kártyaengedélyezési szolgáltatásokat veszünk igénybe.
+Néha harmadik felektől is kapunk adatokat. Például, amikor Ön bankkártyát regisztrál az alkalmazásban, hogy a UpPark szolgáltatásait igénybe vehesse, kártyaengedélyezési szolgáltatásokat veszünk igénybe.
 A személyes adatok feldolgozásának célja
 Az Öntől kért adatokat a FASTPARK-szolgáltatások nyújtása és az Önnel való kommunikáció érdekében dolgozzuk fel.
 Szerződéses kapcsolat
@@ -90,7 +90,7 @@ A FASTPARK-nak meg kell osztania az Ön személyes adatainak egy részét harmad
 	 információk nyújtása a könyvvizsgálóknak a FASTPARK pénzügyi kimutatásainak és működésének független könyvvizsgálatával kapcsolatban. Ezek a könyvvizsgálók azonban semmilyen más célra nem használhatják fel a személyazonosításra alkalmas információkat;
 	 a személyes adatok megosztása a FASTPARK (vagy eszközeinek többsége) potenciális vevőjével, illetve egyesülés, átszervezés vagy belső felvásárlás esetén;
 	 információk továbbítása kapcsolt vállalkozásainknak. A kapcsolt vállalkozásoknak átadott személyes adatokat a kapcsolt vállalkozások a jelen irányelvvel összhangban kezelik, és mi vagyunk felelősek a közösen használt személyes adatok kezeléséért;.
-	 A statisztikai adatok összesített adatait statisztikai vagy PR-célokból nyilvánosságra hozhatjuk. Például nyilvánosságra hozhatjuk, hogy a ConstantaParking felhasználók bizonyos százaléka SMS-ben fizet. Ezek az adatok nem kapcsolódnak személyes 	adatokhoz.
+	 A statisztikai adatok összesített adatait statisztikai vagy PR-célokból nyilvánosságra hozhatjuk. Például nyilvánosságra hozhatjuk, hogy a UpPark felhasználók bizonyos százaléka SMS-ben fizet. Ezek az adatok nem kapcsolódnak személyes 	adatokhoz.
 
 Az Ön személyes adatainak továbbítása
 Személyes adatait továbbíthatjuk harmadik fél szolgáltatóknak, hogy a FASTPARK egyes szolgáltatásait nyújthassuk Önnek. E szolgáltatók némelyike az Európai Unión kívüli országokban székelhet. A harmadik fél szolgáltatókkal kötött, a személyes adatok védelmére vonatkozó jogszabályoknak megfelelő adatvédelmi záradékokat tartalmazó megállapodásokkal biztosítjuk, hogy a harmadik fél szolgáltatók megfelelő védelmet nyújtsanak az Ön személyes adatainak.
@@ -100,12 +100,12 @@ Bár az interneten keresztül történő adattovábbítás nem garantálható 10
 A FASTPARK a következő biztonsági intézkedések mellett kötelezte el magát, hogy biztosítsa az Ön személyes adatainak megfelelő védelmét:
 
 	 minden személyes adatot elektronikusan tárolnak egy titkosított, tűzfallal védett adatbázisban;
-	 Az ConstantaParking szolgáltatás biztonságos környezetben található, amely tűzfalat és más fejlett technológiákat használ a külső beavatkozások vagy hozzáférés megakadályozására;
-	 A személyes adatok tárolására szolgáló adatbázishoz csak azok férhetnek hozzá, akiknek szükségük van rá. A szerverek, ahol az ConstantaParking szolgáltatás található, a nap 	24 órájában felügyelet alatt állnak, és fizikailag őrzik őket.
+	 Az UpPark szolgáltatás biztonságos környezetben található, amely tűzfalat és más fejlett technológiákat használ a külső beavatkozások vagy hozzáférés megakadályozására;
+	 A személyes adatok tárolására szolgáló adatbázishoz csak azok férhetnek hozzá, akiknek szükségük van rá. A szerverek, ahol az UpPark szolgáltatás található, a nap 	24 órájában felügyelet alatt állnak, és fizikailag őrzik őket.
 
 Az Ön személyes adatai megőrzésének időtartama
 A FASTPARK az Ön adatait az adatvédelmi törvényeknek megfelelően tárolja.
-Ha Ön fiókot hoz létre, vagy ha ConstantaParking-szolgáltatásokat vesz igénybe, a személyes adatokat (beleértve az egyes parkolási munkamenetekre és tranzakciókra vonatkozó információkat is) csak addig őrizzük meg, ameddig az ésszerűen szükséges azon meghatározott célok teljesítéséhez, amelyekhez az adatokat gyűjtöttük, vagy ameddig az törvényes célokból szükséges.
+Ha Ön fiókot hoz létre, vagy ha UpPark-szolgáltatásokat vesz igénybe, a személyes adatokat (beleértve az egyes parkolási munkamenetekre és tranzakciókra vonatkozó információkat is) csak addig őrizzük meg, ameddig az ésszerűen szükséges azon meghatározott célok teljesítéséhez, amelyekhez az adatokat gyűjtöttük, vagy ameddig az törvényes célokból szükséges.
 Ha fiókot hoz létre, személyes adatait mindaddig megőrizzük, amíg a fiókkal rendelkezik. Ha úgy dönt, hogy bezárja a fiókját, akkor a FASTPARK adatbázisában megszűntnek jelöljük a fiókját, de bizonyos mennyiségű adatot meg kell őriznünk a FASTPARK adatbázisában addig, amíg szükséges a jogi kötelezettségeknek való megfeleléshez, vagy a FASTPARK költségvetési kötelezettségeinek elévüléséig, attól függően, hogy melyik a rövidebb.
 Az Ön személyes adatvédelmi jogai
 Ön jogosult arra, hogy hozzáférést kérjen személyes adataihoz, és megismerje, hogy a FASTPARK hogyan használja fel személyes adatait.
@@ -126,7 +126,7 @@ Elutasíthatjuk az Ön törlési kérelmét, ha:
 (b) ha az adatok szükségesek a FASTPARK bírósági jogainak megállapításához, gyakorlásához vagy védelméhez.
 Vannak más körülmények is, amelyek esetén nem vagyunk kötelesek eleget tenni az adatok törlésére irányuló kérésének, bár ez a két körülmény a legvalószínűbb, amelyek esetén elutasíthatjuk a kérését.
 Felhívjuk figyelmét, hogy mielőtt élne ezzel a jogával, töltse le az alkalmazásban lévő fiókjából és mentse el az előfizetésen keresztül végrehajtott tranzakciókkal kapcsolatos összes dokumentumot.
-Ha Ön nem teszi meg ezt a lépést a törlési jog gyakorlása előtt, akkor elveszíti ezeket a dokumentumokat, és alulírott nem tudja azokat adott esetben az Ön rendelkezésére bocsátani, mivel az adatok, nevezetesen az ConstantaParking-fiók és a hozzá kapcsolódó összes adat és dokumentum törlése visszafordíthatatlan folyamat.
+Ha Ön nem teszi meg ezt a lépést a törlési jog gyakorlása előtt, akkor elveszíti ezeket a dokumentumokat, és alulírott nem tudja azokat adott esetben az Ön rendelkezésére bocsátani, mivel az adatok, nevezetesen az UpPark-fiók és a hozzá kapcsolódó összes adat és dokumentum törlése visszafordíthatatlan folyamat.
 Az adatkezelés korlátozásához való jog - Ön kérheti az adatkezelés korlátozását olyan esetekben, amikor:
 a) megkérdőjelezi az adatok pontosságát egy olyan időtartamra, amely lehetővé teszi számunkra, hogy ellenőrizzük az adatok pontosságát;
 b) az adatkezelés jogellenes, de Ön tiltakozik a személyes adatok törlése ellen, és ehelyett azok korlátozását kéri;

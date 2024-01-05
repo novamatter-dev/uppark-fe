@@ -24,22 +24,16 @@ const ParkDetails = () => {
       <Text style={ParkDetailsStyle.placeDetailsEntry}>
         <Text style={ParkDetailsStyle.placeDetailsEntryTitle}>
           {t('worktime')} &bull;{' '}
-          {parkingsData.parkingDetails.isAvailable ? (
-            <Text
-              style={
-                parkingsData.parkingDetails.isOpened === true
-                  ? ParkDetailsStyle.opened
-                  : ParkDetailsStyle.closed
-              }>
-              {parkingsData.parkingDetails.isOpened === true
-                ? t('opened')
-                : t('closed')}
-            </Text>
-          ) : (
-            <Text style={ParkDetailsStyle.closed}>
-              {t('parking_unavailable')}
-            </Text>
-          )}
+          <Text
+            style={
+              parkingsData.parkingDetails.isOpened === true
+                ? ParkDetailsStyle.opened
+                : ParkDetailsStyle.closed
+            }>
+            {parkingsData.parkingDetails.isOpened === true
+              ? t('opened')
+              : t('closed')}
+          </Text>
         </Text>
       </Text>
 
@@ -59,13 +53,15 @@ const ParkDetails = () => {
         </Text>
       </Text>
 
-      {parkingDetails?.amenities.length > 0 && (
+      {parkingDetails?.amenities.length > 0 ||
+      (parkingDetails?.amenities.length === 0 &&
+        parkingsData.parkingDetails.isAvailable === false) ? (
         <Text style={ParkDetailsStyle.placeDetailsEntry}>
           <Text style={ParkDetailsStyle.placeDetailsEntryTitle}>
             {t('amenities')}
           </Text>
         </Text>
-      )}
+      ) : null}
       <View
         style={{
           display: 'flex',
@@ -74,28 +70,56 @@ const ParkDetails = () => {
           flexWrap: 'wrap',
         }}>
         {parkingDetails?.amenities.map((parking, index) => {
-          return (
-            <Text
-              style={ParkDetailsStyle.placeDetailsEntryContent}
-              key={parking}>
-              <Text style={ParkDetailsStyle.detailsText}>
-                {parking === 'Locuri pentru handicapati'
-                  ? t('disabled_parking')
-                  : parking === 'Plata prin card'
-                  ? t('card_pay')
-                  : parking === 'Plata Parcometru'
-                  ? t('parcomat_payment')
-                  : t(parking)}
-              </Text>
-              {index !== parkingDetails?.amenities.length - 1 && (
-                <Text style={ParkDetailsStyle.placeDetailsEntryBullet}>
-                  {' '}
-                  &bull;{' '}
+          if (parking !== 'Plata prin card') {
+            return (
+              <Text
+                style={ParkDetailsStyle.placeDetailsEntryContent}
+                key={parking}>
+                <Text style={ParkDetailsStyle.detailsText}>
+                  {parking === 'Locuri pentru handicapati'
+                    ? t('disabled_parking')
+                    : parking === 'Plata prin card'
+                    ? t('card_pay')
+                    : parking === 'Plata Parcometru'
+                    ? t('parcomat_payment')
+                    : t(parking)}
                 </Text>
-              )}
-            </Text>
-          );
+                {index !== parkingDetails?.amenities.length - 1 && (
+                  <Text style={ParkDetailsStyle.placeDetailsEntryBullet}>
+                    {' '}
+                    &bull;{' '}
+                  </Text>
+                )}
+              </Text>
+            );
+          } else if (
+            parking === 'Plata prin card' &&
+            parkingsData.parkingDetails.isAvailable
+          ) {
+            return (
+              <Text
+                style={ParkDetailsStyle.placeDetailsEntryContent}
+                key={parking}>
+                <Text style={ParkDetailsStyle.detailsText}>
+                  {t('card_payment')}
+                </Text>
+                {index !== parkingDetails?.amenities.length - 1 && (
+                  <Text style={ParkDetailsStyle.placeDetailsEntryBullet}>
+                    {' '}
+                    &bull;{' '}
+                  </Text>
+                )}
+              </Text>
+            );
+          }
         })}
+        {!parkingsData.parkingDetails.isAvailable && (
+          <Text
+            style={ParkDetailsStyle.placeDetailsEntryContentRed}
+            key={'unavailable-parking'}>
+            {t('parking_card_payment_unavailable')}
+          </Text>
+        )}
       </View>
     </Box>
   );

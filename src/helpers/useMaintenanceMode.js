@@ -16,14 +16,19 @@ export const useMaintenanceMode = () => {
     const body = {
       platform: Platform.OS.toUpperCase(),
       clientVersion: appVer,
+      // TODO: CHANGES BETWEEN UPPARK AND CONSTANTA PARKING:
+      source: 'UPPARK', // 'UPPARK'
     };
 
     await checkForUpates(body)
       .then(answer => {
         // TODO: Maintenance mode
+        // TOOD: SOLVE IN THE NEXT UPDATE, IN THE 1.2.1 VERSION THE MAINTENANCE MODE IS NEGATED
         if (answer?.data?.maintenanceMode) {
+          console.log('check for updates go to maintenance');
           navigation.navigate('Maintenance');
         } else {
+          console.log('check for updates else');
           if (jwt) {
             navigation.navigate('HomeDrawer');
           } else {

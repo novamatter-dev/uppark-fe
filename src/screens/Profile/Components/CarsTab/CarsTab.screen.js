@@ -3,7 +3,7 @@ import {Alert, View} from 'react-native';
 //style
 import ProfileStyle from '../../Profile.style';
 
-import {Box, Text} from 'native-base';
+import {Box, ScrollView, Text} from 'native-base';
 //components
 import {
   Modal,
@@ -176,14 +176,7 @@ const CarsTab = props => {
         </View>
       )}
       <View style={ProfileStyle.screenContainer}>
-        <View
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            // paddingHorizontal: "7%",
-            paddingTop: 0,
-          }}>
+        <ScrollView style={ProfileStyle.carsListContainer}>
           {cars?.map((item, index) => {
             return (
               <CarRow
@@ -197,11 +190,10 @@ const CarsTab = props => {
                 style={ProfileStyle.carEntry}
                 item={item}
                 isSelected={activeCarId === item.carId}
-                // marginBottom={5}
               />
             );
           })}
-        </View>
+        </ScrollView>
       </View>
       <View style={ProfileStyle.addCarBtnBox}>
         <ButtonComponent
@@ -219,14 +211,14 @@ const CarsTab = props => {
           onDeletePress={handleOnDeletePress}
           onConfirm={handleUpdate}
         />
-        <Toast
-          ref={toastRef}
-          style={{
-            zIndex: 3,
-            elevation: 3,
-          }}
-        />
       </Modal>
+      <Toast
+        ref={toastRef}
+        style={{
+          zIndex: 3,
+          elevation: 3,
+        }}
+      />
     </View>
   );
 };

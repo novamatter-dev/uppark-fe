@@ -166,27 +166,26 @@ const GooglePlacesInput = props => {
     setIsResultsVisible(false);
   };
 
-  useEffect(() => {
-    if (searchIsActive) {
-      autocompleteRef.current.focus();
-    }
-  }, [searchIsActive]);
-
   return (
     <GooglePlacesAutocomplete
       ref={autocompleteRef}
       minLength={2}
       isRowScrollable={true}
       fetchDetails
+      textInputProps={{selection: {start: 1, end: 1}}}
       styles={{
         container: {
           ...SearchStyle.inputContainer,
-          borderBottomLeftRadius: !isResultsVisible && !noResults ? 24 : 0,
-          borderBottomRightRadius: !isResultsVisible && !noResults ? 24 : 0,
+          borderBottomLeftRadius: !isResultsVisible ? 24 : 0,
+          borderBottomRightRadius: !isResultsVisible ? 24 : 0,
         },
         textInput: SearchStyle.textInput,
         listView: SearchStyle.listView,
-        row: SearchStyle.row,
+        row: {
+          ...SearchStyle.row,
+          borderBottomLeftRadius: !isResultsVisible ? 24 : 0,
+          borderBottomRightRadius: !isResultsVisible ? 24 : 0,
+        },
         description: SearchStyle.blackText,
         predefinedPlacesDescription: SearchStyle.blackText,
       }}
@@ -240,7 +239,7 @@ const GooglePlacesInput = props => {
       listEmptyComponent={
         <View
           style={{
-            ...SearchStyle.inputContainer,
+            ...SearchStyle.emptyInputContainer,
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
           }}>
@@ -268,6 +267,7 @@ const GooglePlacesInput = props => {
         </View>
       }
       query={{
+        // TODO: modify key
         key: 'AIzaSyAuBxdG1seHKpaC9cl4qFXyTp3e3YjYXcQ',
         language: 'ro',
         components: 'country:ro',
@@ -277,8 +277,13 @@ const GooglePlacesInput = props => {
         autoCorrect: false,
         placeholderTextColor: GREY,
         onChange: val => {
-          if (val.nativeEvent.text.length === 2) {
+          if (
+            val.nativeEvent.text.length === 1 ||
+            val.nativeEvent.text.length === 0
+          ) {
             setIsResultsVisible(false);
+          } else {
+            setIsResultsVisible(true);
           }
         },
       }}
@@ -287,17 +292,12 @@ const GooglePlacesInput = props => {
         const address = rowData.structured_formatting.secondary_text;
         const description = rowData.description;
 
-        if (index > -1 && isResultsVisible === false) {
-          setNoResults(false);
-          setIsResultsVisible(true);
-        }
-
         return (
           <View
             style={{
               ...SearchStyle.resultItem,
-              borderTopLeftRadius: index === arr.length - 1 ? 25 : 0,
-              borderTopRightRadius: index === arr.length - 1 ? 25 : 0,
+              borderBottomLeftRadius: index === 0 ? 25 : 0,
+              borderBottomRightRadius: index === 0 ? 25 : 0,
             }}>
             <View style={SearchStyle.contentBody}>
               <Text style={SearchStyle.resultText}>{title}</Text>
@@ -332,7 +332,7 @@ const GooglePlacesInput = props => {
             }}>
             <TouchableOpacity
               onPress={handleCloseSearch}
-              style={{...HomeStyle.closeSearchIconStyle}}>
+              style={{...SearchStyle.backIcon}}>
               <SvgXml xml={svgs.arrowLeft} />
             </TouchableOpacity>
           </View>

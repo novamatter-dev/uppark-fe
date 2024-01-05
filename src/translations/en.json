@@ -132,7 +132,7 @@
   "extend": "extend",
   "missing_parking_lots": "There are no parking lots in your area!",
   "you_ve_just_parked": "You've just parked",
-  "uppark_services": "We are glad that you used ConstantaParking services",
+  "uppark_services": "We are glad that you used UpPark services",
   "sensor_disclaimer_text": "Reservation are only valid for 30 minutes!",
   "pay": "PAY",
   "reserve_action_title": "Reserve for 30 minutes?",
@@ -196,7 +196,7 @@
   "YOU_JUST_PARKED_QUESTION": "We need to find out if you have taken the reserved parking spot or not",
   "YOUR_RESERVATION_WILL_EXPIRE": "Your reservation is about to expire",
   "YOUR_RESERVATION_EXPIRED_BODY": "Unfortunately, your reservation has expired!",
-  "THANK_YOU_FOR_USING_OUR_APP": "Thank you for using ConstantaParking",
+  "THANK_YOU_FOR_USING_OUR_APP": "Thank you for using UpPark",
   "SMS_CODE_EXPIRED": "The code has expired!",
   "maintenance_text": "Our app is currently under maintenance, we apologize for any inconvenience this may cause.",
   "business_profile_saved": "Business profile saved !",
@@ -220,7 +220,11 @@
   "payment_rejected_content": "We're sorry, but your payment could not be processed. Please check your payment details and try again. For further assistance, visit our Help Center or contact support.",
   "delete_card_button": "Delete card",
   "edit_card": "Edit card",
-  "parking_unavailable": "Parking is unavailable for the moment",
+  "parking_card_payment_unavailable": "Card payment is currently unavailable",
   "card_pay": "Card payment",
-  "parcomat_payment": "Parcomat payment"
+  "parcomat_payment": "Parcomat payment",
+  "billing_information_required": "Billing information required",
+  "billing_information_required_content": "We need your billing details to process the payment. Your information will be securely saved for future transactions. Thank you!",
+  "the_ticket_was_already_paid": "The ticket was already paid",
+  "new_card": "New card"
 }

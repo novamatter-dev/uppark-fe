@@ -95,9 +95,13 @@ const CarDetails = props => {
         handleOnPress={onClosePress}
         iconType={'exit'}
       />
-      <ScrollView
+      <View
         showsVerticalScrollIndicator={false}
-        style={{paddingBottom: 30, height: 300, overflow: 'hidden'}}>
+        style={{
+          paddingBottom: 30,
+          height: '100%',
+          overflow: 'hidden',
+        }}>
         <Box style={CarDetailsStyle.boxContainer}>
           <View style={CarDetailsStyle.itemWrapper}>
             <View style={CarDetailsStyle.carInfo}>
@@ -111,7 +115,7 @@ const CarDetails = props => {
             </TouchableOpacity>
           </View>
 
-          <View style={{width: '100%'}}>
+          <View style={{width: '100%', height: '100%'}}>
             {carProps?.map(item => {
               return (
                 <TouchableOpacity
@@ -153,7 +157,7 @@ const CarDetails = props => {
             minimumDate={new Date()}
           />
         </Box>
-      </ScrollView>
+      </View>
       <View
         style={{
           display: 'flex',

@@ -1,45 +1,40 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {SafeAreaView, View, TouchableOpacity, Text} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 //assets & style
 import {SvgXml} from 'react-native-svg';
-import AddPersonalStyle from './AddPersonal.style';
 import svgs from '../../assets/svgs';
-import visa from '../../assets/icons/visa.png';
 import {AQUA} from '../../helpers/style/constants';
+import AddPersonalStyle from './AddPersonal.style';
 //libraries
 import {Box, ScrollView, useToast} from 'native-base';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import PropTypes from 'prop-types';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 //components
-import BaseInput from '../BaseInput';
-import KeyboardView from '../KeyboardView';
-import {
-  NativeBaseBackButton,
-  NativeBaseButton,
-  Title,
-  Modal,
-  ButtonComponent,
-} from '../index';
 import {PaymentOptions} from '../../screens/PaymentDetails/components';
+import BaseInput from '../BaseInput';
+import {ButtonComponent, Modal, NativeBaseBackButton, Title} from '../index';
 //redux
-import {useSelector, useDispatch} from 'react-redux';
+import {t} from 'i18next';
+import Toast from 'react-native-toast-notifications';
+import {useDispatch, useSelector} from 'react-redux';
+import {setPersonalEntry} from '../../redux/features/users/userSlice';
 import {
-  setPersonalEntry,
-  resetUserState,
-} from '../../redux/features/users/userSlice';
-import {
-  useUpdatePersonalProfileMutation,
   useGetPersonalProfileMutation,
+  useGetUserMutation,
+  useUpdatePersonalProfileMutation,
+  useUpdateUserMutation,
+  useUpdateUserPhoneNumberMutation,
 } from '../../services/users';
 import {useSetPersonalDefaultPaymentMutation} from '../../services/wallets';
-import Toast from 'react-native-toast-notifications';
-import {t} from 'i18next';
+import Dropdown from '../Dropdown/Dropdown';
+import {dialCodes} from '../../constants/dialCodes';
+import LoginPhoneStyle from '../../screens/Login/Components/LoginPhone/LoginPhone.style';
+import {TextInput} from 'react-native';
 
-const AddPersonal = props => {
-  const {onClosePress, isDisabled, isLoading, handleGetCards} = props;
+const AddPersonalDataModalContent = props => {
+  const {onClosePress, isDisabled, handleGetCards} = props;
 
   const personalState = useSelector(state => state.users.personal);
-  const businessState = useSelector(state => state.users.business);
   const dispatch = useDispatch();
   const toastRef = useRef();
   const toast = useToast();
@@ -47,19 +42,33 @@ const AddPersonal = props => {
   const [updatePersonalDetails] = useUpdatePersonalProfileMutation();
   const [getPersonalProfile] = useGetPersonalProfileMutation();
   const [setPersonalDefaultPayment] = useSetPersonalDefaultPaymentMutation();
+  const [getUserDetails] = useGetUserMutation();
+  const [updateUserPhoneNumber] = useUpdateUserPhoneNumberMutation();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [userPhoneNumber, setUserPhoneNumber] = useState('');
+  const [prefix, setPrefix] = useState('+40');
 
   useEffect(() => {
     handleGetPersonalDetails();
+    getDetails();
   }, []);
 
+  const getDetails = async () => {
+    await getUserDetails().then(answer => {
+      console.log('>>> getUserDetails:', answer.data.phoneNumber);
+      if (answer.data.phoneNumber) {
+        const phoneNumberWithoutPrefix = answer.data.phoneNumber.substring(3);
+        console.log('>>> phoneNumberWithoutPrefix:', phoneNumberWithoutPrefix);
+        setUserPhoneNumber(phoneNumberWithoutPrefix);
+      }
+    });
+  };
+
   const handleGetPersonalDetails = async () => {
-    await getPersonalProfile()
-      .then(answer => {})
-      .catch(err => {
-        console.log('ERR getPersonalProfile >>> ', err);
-      });
+    await getPersonalProfile().catch(err => {
+      console.log('ERR getPersonalProfile >>> ', err);
+    });
   };
 
   const handleChangeFormState = ({type, label, value}) => {
@@ -83,8 +92,17 @@ const AddPersonal = props => {
 
     await updatePersonalDetails(body)
       .then(() => {
+        console.log('>>>UPDATE PHONE NUMBER', `${prefix}${userPhoneNumber}`);
+        updateUserPhoneNumber({phoneNumber: `${prefix}${userPhoneNumber}`})
+          .then(answer => {
+            console.log('>>>UPDATE PHONE NUMBER answer:', answer);
+            handleSuccessToast();
+          })
+          .catch(err => {
+            console.log('>>>UPDATE PHONE NUMBER ERR:', err);
+          });
+
         closeModal && onClosePress();
-        handleSuccessToast();
       })
       .catch(err => {
         console.log('ERR updatePersonalDetails >>> ', err);
@@ -140,6 +158,15 @@ const AddPersonal = props => {
     });
   };
 
+  const handleChangePhoneNumber = value => {
+    setUserPhoneNumber(value);
+    handleChangeFormState({
+      type: 'phoneNumber',
+      value: prefix + value,
+      label: 'Phone Number',
+    });
+  };
+
   const handlePlaceholder = name => {
     switch (name) {
       case 'First Name':
@@ -162,41 +189,44 @@ const AddPersonal = props => {
     }
   };
 
+  // TODO: refactor this component
+  const isButtonDisabled =
+    personalState.firstName.value?.length > 0 &&
+    personalState.lastName.value?.length > 0 &&
+    personalState.address.value?.length > 0 &&
+    personalState.email.value?.length > 0 &&
+    userPhoneNumber?.length > 0
+      ? true
+      : false;
+
   return (
     <View style={AddPersonalStyle.safeAreaContainer}>
-      {/* <ScrollView style={AddPersonalStyle.container}> */}
-      {/* <KeyboardView boxStyle={AddPersonalStyle.container}> */}
       <NativeBaseBackButton
         isLoading={false}
-        style={{backgroundColor: '#F5F5F5'}}
+        iconType={'exit'}
         handleOnPress={onClosePress}
         isDisabled={false}
+        style={{backgroundColor: '#F5F5F5'}}
       />
-      <Title label={t('personal_profile')} style={AddPersonalStyle.title} />
 
-      {/* <Box style={AddPersonalStyle.inputContainer}>
-      
-      </Box> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={AddPersonalStyle.container}>
         <KeyboardAwareScrollView>
+          <Title
+            label={t('billing_information_required')}
+            style={AddPersonalStyle.title}
+          />
+          <Text style={AddPersonalStyle.subtitle}>
+            {t('billing_information_required_content')}
+          </Text>
           {Object.keys(personalState).map((item, index) => {
-            if (item === 'cardNumber' && item !== 'phoneNumber') {
-              return (
-                <TouchableOpacity
-                  onPress={() => handleChooseDefaultPayment(true)}
-                  style={AddPersonalStyle.detailsBtn}
-                  key={`key--${item}`}>
-                  <SvgXml xml={svgs.copy} width={22} height={24} />
-                  <Text style={AddPersonalStyle.btnLabel}>
-                    {personalState.cardNumber.value
-                      ? `**** ${personalState.cardNumber.value.slice(-4)}`
-                      : t('default_payment')}
-                  </Text>
-                </TouchableOpacity>
-              );
-            } else if (item !== 'phoneNumber') {
+            if (
+              item !== 'cardNumber' &&
+              item !== 'city' &&
+              item !== 'county' &&
+              item !== 'phoneNumber'
+            ) {
               return (
                 <BaseInput
                   onPress={
@@ -224,10 +254,31 @@ const AddPersonal = props => {
                   value={personalState[item].value}
                   key={`personal-inputs-${String(index)}`}
                   capitalize={'sentences'}
+                  isInvalid={personalState[item].value === 0}
                 />
               );
             }
           })}
+          {/* TODO: add country code */}
+
+          <View style={{marginTop: 9}}>
+            <Box style={LoginPhoneStyle.input}>
+              <Dropdown data={dialCodes} setDial={setPrefix} dial={prefix} />
+              <TextInput
+                onChangeText={event => handleChangePhoneNumber(event)}
+                value={userPhoneNumber}
+                name={'phoneNumber'}
+                placeholder={t('phone_number')}
+                placeholderTextColor={'#e3e3e3'}
+                keyboardType="numeric"
+                style={{
+                  ...LoginPhoneStyle.textInput,
+                  paddingVertical: Platform.OS === 'ios' ? 0 : 0,
+                }}
+                maxLength={prefix === '+40' ? 9 : 15}
+              />
+            </Box>
+          </View>
         </KeyboardAwareScrollView>
       </ScrollView>
       {/* </KeyboardView> */}
@@ -236,7 +287,7 @@ const AddPersonal = props => {
         <ButtonComponent
           text={t('confirm').toUpperCase()}
           onPress={() => handleSubmit({closeModal: true})}
-          isDisabled={isDisabled}
+          isDisabled={!isButtonDisabled}
         />
       </View>
       <Modal isFullScreen={true} modalVisible={modalVisible}>
@@ -266,7 +317,7 @@ const AddPersonal = props => {
   );
 };
 
-AddPersonal.propTypes = {
+AddPersonalDataModalContent.propTypes = {
   onClosePress: PropTypes.func,
   onConfirmPress: PropTypes.func,
   isDisabled: PropTypes.bool,
@@ -275,4 +326,4 @@ AddPersonal.propTypes = {
   onChangeText: PropTypes.func,
 };
 
-export default AddPersonal;
+export default AddPersonalDataModalContent;

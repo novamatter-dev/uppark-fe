@@ -80,7 +80,7 @@
 		39DBD2ED295C9AE300FB828D /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 39DBD2EC295C9AE300FB828D /* main.jsbundle */; };
 		5496B101AEFA52BCA2011A90 /* libPods-UpPark-UpParkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E14FD3D4CD79AFFCF556FDB1 /* libPods-UpPark-UpParkTests.a */; };
 		5CB4F7DEEC87AA5E21B2D5E8 /* libPods-UpPark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4A145B88D81E53982F4F1E3 /* libPods-UpPark.a */; };
-		A5EC31882B23113B000B12F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5EC31872B23113B000B12F1 /* GoogleService-Info.plist */; };
+		A55391BC2B3DDF4C002FDA84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A55391BB2B3DDF4C002FDA84 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,7 +232,7 @@
 		3A5DEBC64A4CB52084D44EB9 /* Pods-UpPark-UpParkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpPark-UpParkTests.release.xcconfig"; path = "Target Support Files/Pods-UpPark-UpParkTests/Pods-UpPark-UpParkTests.release.xcconfig"; sourceTree = "<group>"; };
 		6646EF21E8959FE22E9BC17B /* Pods-UpPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpPark.release.xcconfig"; path = "Target Support Files/Pods-UpPark/Pods-UpPark.release.xcconfig"; sourceTree = "<group>"; };
 		A4A145B88D81E53982F4F1E3 /* libPods-UpPark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UpPark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5EC31872B23113B000B12F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A55391BB2B3DDF4C002FDA84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ADF129ACF9E77B75EFE4625E /* Pods-UpPark-UpParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpPark-UpParkTests.debug.xcconfig"; path = "Target Support Files/Pods-UpPark-UpParkTests/Pods-UpPark-UpParkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B955B3B7E7FB4F41A15CD1A3 /* Pods-UpPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpPark.debug.xcconfig"; path = "Target Support Files/Pods-UpPark/Pods-UpPark.debug.xcconfig"; sourceTree = "<group>"; };
 		E14FD3D4CD79AFFCF556FDB1 /* libPods-UpPark-UpParkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UpPark-UpParkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -471,7 +471,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				A5EC31872B23113B000B12F1 /* GoogleService-Info.plist */,
+				A55391BB2B3DDF4C002FDA84 /* GoogleService-Info.plist */,
 				39DBD2EC295C9AE300FB828D /* main.jsbundle */,
 				39DBD27B295C9A4D00FB828D /* AirGoogleMaps */,
 				39DBD23A295C9A4D00FB828D /* AirMaps */,
@@ -614,7 +614,7 @@
 			files = (
 				39337CD3295AF5D9004B7720 /* AzoSans-Bold.woff in Resources */,
 				39337CD4295AF5D9004B7720 /* AzoSans-Bold.woff2 in Resources */,
-				A5EC31882B23113B000B12F1 /* GoogleService-Info.plist in Resources */,
+				A55391BC2B3DDF4C002FDA84 /* GoogleService-Info.plist in Resources */,
 				39337CD5295AF5D9004B7720 /* AzoSans-Medium.ttf in Resources */,
 				39337CD6295AF5D9004B7720 /* AzoSans-Medium.woff in Resources */,
 				39337CD7295AF5D9004B7720 /* AzoSans-Bold.ttf in Resources */,
@@ -949,7 +949,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = UpPark/UpPark.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9LKHB22MV7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -960,7 +960,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -983,7 +983,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = UpPark/UpPark.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9LKHB22MV7;
 				INFOPLIST_FILE = UpPark/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = UpPark;
@@ -992,7 +992,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",

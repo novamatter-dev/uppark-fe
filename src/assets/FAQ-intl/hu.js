@@ -1,5 +1,5 @@
-export const hu = `1. Mi az ConstantaParking
-- ConstantaParking egy mobilalkalmazás a parkolási díj fizetésére
+export const hu = `1. Mi az UpPark
+- UpPark egy mobilalkalmazás a parkolási díj fizetésére
 
 2. Hogyan fizethetem be a parkolási díjat?
 -A parkolási díjat az alkalmazásban regisztrált bankkártyával, valamint SMS-üzenetben
@@ -18,22 +18,22 @@ parkoláskor (a parkolás kezdetén) fizesse be.
 - A sorompóval ellátott parkolók esetében a parkolási díjat akkor kell megfizetni,
 amikor el akarjuk hagyni a parkolót.
 
-4. Hogyan hosszabbíthatom meg a parkolást, ha ConstantaParking-ot használtam?
+4. Hogyan hosszabbíthatom meg a parkolást, ha UpPark-ot használtam?
 Amikor a fizetett parkolási díj időtartama lejár, értesítést kap, és lehetősége lesz
 meghosszabbítani az időtartamot. A parkolást a felhasználó manuálisan is
 meghosszabbíthatja a megfelelő díj megfizetésével.
 
 FONTOS
-- Ha az ConstantaParking értesítések fogadása opció nincs bejelölve, akár az alkalmazásból,
+- Ha az UpPark értesítések fogadása opció nincs bejelölve, akár az alkalmazásból,
 akár a telefon általános beállításaiból, a felhasználó nem kap értesítést, ha egy
 termékfoglalás az alkalmazásban hamarosan lejár. Javasoljuk, hogy tartsa bekapcsolva az
-ConstantaParking összes értesítését.
+UpPark összes értesítését.
 
 - A rendszerértesítések bekapcsolásához iOS esetén válassza a Beállítások - Értesítések
-menüpontot, majd válassza ki az ConstantaParking alkalmazást, és jelölje be az Értesítések
+menüpontot, majd válassza ki az UpPark alkalmazást, és jelölje be az Értesítések
 engedélyezése jelölőnégyzetet.
 - Android esetében válassza a Beállítások - Értesítések menüpontot, majd válassza ki
-az ConstantaParking alkalmazást, és jelölje be az Értesítések megjelenítése jelölőnégyzetet.
+az UpPark alkalmazást, és jelölje be az Értesítések megjelenítése jelölőnégyzetet.
 
 5. Hogyan fizethetek sms-ben?
 - töltse le az alkalmazást a Play áruházból vagy az alkalmazásboltból, és lépjen be

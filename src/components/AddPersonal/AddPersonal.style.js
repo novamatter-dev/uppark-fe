@@ -35,6 +35,13 @@ const AddPhoneStyle = StyleSheet.create({
     marginVertical: hp(2.95),
   },
 
+  subtitle: {
+    fontSize: 12,
+    color: '#B6B7BF',
+    fontFamily: 'AzoSans-Bold',
+    marginBottom: hp(2),
+  },
+
   image: {
     width: 23,
     height: 23,

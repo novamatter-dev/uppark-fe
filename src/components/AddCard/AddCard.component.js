@@ -107,12 +107,16 @@ const AddCard = props => {
     } else {
       if (body.cardNumber.length && !isInvalidDate) {
         setIsInvalidDate(false);
+
+        console.log('createCard:', body);
         await createCard(body)
           .then(answer => {
             onClosePress();
             handleSuccessToast();
             handleGetCards();
             setModalVisible(false);
+
+            console.log('answer.data createCard >>> ', answer.data);
 
             toast.show({
               placement: 'top',
@@ -308,8 +312,8 @@ const AddCard = props => {
                     ? svgs.cardDanger
                     : svgs.card
                 }
-                width={hp(2.70)}
-                height={hp(2.70)}
+                width={hp(2.7)}
+                height={hp(2.7)}
               />
             }
             maxLength={16}
@@ -359,11 +363,15 @@ const AddCard = props => {
                         ? svgs.copyDanger
                         : svgs.drivingLicense
                     }
-                    width={hp(2.70)}
-                    height={hp(2.70)}
+                    width={hp(2.7)}
+                    height={hp(2.7)}
                   />
                 ) : (
-                  <SvgXml xml={svgs.copyDanger} width={hp(2.70)} height={hp(2.70)} />
+                  <SvgXml
+                    xml={svgs.copyDanger}
+                    width={hp(2.7)}
+                    height={hp(2.7)}
+                  />
                 )
               }
               name={svgs.copy}
@@ -385,8 +393,8 @@ const AddCard = props => {
                         ? svgs.copyDanger
                         : svgs.drivingLicense
                     }
-                    width={hp(2.70)}
-                    height={hp(2.70)}
+                    width={hp(2.7)}
+                    height={hp(2.7)}
                   />
                 }
                 name={svgs.copy}
@@ -416,8 +424,8 @@ const AddCard = props => {
                     ? svgs.profileDanger
                     : svgs.profile
                 }
-                width={hp(2.70)}
-                height={hp(2.70)}
+                width={hp(2.7)}
+                height={hp(2.7)}
               />
             }
             name={svgs.copy}

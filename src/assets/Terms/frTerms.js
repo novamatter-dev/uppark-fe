@@ -1,12 +1,12 @@
-export const fr = `CONDITIONS GÉNÉRALES D&#39;UTILISATION DU SITE WEB ET DE L&#39;APPLICATION ConstantaParking
+export const fr = `CONDITIONS GÉNÉRALES D&#39;UTILISATION DU SITE WEB ET DE L&#39;APPLICATION UpPark
 Les présentes conditions générales constituent l&#39;accord contractuel entre FAST PARK CO S.R.L. et vous,
 régissant à la fois les conditions d&#39;accès aux services de FAST PARK et les droits et obligations de
 chaque partie.
 Le soussigné, FAST PARK CO S.R.L., est une société roumaine, dont le siège est situé à Voluntari, Bd.
 Pipera n° 1B, L’Immeuble de bureaux Cubic Center, et. 7, département d&#39;Ilfov, Roumanie et détient les
-droits de propriété intellectuelle sur le site web et l&#39;application ConstantaParking.
-Si vous choisissez de télécharger l&#39;application ConstantaParking et de vous inscrire dans cette application, et
-donc d&#39;utiliser les services ConstantaParking, vous êtes réputé accepter inconditionnellement les présentes
+droits de propriété intellectuelle sur le site web et l&#39;application UpPark.
+Si vous choisissez de télécharger l&#39;application UpPark et de vous inscrire dans cette application, et
+donc d&#39;utiliser les services UpPark, vous êtes réputé accepter inconditionnellement les présentes
 conditions.
 Veuillez donc les lire attentivement avant de procéder au téléchargement et à l&#39;enregistrement de vos
 données personnelles dans l&#39;application.
@@ -19,7 +19,7 @@ vous continuez à utiliser nos services, il est présumé que vous acceptez les 
 ces conditions générales. Si vous n&#39;êtes pas d&#39;accord avec les changements, vous avez la possibilité de
 cesser d&#39;utiliser les services de FAST PARK. Ces conditions générales ont été mises à jour le
 ……………, date à laquelle elles n&#39;ont pas subi d&#39;autres modifications.
-ConstantaParking vous propose un mode de paiement à distance, à partir de votre téléphone mobile ou d&#39;un autre
+UpPark vous propose un mode de paiement à distance, à partir de votre téléphone mobile ou d&#39;un autre
 équipement mobile compatible (tablette, ordinateur portable, etc.), pour les services de stationnement
 proposés par nos partenaires. Vous pouvez payer ces services soit en utilisant votre carte bancaire, soit
 via votre opérateur mobile, auquel cas vous optez pour le paiement par SMS.
@@ -28,12 +28,12 @@ conditions générales ne constituent pas un contrat de stationnement. FAST PARK
 uniquement des services pour faciliter le paiement des frais de stationnement aux opérateurs
 publics ou privés. Le contrat pour les services de stationnement est conclu entre vous et le fournisseur
 de services de stationnement dans la zone/ville où vous stationnez.
-Les services ConstantaParking ne sont disponibles que dans certaines régions de Roumanie et nous ne
+Les services UpPark ne sont disponibles que dans certaines régions de Roumanie et nous ne
 garantissons pas leur disponibilité dans tout le pays.
 
 Les termes suivants ont la signification indiquée ci-dessous:
 Compte(s) désigne(nt) l&#39;ensemble des comptes de service de paiement de stationnement que vous avez
-ouverts sur l&#39;application ConstantaParking;
+ouverts sur l&#39;application UpPark;
 Service désigne les services offerts par FAST PARK CO S.R.L. pour faciliter le paiement des services
 des prestataires partenaires pour lesquels vous optez via l&#39;application (par exemple, paiement de tarifs
 horaires ou de cartes de stationnement, paiement de tickets ou de cartes de transport public, etc.) en
@@ -45,12 +45,12 @@ L’Immeuble de bureaux Cubic Center, et.7, Ilfov County, Roumanie, ainsi que no
 ou associés et toute autre entité que le soussigné ou nos associés pourraient créer à l&#39;avenir;
 Le site web, ou le site, désigne le site web actuellement utilisé ainsi que tout successeur de ce site web,
 sur lequel FAST PARK détient les droits de propriété intellectuelle;
-ConstantaParking désigne l&#39;application de paiement du stationnement par carte bancaire ou SMS, dont FAST
+UpPark désigne l&#39;application de paiement du stationnement par carte bancaire ou SMS, dont FAST
 PARK détient les droits de propriété intellectuelle.
 
 UTILISATION ET PAIEMENT DES SERVICES
 Pour accéder aux services de facilitation du stationnement FAST PARK, vous devez télécharger
-l&#39;application ConstantaParking, disponible dans l&#39;AppStore et le GooglePlay Store, sur votre téléphone portable.
+l&#39;application UpPark, disponible dans l&#39;AppStore et le GooglePlay Store, sur votre téléphone portable.
 Après le téléchargement, pour vous connecter à l&#39;application, vous devez soit créer un compte
 d&#39;utilisateur avec le mot de passe de votre choix, en fournissant les données personnelles demandées,
 soit utiliser un compte Facebook ou Google valide. Pour la politique de traitement des données
@@ -84,7 +84,7 @@ FAST PARK ne demande pas et ne conserve pas les données de votre carte, autres 
 exclusivement pour la plateforme de paiement en ligne.
 FAST PARK accepte les cartes: Visa, Mastercard, Discover, AmericanExpress, JCB, WrightExpress,
 Carte Blanche et Diner&#39;s Club.
-Par le biais de l&#39;application ConstantaParking, les paiements ne peuvent être effectués qu&#39;à FAST PARK ou à nos
+Par le biais de l&#39;application UpPark, les paiements ne peuvent être effectués qu&#39;à FAST PARK ou à nos
 partenaires, fournisseurs de services de stationnement.
 Pour les paiements de services par SMS:
 Le paiement par SMS sera effectué conformément aux instructions figurant dans l&#39;application. Le numéro,
@@ -109,17 +109,17 @@ Nous réitérons le fait que nous ne fournissons pas de services de stationnemen
 facilitation de paiement. Nous ne sommes donc pas responsables de la sécurité et de l&#39;intégrité de votre
 véhicule ou des biens qui s&#39;y trouvent.
 IMPORTANT
-Si l&#39;option de réception des notifications ConstantaParking est décochée, que ce soit dans l&#39;application ou dans
+Si l&#39;option de réception des notifications UpPark est décochée, que ce soit dans l&#39;application ou dans
 les paramètres généraux du téléphone, l&#39;utilisateur ne sera pas informé de l&#39;expiration imminente d&#39;une
 réservation de produit dans l&#39;application. Nous vous recommandons d&#39;activer toutes les notifications pour
-ConstantaParking.
+UpPark.
 Pour activer les notifications du système, pour iOS, allez dans le menu Paramètres - Notifications, puis
-sélectionnez l&#39;appli ConstantaParking et cochez Autoriser les notifications.
-Pour Android, allez dans le menu Paramètres - Notifications, puis sélectionnez l&#39;application ConstantaParking et
+sélectionnez l&#39;appli UpPark et cochez Autoriser les notifications.
+Pour Android, allez dans le menu Paramètres - Notifications, puis sélectionnez l&#39;application UpPark et
 cochez l&#39;option Afficher les notifications.
 
 LA DISPONIBILITÉ DU SERVICE
-Le service ConstantaParking est disponible dans certaines régions de Roumanie et nous ne garantissons pas sa
+Le service UpPark est disponible dans certaines régions de Roumanie et nous ne garantissons pas sa
 disponibilité dans tout le pays, bien que nous essayions constamment de l&#39;étendre.
 
 Les tarifs de stationnement sont constamment mis à jour et peuvent varier en fonction de l&#39;emplacement,
@@ -135,7 +135,7 @@ contrôler et qui peuvent affecter la disponibilité ou la qualité des services
 Cependant, nous assumons l&#39;obligation de rétablir tous les services affectés dès que possible.
 Vous êtes responsable de l&#39;obtention de l&#39;accès au réseau internet nécessaire à l&#39;utilisation des services
 fournis et du paiement de tous les frais et redevances appliqués par votre fournisseur de réseau mobile, y
-compris l&#39;utilisation des données lors de l&#39;utilisation des applications ConstantaParking. Vous êtes également
+compris l&#39;utilisation des données lors de l&#39;utilisation des applications UpPark. Vous êtes également
 responsable de l&#39;accès aux appareils compatibles et aux systèmes d&#39;exploitation requis pour utiliser les
 services internet, y compris toute mise à jour de logiciel ou de matériel.
 L&#39;utilisateur déclare être le propriétaire légitime des moyens de paiement utilisés pour le paiement. FAST
@@ -145,9 +145,9 @@ une transaction erronée ou non autorisée par le titulaire.
 
 L&#39;UTILISATION DE TÉLÉPHONES OU D&#39;AUTRES APPAREILS MOBILES PENDANT LA CONDUITE
 L&#39;utilisateur est informé qu&#39;il est dangereux d&#39;utiliser des téléphones portables ou d&#39;autres appareils
-mobiles en conduisant. FAST PARK conseille à l&#39;utilisateur de ne pas utiliser le service ConstantaParking lorsqu&#39;il
+mobiles en conduisant. FAST PARK conseille à l&#39;utilisateur de ne pas utiliser le service UpPark lorsqu&#39;il
 manipule un véhicule en mouvement. L&#39;utilisateur s&#39;engage à dégager FAST PARK de toute
-responsabilité en cas de dommages résultant de l&#39;utilisation du service ConstantaParking lors de la manipulation
+responsabilité en cas de dommages résultant de l&#39;utilisation du service UpPark lors de la manipulation
 de tout type de véhicule.
 L&#39;utilisateur est responsable des amendes de stationnement reçues (ou des avis de non-paiement du
 stationnement ou des avis de paiement incorrect) et de leur paiement. FAST PARK n&#39;a aucune
@@ -167,7 +167,7 @@ avec lesquels nous avons une relation de travail. Même dans le cas improbable d
 
 à vos données, notre système ne vous permet pas d&#39;effectuer d&#39;autres paiements que ceux mentionnés
 ci-dessus.
-Vous pouvez consulter et modifier les données enregistrées via l&#39;application ConstantaParking.
+Vous pouvez consulter et modifier les données enregistrées via l&#39;application UpPark.
 Si vous avez des raisons de suspecter une utilisation non autorisée de ces données, y compris les détails
 de la carte bancaire, vous devez nous en informer immédiatement en nous contactant via le formulaire
 sur le site web. Si vous avez déclaré que votre carte a été volée, les mesures de sécurité habituelles
@@ -181,7 +181,7 @@ du téléphone pour les services FAST PARK et de limiter les implications financ
 avoir à la suite du vol. Si vous ne nous informez pas en temps utile d&#39;un tel événement, nous n&#39;assumons
 aucune responsabilité pour les transactions frauduleuses effectuées par des tiers dans de telles
 circonstances.
-Vous vous engagez à ne pas prendre de mesures pour abuser du service ConstantaParking, y compris, sans s&#39;y
+Vous vous engagez à ne pas prendre de mesures pour abuser du service UpPark, y compris, sans s&#39;y
 limiter, la tentative d&#39;obtenir un accès non autorisé au site ou à toute partie des systèmes FAST PARK ou
 d&#39;introduire sciemment des virus, des vers ou d&#39;autres logiciels malveillants.
 Nous nous réservons le droit de refuser votre inscription et/ou de suspendre et/ou de résilier votre
@@ -190,21 +190,21 @@ générales ou si la loi l&#39;exige, et nous ne serons pas tenus de vous fourni
 Nous pouvons également suspendre votre compte si nous soupçonnons une utilisation non autorisée ou
 un abus.
 Nous utilisons des cookies pour vous montrer les informations et les paramètres corrects lorsque vous
-utilisez l&#39;application ConstantaParking.
+utilisez l&#39;application UpPark.
 Nous utilisons des cookies de sécurité pour l&#39;authentification de l&#39;utilisateur, afin d&#39;empêcher l&#39;utilisation
 frauduleuse de la connexion et de protéger les données de l&#39;utilisateur contre les parties non autorisées.
 
 LES DROITS DE PROPRIÉTÉ INTELLECTUELLE
-L&#39;application ConstantaParking, les services et le site web sont protégés par des droits de propriété intellectuelle
+L&#39;application UpPark, les services et le site web sont protégés par des droits de propriété intellectuelle
 appartenant à FAST PARK CO S.R.L. ou à ses filiales. Ces droits de propriété intellectuelle s&#39;appliquent
 également aux produits dérivés, aux nouvelles versions, aux améliorations, aux mises à jour et aux
 modifications.
-La marque ConstantaParking et toutes les autres marques figurant sur le site web de FAST PARK sont des
+La marque UpPark et toutes les autres marques figurant sur le site web de FAST PARK sont des
 marques déposées de FAST PARK CO S.R.L. ou de ses filiales.
-La marque ConstantaParking ne peut être utilisée en relation avec un produit ou un service qui n&#39;appartient pas à
+La marque UpPark ne peut être utilisée en relation avec un produit ou un service qui n&#39;appartient pas à
 FAST PARK CO S.R.L. ou à ses sociétés affiliées, d&#39;une manière susceptible de créer une confusion
 parmi les clients ou d&#39;une manière qui dénigre FAST PARK CO S.R.L..
-En activant votre compte dans l&#39;application ConstantaParking, vous acquérez de FAST PARK une licence non
+En activant votre compte dans l&#39;application UpPark, vous acquérez de FAST PARK une licence non
 exclusive, temporaire et non transférable pour utiliser les produits FAST PARK, sur lesquels nous
 détenons des droits de propriété intellectuelle. En dehors de ceux expressément mentionnés dans les
 présentes conditions générales, FAST PARK ne vous accorde aucun autre droit de propriété
@@ -236,8 +236,7 @@ tribunaux compétents de notre siège social.
 Vous acceptez également de vous conformer à toutes les lois, y compris, mais sans s&#39;y limiter, celles qui
 s&#39;appliquent à la conduite en ligne.
 
-J&#39;ai lu l&#39;intégralité de ces conditions et je les accepte - VEUILLEZ COCHER
+J&#39;ai lu l&#39;intégralité de ces conditions et je les accepte 
 J&#39;accepte de recevoir régulièrement des lettres d&#39;information m&#39;informant des nouveautés liées
-aux services d&#39;ConstantaParking - VEUILLEZ COCHER
-J&#39;accepte de recevoir du matériel promotionnel de FAST PARK CO et de ses filiales - VEUILLEZ
-COCHER`;
+aux services d&#39;UpPark 
+J&#39;accepte de recevoir du matériel promotionnel de FAST PARK CO et de ses filiales`;

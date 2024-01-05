@@ -16,6 +16,18 @@ const AddPhoneStyle = StyleSheet.create({
     paddingTop: Platform.OS === 'ios' ? hp(6.92) : hp(4.92),
   },
 
+  input: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    backgroundColor: '#F5F5F5',
+    width: '100%',
+  },
+
   container: {
     display: 'flex',
     height: '100%',
@@ -33,6 +45,13 @@ const AddPhoneStyle = StyleSheet.create({
   title: {
     textAlign: 'left',
     marginVertical: hp(2.95),
+  },
+
+  subtitle: {
+    fontSize: 12,
+    color: '#B6B7BF',
+    fontFamily: 'AzoSans-Bold',
+    marginBottom: hp(2),
   },
 
   image: {

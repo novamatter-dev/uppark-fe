@@ -1,35 +1,37 @@
-import React, { useState } from "react";
-import { View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import React, {useState} from 'react';
+import {View, Text, TouchableWithoutFeedback, Keyboard} from 'react-native';
 //style && assets
-import style from "./style";
+import style from './style';
 //components
-import CustomInput from "../CustomInput";
-import ButtonComponent from "../ButtonComponent";
-import NativeBaseBackButton from "../NativeBaseBackButton";
-import Title from "../Title";
-import BaseInput from "../BaseInput";
+import CustomInput from '../CustomInput';
+import ButtonComponent from '../ButtonComponent';
+import NativeBaseBackButton from '../NativeBaseBackButton';
+import Title from '../Title';
+import BaseInput from '../BaseInput';
 //libraires
-import PropTypes from "prop-types";
-import { SvgXml } from "react-native-svg";
-import { t } from "i18next";
+import PropTypes from 'prop-types';
+import {SvgXml} from 'react-native-svg';
+import {t} from 'i18next';
 
 //redux
-import { useDispatch } from "react-redux";
-import { useGetCarsMutation, useAddCarMutation } from "../../services/cars";
-import svgs from "../../assets/svgs";
+import {useDispatch} from 'react-redux';
+import {useGetCarsMutation, useAddCarMutation} from '../../services/cars';
+import svgs from '../../assets/svgs';
+import {useTranslation} from 'react-i18next';
 
-const CreateCar = (props) => {
-  const { handleClose = () => {} } = props;
-  const [addCar, { isLoading }] = useAddCarMutation();
-  const [getCars, { isLoading: isLoadingGetCars }] = useGetCarsMutation();
+const CreateCar = props => {
+  const {handleClose = () => {}} = props;
+  const {t} = useTranslation();
+  const [addCar, {isLoading}] = useAddCarMutation();
+  const [getCars, {isLoading: isLoadingGetCars}] = useGetCarsMutation();
 
-  const [data, setData] = useState("");
+  const [data, setData] = useState('');
 
-  const handleChange = (val) => {
+  const handleChange = val => {
     const regex = /^[a-zA-Z0-9]+$/;
     if (regex.test(val)) {
       setData(val);
-    } else if (val === "") {
+    } else if (val === '') {
       setData(val);
     }
   };
@@ -39,14 +41,14 @@ const CreateCar = (props) => {
   };
 
   const handleCreateCar = async () => {
-    await addCar({ licensePlateNumber: data })
+    await addCar({licensePlateNumber: data})
       .then(() => {
         handleGetCars();
         handleClose();
         // setShowCreateCar(false);
       })
-      .catch((err) => {
-        console.log("Add car err: ", err);
+      .catch(err => {
+        console.log('Add car err: ', err);
       });
   };
 
@@ -60,7 +62,7 @@ const CreateCar = (props) => {
             handleOnPress={handleClose}
           /> */}
           <View style={style.titleWrapper}>
-            <Title label="Please enter your license plate number" />
+            <Title label={t('license_plate_number')} />
           </View>
 
           <View style={style.inputWrapper}>
@@ -76,18 +78,18 @@ const CreateCar = (props) => {
 
             <BaseInput
               icon={<SvgXml xml={svgs.car} width={22} height={24} />}
-              name={"email"}
-              placeHolder={t("license_plate_number")}
-              keyboardType={"email-address"}
+              name={'email'}
+              placeHolder={t('license_plate_number')}
+              keyboardType={'email-address'}
               onChangeText={handleChange}
               value={data}
               maxLength={12}
-              capitalize={"characters"}
+              capitalize={'characters'}
             />
           </View>
           <View style={style.buttonsWrapper}>
             <ButtonComponent
-              text={t("confirm").toUpperCase()}
+              text={t('confirm').toUpperCase()}
               onPress={handleCreateCar}
               isDisabled={data.length < 3 ? true : false}
             />

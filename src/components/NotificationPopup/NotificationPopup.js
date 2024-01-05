@@ -119,6 +119,10 @@ const NotificationPopup = props => {
             </Text>
           ))}
 
+        {type === 'YOUR_RESERVATION_WILL_EXPIRE' && (
+          <Text style={style.title}>{t('YOUR_RESERVATION_WILL_EXPIRE')}</Text>
+        )}
+
         <ButtonComponent
           onPress={() => handleOk()}
           text={'OK'}
@@ -127,15 +131,16 @@ const NotificationPopup = props => {
           color={WHITE}
         />
 
-        {type === 'YOUR_RESERVATION_EXPIRED' && (
-          <ButtonComponent
-            onPress={handleExtend}
-            text={'Extend'}
-            isDisabled={false}
-            labelColor="black"
-            color={WHITE}
-          />
-        )}
+        {type === 'YOUR_RESERVATION_EXPIRED' ||
+          (type === 'YOUR_RESERVATION_WILL_EXPIRE' && (
+            <ButtonComponent
+              onPress={handleExtend}
+              text={'Extend'}
+              isDisabled={false}
+              labelColor="black"
+              color={WHITE}
+            />
+          ))}
       </View>
       <Toast
         ref={toastRef}

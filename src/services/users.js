@@ -1,90 +1,98 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { authURL, url } from "../config";
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {authURL, url} from '../config';
 
 export const usersApi = createApi({
-  reducerPath: "usersApi",
+  reducerPath: 'usersApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${authURL}/api/`,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, {getState}) => {
       const state = getState();
-      const { jwt } = state.auth;
+      const {jwt} = state.auth;
       // const jwt = token;
       if (jwt) {
-        headers.set("Authorization", `Bearer ${jwt}`);
+        headers.set('Authorization', `Bearer ${jwt}`);
       }
 
-      headers.set("X-engage-initiator", "frontend");
-      headers.set("Content-Type", "application/json");
+      headers.set('X-engage-initiator', 'frontend');
+      headers.set('Content-Type', 'application/json');
 
       return headers;
     },
   }),
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     getUser: builder.mutation({
-      query: (payload) => ({
-        url: "Users/Get/Details",
-        method: "GET",
+      query: payload => ({
+        url: 'Users/Get/Details',
+        method: 'GET',
         body: payload,
       }),
     }),
-
     updateUser: builder.mutation({
-      query: (reqBody) => ({
+      query: reqBody => ({
         url: `Users/Put/Details`,
-        method: "POST",
+        method: 'POST',
         body: reqBody,
       }),
     }),
+    updateUserPhoneNumber: builder.mutation({
+      query: ({phoneNumber}) => ({
+        url: `Users/Post/UpdatePhoneNumber`,
+        method: 'POST',
+        body: {
+          PhoneNumber: phoneNumber,
+        },
+      }),
+    }),
     updatePersonalProfile: builder.mutation({
-      query: (payload) => ({
+      query: payload => ({
         url: `Users/Put/PersonalProfileDetails`,
-        method: "PUT",
+        method: 'PUT',
         body: payload,
       }),
     }),
     getPersonalProfile: builder.mutation({
       query: () => ({
         url: `Users/Get/PersonalProfile`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     updateBusinessProfile: builder.mutation({
-      query: (payload) => ({
+      query: payload => ({
         url: `Users/Put/BusinessProfileDetails`,
-        method: "PUT",
+        method: 'PUT',
         body: payload,
       }),
     }),
     getBusinessProfile: builder.mutation({
       query: () => ({
         url: `Users/Get/BusinessProfile`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     getSettings: builder.mutation({
       query: () => ({
         url: `Settings/Get`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     updateSettings: builder.mutation({
-      query: (reqBody) => ({
+      query: reqBody => ({
         url: `Settings/Put`,
-        method: "PUT",
+        method: 'PUT',
         body: reqBody,
       }),
     }),
     updateDrivingLincense: builder.mutation({
-      query: (reqBody) => ({
+      query: reqBody => ({
         url: `Users/UpdateDrivingLicense`,
-        method: "POST",
+        method: 'POST',
         body: reqBody,
       }),
     }),
     deleteAccount: builder.mutation({
       query: () => ({
         url: `Users/Get/DeleteAccount`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
   }),
@@ -93,6 +101,7 @@ export const usersApi = createApi({
 export const {
   useGetUserMutation,
   useUpdateUserMutation,
+  useUpdateUserPhoneNumberMutation,
   useUpdatePersonalProfileMutation,
   useGetPersonalProfileMutation,
   useUpdateBusinessProfileMutation,

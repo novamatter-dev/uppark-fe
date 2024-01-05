@@ -36,7 +36,7 @@ const MaintenanceStyle = StyleSheet.create({
   content: {
     color: WHITE,
     fontSize: 18,
-    fontFamily: 'AzoSans',
+    fontFamily: 'AzoSans-Medium',
     width: '100%',
     lineHeight: 25,
     paddingHorizontal: wp(13),

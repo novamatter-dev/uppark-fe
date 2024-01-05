@@ -24,7 +24,10 @@ import {
   Modal,
   DropdownButton,
   ButtonComponent,
+  AddPersonal,
 } from '../../components';
+
+import {setPersonalEntry} from '../../redux/features/users/userSlice';
 
 //libraries
 import moment from 'moment';
@@ -58,6 +61,13 @@ import Toast from 'react-native-toast-notifications';
 import AddCar from '../AddCar';
 import {t} from 'i18next';
 import SelectCar from '../SelectCar/SelectCar';
+import {
+  validatePhoneNumberBusinessData,
+  validatePhoneNumberPersonalData,
+} from '../../helpers/validateProfileData';
+import AddPersonalDataModalContent from '../../components/AddPersonal/AddPersonalDataModalContent';
+import AddBusinessModalComponent from '../../components/AddBusiness/AddBusinessDataModalContent';
+import {useGetUserMutation} from '../../services/users';
 
 const PaymentDetails = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -68,6 +78,8 @@ const PaymentDetails = ({navigation}) => {
     state => state.parkings.parkingsState,
   );
   const {activeLoadingScreen} = useSelector(state => state.notification);
+  const personalState = useSelector(state => state.users.personal);
+  const businessState = useSelector(state => state.users.business);
 
   const toastRef = useRef();
 
@@ -76,11 +88,21 @@ const PaymentDetails = ({navigation}) => {
   const [getPersonalDefailtCard] = useGetPersonalDefailtCardMutation();
   const [getBusinessDefaultCard] = useGetBusinessDefaultCardMutation();
 
+  const [getUserDetails] = useGetUserMutation();
+
   const [initiatePayment] = useInitiatePaymentMutation();
   const [checktransaction] = useChecktransactionMutation();
   const [returnLink] = useReturnLinkMutation();
 
+  const {jwt} = useSelector(state => state.auth);
+
   const [modalVisible, setModalVisible] = useState(false);
+  const [profileDataActionSheetVisible, setProfileDataActionSheetVisible] =
+    useState(false);
+  const [
+    businessProfileDataActionSheetVisible,
+    setBusinessProfileDataActionSheetVisible,
+  ] = useState(false);
   const [addCarModal, setAddCarModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [profileType, setProfileType] = useState('Personal');
@@ -98,6 +120,7 @@ const PaymentDetails = ({navigation}) => {
   const [isPayButtonDisabled, setIsPayButtonDisabled] = useState(false);
 
   const [isForeground, setIsForeground] = useState(false);
+  const [isProfileComplete, setIsProfileComplete] = useState(false);
 
   useEffect(() => {
     getProfileDefaultCard();
@@ -125,6 +148,11 @@ const PaymentDetails = ({navigation}) => {
         setSelectedCard(answer?.data);
       });
     }
+  };
+
+  const handleAddNewCard = () => {
+    setModalVisible(!modalVisible);
+    setSelectedCard('NEW_CARD');
   };
 
   const handleModal = () => {
@@ -310,20 +338,79 @@ const PaymentDetails = ({navigation}) => {
     }
   };
 
-  const handlePay = () => {
-    // navigation.navigate("SetYourParkPin");
-    if (parkingsData.parkingDetails.currencyType === 'EURO') {
-      // setIsConfirmModalVisible(true);
-      handleInitiatePayment();
-    } else {
-      if (selectedCard) {
-        // setIsConfirmModalVisible(true);
-        handleInitiatePayment();
-        return true;
+  const handlePay = async () => {
+    // TODO: verify logic for phone number
+    if (parkingsData.parkingDetails.currencyType !== 'EURO') {
+      const answer = await getUserDetails();
+      console.log('handlePay:', answer);
+      const phoneNumber = answer.data.phoneNumber;
+
+      // Update state with the fetched phone number
+      dispatch(
+        setPersonalEntry({
+          type: 'phoneNumber',
+          label: 'Phone Number',
+          value: phoneNumber,
+        }),
+      );
+
+      if (profileType === 'Personal') {
+        // Update personal state
+        const updatedPersonalStateLocal = {
+          ...personalState,
+          phoneNumber: {
+            ...personalState.phoneNumber,
+            value: phoneNumber,
+          },
+        };
+
+        // Validate personal data
+        const personalDataValid = validatePhoneNumberPersonalData(
+          updatedPersonalStateLocal,
+        );
+
+        console.log({updatedPersonalStateLocal});
+        console.log({personalDataValid});
+
+        if (!personalDataValid) {
+          console.log('DISPLAY PERSONAL DATA MODAL');
+          setProfileDataActionSheetVisible(true);
+          return; // Exit from handlePay
+        }
       } else {
-        setIsCardMissing(true);
+        const updatedBusinessStateLocal = {
+          ...businessState,
+          phoneNumber: {
+            ...businessState.phoneNumber,
+            value: phoneNumber,
+          },
+        };
+
+        // Validate business data
+        const businessDataValid = validatePhoneNumberBusinessData(
+          updatedBusinessStateLocal,
+        );
+
+        if (!businessDataValid) {
+          setBusinessProfileDataActionSheetVisible(true);
+          return; // Exit from handlePay
+        }
       }
     }
+
+    console.log('INITIATE PAYMENT');
+
+    handleInitiatePayment();
+    return true;
+
+    // if (parkingsData.parkingDetails.currencyType === 'EURO') {
+    //   // setIsConfirmModalVisible(true);
+    //   handleInitiatePayment();
+    //   return true;
+    // } else {
+    //   handleInitiatePayment();
+    //   return true;
+    // }
   };
 
   const handleInitiatePayment = async () => {
@@ -351,16 +438,26 @@ const PaymentDetails = ({navigation}) => {
       const body = {
         Amount: parkingsData?.parkingForm.totalAmounts,
         Currency: parkingsData?.parkingDetails.currencyType,
-        ProductId: parkingsData?.parkingForm.productId,
+        ProductId: parkingsData?.worksWithHub
+          ? 0
+          : parkingsData?.parkingForm.productId,
         ParkingId: parkingsData?.parkingDetails.parkingId,
         isPersonalProfile: profileType === 'Personal' ? true : false,
-        CardId: selectedCard?.id,
+        CardId:
+          selectedCard === 'NEW_CARD'
+            ? null
+            : selectedCard?.id
+            ? selectedCard.id
+            : null,
+
         LicensePlate: activeCar.licensePlateNumber,
         ParkingReservationDto: {
           carId: activeCar?.carId,
           parkingId: parkingsData?.parkingDetails?.parkingId,
           groupId: parkingsData?.reservedPolygon?.groupId,
-          productId: parkingsData?.parkingForm?.productId,
+          productId: parkingsData?.worksWithHub
+            ? 0
+            : parkingsData?.parkingForm?.productId,
           paymentProfileType: `${profileType}Profile`,
           parkingLotId: null,
           ticketIdentifier: parkingsData?.parkingForm?.ticketId
@@ -376,16 +473,21 @@ const PaymentDetails = ({navigation}) => {
                 'YYYY-MM-DD HH:mm:ss',
               )
             : null,
-          CardId: selectedCard?.id,
+          CardId:
+            selectedCard === 'NEW_CARD'
+              ? null
+              : selectedCard?.id
+              ? selectedCard.id
+              : null,
         },
       };
 
       console.log('>>> initiatePayment body:', body);
 
+      // TODO: out of code
       await initiatePayment(body)
         .then(answer => {
           console.log('>>> initiatePayment answer:', answer.data);
-
           setTransactionInProgress(true);
           setInitiateNetopia({
             html: answer.data.form,
@@ -402,19 +504,27 @@ const PaymentDetails = ({navigation}) => {
     setIsLoading(true);
     await checktransaction({transactionId: initiateNetopia.transactionId})
       .then(answer => {
-        console.log('Checktransaction:', answer);
-        if (answer.data) {
-          setNetopiaVisible(false);
-          setTransactionInProgress(false);
-          dispatch(setLoadingScreen(true));
-
+        console.log('CheckTransaction answer:', answer.data);
+        if (answer.data.status) {
           // TODO: Aici trebuie sa scapam de handlePayConfirm ( rezervarea o va face backend-ul )
           // TODO: Daca e totul ok aici, afisam ecranul de plata confirmata
           // handlePayConfirm();
 
-          navigation.navigate('PaymentConfirmation', {
-            type: 'CONFIRMED',
-          });
+          if (answer.data.status === 'Cancelled') {
+            setNetopiaVisible(false);
+            setTransactionInProgress(false);
+            dispatch(setLoadingScreen(true));
+            navigation.navigate('PaymentConfirmation', {
+              type: 'CANCELED',
+            });
+          } else if (answer.data.status === 'Completed') {
+            setNetopiaVisible(false);
+            setTransactionInProgress(false);
+            dispatch(setLoadingScreen(true));
+            navigation.navigate('PaymentConfirmation', {
+              type: 'CONFIRMED',
+            });
+          }
         }
       })
       .catch(err => {
@@ -508,10 +618,14 @@ const PaymentDetails = ({navigation}) => {
                     <TouchableOpacity
                       style={PaymentDetailsStyle.btnContainer}
                       onPress={handleModal}>
-                      <Image style={PaymentDetailsStyle.icon} source={visa} />
+                      {selectedCard !== 'NEW_CARD' && (
+                        <Image style={PaymentDetailsStyle.icon} source={visa} />
+                      )}
                       <Text style={PaymentDetailsStyle.contentText}>
-                        {selectedCard?.cardNumber
-                          ? `**** ${selectedCard?.cardNumber?.slice(-4)}`
+                        {selectedCard === 'NEW_CARD'
+                          ? t('new_card')
+                          : selectedCard?.cardNumber
+                          ? `**** ${selectedCard.cardNumber.slice(-4)}`
                           : t('selected_card')}
                       </Text>
                     </TouchableOpacity>
@@ -570,6 +684,7 @@ const PaymentDetails = ({navigation}) => {
               onSmsPress={handleModal}
               isFromPaymentDetails={true}
               profileType={profileType}
+              handleAddNewCard={handleAddNewCard}
             />
             <Toast
               ref={toastRef}
@@ -581,13 +696,6 @@ const PaymentDetails = ({navigation}) => {
           </Modal>
           <Modal isFullScreen={true} modalVisible={addCarModal}>
             {step === 1 ? (
-              // <CarsTab
-              //   inModal={true}
-              //   handleAddCar={handleAddCar}
-              //   setAddCarModal={setAddCarModal}
-              //   setStep={setStep}
-              //   step={step}
-              // />
               <SelectCar
                 inModal={true}
                 closeModal={() => setAddCarModal(false)}
@@ -596,39 +704,24 @@ const PaymentDetails = ({navigation}) => {
               <AddCar setStep={setStep} step={step} inModal={true} />
             )}
           </Modal>
-          <ModalConfirmPayment
-            isVisible={isConfirmModalVisible}
-            closeModal={() => setIsConfirmModalVisible(false)}
-            handleYesButton={handleInitiatePayment}
-            profileType={profileType}
-            selectedCard={selectedCard?.cardNumber?.substring(8, 16)}
-          />
-
-          <Actionsheet
-            isOpen={isCardMissing}
-            // isOpen={true}
-            style={{
-              height: '30%',
-              position: 'absolute',
-              bottom: 0,
-            }}>
-            <View style={PaymentDetailsStyle.missingCardContainer}>
-              <Text style={PaymentDetailsStyle.missingCardTitle}>
-                {t('card_missing')}
-              </Text>
-              <TouchableOpacity
-                style={PaymentDetailsStyle.missingCardBtn}
-                onPress={() => {
-                  setIsCardMissing(false);
-                  handleModal();
-                }}>
-                <Text style={PaymentDetailsStyle.missingBtnLabel}>
-                  {t('ok').toUpperCase()}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </Actionsheet>
-
+          <Modal
+            isFullScreen={true}
+            animationType="slide"
+            modalVisible={profileDataActionSheetVisible}>
+            <AddPersonalDataModalContent
+              onClosePress={() => setProfileDataActionSheetVisible(false)}
+            />
+          </Modal>
+          <Modal
+            isFullScreen={true}
+            animationType="slide"
+            modalVisible={businessProfileDataActionSheetVisible}>
+            <AddBusinessModalComponent
+              onClosePress={() =>
+                setBusinessProfileDataActionSheetVisible(false)
+              }
+            />
+          </Modal>
           <Modal
             animationType="slide"
             transparent={true}
@@ -681,11 +774,7 @@ const PaymentDetails = ({navigation}) => {
           <NativeBaseBackButton
             style={PaymentDetailsStyle.backButton}
             handleOnPress={() => {
-              if (parkingsData.worksWithHub) {
-                navigation.navigate('HomeDrawer');
-              } else {
-                navigation.goBack();
-              }
+              navigation.navigate('HomeDrawer');
             }}
           />
         </View>

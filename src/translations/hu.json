@@ -132,7 +132,7 @@
   "extend": "hosszabbítás",
   "missing_parking_lots": "Nincs parkolóhely a környékén!",
   "you_ve_just_parked": "Éppen, hogy leparkolt",
-  "uppark_services": "Köszönjük, hogy az ConstantaParking-ot használja",
+  "uppark_services": "Köszönjük, hogy az UpPark-ot használja",
   "sensor_disclaimer_text": "A foglalás csak 30 percig érvényes!",
   "pay": "FIZETÉS",
   "reserve_action_title": "30 perces foglalás?",
@@ -196,7 +196,7 @@
   "YOU_JUST_PARKED_QUESTION": "Ki kell derítenünk, hogy elfoglalta-e a lefoglalt parkolóhelyet vagy sem",
   "YOUR_RESERVATION_WILL_EXPIRE": "Foglalása hamarosan lejár",
   "YOUR_RESERVATION_EXPIRED_BODY": "Sajnos a foglalása lejárt!",
-  "THANK_YOU_FOR_USING_OUR_APP": "Köszönjük, hogy a ConstantaParking szolgáltatást használta",
+  "THANK_YOU_FOR_USING_OUR_APP": "Köszönjük, hogy a UpPark szolgáltatást használta",
   "SMS_CODE_EXPIRED": "Az SMS kód lejárt",
   "maintenance_text": "Az alkalmazás jelenleg karbantartás alatt áll, elnézést kérünk az esetleges kellemetlenségekért.",
   "business_profile_saved": "Az üzleti profil elmentve!",
@@ -221,6 +221,11 @@
   "payment_rejected_content": "A fizetést nem sikerült feldolgozni. Kérjük, ellenőrizze fizetési adatait, és próbálja újra. Ha segítségre van szüksége, keresse fel a Súgót, vagy lépjen kapcsolatba az ügyfélszolgálattal.",
   "delete_card_button": "Kártya törlése",
   "edit_card": "Kártya szerkesztése",
+  "parking_card_payment_unavailable": "A parkoló nem elérhető",
   "card_pay": "Kártyás fizetés",
-  "parcomat_payment": "Parcomat fizetés"
+  "parcomat_payment": "Parcomat fizetés",
+  "billing_information_required": "Számlázási információk szükségesek",
+  "billing_information_required_content": "Kérjük, adja meg a számlázási információkat a fizetéshez",
+  "the_ticket_was_already_paid": "A jegyet már kifizették",
+  "new_card": "Új kártya"
 }

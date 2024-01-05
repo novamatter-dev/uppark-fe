@@ -6,7 +6,7 @@ FASTPARK signifie la société FAST PARK Co. dont le siège social est situé à
 Au cœur de l'engagement de FASTPARK à fournir un service exceptionnel se trouve le respect de votre vie privée et la conformité avec les lois applicables en matière de protection des données. La présente politique de confidentialité décrit les droits et obligations de FASTPARK en matière de données à caractère personnel et vise à vous aider à comprendre comment nous collectons, utilisons et protégeons vos données à caractère personnel.
 L'engagement de FASTPARK en matière de confidentialité envers vous inclut la garantie de l'exactitude, de la confidentialité et de la sécurité de vos données personnelles en vous permettant de demander l'accès à vos données personnelles, de les corriger ou de les supprimer.
 Vos données personnelles seront également transférées à d'autres prestataires de services pour la réalisation complète du service de paiement du stationnement, dans les conditions que nous détaillons ci-dessous.
-Lorsque vous créez un compte dans l'application ConstantaParking ou que vous utilisez les services FASTPARK, vous concluez un accord avec FASTPARK et acceptez la présente politique de confidentialité. Chaque fois que vous utilisez votre compte ou vos services FASTPARK ou que vous nous fournissez des informations, le traitement de vos données personnelles est régi par la version actuelle de la présente politique de confidentialité.
+Lorsque vous créez un compte dans l'application UpPark ou que vous utilisez les services FASTPARK, vous concluez un accord avec FASTPARK et acceptez la présente politique de confidentialité. Chaque fois que vous utilisez votre compte ou vos services FASTPARK ou que vous nous fournissez des informations, le traitement de vos données personnelles est régi par la version actuelle de la présente politique de confidentialité.
 Si vous n'êtes pas d'accord avec les termes de cette politique de confidentialité, veuillez vous abstenir de créer un compte ou d'utiliser les services FASTPARK.
 Dans la présente politique, on entend par "données personnelles" les données à caractère personnel telles que définies par le Règlement (UE) 2016/679 du Parlement Européen et du Conseil du 27 avril 2016 relatif à la protection des personnes physiques à l'égard du traitement des données à caractère personnel et à la libre circulation de ces données, et abrogeant la directive 95/46/CE
 AVIS SPÉCIAL CONCERNANT LES MINEURS
@@ -17,7 +17,7 @@ FASTPARK est soumise aux lois roumaines sur la protection des données personnel
 Le Règlement général sur la protection des données, qui est entré en vigueur le 25 mai 2018, définit les règles de base concernant la manière dont les responsables de traitement, tels que FASTPARK, peuvent collecter, utiliser et divulguer des données à caractère personnel. FASTPARK s'engage à respecter les règles du règlement général sur la protection des données et la législation nationale (Loi sur la protection des données).
 Données à caractère personnel traitées
 FASTPARK collecte des données afin de vous fournir des services et ne traite que les données personnelles nécessaires pour vous aider à créer un compte utilisateur ou pour vous fournir les meilleurs services possibles.
-Vous fournissez certaines de ces données lorsque vous créez un compte, lorsque vous utilisez le service ConstantaParking ou lorsque vous contactez FASTPARK pour obtenir de l'aide.
+Vous fournissez certaines de ces données lorsque vous créez un compte, lorsque vous utilisez le service UpPark ou lorsque vous contactez FASTPARK pour obtenir de l'aide.
 Les données personnelles que nous traitons sont les suivantes:
  	• numéro de téléphone portable;
  	• numéro d'immatriculation du véhicule;
@@ -29,7 +29,7 @@ Les données personnelles que nous traitons sont les suivantes:
  	• les données requises par le service d'assistance à la clientèle.
 
 
-Nous collectons indirectement certaines données lorsque vous interagissez avec les services ConstantaParking, en utilisant des technologies telles que les cookies, les messages d'erreur ou les données d'utilisation du logiciel FASTPARK qui interagissent avec votre appareil et divers programmes, notamment:
+Nous collectons indirectement certaines données lorsque vous interagissez avec les services UpPark, en utilisant des technologies telles que les cookies, les messages d'erreur ou les données d'utilisation du logiciel FASTPARK qui interagissent avec votre appareil et divers programmes, notamment:
 
  	•l'adresse IP et des informations sur l'appareil que vous utilisez pour accéder aux services;
  	•Contrôle d'accès aux médias (adresse MAC);
@@ -41,7 +41,7 @@ Nous collectons indirectement certaines données lorsque vous interagissez avec 
 
 
 Consultez la politique en matière de cookies pour plus d'informations.
-Parfois, nous obtenons également des données de la part de tiers. Par exemple, lorsque vous enregistrez une carte bancaire dans l'application pour utiliser les services ConstantaParking, nous utilisons les services d'autorisation de carte.
+Parfois, nous obtenons également des données de la part de tiers. Par exemple, lorsque vous enregistrez une carte bancaire dans l'application pour utiliser les services UpPark, nous utilisons les services d'autorisation de carte.
 La finalité du traitement des données à caractère personnel
 Nous traitons les données que nous vous demandons d'indiquer afin de vous fournir les services FASTPARK et de communiquer avec vous.
 Relation contractuelle
@@ -90,7 +90,7 @@ FASTPARK est obligée de partager certaines de vos données personnelles avec de
  	la transmission d'informations aux auditeurs dans le cadre des audits indépendants des états et des opérations financiers de FASTPARK. Toutefois, ces auditeurs ne peuvent pas utiliser les informations d'identification personnelle à d'autres fins;
  	le partage de données personnelles avec un acheteur potentiel de FASTPARK (ou de la majorité de ses actifs) ou dans le cadre d'une fusion, d'une réorganisation ou d'une acquisition interne;
  	la transmission d'informations à nos affiliés. Toutes les données personnelles que nous fournissons à nos affiliés seront traitées par ces derniers conformément à la présente politique et nous sommes responsables de la gestion des données personnelles utilisées en commun;
- 	Nous pouvons divulguer des données statistiques agrégées à des fins statistiques ou de relations publiques. Par exemple, nous pouvons révéler qu'un certain pourcentage des utilisateurs d'ConstantaParking paient par SMS. Ces informations ne sont pas liées à des données personnelles.
+ 	Nous pouvons divulguer des données statistiques agrégées à des fins statistiques ou de relations publiques. Par exemple, nous pouvons révéler qu'un certain pourcentage des utilisateurs d'UpPark paient par SMS. Ces informations ne sont pas liées à des données personnelles.
 
 Le transfert de vos données à caractère personnel
 Nous pouvons transférer vos données personnelles à des fournisseurs tiers pour vous fournir certains des services de FASTPARK. Certains de ces fournisseurs peuvent être basés dans des pays hors de l'Union Européenne. Nous prenons des mesures pour nous assurer que tout fournisseur de services tiers assure une protection adéquate de vos données à caractère personnel en concluant avec lui des accords qui contiennent des clauses de protection des données conformes aux lois sur la protection des données à caractère personnel.
@@ -100,12 +100,12 @@ Bien que la sécurité de la transmission des données sur Internet ne puisse ê
 FASTPARK s'engage à prendre les mesures de sécurité suivantes pour garantir la protection adéquate de vos données personnelles:
 
  	toutes les données personnelles sont stockées électroniquement dans une base de données cryptée protégée par un pare-feu;
- 	le service ConstantaParking est hébergé dans un environnement sécurisé qui utilise un pare-feu et d'autres technologies avancées pour empêcher toute interférence ou accès extérieur;
- 	l'accès du personnel à la base de données dans laquelle les données personnelles sont stockées est limité à ceux qui en ont besoin. Les serveurs sur lesquels le service ConstantaParking est hébergé sont surveillés et gardés physiquement 24 heures sur 24.
+ 	le service UpPark est hébergé dans un environnement sécurisé qui utilise un pare-feu et d'autres technologies avancées pour empêcher toute interférence ou accès extérieur;
+ 	l'accès du personnel à la base de données dans laquelle les données personnelles sont stockées est limité à ceux qui en ont besoin. Les serveurs sur lesquels le service UpPark est hébergé sont surveillés et gardés physiquement 24 heures sur 24.
 
 Durée de préservation de vos données à caractère personnel
 FASTPARK préservera vos données conformément aux lois sur la protection des données.
-Si vous créez un compte ou si vous utilisez les services ConstantaParking, nous ne conserverons les données personnelles (y compris les informations relatives à chaque session de stationnement et à chacune de vos transactions) que pendant la durée raisonnablement nécessaire pour atteindre les objectifs identifiés pour lesquels les données ont été collectées ou pendant la durée nécessaire pour atteindre des objectifs légaux.
+Si vous créez un compte ou si vous utilisez les services UpPark, nous ne conserverons les données personnelles (y compris les informations relatives à chaque session de stationnement et à chacune de vos transactions) que pendant la durée raisonnablement nécessaire pour atteindre les objectifs identifiés pour lesquels les données ont été collectées ou pendant la durée nécessaire pour atteindre des objectifs légaux.
 Si vous créez un compte, nous préserverons vos données personnelles aussi longtemps que vous possédez ce compte. Si vous choisissez de fermer votre compte, nous marquerons votre compte dans la base de données de FASTPARK comme Fermé, mais nous devrons préserver un certain volume d'informations dans la base de données de FASTPARK aussi longtemps que nécessaire pour nous conformer aux obligations légales ou jusqu'à l'expiration du délai de prescription pour les obligations budgétaires de FASTPARK, le délai le plus court étant retenu.
 Vos droits en matière de protection des données à caractère personnel
 Vous avez le droit de demander l'accès à vos données personnelles et de savoir comment FASTPARK utilise vos données personnelles.
@@ -126,7 +126,7 @@ Nous pouvons rejeter votre demande de suppression si:
 (b) si les données sont nécessaires pour établir, exercer ou défendre les droits de FASTPARK dans le cadre d'une procédure judiciaire.
 Il existe d'autres circonstances dans lesquelles nous ne sommes pas obligés d'accéder à votre demande de suppression de données, bien que ces deux circonstances soient les plus probables dans lesquelles nous pouvons refuser votre demande.
 Veuillez noter que, avant d'exercer ce droit, vous devez télécharger depuis votre compte figurant dans l'application et sauvegarder tous vos documents relatifs à toutes les transactions effectuées par l'intermédiaire de la soussignée.
-Si vous ne faites pas cette démarche avant d'exercer votre droit de suppression, vous perdrez tous ces documents et la soussignée ne pourra pas les mettre à votre disposition, le cas échéant, car le processus de suppression des données, à savoir le compte ConstantaParking, avec toutes les données et tous les documents qui s'y rapportent, est un processus irréversible.
+Si vous ne faites pas cette démarche avant d'exercer votre droit de suppression, vous perdrez tous ces documents et la soussignée ne pourra pas les mettre à votre disposition, le cas échéant, car le processus de suppression des données, à savoir le compte UpPark, avec toutes les données et tous les documents qui s'y rapportent, est un processus irréversible.
 Le droit à la restriction du traitement - vous pouvez demander la restriction du traitement dans les cas où:
 a) vous contestez l'exactitude des données pendant une période qui nous permet de vérifier l'exactitude des données;
 b) le traitement est illégal, mais vous vous opposez à l'effacement des données à caractère personnel, en demandant plutôt leur restriction;

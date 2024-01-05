@@ -1,5 +1,5 @@
-export const fr = `1. Qu'est-ce que l'ConstantaParking ?
-- ConstantaParking est une application mobile pour le paiement des frais de stationnement.
+export const fr = `1. Qu'est-ce que l'UpPark ?
+- UpPark est une application mobile pour le paiement des frais de stationnement.
 
 2. Comment payer les frais de stationnement?
 -vous pouvez payer le droit de stationnement via la carte bancaire enregistrée dans
@@ -18,20 +18,20 @@ stationnement au moment du stationnement (au début de la séance de stationneme
 - Pour tous les parkings équipés d'une barrière, les frais de stationnement sont payés au
 moment où l'on veut quitter le parking.
 
-4. Comment prolonger la session de stationnement si j'ai utilisé ConstantaParking?
+4. Comment prolonger la session de stationnement si j'ai utilisé UpPark?
 A l'expiration de la durée du stationnement payant, vous recevrez une notification et vous aurez la
 possibilité de prolonger cette durée. Le stationnement peut être prolongé manuellement par
 l'utilisateur moyennant le paiement des frais appropriés.
 
 IMPORTANT
-- Si l'option de réception des notifications ConstantaParking est décochée, que ce soit dans l'application
+- Si l'option de réception des notifications UpPark est décochée, que ce soit dans l'application
 ou dans les paramètres généraux du téléphone, l'utilisateur ne sera pas informé de l'expiration
 imminente d'une réservation de produit dans l'application. Nous vous recommandons d'activer
-toutes les notifications pour ConstantaParking.
+toutes les notifications pour UpPark.
 - Pour activer les notifications du système, pour iOS, il faut aller dans Réglages - menu
-Notifications, puis sélectionner l'appli ConstantaParking et cocher Autoriser les notifications.
+Notifications, puis sélectionner l'appli UpPark et cocher Autoriser les notifications.
 - Pour Android, allez dans le menu Paramètres - Notifications, puis sélectionnez l'application
-ConstantaParking et cochez l'option Afficher les notifications.
+UpPark et cochez l'option Afficher les notifications.
 
 5. Comment payer par SMS?
 - téléchargez l'application depuis le play store ou l'app store et connectez-vous à votre

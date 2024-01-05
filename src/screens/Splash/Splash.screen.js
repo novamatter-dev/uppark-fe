@@ -1,20 +1,15 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, ImageBackground, Alert} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {ImageBackground, StyleSheet, View} from 'react-native';
+
+import {useMaintenanceMode} from '../../helpers/useMaintenanceMode';
 
 const Splash = () => {
-  const navigation = useNavigation();
-  const {jwt} = useSelector(state => state.auth);
+  const {checkMaintenanceMode} = useMaintenanceMode();
 
   useEffect(() => {
     setTimeout(() => {
-      if (jwt) {
-        navigation.navigate('HomeDrawer');
-      } else {
-        navigation.navigate('Login');
-      }
-    }, 1000);
+      checkMaintenanceMode();
+    }, 750);
   }, []);
 
   return (

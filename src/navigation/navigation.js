@@ -89,11 +89,13 @@ const MainStackNavigation = () => {
       source: 'UPPARK', // 'UPPARK'
     };
 
-    console.log('UPDATE', body);
-
     await checkForUpates(body)
       .then(answer => {
-        console.log('UPDATE RESPONSE:', answer);
+        console.log('>>> checkForUpates answer:', answer.data);
+        if (answer?.data?.maintenanceMode) {
+          navigation.navigate('Maintenance');
+        }
+
         if (answer?.data?.needsUpdate) {
           // TODO: CHANGES BETWEEN UPPARK AND CONSTANTA PARKING: check for constantaparking and uppark app link store UPPARK CONSTANTA PARK
           setUpdate({
@@ -359,6 +361,7 @@ const MainStackNavigation = () => {
               display: 'flex',
               alignItems: 'center',
               marginBottom: 18,
+              width: '100%',
             }}>
             <Text style={style.title}>{t('update_available')}</Text>
             <Text style={style.text}>{t('update_text')}</Text>

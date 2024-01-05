@@ -1,23 +1,21 @@
+import {t} from 'i18next';
 import {Box, ScrollView} from 'native-base';
 import React, {useEffect, useRef, useState} from 'react';
-import {BankCard} from './Components/BankCard';
+import {Image, View} from 'react-native';
+import Toast from 'react-native-toast-notifications';
+import {useSelector} from 'react-redux';
+import creditCard from '../../assets/icons/creditCard.png';
 import {
   AddCard,
-  ButtonComponent,
   Modal,
   NativeBaseBackButton,
   NativeBaseButton,
   Title,
 } from '../../components';
-import {Image, Platform, View} from 'react-native';
-import WalletStyle from './Wallet.style';
-import creditCard from '../../assets/icons/creditCard.png';
-import Toast from 'react-native-toast-notifications';
-import {t} from 'i18next';
-import {PLATINUM, WHITE} from '../../helpers/style/constants';
 import EditCard from '../../components/EditCard';
-import {useSelector} from 'react-redux';
 import {useGetCardsMutation} from '../../services/wallets';
+import {BankCard} from './Components/BankCard';
+import WalletStyle from './Wallet.style';
 
 const Wallet = ({navigation}) => {
   const [getCards] = useGetCardsMutation();
@@ -28,7 +26,9 @@ const Wallet = ({navigation}) => {
   const [cardInfo, setCardInfo] = useState(null);
 
   const handleGetAllWallets = async () => {
-    await getCards();
+    await getCards()
+      .then(answer => console.log('>>>CARDS:', answer))
+      .catch(err => console.log('>>>CARD ERR:', err));
   };
 
   useEffect(() => {
@@ -63,20 +63,18 @@ const Wallet = ({navigation}) => {
           handleEdit={handleEditCard}
           setCardInfo={setCardInfo}
         />
-
-        <NativeBaseButton
+        {/* <NativeBaseButton
           style={WalletStyle.addCardButton}
           label={t('add_card')}
           labelStyle={WalletStyle.addCardText}
           icon={<Image source={creditCard} />}
           iconStyle={WalletStyle.iconSpacing}
           handleOnPress={() => {
-            // setAddCardModalVisible(true);
             navigation.navigate('CreateCard');
           }}
-        />
+        /> */}
         <Modal modalVisible={addCardModalVisible} isFullScreen={true}>
-          {/* <AddCard onClosePress={handleOnClosePress} /> */}
+          <AddCard onClosePress={handleOnClosePress} />
           <EditCard
             onClosePress={handleOnClosePress}
             cardInfo={cardInfo}
