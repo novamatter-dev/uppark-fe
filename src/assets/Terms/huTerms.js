@@ -1,12 +1,12 @@
-export const hu = `AZ ConstantaParking WEBOLDALÁNAK ÉS AZ ALKALMAZÁSÁNAK ÁLTALÁNOS FELTÉTELEI
+export const hu = `AZ UpPark WEBOLDALÁNAK ÉS AZ ALKALMAZÁSÁNAK ÁLTALÁNOS FELTÉTELEI
 Ezek az általános feltételek képezik az Ön és a FAST PARK CO KFT között létrejött szerződéses
 megállapodást, amely szabályozza a FAST PARK szolgáltatások igénybevételének feltételeit, valamint a
 felek jogait és kötelezettségeit.
 Alulírott, a FAST PARK CO KFT egy romániai cég, amelynek székhelye: Voluntari, Pipera Sugárút 1B,
-Cubic Center Irodaház, 7. emelet, Ilfov megye, Románia, és az ConstantaParking webhely és alkalmazás szellemi
+Cubic Center Irodaház, 7. emelet, Ilfov megye, Románia, és az UpPark webhely és alkalmazás szellemi
 tulajdonjogainak tulajdonosa.
-Ha úgy dönt, hogy letölti az ConstantaParking alkalmazást, és regisztrál ebben az alkalmazásban, így igénybe
-veszi az ConstantaParking szolgáltatásokat, akkor feltételezzük, hogy kifejezi feltétel nélküli egyetértését ezekkel
+Ha úgy dönt, hogy letölti az UpPark alkalmazást, és regisztrál ebben az alkalmazásban, így igénybe
+veszi az UpPark szolgáltatásokat, akkor feltételezzük, hogy kifejezi feltétel nélküli egyetértését ezekkel
 a feltételekkel.
 Ezért kérjük, figyelmesen olvassa el ezeket, mielőtt továbblépne személyes adatainak letöltésével és
 regisztrálásával az alkalmazásban.
@@ -19,7 +19,7 @@ szolgáltatásainkat, feltételezzük, hogy elfogadja a jelen általános felté
 egyet a változtatásokkal, lehetősége van abbahagyni a FAST PARK szolgáltatások használatát. Ezeket
 az általános feltételeket ……………-án frissítették, amely időponttól kezdve semmilyen egyéb változáson
 nem ment keresztül.
-Az ConstantaParking távoli fizetési módot kínál Önnek mobiltelefonjával vagy más kompatibilis mobileszközével
+Az UpPark távoli fizetési módot kínál Önnek mobiltelefonjával vagy más kompatibilis mobileszközével
 (táblagép, laptop stb.) a partnereink által kínált parkolási szolgáltatásokhoz. Ezen szolgáltatások
 ellenértékét bankkártyájával vagy mobiltelefon-szolgáltatón keresztül is kiegyenlítheti, ebben az esetben
 válassza az SMS-es fizetést.
@@ -28,11 +28,11 @@ feltételek nem minősülnek parkolási szerződésnek. A FAST PARK csak a parko
 megfizetését segítő szolgáltatásokat kínál állami vagy magánszolgáltatók számára. A parkolási
 szolgáltatásra vonatkozó szerződés Ön és a parkolási szolgáltató között jön létre azon a
 területen/városban, ahol parkolt.
-Az ConstantaParking szolgáltatásai csak Románia bizonyos területein érhetők el, és nem garantáljuk
+Az UpPark szolgáltatásai csak Románia bizonyos területein érhetők el, és nem garantáljuk
 elérhetőségét az ország egész területén.
 
 A következő kifejezések jelentése a következő:
-Számla vagy számlák: az ConstantaParking alkalmazáson Ön által nyitott összes parkolási fizetési szolgáltatási
+Számla vagy számlák: az UpPark alkalmazáson Ön által nyitott összes parkolási fizetési szolgáltatási
 számla;
 A szolgáltatás a FAST PARK CO KFT által az alkalmazáson keresztül választott partner szolgáltatók
 szolgáltatásainak fizetésének közvetítésére kínált szolgáltatásokat jelenti (pl. óradíj vagy parkolási
@@ -45,12 +45,12 @@ társult vállalkozásainkkal, valamint bármely más olyan szervezettel együtt
 munkatársaink a jövőben létrehozhatnak;
 Weboldal vagy webhely: a jelenleg használt webhely, valamint a webhely bármely utódja, amely felett a
 FAST PARK szellemi tulajdonjogokat birtokol;
-Az ConstantaParking a bankkártyás vagy SMS-es parkolási befizetési kérelmet jelenti, amelyre a FAST PARK a
+Az UpPark a bankkártyás vagy SMS-es parkolási befizetési kérelmet jelenti, amelyre a FAST PARK a
 szellemi tulajdonjogok tulajdonosa.
 
 A SZOLGÁLTATÁSOK HASZNÁLATA ÉS FIZETÉSE
 A parkolási fizetést segítő FAST PARK szolgáltatások eléréséhez mobiltelefonunkra le kell töltenie az
-AppStore-ban és a GooglePlay Store-ban elérhető ConstantaParking alkalmazást.
+AppStore-ban és a GooglePlay Store-ban elérhető UpPark alkalmazást.
 A letöltést követően az alkalmazásba való bejelentkezéshez vagy felhasználói fiók létrehozása
 szükséges egy tetszőleges jelszóval a kért személyes adatok megadásával, vagy érvényes Facebook
 vagy Google fiók használata. A személyes adatok kezelésére vonatkozó szabályzatot az alábbi részben
@@ -83,7 +83,7 @@ szükségesek.
 
 A FAST PARK a következő kártyákat fogadja el: Visa, Mastercard, Discover, American Express, JCB,
 Wright Express, Carte Blanche és Diner&#39;s Club.
-Az ConstantaParking alkalmazáson keresztül csak a FAST PARK felé vagy partnereink, parkolási szolgáltatóink
+Az UpPark alkalmazáson keresztül csak a FAST PARK felé vagy partnereink, parkolási szolgáltatóink
 felé lehet fizetni.
 A szolgáltatások SMS-ben történő fizetése:
 A fizetés SMS-ben történik az alkalmazásban található utasítások szerint. A szám, az SMS szövege és a
@@ -103,16 +103,16 @@ parkolási szolgáltató szankcionálja Önt.
 Megismételjük, hogy nem parkolási szolgáltatást, hanem csak fizetési könnyítést nyújtunk. Ezért nem
 vállalunk felelősséget az Ön járművének épségéért vagy a benne lévő áruk biztonságáért.
 FONTOS
-Ha az ConstantaParking értesítések fogadása nincs bejelölve, sem az alkalmazásból, sem a telefon általános
+Ha az UpPark értesítések fogadása nincs bejelölve, sem az alkalmazásból, sem a telefon általános
 beállításaiból, a felhasználó nem kap értesítést, ha egy termék foglalása az alkalmazásban hamarosan
-lejár. Javasoljuk, hogy az összes ConstantaParking értesítést tartsa bekapcsolva.
+lejár. Javasoljuk, hogy az összes UpPark értesítést tartsa bekapcsolva.
 A rendszerértesítések elindításához iOS rendszeren be kell lépnie a Beállítások - Értesítések menübe,
-majd válassza ki az ConstantaParking alkalmazást, és jelölje be az Értesítések engedélyezése lehetőséget.
-Android esetén nyissa meg a Beállítások - Értesítések menüt, majd válassza ki az ConstantaParking alkalmazást,
+majd válassza ki az UpPark alkalmazást, és jelölje be az Értesítések engedélyezése lehetőséget.
+Android esetén nyissa meg a Beállítások - Értesítések menüt, majd válassza ki az UpPark alkalmazást,
 és jelölje be az Értesítések megjelenítése lehetőséget.
 
 A SZOLGÁLTATÁS ELÉRHETŐSÉGE
-Az ConstantaParking szolgáltatás Románia bizonyos területein elérhető és nem garantáljuk elérhetőségét az
+Az UpPark szolgáltatás Románia bizonyos területein elérhető és nem garantáljuk elérhetőségét az
 ország egész területén, bár folyamatosan igyekszünk bővíteni.
 A parkolási díjak folyamatosan frissülnek, és a helytől, a zónától és a parkoló üzemeltetőjétől függően
 változhatnak.
@@ -128,7 +128,7 @@ szolgáltatások elérhetőségét vagy minőségét.
 Vállaljuk azonban, hogy minden érintett szolgáltatást mielőbb helyreállítunk.
 Ön felelős a nyújtott szolgáltatások használatához szükséges internetes hálózathoz való hozzáférésért,
 valamint a mobilhálózat-szolgáltatója által alkalmazott díjak és költségek megfizetéséért, beleértve az
-adatfogyasztást az ConstantaParking alkalmazások használata során. Ön felelős továbbá az internetes
+adatfogyasztást az UpPark alkalmazások használata során. Ön felelős továbbá az internetes
 szolgáltatások használatához szükséges eszközökhöz és kompatibilis operációs rendszerekhez való
 hozzáférésért, beleértve a szoftver- vagy hardverfrissítéseket.
 A felhasználó kijelenti, hogy a fizetéshez használt fizetőeszköz törvényes tulajdonosa. A FAST PARK
@@ -139,8 +139,8 @@ tulajdonosán kívül más személyek által okozott panaszokért, és nem tudja
 TELEFON VAGY MÁS MOBIL ESZKÖZ HASZNÁLATA VEZETÉS KÖZBEN
 Felhívjuk a felhasználó figyelmét, hogy a mobiltelefonok vagy más mobileszközök használata vezetés
 közben veszélyes. A FAST PARK azt javasolja a felhasználónak, hogy mozgó jármű kezelése közben ne
-használja az ConstantaParking szolgáltatást. A felhasználó vállalja, hogy megtéríti a FAST PARK-ot minden olyan
-kárért, amely az ConstantaParking szolgáltatás használatából ered, bármilyen típusú jármű kezelése során.
+használja az UpPark szolgáltatást. A felhasználó vállalja, hogy megtéríti a FAST PARK-ot minden olyan
+kárért, amely az UpPark szolgáltatás használatából ered, bármilyen típusú jármű kezelése során.
 A beérkezett parkolási bírságokért (illetve a parkolás elmulasztására vonatkozó értesítésekért, illetve a
 hibás fizetésért) és azok megfizetéséért a felhasználó a felelős. A FAST PARK nem rendelkezik
 joghatósággal a parkoló használója és a parkoló adminisztrátora (városháza, önkormányzatok vagy
@@ -156,7 +156,7 @@ Regisztrált felhasználóként adatai csak a szolgáltatások jóváhagyott cé
 felhasználásra nincs lehetőség, kivéve az előfizetőnek vagy szállítóinknak, akikkel együttműködési
 kapcsolatban állunk. Még abban a valószínűtlen esetben sem, ha jogosulatlan hozzáférne az Ön
 adataihoz, rendszerünk nem teszi lehetővé a korábban említetteken kívüli fizetést.
-Az ConstantaParking alkalmazáson keresztül megtekintheti és szerkesztheti regisztrált adatait.
+Az UpPark alkalmazáson keresztül megtekintheti és szerkesztheti regisztrált adatait.
 Ha okkal gyanítja ezen adatok – ideértve a bankkártyaadatokat is – jogosulatlan felhasználását,
 haladéktalanul értesítenie kell bennünket a weboldalon található űrlapon keresztül. Ha kártyáját
 ellopottként jelentette be, a hatályos jogszabályokban előírt szokásos biztonsági intézkedéseket
@@ -170,7 +170,7 @@ leghamarabb értesítenie kell bennünket, hogy korlátozzuk a telefon további 
 által kínált szolgáltatásokhoz, és korlátozzuk az esetleges pénzügyi következményeket. a lopás után. Ha
 Ön nem értesít minket időben egy ilyen eseményről, nem vállalunk felelősséget harmadik felek által ilyen
 körülmények között végrehajtott csalárd tranzakciókért.
-Ön kötelezi magát ne tegyen semmilyen lépést az ConstantaParking szolgáltatással való visszaélés érdekében,
+Ön kötelezi magát ne tegyen semmilyen lépést az UpPark szolgáltatással való visszaélés érdekében,
 beleértve, korlátozás nélkül, az oldalhoz vagy a FAST PARK rendszerek bármely részéhez való
 jogosulatlan hozzáférés megkísérlését, vagy bármilyen vírus vagy más típusú rosszindulatú program
 tudatos bejuttatását.
@@ -178,21 +178,21 @@ Fenntartjuk magunknak a jogot, hogy megtagadjuk regisztrációját és/vagy felf
 megszüntetjük fiókját, ha úgy gondoljuk, hogy Ön megsértette vagy megsértheti ezeket az általános
 feltételeket, vagy ha a törvény ezt megköveteli, és nem leszünk kötelesek indokolni ezt. Fiókját továbbra
 is felfüggeszthetjük, ha jogosulatlan használat vagy visszaélés gyanúja merül fel.
-Cookie-kat használunk, hogy az ConstantaParking alkalmazás használatakor a helyes információkat és
+Cookie-kat használunk, hogy az UpPark alkalmazás használatakor a helyes információkat és
 beállításokat mutassuk meg.
 Biztonsági cookie-kat használunk a felhasználók hitelesítésére, a bejelentkezés csalárd felhasználásának
 megakadályozására és a felhasználói adatok illetéktelen felektől való védelmére.
 
 SZELLEMI TULAJDONJOGOK
-Az ConstantaParking alkalmazást, szolgáltatásokat és weboldalt a FAST PARK CO KFT vagy leányvállalatai
+Az UpPark alkalmazást, szolgáltatásokat és weboldalt a FAST PARK CO KFT vagy leányvállalatai
 szellemi tulajdonjogai védik. Ezek a szellemi tulajdonjogok a származékos termékekre, azok új verzióira,
 fejlesztéseire, frissítéseire, módosításaira is vonatkoznak.
-Mind az ConstantaParking márka, mind a FAST PARK weboldalon bemutatott egyéb lehetséges márkák a FAST
+Mind az UpPark márka, mind a FAST PARK weboldalon bemutatott egyéb lehetséges márkák a FAST
 PARK CO KFT vagy leányvállalataink bejegyzett védjegyei.
-Az ConstantaParking márka nem használható olyan termékkel vagy szolgáltatással kapcsolatban, amely nem
+Az UpPark márka nem használható olyan termékkel vagy szolgáltatással kapcsolatban, amely nem
 tartozik a FAST PARK CO KFT-hez vagy leányvállalataihoz, semmilyen módon, ami zavart kelthet az
 ügyfelek körében, vagy bármilyen módon lejárathatja a FAST PARK CO KFT hitelét.
-A fiók aktiválásával az ConstantaParking alkalmazásban, nem kizárólagos, ideiglenes és át nem ruházható licenc
+A fiók aktiválásával az UpPark alkalmazásban, nem kizárólagos, ideiglenes és át nem ruházható licenc
 beszerzése a FAST PARK-tól a FAST PARK termékek használatára, amelyek felett szellemi
 tulajdonjogokkal rendelkezünk. A jelen feltételekben kifejezetten említetteken kívül a FAST PARK
 semmilyen más szellemi tulajdonjogot nem biztosít, Ön köteles tartózkodni a FAST PARK jogainak
@@ -226,7 +226,7 @@ magatartásra vonatkozó jogszabályokat.
 
 A jelen általános feltételeket maradéktalanul elolvastam, és azokkal egyetértésemet -
 KIPIPÁLÁSSAL- kifejezem
-Hozzájárulok, hogy időszakos hírleveleket kapjak, amelyeken keresztül értesülhetek az ConstantaParking
+Hozzájárulok, hogy időszakos hírleveleket kapjak, amelyeken keresztül értesülhetek az UpPark
 szolgáltatásaival kapcsolatos hírekről - KIPIPÁLVA
 Hozzájárulok, hogy promóciós anyagokat kapjak a FAST PARK CO-tól és leányvállalataitól -
 KIPIPÁLVA`;

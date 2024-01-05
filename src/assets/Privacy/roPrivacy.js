@@ -5,7 +5,7 @@ FASTPARK inseamna societatea FAST PARK Co. S.R.L., cu sediul in Voluntari, bd. P
 In centrul angajamentului FASTPARK de a furniza servicii exceptionale este respectarea confidentialitatii dumneavoastra si respectarea legilor aplicabile privind protectia datelor cu caracter personal. Aceasta politica de confidentialitate descrie drepturile si obligatiile FASTPARK cu privire la datele personale si este menita sa va ajute sa intelegeti modul in care colectam, folosim si protejam datele dumneavoastra personale.
 Angajamentul FASTPARK privind confidentialitatea fata de dumneavoastra include asigurarea corectitudinii, confidentialitatii si securitatii datelor dumneavoastra personale, permitandu-va sa solicitati acces, sa corectati sau sa stergeti datele personale.
 Datele dumneavoastra personale vor fi transferate si altor furnizori de servicii pentru realizarea integrala a serviciului de plati pentru parcare, in conditiile pe care le vom detalia in cele ce urmeaza.
-Atunci cand va creati un cont in aplicatia ConstantaParking sau utilizati serviciile FASTPARK, incheiati un acord cu FASTPARK si acceptati aceasta Politica de confidentialitate. De fiecare data cand va folositi contul sau serviciile FASTPARK sau ne furnizati informatii, prelucrarea datelor dumneavoastra personale va fi guvernata de versiunea actuala a acestei Politici de confidentialitate.
+Atunci cand va creati un cont in aplicatia UpPark sau utilizati serviciile FASTPARK, incheiati un acord cu FASTPARK si acceptati aceasta Politica de confidentialitate. De fiecare data cand va folositi contul sau serviciile FASTPARK sau ne furnizati informatii, prelucrarea datelor dumneavoastra personale va fi guvernata de versiunea actuala a acestei Politici de confidentialitate.
 Daca nu sunteti de acord cu termenii acestei Politici de confidentialitate, va rugam sa va abtineti de la crearea unui cont sau de la utilizarea serviciilor FASTPARK.
 In prezenta politica, “date personale” reprezinta datele cu caracter personal, astfel cum sunt definite de Regulamentului (UE) 2016/679 al Parlamentului European si al Consiliului din 27 aprilie 2016 privind protectia persoanelor fizice in ceea ce priveste prelucrarea datelor cu caracter personal si privind libera circulatie a acestor date si de abrogare a Directivei 95/46/CE
 ANUNT SPECIAL PRIVIND MINORII
@@ -16,7 +16,7 @@ FASTPARK este supusa legilor din Romania privind protectia datelor cu caracter p
 Regulamentul general privind protectia datelor care a intrat in vigoare la 25 mai 2018, stabileste regulile de baza pentru modul in care operatorii, cum ar fi FASTPARK, pot colecta, utiliza si dezvalui datele personale. FASTPARK se angajeaza sa respecte regulile Regulamentul general privind protectia datelor si legislatia interna (Legile privind protectia datelor).
 Datele cu caracter personal prelucrate
 FASTPARK colecteaza date pentru a va oferi servicii si prelucreaza numai datele personale necesare pentru a va ajuta sa va creati un Cont de utilizator sau pentru a va oferi cele mai bune Servicii posibile.
-Furnizati o parte din aceste date atunci cand creati un Cont, cand utilizati serviciul ConstantaParking sau atunci cand contactati FASTPARK pentru asistenta.
+Furnizati o parte din aceste date atunci cand creati un Cont, cand utilizati serviciul UpPark sau atunci cand contactati FASTPARK pentru asistenta.
 Datele cu caracter personal pe care le prelucram sunt:
  	• numarul de telefon mobil;
  	• numarul de inmatriculare a vehiculului;
@@ -28,7 +28,7 @@ Datele cu caracter personal pe care le prelucram sunt:
  	• date necesare serviciului de asistenta pentru clienti.
 
 
-Colectam anumite date indirect atunci cand interactionati cu serviciile ConstantaParking, utilizand tehnologii cum ar fi cookie-urile, mesajele de eroare sau datele de utilizare din software-ul FASTPARK care interactioneaza cu dispozitivul dumneavoastra si diverse programe, inclusiv:
+Colectam anumite date indirect atunci cand interactionati cu serviciile UpPark, utilizand tehnologii cum ar fi cookie-urile, mesajele de eroare sau datele de utilizare din software-ul FASTPARK care interactioneaza cu dispozitivul dumneavoastra si diverse programe, inclusiv:
 
  	•adresa IP si informatii despre dispozitivul pe care il utilizati pentru a accesa serviciile;
  	•Media Access Control (adresa MAC);
@@ -40,7 +40,7 @@ Colectam anumite date indirect atunci cand interactionati cu serviciile Constant
 
 
 Consultati Politica privind cookie-urile pentru mai multe informatii.
-De asemenea, uneori, obtinem date de la terti. De exemplu, atunci cand va inregistrati un card bancar in aplicatie pentru a utiliza serviciile ConstantaParking, vom utiliza serviciile de autorizare a cardului.
+De asemenea, uneori, obtinem date de la terti. De exemplu, atunci cand va inregistrati un card bancar in aplicatie pentru a utiliza serviciile UpPark, vom utiliza serviciile de autorizare a cardului.
 Scopul prelucrarii datelor cu caracter personal
 Prelucram datele pe care solicitam sa le furnizati pentru a va putea oferi serviciile FASTPARK si pentru a putea comunica cu dumneavoastra.
 Relatia contractuala
@@ -89,7 +89,7 @@ FASTPARK este obligat sa impartaseasca unele dintre datele dumneavoastra persona
  	transmiterea unor informatii auditorilor in legatura cu auditurile independente ale situatiilor si operatiunilor financiare ale FASTPARK. Cu toate acestea, acesti auditori nu pot utiliza informatii de identificare personala in niciun alt scop;
  	partajarea datelor personale cu un potential cumparator al FASTPARK (sau majoritatea activelor sale) sau o fuziune, reorganizare sau achizitie interna;
  	transmiterea informatiilor catre afiliatii nostri. Orice date personale pe care le furnizam afiliatilor sai vor fi tratate de acele afiliati in conformitate cu aceasta politica si suntem responsabili pentru gestionarea datelor personale utilizate in comun;
- 	Putem divulga date statistice agregate in scopuri statistice sau relatii publice. De exemplu, putem dezvalui ca un anumit procent din utilizatorii ConstantaParking platesc prin SMS. Aceste informatii nu sunt legate de informatiile personale.
+ 	Putem divulga date statistice agregate in scopuri statistice sau relatii publice. De exemplu, putem dezvalui ca un anumit procent din utilizatorii UpPark platesc prin SMS. Aceste informatii nu sunt legate de informatiile personale.
 
 Transferul datelor dumneavoastra cu caracter personal
 Putem transfera datele dumneavoastra personale furnizorilor terti pentru a va oferi o parte din serviciile FASTPARK. Unii dintre acesti furnizori pot avea sediul in tari din afara Uniunii Europene. Luam masuri pentru a ne asigura ca orice furnizor de servicii terte asigura o protectie adecvata a datelor dumneavoastra personale prin incheierea de acorduri cu acestia, care contin clauze de protectie a datelor care respecta legile privind protectia datelor cu caracter personal.
@@ -99,12 +99,12 @@ Desi transmisia de date prin Internet nu poate fi garantata ca fiind 100% sigura
 FASTPARK se obliga sa urmeze urmatoarele masuri de securitate pentru a va asigura ca datele dumneavoastra personale sunt protejate corespunzator:
 
  	toate datele personale sunt stocate electronic pe o baza de date criptata si protejata de un firewall;
- 	serviciul ConstantaParking este gazduit intr-un mediu securizat care utilizeaza un firewall si alte tehnologii avansate pentru a preveni interferentele sau accesul din exterior;
- 	accesul personalului la baza de date in care sunt stocate datele personale este limitat la cei care au nevoie de acces. Serverele in care este gazduit serviciul ConstantaParking sunt supravegheate si beneficiaza de paza fizica 24 de ore din 24.
+ 	serviciul UpPark este gazduit intr-un mediu securizat care utilizeaza un firewall si alte tehnologii avansate pentru a preveni interferentele sau accesul din exterior;
+ 	accesul personalului la baza de date in care sunt stocate datele personale este limitat la cei care au nevoie de acces. Serverele in care este gazduit serviciul UpPark sunt supravegheate si beneficiaza de paza fizica 24 de ore din 24.
 
 Durata pastrarii datelor dumneavoastra cu caracter personal
 FASTPARK va pastra datele dumneavoastra in conformitate cu legile privind protectia datelor.
-Daca va creati un cont sau daca utilizati serviciile ConstantaParking, vom pastra datele personale (inclusiv informatiile referitoare la fiecare sesiune de parcare si pentru fiecare dintre tranzactiile dumneavoastra) numai atata timp cat este in mod rezonabil necesar pentru a indeplini scopurile identificate pentru care datele au fost colectat sau cat timp este necesar pentru scopuri legale.
+Daca va creati un cont sau daca utilizati serviciile UpPark, vom pastra datele personale (inclusiv informatiile referitoare la fiecare sesiune de parcare si pentru fiecare dintre tranzactiile dumneavoastra) numai atata timp cat este in mod rezonabil necesar pentru a indeplini scopurile identificate pentru care datele au fost colectat sau cat timp este necesar pentru scopuri legale.
 Daca va creati un cont, vom pastra datele dumneavoastra personale atata timp cat aveti contul respectiv. Daca alegeti sa va inchideti contul, va vom marca Contul in baza de date a FASTPARK ca fiind Inchis, dar va trebui sa pastram o anumita cantitate de informatii in baza de date a FASTPARK atat timp cat este necesar pentru a ne conforma obligatiilor legale sau pana la implinirea termenului de prescriptie a obligatiilor bugetare avel FASTPARK, oricare dintre acestea este mai scurta.
 Drepturile dumneavoastra privind protectia datelor cu caracter personal
 Aveti dreptul sa solicitati acces la datele dumneavoastra personale si sa stiti cum utilizeaza FASTPARK datele dumneavoastra personale.
@@ -125,7 +125,7 @@ Va vom putea respinge solicitarea de stergere a datelor daca:
 (b) daca datele ne sunt necesare pentru constatarea, exercitarea sau apararea drepturilor FASTPARK in justitie.
 Exista si alte circumstante in care nu suntem obligati sa respectam solicitarea dumneavoastra de stergere a datelor, desi acestea doua sunt cele mai probabile circumstante in care v-am putea refuza aceasta solicitare.
 Sa aveti in vedere ca, inaintea exercitarii acestui drept, sa va descarcati din contul dumneavoastra din aplicatie si sa va salvati toate documentele aferente tuturor tranzactiilor efectuate prin intermediul subscrisei.
-In cazul in care nu efectuati acest demers inainte de a va exercita dreptul de stergere, veti pierde toate aceste documente iar subscrisa va fi in imposibilitate de a vi le pune la dispozitie, dupa caz, deoarece procesul de stergere a datelor, respectiv a contului ConstantaParking, cu toate datele si documentele aferente acestuia, este un proces ireversibil.
+In cazul in care nu efectuati acest demers inainte de a va exercita dreptul de stergere, veti pierde toate aceste documente iar subscrisa va fi in imposibilitate de a vi le pune la dispozitie, dupa caz, deoarece procesul de stergere a datelor, respectiv a contului UpPark, cu toate datele si documentele aferente acestuia, este un proces ireversibil.
 Dreptul la restrictionarea prelucrarii – puteti solicita restrictionarea prelucrarii in cazurile in care:
 a) contestati exactitatea datelor pe o perioada care ne permite verificarea corectitudinii datelor;
 b) prelucrarea este nelegala, dar va opuneti stergerii datelor cu caracter personal, solicitand in schimb restrictionarea;

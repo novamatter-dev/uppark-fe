@@ -1,5 +1,5 @@
-export const de = `1. Was ist ConstantaParking
-- ConstantaParking ist eine mobile App zum Bezahlen der Parkgebühren
+export const de = `1. Was ist UpPark
+- UpPark ist eine mobile App zum Bezahlen der Parkgebühren
 
 2. Wie bezahle ich die Parkgebühr?
 -Sie können die Parkgebühr mit der in der Anwendung registrierten Bankkarte oder per SMS an
@@ -19,22 +19,22 @@ Parkens (zu Beginn des Parkzeitraums) zu entrichten ist.
 - Auf allen Parkplätzen mit Schranke muss die Parkgebühr beim Verlassen des Parkplatzes entrichtet
 werden
 
-4. Wie kann ich meine Parkzeit nach der Nutzung von ConstantaParking verlängern?
+4. Wie kann ich meine Parkzeit nach der Nutzung von UpPark verlängern?
 Nach Ablauf der bezahlten Parkdauer erhalten Sie eine Benachrichtigung und haben die Möglichkeit
 zur Verlängerung der Parkdauer. Das Parken kann vom Benutzer manuell verlängert werden, indem
 er die entsprechende Gebühr bezahlt
 
 WICHTIG
-- Wenn die Option, ConstantaParking-Benachrichtigungen zu erhalten, weder in der App noch in den
+- Wenn die Option, UpPark-Benachrichtigungen zu erhalten, weder in der App noch in den
 allgemeinen Einstellungen des Telefons aktiviert ist, wird der Benutzer nicht benachrichtigt, wenn
 eine Produktreservierung in der App bald abläuft. Wir empfehlen, alle Benachrichtigungen für
-ConstantaParking eingeschaltet zu lassen.
+UpPark eingeschaltet zu lassen.
 - Um Systembenachrichtigungen zu aktivieren, gehen Sie in iOS zu Einstellungen -
-Benachrichtigungen, wählen Sie die ConstantaParking App aus und aktivieren Sie Benachrichtigungen
+Benachrichtigungen, wählen Sie die UpPark App aus und aktivieren Sie Benachrichtigungen
 zulassen.
 
 - Unter Android gehen Sie in das Menü Einstellungen (Settings) - Benachrichtigungen (Notifications)
-wählen dann die ConstantaParking-App aus und aktivieren die Option Benachrichtigungen anzeigen (Show
+wählen dann die UpPark-App aus und aktivieren die Option Benachrichtigungen anzeigen (Show
 Notifications).
 
 5. Wie kann ich per SMS bezahlen?
