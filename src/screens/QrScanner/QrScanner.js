@@ -1,65 +1,58 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  PermissionsAndroid,
-  Platform,
-  BackHandler,
-} from 'react-native';
-//style
-import style from './camera.style';
-//components
-import {NativeBaseBackButton, Toast} from '../../components';
-//libraries
-import {runOnJS} from 'react-native-reanimated';
-import {useNavigation, useIsFocused} from '@react-navigation/core';
-import {
-  Camera,
-  useCameraDevices,
-  useFrameProcessor,
-} from 'react-native-vision-camera';
-import {
-  BarcodeFormat,
-  scanBarcodes,
-  useScanBarcodes,
-} from 'vision-camera-code-scanner';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
+import { Linking, StyleSheet, TouchableOpacity, View, BackHandler, } from 'react-native';
+import { Code, useCameraDevice, useCodeScanner } from 'react-native-vision-camera';
+import { Camera } from 'react-native-vision-camera';
+import IonIcon from 'react-native-vector-icons/Ionicons';
+import { useNavigation, useIsFocused } from '@react-navigation/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { NativeBaseBackButton, Toast } from '../../components';
+import { usePaymentInfoBarcodeMutation } from '../../services/parkings';
+import { setParkingForm } from '../../redux/features/parkings/parkingsSlice';
 import moment from 'moment';
-import {Spinner, useToast} from 'native-base';
-//redux
-import {useDispatch, useSelector} from 'react-redux';
-import {usePaymentInfoBarcodeMutation} from '../../services/parkings';
-import {setParkingForm} from '../../redux/features/parkings/parkingsSlice';
-import {t} from 'i18next';
+import { Alert, useToast } from 'native-base';
+import { useTranslation } from 'react-i18next';
+import { t } from "i18next";
 
 const QrScanner = () => {
+  const device = useCameraDevice('back');
+  const { parkingDetails } = useSelector(state => state.parkings.parkingsState);
   const isFocused = useIsFocused();
-  const [hasPermission, setHasPermission] = useState(false);
-  const [closeCamera, setCloseCamera] = useState(false);
-  const dispatch = useDispatch();
-  const {parkingDetails} = useSelector(state => state.parkings.parkingsState);
-  const toast = useToast();
-
-  const navigate = useNavigation();
-  const devices = useCameraDevices();
-  let device = devices?.back;
-
+  const isActive = isFocused;
   const [paymentInfoBarcode] = usePaymentInfoBarcodeMutation();
+  const [torch, setTorch] = useState(false);
+  const [isScanningAllowed, setIsScanningAllowed] = useState(true);
+  const scanTimeoutRef = useRef(null);
+  const toast = useToast();
+  const isShowingAlert = useRef(false);
+  const navigate = useNavigation();
+  const [code, setCode] = useState();
+  const { i18n } = useTranslation();
+  const [hasPermission, setHasPermission] = useState(false);
 
-  const [frameProcessor, barcodes] = useScanBarcodes(
-    [BarcodeFormat.ALL_FORMATS],
-    {checkInverted: true},
-  );
+  useEffect(() => {
+    handleScan(code);
+  }, [code])
 
-  // TODO: only one call
+  const onCodeScanned = useCallback((codes) => {
+    console.log(`Scanned ${codes.length} codes:`, codes);
+    const value = codes[0]?.value;
+    console.log(`Scanned value`, value);
+    if (value == null || !isScanningAllowed) return;
+    setCode(value)
+  }, []);
 
-  const handleScan = async qr => {
-    console.log('qr', qr, '   ', parkingDetails?.parkingId);
+  const handleScan = async (qr) => {
+    let payload = {
+      barcode: qr,
+      parkingId: parkingDetails?.parkingId,
+    }
+    console.log("API payload", payload)
     await paymentInfoBarcode({
       barcode: qr,
       parkingId: parkingDetails?.parkingId,
     })
       .then(answer => {
-        // console.log('answer QR : ', answer);
+        console.log('answer QR : ', answer);
         const endTime = moment(new Date()).format('yyyy-MM-DDTHH:mm:ss');
         const body = {
           minutes: Math.floor(answer?.data?.duration / 60000),
@@ -73,34 +66,52 @@ const QrScanner = () => {
         };
         if (answer?.data?.amount > 0) {
           dispatch(setParkingForm(body));
-          setCloseCamera(false);
           navigate.pop();
           navigate.navigate('PaymentDetails');
         } else {
           toast.show({
             placement: 'top',
-            duration: 2000,
+            duration: 1500,
             render: () => {
-              return <Toast message={t('Total de plata 0')} type={'succes'} />;
+              return (
+                <Toast message={t('Total de plata 0')} type={'succes'} />
+              );
             },
           });
           handleBackBtn();
         }
       })
       .catch(err => {
-        console.log('scan qr err: ', err);
+        console.log("Error: ", err);
         toast.show({
           placement: 'top',
-          duration: 2000,
+          duration: 1500,
           render: () => {
-            return <Toast message={t('invalid_ticket')} type={'danger'} />;
+            return (
+              <Toast message={t('invalid_ticket')} type={'danger'} />
+            );
           },
         });
-        setCloseCamera(false);
-        handleBackBtn();
-        // navigate.goBack();
       });
-  };
+  }
+
+  const codeScanner = useCodeScanner({
+    codeTypes: [
+      'aztec',
+      'codabar',
+      'code-128',
+      'code-39',
+      'code-93',
+      'data-matrix',
+      'ean-13',
+      'ean-8',
+      'itf',
+      'pdf-417',
+      'qr',
+      'upc-e',
+    ],
+    onCodeScanned: onCodeScanned,
+  });
 
   const handleBackBtn = () => {
     // dispatch(setIsParkingSelected(false));
@@ -129,45 +140,63 @@ const QrScanner = () => {
     };
   }, [isFocused]);
 
-  useEffect(() => {
-    if (barcodes[0]?.content?.data) {
-      // navigate.navigate("PaymentDetails");
-      setCloseCamera(true);
-      handleScan(barcodes[0]?.content?.data);
-    }
-  }, [barcodes]);
-
   return (
-    <View>
-      {device != null && hasPermission && (
-        <View>
-          {/* // TODO: style this and maybe add an input */}
-          {closeCamera ? (
-            <View style={style.loadingContainer}>
-              <Spinner size="lg" />
-              <Text style={style.loadingText}>{t('Loading')} ...</Text>
-            </View>
-          ) : (
-            <>
-              <View style={style.backBtnContainer}>
-                <NativeBaseBackButton
-                  isLoading={false}
-                  handleOnPress={() => handleBackBtn()}
-                />
-              </View>
-              <Camera
-                style={style.camera}
-                device={device}
-                isActive={true}
-                frameProcessor={frameProcessor}
-                frameProcessorFps={1}
-              />
-            </>
-          )}
-        </View>
+    <View style={styles.container}>
+      {device != null && (
+        <Camera
+          style={StyleSheet.absoluteFill}
+          device={device}
+          isActive={isActive}
+          codeScanner={codeScanner}
+          torch={torch ? 'on' : 'off'}
+          enableZoomGesture={true}
+        />
       )}
+
+      {/* <StatusBarBlurBackground /> */}
+
+      {/* <View style={styles.rightButtonRow}>
+        <TouchableOpacity style={styles.button} onPress={() => setTorch(!torch)} disabledOpacity={0.4}>
+          <IonIcon name={torch ? 'flash' : 'flash-off'} color="white" size={24} />
+        </TouchableOpacity>
+      </View> */}
+
+      {/* Back Button */}
+      <TouchableOpacity style={styles.backButton} onPress={handleBackBtn}>
+        <NativeBaseBackButton
+          isLoading={false}
+          handleOnPress={() => handleBackBtn()}
+        />
+      </TouchableOpacity>
     </View>
   );
-};
+}
 
 export default QrScanner;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+  button: {
+    marginBottom: 30,
+    width: 30,
+    height: 30,
+    borderRadius: 30 / 2,
+    backgroundColor: 'rgba(140, 140, 140, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rightButtonRow: {
+    position: 'absolute',
+    right: 30,
+    top: 30,
+  },
+  backButton: {
+    position: "absolute",
+    top: Platform.OS === "ios" ? "7%" : "5%",
+    left: "8%",
+    zIndex: 1,
+  },
+});

@@ -1,5 +1,5 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useEffect, useState } from 'react';
 import {
   Linking,
   NativeModules,
@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {setError} from '../redux/features/auth/authSlice';
+import { setError } from '../redux/features/auth/authSlice';
 import {
   ActiveParking,
   AddCar,
@@ -23,39 +23,39 @@ import {
   TermsScreen,
 } from '../screens';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
-import {LoginPhone} from '../screens/Login/Components';
+import { LoginPhone } from '../screens/Login/Components';
 import Register from '../screens/Login/Register';
 import MainDrawerNavigation from './drawerNavigation';
 import style from './updateStyle';
 //libraries
 import NetInfo from '@react-native-community/netinfo';
-import {useToast} from 'native-base';
-import {useTranslation} from 'react-i18next';
+import { useToast } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
 //components
-import {useNavigation} from '@react-navigation/native';
-import {t} from 'i18next';
-import {ButtonComponent, Toast} from '../components';
+import { useNavigation } from '@react-navigation/native';
+import { t } from 'i18next';
+import { ButtonComponent, Toast } from '../components';
 import LoginEmail from '../screens/Login/LoginEmail';
 //redux
-import {useDispatch, useSelector} from 'react-redux';
-import {BLACK, PLATINUM, RED} from '../helpers/style/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { BLACK, PLATINUM, RED } from '../helpers/style/constants';
 import {
   setInternetConnection,
   setLanguage,
 } from '../redux/features/users/userSlice';
 import Maintenance from '../screens/Maintenance/Maintenance.screen';
 import PaymentConfirmation from '../screens/PaymentConfirmation/PaymentConfirmation.screen';
-import {useCheckForUpdatesMutation} from '../services/notifications';
+import { useCheckForUpdatesMutation } from '../services/notifications';
 
 const Stack = createNativeStackNavigator();
 
 const MainStackNavigation = () => {
   const dispatch = useDispatch();
   const toast = useToast();
-  const {error} = useSelector(state => state.auth);
-  const {language} = useSelector(state => state.users);
-  const {i18n} = useTranslation();
+  const { error } = useSelector(state => state.auth);
+  const { language } = useSelector(state => state.users);
+  const { i18n } = useTranslation();
 
   const navigation = useNavigation();
 
@@ -71,11 +71,11 @@ const MainStackNavigation = () => {
   const screenListeners = {
     focus: () => {
       // do something when screen opens & is focused
-      dispatch(setError({status: null, message: null}));
+      dispatch(setError({ status: null, message: null }));
     },
     blur: () => {
       // do something when scree is closed OR dismissed (in iOS)
-      dispatch(setError({status: null, message: null}));
+      dispatch(setError({ status: null, message: null }));
     },
   };
 
@@ -84,7 +84,7 @@ const MainStackNavigation = () => {
 
     const body = {
       platform: Platform.OS.toUpperCase(),
-      clientVersion: appVer,
+      clientVersion: 1,
       // TODO: CHANGES BETWEEN UPPARK AND CONSTANTA PARKING:
       source: 'UPPARK', // 'UPPARK'
     };
@@ -155,7 +155,7 @@ const MainStackNavigation = () => {
     const nativeLocale =
       Platform.OS === 'ios'
         ? NativeModules.SettingsManager.settings.AppleLocale ||
-          NativeModules.SettingsManager.settings.AppleLanguages[0]
+        NativeModules.SettingsManager.settings.AppleLanguages[0]
         : NativeModules.I18nManager.localeIdentifier;
 
     const locale = nativeLocale.split('_');
@@ -171,7 +171,7 @@ const MainStackNavigation = () => {
         await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
         );
-      } catch (error) {}
+      } catch (error) { }
     }
   };
 
@@ -231,17 +231,17 @@ const MainStackNavigation = () => {
 
   return (
     <>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="Splash"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={Splash}
           listeners={screenListeners}
         />
 
         <Stack.Screen
           name="Maintenance"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={Maintenance}
           listeners={screenListeners}
         />
@@ -258,73 +258,73 @@ const MainStackNavigation = () => {
 
         <Stack.Screen
           name="Login"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={Login}
           listeners={screenListeners}
         />
 
         <Stack.Screen
           name="LoginPhone"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={LoginPhone}
           listeners={screenListeners}
         />
 
         <Stack.Screen
           name="LoginEmail"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={LoginEmail}
           listeners={screenListeners}
         />
 
         <Stack.Screen
           name="Register"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={Register}
           listeners={screenListeners}
         />
 
         <Stack.Screen
           name="ForgotPassword"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={ForgotPassword}
           listeners={screenListeners}
         />
 
         <Stack.Screen
           name="SmsConfirmCode"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={SmsConfirmCode}
           listeners={screenListeners}
         />
 
         <Stack.Screen
           name="ParkFromScreen"
-          options={({route}) => ({headerShown: false, orientation: 'portrait'})}
+          options={({ route }) => ({ headerShown: false, orientation: 'portrait' })}
           component={ParkFromScreen}
         />
 
         <Stack.Screen
           name="PaymentDetails"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={PaymentDetails}
         />
 
         <Stack.Screen
           name="PaymentConfirmation"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={PaymentConfirmation}
         />
 
         <Stack.Screen
           name="ActiveParking"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={ActiveParking}
         />
 
         <Stack.Screen
           name="AddCar"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={AddCar}
         />
         {/* <Stack.Screen
@@ -334,22 +334,22 @@ const MainStackNavigation = () => {
         /> */}
         <Stack.Screen
           name="HelpScreen"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={HelpScreen}
         />
         <Stack.Screen
           name="ReservartionDetailsScreen"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={ReservartionDetailsScreen}
         />
         <Stack.Screen
           name="TermsScreen"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={TermsScreen}
         />
         <Stack.Screen
           name="PrivacyScreen"
-          options={{headerShown: false, orientation: 'portrait'}}
+          options={{ headerShown: false, orientation: 'portrait' }}
           component={PrivacyScreen}
         />
       </Stack.Navigator>
@@ -369,7 +369,7 @@ const MainStackNavigation = () => {
           <View style={style.btnContainer}>
             <ButtonComponent
               text={t('later').toUpperCase()}
-              onPress={() => setUpdate({showNotification: false})}
+              onPress={() => setUpdate({ showNotification: false })}
               color={'transparent'}
               labelColor={RED}
             />

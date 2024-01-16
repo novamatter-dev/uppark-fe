@@ -2,8 +2,7 @@ import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
   camera: {
-    width: "100%",
-    height: "100%",
+    flex: 1
   },
 
   //loading container
@@ -13,6 +12,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "100%",
+    backgroundColor: "red"
   },
   loadingText: {
     color: "black",
@@ -24,6 +24,7 @@ const style = StyleSheet.create({
     top: Platform.OS === "ios" ? "7%" : "5%",
     left: "8%",
     zIndex: 1,
+    backgroundColor:"red"
   },
 });
 
