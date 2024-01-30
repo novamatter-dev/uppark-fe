@@ -13,12 +13,15 @@ export const useMaintenanceMode = () => {
 
   const checkMaintenanceMode = async () => {
     const appVer = DeviceInfo.getVersion();
+    console.log(appVer)
     const body = {
       platform: Platform.OS.toUpperCase(),
       clientVersion: appVer,
       // TODO: CHANGES BETWEEN UPPARK AND CONSTANTA PARKING:
       source: 'UPPARK', // 'UPPARK'
     };
+
+    console.log(body)
 
     await checkForUpates(body)
       .then(answer => {

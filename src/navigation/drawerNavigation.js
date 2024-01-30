@@ -192,7 +192,6 @@ const MainDrawerNavigation = () => {
     <>
       <>
         <Drawer.Navigator
-          useLegacyImplementation={true}
           screenOptions={{
             drawerStyle: {
               backgroundColor: BLACK,
