@@ -13,15 +13,13 @@ export const useMaintenanceMode = () => {
 
   const checkMaintenanceMode = async () => {
     const appVer = DeviceInfo.getVersion();
-    console.log(appVer)
+
     const body = {
       platform: Platform.OS.toUpperCase(),
       clientVersion: appVer,
       // TODO: CHANGES BETWEEN UPPARK AND CONSTANTA PARKING:
       source: 'UPPARK', // 'UPPARK'
     };
-
-    console.log(body)
 
     await checkForUpates(body)
       .then(answer => {
@@ -31,7 +29,6 @@ export const useMaintenanceMode = () => {
           console.log('check for updates go to maintenance');
           navigation.navigate('Maintenance');
         } else {
-          console.log('check for updates else');
           if (jwt) {
             navigation.navigate('HomeDrawer');
           } else {

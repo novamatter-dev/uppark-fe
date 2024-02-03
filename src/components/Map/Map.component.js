@@ -222,7 +222,7 @@ const Map = props => {
       }
 
       dispatch(setWorksWithHub(data.worksWithHub));
-      dispatch(setParkingDetails(body));
+      dispatch(setParkingDetails({...body, lprUrl: data.lprUrl}));
       dispatch(setIsParkingSelected({isParkingSelected: true, parkingId: id}));
       setShowExtend(false);
       dispatch(parkingGroupIsLoading(false));

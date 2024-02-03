@@ -72,6 +72,12 @@ const GooglePlacesInput = props => {
       longitudeDelta: LONGITUDE_DELTA,
     };
 
+    console.log('________________________________');
+    console.log('________________________________');
+    console.log('________________________________');
+
+    console.log('handleSearchLocationDispatch body', body);
+
     dispatch(setSearchLocation(body));
     handleNearestParkings(data);
   };
@@ -84,6 +90,8 @@ const GooglePlacesInput = props => {
 
     await nearestParking(body)
       .then(answer => {
+        console.log('nearestParking body:', body);
+        console.log('nearestParking answer:', answer.data);
         handleNearesGroupDetails(answer);
       })
       .catch(err => {
@@ -103,6 +111,10 @@ const GooglePlacesInput = props => {
       parkingId: parkingData?.data?.parkingId,
     });
 
+    console.log('getGroupDetails parkingData', parkingData);
+    console.log('getGroupDetails apiError', apiError);
+    console.log('getGroupDetails data', data);
+
     if (!apiError) {
       const body = {
         latitude: data.entranceLatitude,
@@ -120,8 +132,6 @@ const GooglePlacesInput = props => {
         };
         dispatch(setSensorParking(body));
       }
-
-      // dispatch(setSearchLocation(body));
 
       const coords = {
         latitude: data.entranceLatitude,

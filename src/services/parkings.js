@@ -176,6 +176,7 @@ export const parkingsApi = createApi({
         method: 'GET',
       }),
     }),
+
     searchByKeyword: builder.mutation({
       query: reqBody => ({
         url: `/api/Parkings/search-by-keyword`,
@@ -208,6 +209,7 @@ export const {
   useChecktransactionMutation,
   useReturnLinkMutation,
   useGetMiniParkDetailsMutation,
+  useGetLprDetailsMutation,
   usePostBookSensorMutation,
   useSearchByKeywordMutation,
 } = parkingsApi;
