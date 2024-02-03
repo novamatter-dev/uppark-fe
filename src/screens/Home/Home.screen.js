@@ -77,6 +77,8 @@ import {
   useUpdateSettingsMutation,
 } from '../../services/users';
 import {SafeAreaView} from 'react-native';
+import store from '../../redux/store';
+import {getCookie} from '../../helpers';
 
 const Home = () => {
   const isFocused = useIsFocused();
@@ -223,8 +225,13 @@ const Home = () => {
       distance: 20000,
     };
 
+    console.log('nearbyParkings body', body);
+
     await nearbyParkings(body)
       .then(answer => {
+        console.log('nearbyParkings answer', answer.data);
+        // console.log('nearbyParkings home screen body:', body);
+        // console.log('nearbyParkings home screen answer:', answer.data);
         if (answer.data.parkingGroups.length > 0) {
           dispatch(setNearByParkings(answer.data));
           setNoParkings(false);
@@ -296,6 +303,7 @@ const Home = () => {
 
   const getparkingDetails = async id => {
     const {data, error: apiError} = await getParkingDetails({id: id});
+
     if (!apiError) {
       const body = {
         parkingId: id,
@@ -328,10 +336,13 @@ const Home = () => {
   };
 
   const handleOnSubmit = () => {
+    console.log('parkingsData.lpr', parkingsData.parkingDetails.lprUrl);
     if (parkingsData.worksWithHub) {
       navigation.navigate('QrScanner');
     } else if (parkingsData.isMiniPark) {
       handleMiniparkCheck();
+    } else if (parkingsData.parkingDetails.lprUrl) {
+      handleLprCheck();
     } else {
       if (showExtend) {
         // getparkingDetails(currentReservations[0].parkingId);
@@ -347,6 +358,64 @@ const Home = () => {
         navigation.navigate('ParkFromScreen');
       }
     }
+  };
+
+  const handleLprCheck = async () => {
+    const body = {
+      plateId: activeCar?.licensePlateNumber,
+      lprUrl: parkingsData.parkingDetails.lprUrl,
+    };
+
+    // CALIN MI-A ZIS SA FAC FETCH
+    var myHeaders = new Headers();
+    myHeaders.append('Accept', '*/*');
+
+    myHeaders.append('Authorization', 'Bearer ' + jwt);
+
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow',
+      data: body,
+    };
+
+    await fetch(
+      `${body?.lprUrl}/parking-sessions/get-price-by-license-plate/${body?.plateId}`,
+      requestOptions,
+    )
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('data lpr >>> ', data);
+        if (data.price === 0) {
+          setMiniparkDisclaimer({
+            isVisible: true,
+            message: 'Iesire libera',
+          });
+        } else {
+          const endTime = moment(new Date()).format('yyyy-MM-DDTHH:mm:ss');
+          const body = {
+            // minutes: data?.data?.minutes,
+            totalAmounts: data.price,
+            startTime: new Date(endTime).toISOString(),
+            // startTime: new Date(data.startTime).toISOString(),
+            endTime: new Date(endTime).toISOString(),
+            parkingId: parkingsData.parkingForm.parkingId,
+            currencyType: 'RON',
+            // TODO: verify hardcoded productId
+            productId: 236,
+          };
+          dispatch(setParkingForm(body));
+          navigation.navigate('PaymentDetails');
+        }
+      })
+      .catch(err => {
+        console.log('err lpr >>> ', err);
+      });
   };
 
   const handleMiniparkCheck = async () => {
