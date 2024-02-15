@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, View, Text, Image} from 'react-native';
 //style
 import {SvgXml} from 'react-native-svg';
@@ -7,8 +7,9 @@ import carRowStyle from './CarRow.style';
 import ProfileStyle from '../../Profile.style';
 //libraies & components
 import PropTypes from 'prop-types';
-import {Box, useToast} from 'native-base';
 import blueCar from '../../../../assets/icons/blueCar.png';
+import {Actionsheet, Box, useToast} from 'native-base';
+
 //redux
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -23,6 +24,7 @@ import {
   useGetCarsMutation,
 } from '../../../../services/cars';
 import {t} from 'i18next';
+import ActionModal from '../../../../components/ActionModal/ActionModal';
 
 const CarRow = props => {
   const {
@@ -41,6 +43,8 @@ const CarRow = props => {
 
   const [getCars] = useGetCarsMutation();
   const [deleteCar] = useDeleteCarMutation();
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const toast = useToast();
 
@@ -123,27 +127,26 @@ const CarRow = props => {
         <SvgXml xml={svgs.car} width={24} height={18} />
         <Text style={carRowStyle.buttonText}>{item.licensePlateNumber}</Text>
       </View>
+
       <TouchableOpacity
         onPress={() => {
-          handleOnDeletePress();
+          setModalVisible(true);
         }}
         style={carRowStyle.deleteBtn}>
         <SvgXml xml={svgs.deleteIcon} width={22} height={22} fill={RED} />
       </TouchableOpacity>
-
-      {/* <TouchableOpacity
-        style={{
-          position: 'absolute',
-          right: 18,
-          width: 40,
-          height: 40,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={() => handleOnPress()}>
-        <SvgXml xml={svgs.edit} width={24} height={18} />
-      </TouchableOpacity> */}
+      <Actionsheet
+        isOpen={modalVisible}
+        // isOpen={true}
+        style={{height: '45%', position: 'absolute', bottom: 0}}>
+        <ActionModal
+          text={`${t(
+            'delete_car_confirmation',
+          )} ${item.licensePlateNumber.toUpperCase()}`}
+          handleNo={() => setModalVisible(false)}
+          handleYes={() => handleDeleteCarById(item.carId)}
+        />
+      </Actionsheet>
     </TouchableOpacity>
   );
 };
