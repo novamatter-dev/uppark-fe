@@ -190,6 +190,7 @@ const CarsTab = props => {
                 style={ProfileStyle.carEntry}
                 item={item}
                 isSelected={activeCarId === item.carId}
+                handleGetCars={handleGetCars}
               />
             );
           })}
