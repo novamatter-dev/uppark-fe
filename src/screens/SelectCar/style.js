@@ -38,7 +38,16 @@ const style = StyleSheet.create({
   },
   listContainer: {
     display: 'flex',
-    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: PLATINUM,
+    height: hp(65),
+  },
+  carsListContainer: {
+    width: '100%',
+    display: 'flex',
+    height: hp(50),
+    paddingTop: 0,
   },
   item: {
     display: 'flex',

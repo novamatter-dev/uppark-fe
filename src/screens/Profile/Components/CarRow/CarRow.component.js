@@ -7,7 +7,7 @@ import carRowStyle from './CarRow.style';
 import ProfileStyle from '../../Profile.style';
 //libraies & components
 import PropTypes from 'prop-types';
-import {Box} from 'native-base';
+import {Box, useToast} from 'native-base';
 import blueCar from '../../../../assets/icons/blueCar.png';
 //redux
 import {useDispatch, useSelector} from 'react-redux';
@@ -16,7 +16,13 @@ import {
   setActiveCar,
   setSelectingCar,
 } from '../../../../redux/features/cars/carsSlice';
-import {BLUE} from '../../../../helpers/style/constants';
+import {BLUE, RED} from '../../../../helpers/style/constants';
+import {Alert} from 'react-native';
+import {
+  useDeleteCarMutation,
+  useGetCarsMutation,
+} from '../../../../services/cars';
+import {t} from 'i18next';
 
 const CarRow = props => {
   const {
@@ -27,10 +33,16 @@ const CarRow = props => {
     isSelected,
     isDisabled,
     handleChangeCarModal,
+    handleGetCars = () => {},
   } = props;
 
   const dispatch = useDispatch();
   const {activeCarId} = useSelector(state => state.cars);
+
+  const [getCars] = useGetCarsMutation();
+  const [deleteCar] = useDeleteCarMutation();
+
+  const toast = useToast();
 
   const handleActiveCar = data => {
     const body = {
@@ -44,6 +56,54 @@ const CarRow = props => {
       fireExtinguisherExpirationDate: data.fireExtinguisherExpirationDate,
     };
     dispatch(setActiveCar(body));
+  };
+
+  const handleOnDeletePress = () => {
+    console.log({item});
+    Alert.alert(
+      t('delete_car'),
+      `${t(
+        'delete_car_confirmation',
+      )} ${item.licensePlateNumber.toUpperCase()}`,
+      [
+        {
+          text: t('yes'),
+          onPress: () => {
+            handleDeleteCarById(item.carId);
+          },
+        },
+        {
+          text: t('no'),
+          onPress: () => {
+            // console.log("NO Pressed");
+          },
+        },
+      ],
+    );
+  };
+
+  const handleDeleteCarById = async carId => {
+    try {
+      await deleteCar({id: carId})
+        .then(answer => {
+          handleGetCars();
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleToast = message => {
+    toast.show({
+      placement: 'top',
+      duration: 1500,
+      render: () => {
+        return <ToastComponent message={message} type={'danger'} />;
+      },
+    });
   };
 
   return (
@@ -63,6 +123,13 @@ const CarRow = props => {
         <SvgXml xml={svgs.car} width={24} height={18} />
         <Text style={carRowStyle.buttonText}>{item.licensePlateNumber}</Text>
       </View>
+      <TouchableOpacity
+        onPress={() => {
+          handleOnDeletePress();
+        }}
+        style={carRowStyle.deleteBtn}>
+        <SvgXml xml={svgs.deleteIcon} width={22} height={22} fill={RED} />
+      </TouchableOpacity>
 
       {/* <TouchableOpacity
         style={{

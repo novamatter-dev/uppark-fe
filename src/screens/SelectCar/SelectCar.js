@@ -30,6 +30,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import {ScrollView} from 'react-native';
 
 const SelectCar = props => {
   const {inModal = false, closeModal = () => {}} = props;
@@ -92,26 +93,29 @@ const SelectCar = props => {
             <Title label={t('select_car')} style={style.titleWrapper} />
           </>
         )}
+        {console.log('test')}
 
         <View style={style.listContainer}>
-          {cars?.map((item, index) => {
-            return (
-              <TouchableOpacity
-                style={{
-                  ...style.item,
-                  borderWidth: 2,
-                  borderColor:
-                    item.carId === activeCar.carId ? BLUE : 'transparent',
-                }}
-                key={`car-${index}--${item.carId}`}
-                onPress={() => handleSelectCar(item)}>
-                <View style={style.iconContainer}>
-                  <SvgXml xml={svgs.car} width={hp(2.95)} height={hp(2.95)} />
-                </View>
-                <Text style={style.itemLabel}>{item.licensePlateNumber}</Text>
-              </TouchableOpacity>
-            );
-          })}
+          <ScrollView style={style.carsListContainer}>
+            {cars?.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    ...style.item,
+                    borderWidth: 2,
+                    borderColor:
+                      item.carId === activeCar.carId ? BLUE : 'transparent',
+                  }}
+                  key={`car-${index}--${item.carId}`}
+                  onPress={() => handleSelectCar(item)}>
+                  <View style={style.iconContainer}>
+                    <SvgXml xml={svgs.car} width={hp(2.95)} height={hp(2.95)} />
+                  </View>
+                  <Text style={style.itemLabel}>{item.licensePlateNumber}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
         </View>
       </View>
 
