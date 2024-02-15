@@ -101,7 +101,7 @@ export const parkingsApi = createApi({
     }),
     getCurrentReservations: builder.mutation({
       query: () => ({
-        url: `/api/ParkingReservation/CurrentReservations`,
+        url: `/api/ParkingReservation/CurrentReservations?sourceApp=UpPark`,
         method: 'GET',
       }),
     }),
