@@ -66,8 +66,6 @@ const MainStackNavigation = () => {
     link: '',
   });
 
-  const [showStore, setShowStore] = useState(false);
-
   const screenListeners = {
     focus: () => {
       // do something when screen opens & is focused
@@ -97,10 +95,17 @@ const MainStackNavigation = () => {
 
         if (answer?.data?.needsUpdate) {
           // TODO: CHANGES BETWEEN UPPARK AND CONSTANTA PARKING: check for constantaparking and uppark app link store UPPARK CONSTANTA PARK
-          setUpdate({
-            showNotification: true,
-            link: 'https://play.google.com/store/apps/details?id=com.uppark',
-          });
+          if (Platform.OS === 'ios') {
+            setUpdate({
+              showNotification: true,
+              link: 'https://apps.apple.com/ro/app/uppark/id6446678088',
+            });
+          } else {
+            setUpdate({
+              showNotification: true,
+              link: 'https://play.google.com/store/apps/details?id=com.uppark',
+            });
+          }
         }
       })
       .catch(err => {
@@ -109,8 +114,12 @@ const MainStackNavigation = () => {
   };
 
   const handleOpenLink = async () => {
-    await Linking.openURL(update?.link);
-    // setShowStore(true);
+    await Linking.canOpenURL(update?.link).then(
+      supported => {
+        supported && Linking.openURL(update?.link);
+      },
+      err => console.log(err),
+    );
   };
 
   useEffect(() => {
