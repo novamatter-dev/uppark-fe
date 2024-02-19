@@ -950,7 +950,7 @@
 				CODE_SIGN_ENTITLEMENTS = UpPark/UpPark.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9LKHB22MV7;
+				DEVELOPMENT_TEAM = 7T6WDP567T;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = UpPark/Info.plist;
@@ -984,7 +984,7 @@
 				CODE_SIGN_ENTITLEMENTS = UpPark/UpPark.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9LKHB22MV7;
+				DEVELOPMENT_TEAM = 7T6WDP567T;
 				INFOPLIST_FILE = UpPark/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = UpPark;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;

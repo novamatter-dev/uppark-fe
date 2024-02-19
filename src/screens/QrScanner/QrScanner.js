@@ -28,6 +28,7 @@ const QrScanner = () => {
   const [code, setCode] = useState();
   const { i18n } = useTranslation();
   const [hasPermission, setHasPermission] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     handleScan(code);
