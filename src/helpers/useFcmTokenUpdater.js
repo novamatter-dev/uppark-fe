@@ -10,6 +10,8 @@ export function useFcmTokenUpdater() {
     try {
       let fcmtoken = await messaging().getToken();
 
+      console.log({fcmtoken});
+
       if (fcmtoken) {
         await AsyncStorage.setItem('fcmtoken', fcmtoken).then(answer => {
           // console.log('new token ', answer);

@@ -21,7 +21,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyCdjCLg9VBEwhOXjyZt094u91ApVq52pQA"/>
+        android:value="AIzaSyCJ1K72c13M2V1gqxL3aJ2dUzJxOusgO_8"/>
         <meta-data
           android:name="com.google.mlkit.vision.DEPENDENCIES"
           android:value="barcode" />

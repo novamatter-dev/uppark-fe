@@ -21,6 +21,10 @@
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleURLTypes</key>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>itms-apps</string>
+		</array>
 		<array>
 			<dict>
 				<key>CFBundleTypeRole</key>
