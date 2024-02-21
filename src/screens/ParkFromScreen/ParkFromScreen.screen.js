@@ -41,6 +41,8 @@ const ParkFromScreen = () => {
   const {currentReservations, parkingDetails, parkingForm, parkingProducts} =
     useSelector(state => state.parkings.parkingsState);
 
+  console.log({parkingProducts});
+
   const [payload, setPayload] = useState({
     values: {
       id: null,

@@ -1,21 +1,31 @@
-import React, { useCallback, useRef, useState, useEffect } from 'react';
-import { Linking, StyleSheet, TouchableOpacity, View, BackHandler, } from 'react-native';
-import { Code, useCameraDevice, useCodeScanner } from 'react-native-vision-camera';
-import { Camera } from 'react-native-vision-camera';
+import React, {useCallback, useRef, useState, useEffect} from 'react';
+import {
+  Linking,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  BackHandler,
+} from 'react-native';
+import {
+  Code,
+  useCameraDevice,
+  useCodeScanner,
+} from 'react-native-vision-camera';
+import {Camera} from 'react-native-vision-camera';
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import { useNavigation, useIsFocused } from '@react-navigation/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { NativeBaseBackButton, Toast } from '../../components';
-import { usePaymentInfoBarcodeMutation } from '../../services/parkings';
-import { setParkingForm } from '../../redux/features/parkings/parkingsSlice';
+import {useNavigation, useIsFocused} from '@react-navigation/core';
+import {useDispatch, useSelector} from 'react-redux';
+import {NativeBaseBackButton, Toast} from '../../components';
+import {usePaymentInfoBarcodeMutation} from '../../services/parkings';
+import {setParkingForm} from '../../redux/features/parkings/parkingsSlice';
 import moment from 'moment';
-import { Alert, useToast } from 'native-base';
-import { useTranslation } from 'react-i18next';
-import { t } from "i18next";
+import {Alert, useToast} from 'native-base';
+import {useTranslation} from 'react-i18next';
+import {t} from 'i18next';
 
 const QrScanner = () => {
   const device = useCameraDevice('back');
-  const { parkingDetails } = useSelector(state => state.parkings.parkingsState);
+  const {parkingDetails} = useSelector(state => state.parkings.parkingsState);
   const isFocused = useIsFocused();
   const isActive = isFocused;
   const [paymentInfoBarcode] = usePaymentInfoBarcodeMutation();
@@ -40,7 +50,7 @@ const QrScanner = () => {
     const value = codes[0]?.value;
     console.log(`Scanned value`, value);
     if (value == null || !isScanningAllowed) return;
-    setCode(value)
+    setCode(value);
   }, []);
 
   const handleScan = async (qr) => {
@@ -48,8 +58,8 @@ const QrScanner = () => {
     let payload = {
       barcode: qr,
       parkingId: parkingDetails?.parkingId,
-    }
-    console.log("API payload", payload)
+    };
+    console.log('API payload', payload);
     await paymentInfoBarcode({
       barcode: qr,
       parkingId: parkingDetails?.parkingId,
@@ -76,30 +86,26 @@ const QrScanner = () => {
             placement: 'top',
             duration: 1500,
             render: () => {
-              return (
-                <Toast message={t('Total de plata 0')} type={'succes'} />
-              );
+              return <Toast message={t('Total de plata 0')} type={'succes'} />;
             },
           });
           handleBackBtn();
         }
       })
       .catch(err => {
-        console.log("Error: ", err);
+        console.log('Error: ', err);
         toast.show({
           placement: 'top',
           duration: 1500,
           render: () => {
-            return (
-              <Toast message={t('invalid_ticket')} type={'danger'} />
-            );
+            return <Toast message={t('invalid_ticket')} type={'danger'} />;
           },
         });
         setTimeout(() => {
           setIsScanningAllowed(true)
         }, 5000)
       });
-  }
+  };
 
   const codeScanner = useCodeScanner({
     codeTypes: [
@@ -176,7 +182,7 @@ const QrScanner = () => {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 export default QrScanner;
 
@@ -200,9 +206,9 @@ const styles = StyleSheet.create({
     top: 30,
   },
   backButton: {
-    position: "absolute",
-    top: Platform.OS === "ios" ? "7%" : "5%",
-    left: "8%",
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? '7%' : '5%',
+    left: '8%',
     zIndex: 1,
   },
 });
