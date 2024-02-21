@@ -25,17 +25,18 @@ const QrScanner = () => {
   const toast = useToast();
   const isShowingAlert = useRef(false);
   const navigate = useNavigation();
-  const [code, setCode] = useState();
+  const [code, setCode] = useState("");
   const { i18n } = useTranslation();
   const [hasPermission, setHasPermission] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    handleScan(code);
+    if (code?.length > 0) {
+      handleScan(code);
+    }
   }, [code])
 
   const onCodeScanned = useCallback((codes) => {
-    console.log(`Scanned ${codes.length} codes:`, codes);
     const value = codes[0]?.value;
     console.log(`Scanned value`, value);
     if (value == null || !isScanningAllowed) return;
@@ -43,6 +44,7 @@ const QrScanner = () => {
   }, []);
 
   const handleScan = async (qr) => {
+    setIsScanningAllowed(false)
     let payload = {
       barcode: qr,
       parkingId: parkingDetails?.parkingId,
@@ -93,6 +95,9 @@ const QrScanner = () => {
             );
           },
         });
+        setTimeout(() => {
+          setIsScanningAllowed(true)
+        }, 5000)
       });
   }
 
