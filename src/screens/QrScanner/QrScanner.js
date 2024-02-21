@@ -35,24 +35,26 @@ const QrScanner = () => {
   const toast = useToast();
   const isShowingAlert = useRef(false);
   const navigate = useNavigation();
-  const [code, setCode] = useState();
-  const {i18n} = useTranslation();
+  const [code, setCode] = useState("");
+  const { i18n } = useTranslation();
   const [hasPermission, setHasPermission] = useState(false);
-  const {dispatch} = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    handleScan(code);
-  }, [code]);
+    if (code?.length > 0) {
+      handleScan(code);
+    }
+  }, [code])
 
-  const onCodeScanned = useCallback(codes => {
-    console.log(`Scanned ${codes.length} codes:`, codes);
+  const onCodeScanned = useCallback((codes) => {
     const value = codes[0]?.value;
-    console.log(`Scanned value`, value);
+    // console.log(`Scanned value`, value);
     if (value == null || !isScanningAllowed) return;
     setCode(value);
   }, []);
 
-  const handleScan = async qr => {
+  const handleScan = async (qr) => {
+    setIsScanningAllowed(false)
     let payload = {
       barcode: qr,
       parkingId: parkingDetails?.parkingId,
@@ -99,6 +101,9 @@ const QrScanner = () => {
             return <Toast message={t('invalid_ticket')} type={'danger'} />;
           },
         });
+        setTimeout(() => {
+          setIsScanningAllowed(true)
+        }, 5000)
       });
   };
 
