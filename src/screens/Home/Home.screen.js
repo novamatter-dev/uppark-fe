@@ -103,7 +103,7 @@ const Home = () => {
 
   let starttimeslice;
 
-  console.log({jwt});
+  // console.log({jwt});
 
   const [getCars] = useGetCarsMutation();
   const [nearbyParkings] = useNearbyParkingsMutation();

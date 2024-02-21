@@ -48,7 +48,7 @@ const QrScanner = () => {
 
   const onCodeScanned = useCallback((codes) => {
     const value = codes[0]?.value;
-    console.log(`Scanned value`, value);
+    // console.log(`Scanned value`, value);
     if (value == null || !isScanningAllowed) return;
     setCode(value);
   }, []);
