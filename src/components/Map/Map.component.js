@@ -241,25 +241,22 @@ const Map = props => {
     dispatch(parkingGroupIsLoading(false));
   };
 
-  const handleRecenter = () => {
+  const handleRecenter = async () => {
     const {width, height} = Dimensions.get('window');
     const ASPECT_RATIO = width / height;
     const LATITUDE_DELTA = 0.02;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-    Geolocation.getCurrentPosition(position => {
-      setMyLocation({
-        longitude: position?.coords?.longitude,
-        latitude: position?.coords?.latitude,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      });
-
+    await Geolocation.getCurrentPosition(position => {
       let region = {
         latitude: position?.coords?.latitude,
         longitude: position?.coords?.longitude,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       };
+
+      setMyLocation(region);
+
+      console.log({region});
 
       mapRef.current?.animateToRegion(region, 1000);
       handleNearbyParkings(region);

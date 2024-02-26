@@ -221,19 +221,15 @@ const Home = () => {
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
   const handleNearbyParkings = async (coords, isAutoSearch) => {
+    console.log('handleNearbyParkings');
     const body = {
       longitude: coords.longitude,
       latitude: coords.latitude,
       distance: 20000,
     };
 
-    console.log('nearbyParkings body', body);
-
     await nearbyParkings(body)
       .then(answer => {
-        console.log('nearbyParkings answer', answer.data);
-        // console.log('nearbyParkings home screen body:', body);
-        // console.log('nearbyParkings home screen answer:', answer.data);
         if (answer.data.parkingGroups.length > 0) {
           dispatch(setNearByParkings(answer.data));
           setNoParkings(false);
@@ -274,17 +270,6 @@ const Home = () => {
         console.log('ERR getSensors >>> ', err);
       });
   };
-
-  useEffect(() => {
-    handleNearbyParkings(
-      {
-        latitude: parkingsData?.searchLocation?.latitude,
-        longitude: parkingsData?.searchLocation?.longitude,
-      },
-      true,
-    );
-    // dispatch(setLoadingScreen(false));
-  }, []);
 
   const locateCurrentPosition = () => {
     Geolocation.getCurrentPosition(position => {
@@ -600,13 +585,30 @@ const Home = () => {
       }
 
       handleCheckNotificationAccess();
+      handleNearbyParkings(
+        {
+          latitude: parkingsData?.searchLocation?.latitude,
+          longitude: parkingsData?.searchLocation?.longitude,
+        },
+        true,
+      );
     }
 
     return () => setIsToggled(false);
   }, [isFocused]);
 
   useEffect(() => {
+    if (isFocused) {
+      drawParkingsOnMap();
+    }
+  }, [parkingsData?.nearByParkings, isFocused]);
+
+  const drawParkingsOnMap = () => {
     const arr = [];
+    console.log(
+      'drawParkingsOnMap',
+      parkingsData?.nearByParkings?.parkingGroups,
+    );
     parkingsData?.nearByParkings?.parkingGroups?.map((el, idx) => {
       // TODO: Iasi parking
       if (el?.parkingId === 65) return;
@@ -619,7 +621,7 @@ const Home = () => {
 
     setParkingGroups(arr);
     dispatch(setPolygonParkingGroups(arr));
-  }, [parkingsData?.nearByParkings]);
+  };
 
   const handleExtendBtn = () => {
     if (currentReservations.length >= 1) {
@@ -650,13 +652,6 @@ const Home = () => {
         </View>
 
         <View style={HomeStyle.bodyWrapper}>
-          {/* <View style={HomeStyle.infoTextWrapper}>
-            <Image source={WarningImage} style={HomeStyle.warningImage} />
-            <Text style={HomeStyle.redInfoText}>
-              {t('be_sure_to_select_correct_zone')}
-            </Text>
-          </View> */}
-
           <Box style={HomeStyle.mapSmall}>
             <View style={{overflow: 'hidden', borderRadius: 24}}>
               <Map
