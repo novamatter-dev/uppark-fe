@@ -82,6 +82,7 @@
   "account": "Cont",
   "parking": "Parcare",
   "new_car_added": "Mașină nouă adăugată",
+  "car_plate_already_exists": "Plăcuța de identificare există deja",
   "show_more": "Arată mai mult",
   "show_less": "Arată mai puțin",
   "worktime": "Ore de lucru",

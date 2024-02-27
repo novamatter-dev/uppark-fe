@@ -48,6 +48,8 @@ const ReservartionDetailsScreen = () => {
 
   const source = {uri: `data:application/pdf;base64,${response}`};
 
+  console.log('parkingHistory.startTime:', parkingHistory.startTime);
+
   const startTime = moment(parkingHistory.startTime).format('HH:mm');
   const startDate = moment(parkingHistory.startTime).format('dd, MMM DD');
 

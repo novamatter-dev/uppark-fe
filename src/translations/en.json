@@ -82,6 +82,7 @@
   "account": "Account",
   "parking": "Parking",
   "new_car_added": "New car added",
+  "car_plate_already_exists": "Car plate already exists",
   "show_more": "Show more",
   "show_less": "Show less",
   "worktime": "Worktime",

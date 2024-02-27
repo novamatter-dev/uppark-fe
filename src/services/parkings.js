@@ -54,6 +54,7 @@ export const parkingsApi = createApi({
         body: reqBody,
       }),
     }),
+    // TODO: removed hardoced
     getHistoryList: builder.mutation({
       query: () => ({
         url: `/api/ParkingReservation/History?skip=0&take=50`,
