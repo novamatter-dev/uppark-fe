@@ -227,5 +227,6 @@
   "billing_information_required": "Informații de facturare necesare",
   "billing_information_required_content": "Avem nevoie de detaliile de facturare pentru a procesa plata. Informațiile vor fi salvate în siguranță pentru tranzacțiile viitoare. Îți mulțumim!",
   "the_ticket_was_already_paid": "Tichetul a fost deja plătit",
-  "new_card": "Card nou"
+  "new_card": "Card nou",
+  "download_receipt_error": "Factura va fi disponibilă in termen de 24 ore de la efectuarea plății"
 }

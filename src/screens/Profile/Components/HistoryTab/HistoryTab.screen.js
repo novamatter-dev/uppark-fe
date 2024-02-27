@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList, TouchableOpacity, Text} from 'react-native';
 //style & assets
 import ProfileStyle from '../../Profile.style';
@@ -19,17 +19,22 @@ const HistoryTab = () => {
   // const dispatch = useDispatch();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [getHistoryList] = useGetHistoryListMutation();
   const [getHistoryDetails] = useGetHistoryDetailsMutation();
   const {parkingsState} = useSelector(state => state.parkings);
   const {t} = useTranslation();
 
   const handleGetHistoryList = async () => {
+    setIsLoading(true);
     try {
       await getHistoryList()
         .unwrap()
-        .then(answer => {})
+        .then(answer => {
+          setIsLoading(false);
+        })
         .catch(err => {
+          setIsLoading(false);
           console.log('ERR CATCH PROMISE: ', err);
         });
     } catch (err) {
@@ -83,10 +88,16 @@ const HistoryTab = () => {
           showsHorizontalScrollIndicator={false}
         />
       )}
-      {parkingsState?.history?.parkingPlaces.length === 0 && (
+      {!isLoading && parkingsState?.history?.parkingPlaces.length === 0 && (
         <Text
           style={{fontSize: 14, fontFamily: 'AzoSans-Bold', color: 'black'}}>
           {t('no_history_data')}
+        </Text>
+      )}
+      {isLoading && (
+        <Text
+          style={{fontSize: 14, fontFamily: 'AzoSans-Bold', color: 'black'}}>
+          {t('loading')}
         </Text>
       )}
     </View>
