@@ -217,7 +217,7 @@
   "search_for_parking": "Parkoló keresése",
   "card_was_removed": "A kártya törölve lett!",
   "payment_confirmed_title": "Fizetés megtörtént!",
-  "payment_confirmed_content": "Befizetését sikeresen feldolgoztuk. A fizetési előzmények között megtalálhatja a tranzakció részleteit, és letöltheti a számlát",
+  "payment_confirmed_content": "Sie können die Transaktionsdetails im Verlaufsbereich finden. Die Rechnung wird innerhalb von 24 Stunden nach Zahlungseingang in der Anwendung im Abschnitt \"Verlauf -> Zahlung -> Parkdetails -> Rechnung herunterladen\" verfügbar sein.",
   "payment_rejected_title": "Fizetés meghiúsult!",
   "payment_rejected_content": "A fizetést nem sikerült feldolgozni. Kérjük, ellenőrizze fizetési adatait, és próbálja újra. Ha segítségre van szüksége, keresse fel a Súgót, vagy lépjen kapcsolatba az ügyfélszolgálattal.",
   "delete_card_button": "Kártya törlése",

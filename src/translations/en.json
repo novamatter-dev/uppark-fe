@@ -216,7 +216,7 @@
   "search_for_parking": "Search for a parking",
   "card_was_removed": "Card was removed!",
   "payment_confirmed_title": "Payment Successful!",
-  "payment_confirmed_content": "Payment has been successfully processed. You can find the transaction details and download the invoice in the payment history.",
+  "payment_confirmed_content": "You can find the transaction details in the history section. The invoice will be available in the application under the section \"History -> Payment -> Parking Details -> Download Invoice\" within 24 hours after completing the payment.",
   "payment_rejected_title": "Payment Failed!",
   "payment_rejected_content": "We're sorry, but your payment could not be processed. Please check your payment details and try again. For further assistance, visit our Help Center or contact support.",
   "delete_card_button": "Delete card",
