@@ -1,84 +1,73 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  TouchableOpacity,
-  Image,
-  View,
-  Dimensions,
-  Platform,
   ActivityIndicator,
-  Modal as NativeModal,
+  Dimensions,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 //style & assets
-import HomeStyle from './Home.style';
-import svgs from '../../assets/svgs';
-import WarningImage from '../../assets/images/MaintenanceWarning.png';
 import {SvgXml} from 'react-native-svg';
-import {AQUA, BLUE, RED, WHITE} from '../../helpers/style/constants';
+import svgs from '../../assets/svgs';
+import {AQUA, BLUE, WHITE} from '../../helpers/style/constants';
 import ActiveParkingStyle from '../ActiveParking/ActiveParking.style';
+import HomeStyle from './Home.style';
 //libraries
-import {Box, useToast, Actionsheet} from 'native-base';
-import Geolocation from '@react-native-community/geolocation';
-import moment from 'moment';
-import jwt_decode from 'jwt-decode';
-import {useIsFocused} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DeviceInfo from 'react-native-device-info';
+import Geolocation from '@react-native-community/geolocation';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
+import jwt_decode from 'jwt-decode';
+import moment from 'moment';
+import {Actionsheet, Box, useToast} from 'native-base';
 import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import DeviceInfo from 'react-native-device-info';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 //components
 import {
-  Text,
-  Map,
-  Modal,
   ButtonComponent,
   CreateCar,
+  Map,
+  Modal,
+  ParkDetails,
+  SearchBar,
+  Text,
   Toast,
 } from '../../components';
-import {SearchBar, ParkDetails} from '../../components';
-import CountdownTimer from '../../components/CountdownTimer/CountdownTimer';
-import AddCar from '../AddCar';
 import ActionModal from '../../components/ActionModal/ActionModal';
+import CountdownTimer from '../../components/CountdownTimer/CountdownTimer';
 //redux
+import {useDispatch, useSelector} from 'react-redux';
+import {setUserId} from '../../redux/features/auth/authSlice';
+import {setActiveCar} from '../../redux/features/cars/carsSlice';
 import {
   parkingsState,
   setCurrentReservations,
+  setIsLoading,
+  setIsParkingSelected,
   setNearByParkings,
+  setParkingDetails,
+  setParkingForm,
+  setPolygonParkingGroups,
+  setReservationDetails,
   setSearchLocation,
   setShowCounter,
-  setParkingForm,
   setUnselectParking,
-  setReservationDetails,
-  setPolygonParkingGroups,
-  setParkingDetails,
-  setIsParkingSelected,
   setWorksWithHub,
-  setIsLoading,
 } from '../../redux/features/parkings/parkingsSlice';
-import {useSelector, useDispatch} from 'react-redux';
+import {useGetCarsMutation} from '../../services/cars';
+import {useUpdateFcmTokenMutation} from '../../services/notifications';
 import {
-  useNearbyParkingsMutation,
-  useGetCurrentReservationsMutation,
   useCancelReservationMutation,
+  useGetCurrentReservationsMutation,
   useGetMiniParkDetailsMutation,
   useGetParkingDetailsMutation,
   useGetParkingProductsMutation,
   useGetSensorsMutation,
+  useNearbyParkingsMutation,
 } from '../../services/parkings';
-import {useUpdateFcmTokenMutation} from '../../services/notifications';
-import {setActiveCar} from '../../redux/features/cars/carsSlice';
-import {setUserId} from '../../redux/features/auth/authSlice';
-import {useGetCarsMutation} from '../../services/cars';
 import {
   useGetSettingsMutation,
   useUpdateSettingsMutation,
 } from '../../services/users';
-import {SafeAreaView} from 'react-native';
-import store from '../../redux/store';
-import {getCookie} from '../../helpers';
 
 const Home = () => {
   const isFocused = useIsFocused();

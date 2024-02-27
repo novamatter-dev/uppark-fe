@@ -82,6 +82,7 @@
   "account": "Compte",
   "parking": "Parking",
   "new_car_added": "Nouvelle voiture ajoutée",
+  "car_plate_already_exists": "La plaque d'immatriculation existe déjà",
   "show_more": "Montrez de plus",
   "show_less": "Montrez de moins",
   "worktime": "Heures de travail",

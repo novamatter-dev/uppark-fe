@@ -82,6 +82,7 @@
   "account": "Bankszámla",
   "parking": "Parkoló",
   "new_car_added": "Új autó hozzáadva",
+  "car_plate_already_exists": "Az autó rendszáma már létezik",
   "show_more": "Mutass többet",
   "show_less": "Mutass kevesebbet",
   "worktime": "Munkaidő",

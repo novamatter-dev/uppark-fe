@@ -1,13 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { Image, TouchableOpacity, Text, View } from 'react-native';
-import { Box, ScrollView, useToast } from 'native-base';
+import React, {useRef, useState} from 'react';
+import {Image, TouchableOpacity, Text, View} from 'react-native';
+import {Box, ScrollView, useToast} from 'native-base';
 import BaseInput from '../../components/BaseInput';
 //style & assets
 import AddCarStyle from './AddCar.style';
 import blueCar from '../../assets/icons/blueCar.png';
-import { SvgXml } from 'react-native-svg';
+import {SvgXml} from 'react-native-svg';
 import svgs from '../../assets/svgs';
-import { AQUA } from '../../helpers/style/constants';
+import {AQUA, RED} from '../../helpers/style/constants';
 //components
 import {
   DatePicker,
@@ -18,34 +18,34 @@ import {
 } from '../../components';
 //libraries
 import PropTypes from 'prop-types';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-toast-notifications';
 //redux
-import { useAddCarMutation, useGetCarsMutation } from '../../services/cars';
-import { addCarInitialState } from './AddCar.initialState';
-import { useSelector, useDispatch } from 'react-redux';
+import {useAddCarMutation, useGetCarsMutation} from '../../services/cars';
+import {addCarInitialState} from './AddCar.initialState';
+import {useSelector, useDispatch} from 'react-redux';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
-import { t } from 'i18next';
+import {t} from 'i18next';
 
 const AddCar = props => {
   const {
     inModal = false,
     inHomeModal = false,
-    handleAddCar = () => { },
-    setShowCarModal = () => { },
-    handleSetActiveCar = () => { },
+    handleAddCar = () => {},
+    setShowCarModal = () => {},
+    handleSetActiveCar = () => {},
     step = 1,
-    setStep = () => { },
+    setStep = () => {},
   } = props;
 
   const dispatch = useDispatch();
-  const { activeCar } = useSelector(state => state.cars);
+  const {activeCar} = useSelector(state => state.cars);
 
   const navigation = useNavigation();
-  const [addCar, { isLoading }] = useAddCarMutation();
-  const [getCars, { isLoading: isLoadingGetCars }] = useGetCarsMutation();
+  const [addCar, {isLoading}] = useAddCarMutation();
+  const [getCars, {isLoading: isLoadingGetCars}] = useGetCarsMutation();
   const [addCarFormState, setAddCarFormState] = useState(addCarInitialState);
   const [calendarModalIsVisible, setCalendarModalIsVisible] = useState(false);
   const [dateFieldNameForCalendar, setDateFieldForCalendar] = useState('');
@@ -61,9 +61,9 @@ const AddCar = props => {
     const regex = /^[a-zA-Z0-9]+$/;
 
     if (regex.test(carPlate)) {
-      setCarToAdd({ licensePlateNumber: carPlate });
+      setCarToAdd({licensePlateNumber: carPlate});
     } else if (carPlate === '') {
-      setCarToAdd({ licensePlateNumber: '' });
+      setCarToAdd({licensePlateNumber: ''});
     }
   };
 
@@ -79,7 +79,7 @@ const AddCar = props => {
     }
   };
 
-  const handleChangeDate = ({ dateFieldName, dateFieldValue }) => {
+  const handleChangeDate = ({dateFieldName, dateFieldValue}) => {
     setAddCarFormState(prevState => {
       const label = addCarFormState[dateFieldName].label;
       const value = moment(dateFieldValue, 'DD.MM.YYYY').utc().format();
@@ -98,7 +98,7 @@ const AddCar = props => {
     setCalendarModalIsVisible(false);
   };
 
-  const handleCalendarModalOpen = ({ dateFieldName }) => {
+  const handleCalendarModalOpen = ({dateFieldName}) => {
     setCalendarModalIsVisible(true);
     setDateFieldForCalendar(dateFieldName);
   };
@@ -150,9 +150,45 @@ const AddCar = props => {
             handleSuccessToast();
           });
       } catch (err) {
-        console.log(err);
+        if (
+          err.data.details.includes('has already car with license plate number')
+        ) {
+          handleErrorToast();
+        }
+        console.log('AddCarr error', err);
       }
     }
+  };
+
+  const handleErrorToast = () => {
+    toast.show({
+      placement: 'top',
+      duration: 1500,
+      render: () => {
+        return (
+          <View
+            style={{
+              backgroundColor: RED,
+              padding: 16,
+              borderRadius: 15,
+              shadowColor: RED,
+              shadowOffset: {width: -2, height: 4},
+              shadowOpacity: 0.9,
+              shadowRadius: 4,
+              elevation: 25,
+            }}>
+            <Text
+              style={{
+                color: '#F5F5F5',
+                fontSize: 18,
+                fontFamily: 'AzoSans-Medium',
+              }}>
+              {t('car_plate_already_exists')}!
+            </Text>
+          </View>
+        );
+      },
+    });
   };
 
   const handleSuccessToast = () => {
@@ -167,11 +203,10 @@ const AddCar = props => {
               padding: 16,
               borderRadius: 15,
               shadowColor: AQUA,
-              shadowOffset: { width: -2, height: 4 },
+              shadowOffset: {width: -2, height: 4},
               shadowOpacity: 0.9,
               shadowRadius: 4,
               elevation: 25,
-              shadowColor: AQUA,
             }}>
             <Text
               style={{
@@ -188,7 +223,6 @@ const AddCar = props => {
   };
 
   return (
-
     <Box style={AddCarStyle.container}>
       <NativeBaseBackButton
         style={AddCarStyle.closeButton}
@@ -200,7 +234,9 @@ const AddCar = props => {
         label={t('please_enter_your_car_details')}
         style={AddCarStyle.title}
       />
-      <ScrollView  showsVerticalScrollIndicator={false} style={AddCarStyle.scrollViewContainer}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={AddCarStyle.scrollViewContainer}>
         {/* <KeyboardAwareScrollView> */}
         <BaseInput
           style={AddCarStyle.baseInput}
@@ -222,20 +258,17 @@ const AddCar = props => {
                 })
               }
               style={AddCarStyle.propBtn}>
-              <SvgXml
-                xml={addCarFormState[item].svg}
-                width={22}
-                height={22}
-              />
+              <SvgXml xml={addCarFormState[item].svg} width={22} height={22} />
               <Text style={AddCarStyle.propBtnLabel}>{`${
                 // addCarFormState[item].label
                 t(addCarFormState[item].label)
-                } ${addCarFormState[item].value
+              } ${
+                addCarFormState[item].value
                   ? `- ${moment(addCarFormState[item].value).format(
-                    'DD.MM.YYYY',
-                  )}`
+                      'DD.MM.YYYY',
+                    )}`
                   : ''
-                } `}</Text>
+              } `}</Text>
             </TouchableOpacity>
           );
         })}
@@ -280,8 +313,7 @@ const AddCar = props => {
 
         {/* </Box> */}
       </ScrollView>
-      <View
-        style={AddCarStyle.buttonWrapper}>
+      <View style={AddCarStyle.buttonWrapper}>
         <ButtonComponent
           text={t('confirm').toUpperCase()}
           isDisabled={isLoading || !carToAdd.licensePlateNumber}
@@ -289,7 +321,6 @@ const AddCar = props => {
         />
       </View>
     </Box>
-
   );
 };
 
