@@ -217,7 +217,7 @@
   "search_for_parking": "Recherche de stationnement",
   "card_was_removed": "La carte a été supprimée !",
   "payment_confirmed_title": "Paiement effectué!",
-  "payment_confirmed_content": "Votre paiement a été traité avec succès. Vous pouvez trouver les détails de la transaction et télécharger la facture dans votre historique de paiement",
+  "payment_confirmed_content": "Vous pouvez trouver les détails de la transaction dans la section historique. La facture sera disponible dans l'application sous la section \"Historique -> Paiement -> Détails de stationnement -> Télécharger la facture\" dans les 24 heures suivant le paiement.",
   "payment_rejected_title": "Paiement échoué!",
   "payment_rejected_content": "Le paiement n'a pas pu être traité. Veuillez vérifier vos informations de paiement et réessayer. Pour obtenir de l'aide, visitez le centre d'aide ou contactez l'assistance.",
   "delete_card_button": "Supprimer la carte",

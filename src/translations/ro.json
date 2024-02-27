@@ -217,7 +217,7 @@
   "search_for_parking": "Caută parcare",
   "card_was_removed": "Cardul a fost șters!",
   "payment_confirmed_title": "Plată efectuată!",
-  "payment_confirmed_content": "Plata a fost procesată cu succes. Poți găsi detaliile tranzacției și descărca factura în istoricul de plăți",
+  "payment_confirmed_content": "Poți găsi detaliile tranzacției in secțiunea istoric. Factura va fi disponibilă in aplicație la secțiunea \"Istoric -> Plată -> Detalii parcare -> Descarcă factura\"in termen de 24 ore de la efectuarea plății",
   "payment_rejected_title": "Plată eșuată!",
   "payment_rejected_content": "Plata nu a putut fi procesată. Verifică detaliile plății și încearcă din nou. Pentru asistență, accesează Centrul de Ajutor sau contactează suportul.",
   "delete_card_button": "Șterge card",
