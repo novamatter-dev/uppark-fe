@@ -45,6 +45,8 @@ const ReservartionDetailsScreen = () => {
   const [getInvoice] = useGetInvoiceMutation();
   const [modalVisible, setModalVisible] = useState(false);
   const [response, setResponse] = useState('');
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const source = {uri: `data:application/pdf;base64,${response}`};
 
@@ -80,14 +82,22 @@ const ReservartionDetailsScreen = () => {
   const actualDownload = async data => {};
 
   const handleSubmit = async () => {
+    setIsLoading(true);
+    setError(false);
     setModalVisible(true);
     const {parkingReservationProductId} = parkingHistory;
     await getInvoice({parkingReservationProductId})
       .then(answer => {
+        if (answer.error.data) {
+          setError(true);
+        }
         permissionFunc(answer?.data?.invoice);
         setResponse(answer?.data?.invoice);
+        setIsLoading(false);
       })
       .catch(err => {
+        setError(true);
+        setIsLoading(false);
         console.log('GET INVOICE ERROR >>>', err);
       });
   };
@@ -220,30 +230,39 @@ const ReservartionDetailsScreen = () => {
             iconType={'exit'}
           />
           <Title label={t('receipt_title')} style={PaymentOptionsStyle.title} />
-          <View style={style.amountContainer}>
-            {Platform.OS === 'ios' ? (
-              <DownloadRecepitApple onShare={onShare} />
-            ) : (
-              <DownloadReceiptAndroid
-                response={response}
-                parkingHistory={parkingHistory}
+          {!isLoading && !error && (
+            <View style={style.amountContainer}>
+              {Platform.OS === 'ios' ? (
+                <DownloadRecepitApple onShare={onShare} />
+              ) : (
+                <DownloadReceiptAndroid
+                  response={response}
+                  parkingHistory={parkingHistory}
+                />
+              )}
+            </View>
+          )}
+          {!isLoading && !error && (
+            <View style={reservationStyle.pdfContainer}>
+              <Pdf
+                source={source}
+                onLoadComplete={(numberOfPages, filePath) => {}}
+                onPageChanged={(page, numberOfPages) => {}}
+                onError={error => {
+                  console.log(error);
+                }}
+                onPressLink={uri => {
+                  console.log(`Link pressed: ${uri}`);
+                }}
+                style={reservationStyle.pdf}
               />
-            )}
-          </View>
-          <View style={reservationStyle.pdfContainer}>
-            <Pdf
-              source={source}
-              onLoadComplete={(numberOfPages, filePath) => {}}
-              onPageChanged={(page, numberOfPages) => {}}
-              onError={error => {
-                console.log(error);
-              }}
-              onPressLink={uri => {
-                console.log(`Link pressed: ${uri}`);
-              }}
-              style={reservationStyle.pdf}
-            />
-          </View>
+            </View>
+          )}
+          {!isLoading && error && (
+            <View style={style.errorContainer}>
+              <Text style={style.errorText}>{t('download_receipt_error')}</Text>
+            </View>
+          )}
         </Box>
       </Modal>
     </View>
