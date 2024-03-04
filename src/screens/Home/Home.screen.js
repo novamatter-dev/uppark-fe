@@ -312,7 +312,6 @@ const Home = () => {
   };
 
   const handleOnSubmit = () => {
-    console.log('parkingsData.lpr', parkingsData.parkingDetails.lprUrl);
     if (parkingsData.worksWithHub) {
       navigation.navigate('QrScanner');
     } else if (parkingsData.isMiniPark) {
@@ -370,7 +369,7 @@ const Home = () => {
         if (data.price === 0) {
           setMiniparkDisclaimer({
             isVisible: true,
-            message: 'Iesire libera',
+            message: t('minipark_free_exit'),
           });
         } else {
           const endTime = moment(new Date()).format('yyyy-MM-DDTHH:mm:ss');
@@ -411,24 +410,24 @@ const Home = () => {
             case 'MINIPARK_NOT_IN_PARK':
               return setMiniparkDisclaimer({
                 isVisible: true,
-                message: 'Masina nu se afla in parcare',
+                message: t('minipark_free_exit'),
               });
 
             case 'MINIPAR_FREE_TO_EXIT':
               return setMiniparkDisclaimer({
                 isVisible: true,
-                message: 'Ticket-ul este deja platit',
+                message: t('ticket_already_paid'),
               });
 
             case 'MINIPARK_NOTHING_TO_PAY':
               return setMiniparkDisclaimer({
                 isVisible: true,
-                message: 'Iesire libera',
+                message: t('minipark_free_exit'),
               });
             default:
               return setMiniparkDisclaimer({
                 isVisible: true,
-                message: 'Iesire libera',
+                message: t('minipark_free_exit'),
               });
           }
         } else {
@@ -772,7 +771,9 @@ const Home = () => {
         <View style={HomeStyle.absoluteBottom}>
           <ButtonComponent
             text={
-              showExtend
+              parkingsData.parkingDetails.lprUrl
+                ? t('pay_parking').toUpperCase()
+                : showExtend
                 ? t('extend_time').toUpperCase()
                 : t(
                     parkingsData.worksWithHub ? 'scan_ticket' : 'park_now',

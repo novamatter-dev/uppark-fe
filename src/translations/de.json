@@ -229,5 +229,8 @@
   "billing_information_required_content": "Kérjük, adja meg a számlázási információkat a fizetéshez",
   "the_ticket_was_already_paid": "A jegyet már kifizették",
   "new_card": "Új kártya",
-  "download_receipt_error": "Die Rechnung wird innerhalb von 24 Stunden nach Abschluss der Zahlung verfügbar sein."
+  "download_receipt_error": "Die Rechnung wird innerhalb von 24 Stunden nach Abschluss der Zahlung verfügbar sein.",
+  "minipark_free_exit": "Das ausgewählte Auto befindet sich nicht innerhalb des Parkplatzes.",
+  "ticket_already_paid": "A jegyet már kifizették",
+  "pay_parking": "Parkolás fizetése"
 }

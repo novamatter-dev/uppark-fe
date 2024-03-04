@@ -229,5 +229,8 @@
   "billing_information_required_content": "Veuillez ajouter vos informations de facturation pour continuer",
   "the_ticket_was_already_paid": "Le ticket a déjà été payé",
   "new_card": "Nouvelle carte",
-  "download_receipt_error": "La facture sera disponible dans les 24 heures suivant la réalisation du paiement."
+  "download_receipt_error": "La facture sera disponible dans les 24 heures suivant la réalisation du paiement.",
+  "minipark_free_exit": "La voiture sélectionnée n'est pas à l'intérieur du parking.",
+  "ticket_already_paid": "Le ticket a déjà été payé",
+  "pay_parking": "Payer le stationnement"
 }
