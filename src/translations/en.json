@@ -228,5 +228,8 @@
   "billing_information_required_content": "We need your billing details to process the payment. Your information will be securely saved for future transactions. Thank you!",
   "the_ticket_was_already_paid": "The ticket was already paid",
   "new_card": "New card",
-  "download_receipt_error": "The invoice will be available within 24 hours after completing the payment."
+  "download_receipt_error": "The invoice will be available within 24 hours after completing the payment.",
+  "minipark_free_exit": "The selected car is not inside the parking lot.",
+  "ticket_already_paid": "The ticket was already paid",
+  "pay_parking": "Pay parking"
 }

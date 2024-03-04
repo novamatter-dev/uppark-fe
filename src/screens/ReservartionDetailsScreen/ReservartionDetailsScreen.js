@@ -50,8 +50,6 @@ const ReservartionDetailsScreen = () => {
 
   const source = {uri: `data:application/pdf;base64,${response}`};
 
-  console.log('parkingHistory.startTime:', parkingHistory.startTime);
-
   const startTime = moment(parkingHistory.startTime).format('HH:mm');
   const startDate = moment(parkingHistory.startTime).format('dd, MMM DD');
 
@@ -77,8 +75,6 @@ const ReservartionDetailsScreen = () => {
     }
   };
 
-  console.log('historyDetails', historyDetails);
-
   const actualDownload = async data => {};
 
   const handleSubmit = async () => {
@@ -86,13 +82,18 @@ const ReservartionDetailsScreen = () => {
     setError(false);
     setModalVisible(true);
     const {parkingReservationProductId} = parkingHistory;
+
     await getInvoice({parkingReservationProductId})
       .then(answer => {
-        if (answer.error.data) {
+        if (answer.error && answer.error.data) {
           setError(true);
+        } else {
+          const invoiceData = answer?.data?.invoice;
+          if (invoiceData) {
+            permissionFunc(invoiceData);
+            setResponse(answer?.data?.invoice);
+          }
         }
-        permissionFunc(answer?.data?.invoice);
-        setResponse(answer?.data?.invoice);
         setIsLoading(false);
       })
       .catch(err => {
