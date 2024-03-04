@@ -23,6 +23,8 @@ const DownloadReceiptAndroid = props => {
   };
 
   const handleDownloadAndroid = async () => {
+    console.log({jwt, parkingReservationProductId});
+
     await ReactNativeBlobUtil.config({
       path: filePath,
       fileCache: true,
@@ -36,7 +38,7 @@ const DownloadReceiptAndroid = props => {
     })
       .fetch(
         'GET',
-        `${authURL}/ParkingReservation/Get/Invoice/Blob/ParkingReservationId/${parkingReservationProductId}`,
+        `${authURL}/api/ParkingReservation/Get/Invoice/Blob/ParkingReservationId/${parkingReservationProductId}`,
         {
           Authorization: `Bearer ${jwt}`,
         },
