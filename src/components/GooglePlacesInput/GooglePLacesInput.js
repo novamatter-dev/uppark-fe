@@ -266,7 +266,7 @@ const GooglePlacesInput = props => {
       }
       query={{
         // TODO: modify key
-        key: 'AIzaSyAuBxdG1seHKpaC9cl4qFXyTp3e3YjYXcQ',
+        key: 'AIzaSyCJ1K72c13M2V1gqxL3aJ2dUzJxOusgO_8',
         language: 'ro',
         components: 'country:ro',
       }}
