@@ -20,7 +20,7 @@ use_modular_headers!
 #   end
 # end
 
-platform :ios, '13.2'
+platform :ios, '13.4'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'UpPark' do
@@ -43,7 +43,8 @@ target 'UpPark' do
 
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
 
-
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
   config = use_native_modules!
 
   # Flags change depending on the env values.
