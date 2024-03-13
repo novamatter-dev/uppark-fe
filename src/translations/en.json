@@ -229,7 +229,8 @@
   "the_ticket_was_already_paid": "The ticket was already paid",
   "new_card": "New card",
   "download_receipt_error": "The invoice will be available within 24 hours after completing the payment.",
-  "minipark_free_exit": "The selected car is not inside the parking lot.",
+  "car_not_found": "The registration number was not found.",
+  "minipark_free_exit": "Free exit for {{minutes}} minutes.",
   "ticket_already_paid": "The ticket was already paid",
   "pay_parking": "Pay parking"
 }

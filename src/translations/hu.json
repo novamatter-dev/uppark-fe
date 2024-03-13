@@ -230,7 +230,8 @@
   "the_ticket_was_already_paid": "A jegyet már kifizették",
   "new_card": "Új kártya",
   "download_receipt_error": "A számla elérhető lesz 24 órán belül a fizetés teljesítését követően.",
-  "minipark_free_exit": "A kiválasztott autó nincs a parkolóban.",
+  "car_not_found": "A rendszámszám nem található.",
+  "minipark_free_exit": "Ingyenes kijárat {{minutes}} percig.",
   "ticket_already_paid": "A jegyet már kifizették",
   "pay_parking": "Parkolás fizetése"
 }
