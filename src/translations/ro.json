@@ -229,7 +229,8 @@
   "the_ticket_was_already_paid": "Tichetul a fost deja plătit",
   "new_card": "Card nou",
   "download_receipt_error": "Factura va fi disponibilă in termen de 24 ore de la efectuarea plății",
-  "minipark_free_exit": "Mașina selectată nu este în interiorul parcării",
+  "car_not_found": "Numărul de înmatriculare nu a fost găsit.",
+  "minipark_free_exit": "Ieșire gratuită timp de {{minutes}} minute.",
   "ticket_already_paid": "Tichetul a fost deja plătit",
   "pay_parking": "Plătește parcarea"
 }

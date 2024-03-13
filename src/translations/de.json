@@ -230,7 +230,8 @@
   "the_ticket_was_already_paid": "A jegyet már kifizették",
   "new_card": "Új kártya",
   "download_receipt_error": "Die Rechnung wird innerhalb von 24 Stunden nach Abschluss der Zahlung verfügbar sein.",
-  "minipark_free_exit": "Das ausgewählte Auto befindet sich nicht innerhalb des Parkplatzes.",
+  "car_not_found": "Die Kennzeichennummer wurde nicht gefunden",
+  "minipark_free_exit": "Kostenloser Ausgang für {{minutes}} Minuten",
   "ticket_already_paid": "A jegyet már kifizették",
   "pay_parking": "Parkolás fizetése"
 }

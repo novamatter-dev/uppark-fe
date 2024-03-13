@@ -20,7 +20,7 @@ use_modular_headers!
 #   end
 # end
 
-platform :ios, '13.2'
+platform :ios, '13.4'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'UpPark' do
@@ -43,7 +43,8 @@ target 'UpPark' do
 
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
 
-
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -54,7 +55,7 @@ target 'UpPark' do
     # Hermes is now enabled by default. Disable by setting this flag to false.
     # Upcoming versions of React Native may rely on get_default_flags(), but
     # we make it explicit here to aid in the React Native upgrade process.
-    :hermes_enabled => true,
+    :hermes_enabled => false,
     :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
@@ -88,7 +89,11 @@ target 'UpPark' do
     # Build Active Architecture Only "NO" (react-native-maps)
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-          config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+        # Set the deployment target for all pods
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.2'
+        
+        # Existing settings (example: setting ONLY_ACTIVE_ARCH)
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
       end
     end
 

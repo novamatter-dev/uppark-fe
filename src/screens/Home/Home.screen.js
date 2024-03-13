@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -6,21 +6,21 @@ import {
   View,
 } from 'react-native';
 //style & assets
-import {SvgXml} from 'react-native-svg';
+import { SvgXml } from 'react-native-svg';
 import svgs from '../../assets/svgs';
-import {AQUA, BLUE, WHITE} from '../../helpers/style/constants';
+import { AQUA, BLUE, WHITE } from '../../helpers/style/constants';
 import ActiveParkingStyle from '../ActiveParking/ActiveParking.style';
 import HomeStyle from './Home.style';
 //libraries
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Geolocation from '@react-native-community/geolocation';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import jwt_decode from 'jwt-decode';
 import moment from 'moment';
-import {Actionsheet, Box, useToast} from 'native-base';
-import {useTranslation} from 'react-i18next';
+import { Actionsheet, Box, useToast } from 'native-base';
+import { useTranslation } from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 //components
 import {
   ButtonComponent,
@@ -35,9 +35,9 @@ import {
 import ActionModal from '../../components/ActionModal/ActionModal';
 import CountdownTimer from '../../components/CountdownTimer/CountdownTimer';
 //redux
-import {useDispatch, useSelector} from 'react-redux';
-import {setUserId} from '../../redux/features/auth/authSlice';
-import {setActiveCar} from '../../redux/features/cars/carsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserId } from '../../redux/features/auth/authSlice';
+import { setActiveCar } from '../../redux/features/cars/carsSlice';
 import {
   parkingsState,
   setCurrentReservations,
@@ -53,8 +53,8 @@ import {
   setUnselectParking,
   setWorksWithHub,
 } from '../../redux/features/parkings/parkingsSlice';
-import {useGetCarsMutation} from '../../services/cars';
-import {useUpdateFcmTokenMutation} from '../../services/notifications';
+import { useGetCarsMutation } from '../../services/cars';
+import { useUpdateFcmTokenMutation } from '../../services/notifications';
 import {
   useCancelReservationMutation,
   useGetCurrentReservationsMutation,
@@ -72,13 +72,13 @@ import {
 const Home = () => {
   const isFocused = useIsFocused();
   const toast = useToast();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-  const {cars, activeCar} = useSelector(state => state.cars);
-  const {jwt, userId} = useSelector(state => state.auth);
+  const { cars, activeCar } = useSelector(state => state.cars);
+  const { jwt, userId } = useSelector(state => state.auth);
   const {
     currentReservations,
     showCounter,
@@ -88,7 +88,7 @@ const Home = () => {
     isLoading,
   } = useSelector(state => state.parkings.parkingsState);
   const parkingsData = useSelector(parkingsState);
-  const {accountSettings} = useSelector(state => state.users);
+  const { accountSettings } = useSelector(state => state.users);
 
   let starttimeslice;
 
@@ -129,7 +129,7 @@ const Home = () => {
     };
     if (fcmtoken) {
       await updateToken(body)
-        .then(() => {})
+        .then(() => { })
         .catch(err => {
           console.log('err fcm token ', err);
         });
@@ -204,7 +204,7 @@ const Home = () => {
       });
   };
 
-  const {width, height} = Dimensions.get('window');
+  const { width, height } = Dimensions.get('window');
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.02;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -254,7 +254,7 @@ const Home = () => {
       ?.filter(item => item.hasSensors)
       .map(item => item.parkingId);
     await getSensors(body)
-      .then(answer => {})
+      .then(answer => { })
       .catch(err => {
         console.log('ERR getSensors >>> ', err);
       });
@@ -278,7 +278,7 @@ const Home = () => {
   };
 
   const getparkingDetails = async id => {
-    const {data, error: apiError} = await getParkingDetails({id: id});
+    const { data, error: apiError } = await getParkingDetails({ id: id });
 
     if (!apiError) {
       const body = {
@@ -298,7 +298,7 @@ const Home = () => {
 
       dispatch(setWorksWithHub(data.worksWithHub));
       dispatch(setParkingDetails(body));
-      dispatch(setIsParkingSelected({isParkingSelected: true, parkingId: id}));
+      dispatch(setIsParkingSelected({ isParkingSelected: true, parkingId: id }));
       dispatch(
         setReservationDetails({
           reservationId: currentReservations[0]?.parkingReservationId,
@@ -366,17 +366,22 @@ const Home = () => {
       })
       .then(data => {
         console.log('data lpr >>> ', data);
-        if (data.price === 0) {
+        if (data?.price === 0 && data?.isInTransit === false && data?.isInGracePeriod === false) {
           setMiniparkDisclaimer({
             isVisible: true,
-            message: t('minipark_free_exit'),
+            message: t('car_not_found'),
+          });
+        } else if (data?.price === 0 && (data?.isInTransit === true || data?.isInGracePeriod === true)) {
+          setMiniparkDisclaimer({
+            isVisible: true,
+            message: t('minipark_free_exit', { minutes: data?.minutesToExit }),
           });
         } else {
           const endTime = moment(new Date()).format('yyyy-MM-DDTHH:mm:ss');
           const body = {
             // minutes: data?.data?.minutes,
             totalAmounts: data.price,
-            startTime: new Date(endTime).toISOString(),
+            startTime: new Date(data.startDate).toISOString(),
             // startTime: new Date(data.startTime).toISOString(),
             endTime: new Date(endTime).toISOString(),
             parkingId: parkingsData.parkingForm.parkingId,
@@ -489,7 +494,7 @@ const Home = () => {
   };
 
   const handleGetParkingProducts = async parkingId => {
-    await getParkingProducts({parkingId})
+    await getParkingProducts({ parkingId })
       .then(() => {
         dispatch(setIsLoading(false));
         navigation.navigate('ParkFromScreen');
@@ -641,7 +646,7 @@ const Home = () => {
 
         <View style={HomeStyle.bodyWrapper}>
           <Box style={HomeStyle.mapSmall}>
-            <View style={{overflow: 'hidden', borderRadius: 24}}>
+            <View style={{ overflow: 'hidden', borderRadius: 24 }}>
               <Map
                 location={{
                   latitude: parkingsData?.searchLocation?.latitude,
@@ -702,7 +707,7 @@ const Home = () => {
                     {t('show_reservations')}
                   </Text>
                   <View style={HomeStyle.multipleTxtWrapper}>
-                    <Text style={{...HomeStyle.btnLabel, color: 'black'}}>
+                    <Text style={{ ...HomeStyle.btnLabel, color: 'black' }}>
                       {currentReservations.length}
                     </Text>
                   </View>
@@ -774,8 +779,8 @@ const Home = () => {
               parkingsData.parkingDetails.lprUrl
                 ? t('pay_parking').toUpperCase()
                 : showExtend
-                ? t('extend_time').toUpperCase()
-                : t(
+                  ? t('extend_time').toUpperCase()
+                  : t(
                     parkingsData.worksWithHub ? 'scan_ticket' : 'park_now',
                   ).toUpperCase()
             }
@@ -785,8 +790,8 @@ const Home = () => {
                 ? false
                 : parkingsData.isParkingSelected &&
                   parkingsData.parkingDetails.isOpened
-                ? false
-                : true
+                  ? false
+                  : true
             }
           />
         </View>
@@ -798,11 +803,11 @@ const Home = () => {
 
       <Actionsheet
         isOpen={miniparkDisclaimer.isVisible}
-        style={{height: '45%', position: 'absolute', bottom: 0}}>
+        style={{ height: '45%', position: 'absolute', bottom: 0 }}>
         <ActionModal
           text={miniparkDisclaimer.message}
           handleNo={() =>
-            setMiniparkDisclaimer({isVisible: false, message: ''})
+            setMiniparkDisclaimer({ isVisible: false, message: '' })
           }
           // handleYes={handleYes}
           isAction={false}
@@ -811,7 +816,7 @@ const Home = () => {
       <Actionsheet
         isOpen={allowNotifications}
         // isOpen={true}
-        style={{height: '45%', position: 'absolute', bottom: 0}}>
+        style={{ height: '45%', position: 'absolute', bottom: 0 }}>
         <ActionModal
           text={'Allow push notifications ?'}
           handleNo={() => setAllowNotifications(false)}
